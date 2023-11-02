@@ -8,7 +8,7 @@
         <property name="connection.url">ep-late-paper-46478505.eu-central-1.aws.neon.tech/Outventure</property> <!-- BD Mane -->
         <property name="connection.driver_class">org.postgresql.Driver</property> <!-- DB Driver -->
         <property name="connection.username">flo01047</property> <!-- DB User -->
-        <property name="connection.password">pw</property> <!-- DB Password -->
+        <property name="connection.password">wiU3uJI4thmg</property> <!-- DB Password -->
 
         <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property> <!-- DB Dialect -->
         <property name="hbm2ddl.auto">update</property> <!-- create / create-drop / update -->
