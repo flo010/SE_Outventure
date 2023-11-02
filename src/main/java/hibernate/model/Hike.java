@@ -1,85 +1,87 @@
 package hibernate.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "hikes")
 public class Hike {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @NotNull
     @Column(name = "hike_id")
     private int _hikeID;
-    @Basic
-    @Column(name = "picture")
-    private int _picture;
-    @Basic
+    @OneToOne
+    @JoinColumn(name = "picture")
+    private Picture _picture;
+    @NotNull
     @Column(name = "title")
     private String _title;
-    @Basic
+    @NotNull
     @Column(name = "description")
     private String _description;
-    @Basic
+    @NotNull
     @Column(name = "duration")
     private double _duration;
-    @Basic
+    @NotNull
     @Column(name = "distance")
     private double _distance;
-    @Basic
+    @NotNull
     @Column(name = "altitude")
     private int _altitude;
 
-    public int get_hikeID() {
+    public int getHikeID() {
         return _hikeID;
     }
 
-    public void set_hikeID(int hikeId) {
+    public void setHikeID(int hikeId) {
         _hikeID = hikeId;
     }
 
-    public int get_picture() {
+    public Picture getPicture() {
         return _picture;
     }
 
-    public void set_picture(int picture) {
+    public void setPicture(Picture picture) {
         _picture = picture;
     }
 
-    public String get_title() {
+    public String getTitle() {
         return _title;
     }
 
-    public void set_title(String title) {
+    public void setTitle(String title) {
         _title = title;
     }
 
-    public String get_description() {
+    public String getDescription() {
         return _description;
     }
 
-    public void set_description(String description) {
+    public void setDescription(String description) {
         _description = description;
     }
 
-    public double get_duration() {
+    public double getDuration() {
         return _duration;
     }
 
-    public void set_duration(double duration) {
+    public void setDuration(double duration) {
         _duration = duration;
     }
 
-    public double get_distance() {
+    public double getDistance() {
         return _distance;
     }
 
-    public void set_distance(double distance) {
+    public void setDistance(double distance) {
         _distance = distance;
     }
 
-    public int get_altitude() {
+    public int getAltitude() {
         return _altitude;
     }
 
-    public void set_altitude(int altitude) {
+    public void setAltitude(int altitude) {
         _altitude = altitude;
     }
 
@@ -106,7 +108,7 @@ public class Hike {
         int result;
         long temp;
         result = _hikeID;
-        result = 31 * result + _picture;
+        result = 31 * result + (_picture != null ? _picture.hashCode() : 0);
         result = 31 * result + (_title != null ? _title.hashCode() : 0);
         result = 31 * result + (_description != null ? _description.hashCode() : 0);
         temp = Double.doubleToLongBits(_duration);
