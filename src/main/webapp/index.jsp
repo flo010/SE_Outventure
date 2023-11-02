@@ -1,5 +1,6 @@
 <%@ page import="hibernate.broker.HikeBroker" %>
 <%@ page import="hibernate.model.Hike" %>
+<%@ page import="hibernate.facade.FacadeJPA" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -10,11 +11,11 @@
         <h1>Hello World</h1>
         <br/>
         <%
-            HikeBroker hb = new HikeBroker();
-            String hikeName = hb.get(3).getTitle();
+            FacadeJPA facadeJPA = FacadeJPA.getInstance();
+            String hikeName = facadeJPA.getHikeByID(10).getTitle();
         %>
         <p>
-            Hike with ID = 3: <%=hikeName%>!
+            Hike with ID = 10: <%=hikeName%>!
         </p>
     </body>
 </html>
