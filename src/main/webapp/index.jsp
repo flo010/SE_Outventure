@@ -17,5 +17,6 @@
         <p>
             Hike with ID = 10: <%=hikeName%>!
         </p>
+        <a href="search_results.jsp">search results</a>
     </body>
 </html>
