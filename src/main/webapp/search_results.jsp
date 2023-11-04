@@ -17,9 +17,10 @@
                 List<Hike> hikeList = facadeJPA.getAllHikes();
 
                 for (Hike hike : hikeList) {
+                    Integer hikeID = hike.getHikeID();
                     %>
                         <div class="col">
-                            <a class="card text-decoration-none">
+                            <a class="card text-decoration-none" href="hike_detail.jsp?id=<%=hikeID%>">
                                 <div class="card-body">
                                     <h5 class="card-title"><%=hike.getTitle()%></h5>
                                 </div>

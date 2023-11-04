@@ -1,4 +1,6 @@
-<%--
+<%@ page import="hibernate.facade.FacadeJPA" %>
+<%@ page import="hibernate.model.Hike" %>
+<%@ page import="hibernate.model.Picture" %><%--
   Created by IntelliJ IDEA.
   User: learo
   Date: 03.11.2023
@@ -30,7 +32,21 @@
             </nav>
         </header>
 
+        <%
+            int hikeID = Integer.parseInt(request.getParameter("id"));
+            FacadeJPA facadeJPA = FacadeJPA.getInstance();
+            Hike hike = facadeJPA.getHikeByID(hikeID);
+            String title = hike.getTitle();
+            String description = hike.getDescription();
+            Picture picture = hike.getPicture();
+            double duration = hike.getDuration();
+            double distance = hike.getDistance();
+            int altitude = hike.getAltitude();
+        %>
+
         <div class="container">
+            <h1><%=title%></h1>
+
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"> <!-- insert nav-fill in class, when adding all tabs-->
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Overview</button>
