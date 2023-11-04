@@ -18,7 +18,7 @@
                         <div class="navbar-nav">
                             <a class="nav-link active" aria-current="page" href="#"></a>
                             <a class="nav-link" href="#"></a>
-                            <a class="nav-link" href="#"></a>
+                            <a class="nav-link" href="search_results.jsp">Search Hike</a>
                             <a class="nav-link" href="#"></a>
                         </div>
                     </div>
