@@ -15,7 +15,7 @@
             <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="index.jsp">
-                        <img src="/Users/ilaydakocak/SE_Outventure/src/main/webapp/WEB-INF/mountain.png" >
+                        <img src="mountain.png" width="70" height="70">
                         Outventure
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
