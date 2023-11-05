@@ -6,3 +6,7 @@
     background-color: #B6FC9D !important;
     color: black !important;
 }
+
+.container .card.mb-5.mt-5 {
+    width: 50%;
+}
