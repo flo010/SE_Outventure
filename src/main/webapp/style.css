@@ -1,12 +1,12 @@
-.container .nav .nav-item .nav-link {
+.container.hike-datail.mt-5 .nav .nav-item .nav-link {
     color: black;
 }
 
-.container .nav .nav-item .nav-link.active {
+.container.hike-datail.mt-5 .nav .nav-item .nav-link.active {
     background-color: #B6FC9D !important;
     color: black !important;
 }
 
-.container .card.mb-5.mt-5 {
+.container.hike-datail.mt-5 .card.mb-5.mt-5 {
     width: 50%;
 }

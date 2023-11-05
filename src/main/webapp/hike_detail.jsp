@@ -46,8 +46,13 @@
             int altitude = hike.getAltitude();
         %>
 
-        <div class="container">
+        <div class="container hike-datail mt-5">
             <h1><%=title%></h1>
+
+            <p>
+                <br>
+                Placeholder for picture
+            </p>
 
             <div class="card mb-5 mt-5">
                 <div class="card-body">
@@ -97,10 +102,12 @@
                 </li>
                 -->
             </ul>
+
             <hr>
-            <div class="tab-content" id="pills-tabContent">
+            <div class="tab-content mt-4" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
-                    Placeholder for content
+                    <h3>Description</h3>
+                    <a><%=description%></a>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
                     Placeholder for content
