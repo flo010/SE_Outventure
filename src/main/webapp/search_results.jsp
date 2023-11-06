@@ -16,7 +16,7 @@
         <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.jsp">
-                    <img src="mountain.png" width="70" height="70">
+                    <img src="logo.png" width="70" height="70">
                     Outventure
                 </a>
                 </a>

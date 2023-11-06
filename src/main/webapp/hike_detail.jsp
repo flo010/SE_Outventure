@@ -1,6 +1,7 @@
 <%@ page import="hibernate.facade.FacadeJPA" %>
 <%@ page import="hibernate.model.Hike" %>
-<%@ page import="hibernate.model.Picture" %><%--
+<%@ page import="hibernate.model.Picture" %>
+<%@ page import="java.util.HashMap" %><%--
   Created by IntelliJ IDEA.
   User: learo
   Date: 03.11.2023
@@ -19,7 +20,7 @@
             <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="index.jsp">
-                        <img src="mountain.png" width="70" height="70">
+                        <img src="logo.png" width="70" height="70">
                         Outventure
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,18 +48,24 @@
             double duration = hike.getDuration();
             double distance = hike.getDistance();
             int altitude = hike.getAltitude();
-
             double durationMinutes = (duration % 1) * 60;
+
+            HashMap<Integer, String> demoImages = new HashMap<Integer, String>();
+            demoImages.put(3, "https://vcdn.bergfex.at/images/resized/38/b094b68b1586f438_55bfb405af9d276b@2x.jpg");
+            demoImages.put(6, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0_cwGmM3_rxI4QphxaAWPkeB-xo1lGAFCiEBRHHvOA&s");
+            demoImages.put(7, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVbziyOBh9vSiQff6OMX561A7LJL_ZJ9nrtl57CKOEkw&s");
+            demoImages.put(8, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUxN-S3j2MXb_T7XjaVz6Fc0n2Cm0HxkbUaub79hlWTA&s");
+            demoImages.put(9, "https://image.geo.de/30123758/t/i2/v4/w1440/r0/-/inka-pfad-m-05821470-jpg--69964-.jpg");
+            demoImages.put(10, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQkqmsLIREF_Nf6Qd_TwzDI-oChNaQjBs4i4vLJw6crQ&s");
+            demoImages.put(11, "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kibo_summit_of_Mt_Kilimanjaro_001.JPG/324px-Kibo_summit_of_Mt_Kilimanjaro_001.JPG");
+            demoImages.put(12, "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/The_Twelve_Apostles_Victoria_Australia_2006.JPG/1200px-The_Twelve_Apostles_Victoria_Australia_2006.JPG");
+            demoImages.put(13, "https://challenge8.com/wp-content/uploads/2019/05/Der-ultimative-Patagonien-Trekking-Guide-1024x685.jpg");
+            demoImages.put(14, "https://jakobsweg-lebensweg.de/wp-content/uploads/2019/10/Jakobsweg-Route-alte-Br%C3%BCcke.jpg");
         %>
 
         <div class="container hike-datail mt-5">
-            <h1><%=title%></h1>
-
-            <p>
-                <br>
-                Placeholder for picture
-            </p>
-
+            <h1 class="mb-3"><%=title%></h1>
+            <img src="<%=demoImages.get(hikeID)%>" alt="mountain picture" style="width: 500px; height: auto">
             <div class="card mb-5 mt-5">
                 <div class="card-body">
                     <div class="row">
