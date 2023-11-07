@@ -17,25 +17,7 @@
     </head>
     <body>
         <header>
-            <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="index.jsp">
-                        <img src="logo.png" width="70" height="70">
-                        Outventure
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                            <a class="nav-link active" aria-current="page" href="#"></a>
-                            <a class="nav-link" href="#"></a>
-                            <a class="nav-link" href="#"></a>
-                            <a class="nav-link" href="#"></a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <jsp:include page="navbar.jsp"/>
         </header>
 
         <%
@@ -121,7 +103,7 @@
             </ul>
 
             <hr>
-            <div class="tab-content mt-4" id="pills-tabContent">
+            <div class="tab-content mt-4 mb-5" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
                     <h3>Description</h3>
                     <a><%=description%></a>
