@@ -35,7 +35,7 @@
                     demoImages.put(14, "https://jakobsweg-lebensweg.de/wp-content/uploads/2019/10/Jakobsweg-Route-alte-Br%C3%BCcke.jpg");
 
                     for (Hike hike : hikeList) {
-                        Integer hikeID = hike.getHikeID();
+                        int hikeID = hike.getHikeID();
 
                         double distance = hike.getDistance();
                         double duration = hike.getDuration();
@@ -45,7 +45,7 @@
                         double durationMinutes = (duration % 1) * 60;
                 %>
                 <div class="col">
-                    <a class="card text-decoration-none" href="hike_detail.jsp?id=<%=hikeID%>">
+                    <a class="card text-decoration-none" href="hike_detail?id=<%=hikeID%>">
                         <img class="card-image-top" style="height: 150px" src="<%=demoImages.get(hikeID)%>" alt="hike picture">
                         <div class="card-body">
                             <h5 class="card-title text-truncate"><%=hike.getTitle()%></h5>

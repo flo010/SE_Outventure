@@ -1,6 +1,5 @@
 package hibernate.broker;
 
-import hibernate.model.Hike;
 import hibernate.model.Picture;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
