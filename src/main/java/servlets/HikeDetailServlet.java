@@ -17,17 +17,12 @@ public class HikeDetailServlet extends HttpServlet {
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         Hike hike = facadeJPA.getHikeByID(hikeID);
 
-        // Speichern Sie die Hike-Informationen in Anfrageattributen, damit sie in JSP abgerufen werden können
         request.setAttribute("hike", hike);
 
-        // Weiterleitung zur JSP-Seite für die Anzeige der Hike-Detailseite
         try {
             request.getRequestDispatcher("/hike_detail.jsp").forward(request, response);
         } catch (ServletException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void destroy() {
     }
 }
