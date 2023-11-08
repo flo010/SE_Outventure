@@ -26,10 +26,5 @@ public class HikeBroker extends BrokerBase<Hike> {
 
         return hikes;
     }
-
-    public static void main(String[] args) {
-        HikeBroker hb = new HikeBroker();
-        System.out.println(hb.get(1).getStart().getName());
-    }
 }
 
