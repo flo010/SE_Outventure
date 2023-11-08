@@ -25,16 +25,16 @@
             double durationMinutes = (hike.getDuration() % 1) * 60;
 
             HashMap<Integer, String> demoImages = new HashMap<Integer, String>();
-            demoImages.put(3, "https://vcdn.bergfex.at/images/resized/38/b094b68b1586f438_55bfb405af9d276b@2x.jpg");
-            demoImages.put(6, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0_cwGmM3_rxI4QphxaAWPkeB-xo1lGAFCiEBRHHvOA&s");
-            demoImages.put(7, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVbziyOBh9vSiQff6OMX561A7LJL_ZJ9nrtl57CKOEkw&s");
-            demoImages.put(8, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUxN-S3j2MXb_T7XjaVz6Fc0n2Cm0HxkbUaub79hlWTA&s");
-            demoImages.put(9, "https://image.geo.de/30123758/t/i2/v4/w1440/r0/-/inka-pfad-m-05821470-jpg--69964-.jpg");
-            demoImages.put(10, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQkqmsLIREF_Nf6Qd_TwzDI-oChNaQjBs4i4vLJw6crQ&s");
-            demoImages.put(11, "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kibo_summit_of_Mt_Kilimanjaro_001.JPG/324px-Kibo_summit_of_Mt_Kilimanjaro_001.JPG");
-            demoImages.put(12, "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/The_Twelve_Apostles_Victoria_Australia_2006.JPG/1200px-The_Twelve_Apostles_Victoria_Australia_2006.JPG");
-            demoImages.put(13, "https://challenge8.com/wp-content/uploads/2019/05/Der-ultimative-Patagonien-Trekking-Guide-1024x685.jpg");
-            demoImages.put(14, "https://jakobsweg-lebensweg.de/wp-content/uploads/2019/10/Jakobsweg-Route-alte-Br%C3%BCcke.jpg");
+            demoImages.put(1, "https://vcdn.bergfex.at/images/resized/38/b094b68b1586f438_55bfb405af9d276b@2x.jpg");
+            demoImages.put(2, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn0_cwGmM3_rxI4QphxaAWPkeB-xo1lGAFCiEBRHHvOA&s");
+            demoImages.put(3, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVbziyOBh9vSiQff6OMX561A7LJL_ZJ9nrtl57CKOEkw&s");
+            demoImages.put(4, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUxN-S3j2MXb_T7XjaVz6Fc0n2Cm0HxkbUaub79hlWTA&s");
+            demoImages.put(5, "https://image.geo.de/30123758/t/i2/v4/w1440/r0/-/inka-pfad-m-05821470-jpg--69964-.jpg");
+//            demoImages.put(10, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQkqmsLIREF_Nf6Qd_TwzDI-oChNaQjBs4i4vLJw6crQ&s");
+//            demoImages.put(11, "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kibo_summit_of_Mt_Kilimanjaro_001.JPG/324px-Kibo_summit_of_Mt_Kilimanjaro_001.JPG");
+//            demoImages.put(12, "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/The_Twelve_Apostles_Victoria_Australia_2006.JPG/1200px-The_Twelve_Apostles_Victoria_Australia_2006.JPG");
+//            demoImages.put(13, "https://challenge8.com/wp-content/uploads/2019/05/Der-ultimative-Patagonien-Trekking-Guide-1024x685.jpg");
+//            demoImages.put(14, "https://jakobsweg-lebensweg.de/wp-content/uploads/2019/10/Jakobsweg-Route-alte-Br%C3%BCcke.jpg");
         %>
 
         <div class="container hike-datail mt-5">
@@ -83,11 +83,10 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Details</button>
                 </li>
-                <!-- preparation for other tabs (detail, hike description, getting there)
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Hike Description</button>
+                    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Route Description</button>
                 </li>
-            
+                <!-- preparation for other tabs (detail, hike description, getting there)
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-disabled" type="button" role="tab" aria-controls="pills-disabled" aria-selected="false">Getting There</button>
                 </li>

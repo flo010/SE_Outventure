@@ -10,7 +10,7 @@ public class PictureBroker extends BrokerBase<Picture> {
     @Override
     public Picture get(int value) {
         EntityManager entityManager = getEntityManager();
-        Query query = entityManager.createQuery("SELECT p FROM Picture p WHERE _pictureID =: pictureID");
+        Query query = entityManager.createQuery("SELECT p FROM Picture p WHERE pictureID =: pictureID");
         query.setParameter("pictureID", value);
         Picture picture = (Picture) query.getSingleResult();
         entityManager.close();

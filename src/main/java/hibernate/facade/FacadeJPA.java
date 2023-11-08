@@ -10,7 +10,7 @@ import java.util.List;
 public class FacadeJPA implements Facade {
     private static FacadeJPA _instance;
 
-    public FacadeJPA() {}
+    private FacadeJPA() {}
 
     public static FacadeJPA getInstance() {
         if (_instance == null) {
