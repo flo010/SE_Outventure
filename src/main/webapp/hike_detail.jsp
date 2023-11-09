@@ -46,18 +46,13 @@
             int altitude = hike.getAltitude();
         %>
 
-        <div class="container hike-datail mt-5">
+        <div class="container">
             <h1><%=title%></h1>
-
-            <p>
-                <br>
-                Placeholder for picture
-            </p>
 
             <div class="card mb-5 mt-5">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <%-- icon distance --%>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows" viewBox="0 0 16 16">
                                 <path d="M1.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L2.707 7.5h10.586l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L13.293 8.5H2.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2Z"/>
@@ -65,7 +60,7 @@
                             <b class="card-text"><%=distance%></b>
                             km
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <%-- icon duration --%>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
                                 <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
@@ -74,7 +69,7 @@
                             <b class="card-text"><%=duration%></b>
                             h
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <%-- icon altitude --%>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
@@ -103,11 +98,11 @@
                 </li>
                 -->
             </ul>
-
             <hr>
-            <div class="tab-content mt-4" id="pills-tabContent">
+            <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
-                    <h3>Description</h3>
+                    <label><strong>Description</strong></label>
+                    <br>
                     <a><%=description%></a>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">

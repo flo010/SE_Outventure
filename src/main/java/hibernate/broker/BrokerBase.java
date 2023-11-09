@@ -8,9 +8,20 @@ import java.sql.SQLException;
 import java.util.List;
 
 public abstract class BrokerBase<T> {
+
+
+
     public EntityManager getEntityManager() {
-        EntityManagerFactory fact = Persistence.createEntityManagerFactory("Outventure");
-        EntityManager entityManager = fact.createEntityManager();
+        System.out.println("BrokerBase");
+        EntityManager entityManager = null;
+        try {
+            EntityManagerFactory fact = Persistence.createEntityManagerFactory("at.fhv.outventure");
+            System.out.println("vffff");
+            entityManager = fact.createEntityManager();
+        } catch (Exception e) {
+            System.out.println("Brokerbase1");
+            System.out.println(e.getMessage());
+        }
 
         return entityManager;
     }
