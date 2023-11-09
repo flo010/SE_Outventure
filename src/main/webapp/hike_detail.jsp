@@ -29,6 +29,7 @@
             }
         </style>
         <title>Hike Detail</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
     <body>
@@ -118,9 +119,53 @@
                     <p><%=hike.getDescription()%></p>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+
+                    <table style="width: 400px">
+                        <tr>
+                            <td><b>Required Condition</b></td>
+                            <td>
+                                <span class="fa fa-circle" id="colored-circle-1"></span>
+                                <span class="fa fa-circle" id="colored-circle-2"></span>
+                                <span class="fa fa-circle" id="colored-circle-3"></span>
+                                <span class="fa fa-circle" id="colored-circle-4"></span>
+                                <span class="fa fa-circle" id="colored-circle-5"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Level of Difficulty</b></td>
+                            <td>
+                                <span class="fa fa-circle" id="colored-circle-6"></span>
+                                <span class="fa fa-circle" id="colored-circle-7"></span>
+                                <span class="fa fa-circle" id="colored-circle-8"></span>
+                                <span class="fa fa-circle" id="colored-circle-9"></span>
+                                <span class="fa fa-circle" id="colored-circle-10"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Required Experience</b></td>
+                            <td>
+                                <span class="fa fa-circle" id="colored-circle-11"></span>
+                                <span class="fa fa-circle" id="colored-circle-12"></span>
+                                <span class="fa fa-circle" id="colored-circle-13"></span>
+                                <span class="fa fa-circle" id="colored-circle-14"></span>
+                                <span class="fa fa-circle" id="colored-circle-15"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Landscape Beauty</b></td>
+                            <td>
+                                <span class="fa fa-circle" id="colored-circle-16"></span>
+                                <span class="fa fa-circle" id="colored-circle-17"></span>
+                                <span class="fa fa-circle" id="colored-circle-18"></span>
+                                <span class="fa fa-circle" id="colored-circle-19"></span>
+                                <span class="fa fa-circle" id="colored-circle-20"></span>
+                            </td>
+                        </tr>
+                    </table>
+
                     <div>
                         <h3 class="my-3">Optimal Season</h3>
-                        <div class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1">
+                        <div class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1 w-50">
                             <%
                                 String[] months = {"JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY", "AUG", "SEPT", "OCT", "NOV", "DEC"};
                                 Boolean[] hikeMonths = {
@@ -130,7 +175,7 @@
 
                                 for (int i = 0; i < 12; i++) {
                             %>
-                            <div class="col-6 col-md-4 col-lg-2 col-xl-1">
+                            <div class="col-6 col-md-4 col-lg-2 col-xl-2">
                                 <div class="border border-2 rounded fw-bold" <% if (hikeMonths[i]) { %> style="background-color: #B6FC9D" <% } %>>
                                     <%=months[i]%>
                                 </div>
@@ -185,7 +230,21 @@
             </div>
         </div>
 
-
+        <script>
+            let circles = document.getElementsByClassName("fa fa-circle");
+            for (let i = 0; i<<%=hike.getStamina()%>; i++){
+                circles[i].style.color = "#B6FC9D";
+            }
+            for (let i = 0; i<<%=hike.getStrength()%>; i++){
+                circles[i+5].style.color = "#B6FC9D";
+            }
+            for (let i = 0; i<<%=hike.getExperience()%>; i++){
+                circles[i+10].style.color = "#B6FC9D";
+            }
+            for (let i = 0; i<<%=hike.getLandscape()%>; i++){
+                circles[i+15].style.color = "#B6FC9D";
+            }
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>
