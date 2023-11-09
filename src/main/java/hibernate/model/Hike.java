@@ -1,6 +1,7 @@
 package hibernate.model;
 
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;

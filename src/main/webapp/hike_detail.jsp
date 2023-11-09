@@ -1,6 +1,9 @@
-
 <%@ page import="hibernate.model.Hike" %>
-<%@ page import="java.util.HashMap" %><%--
+<%@ page import="hibernate.model.Picture" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="hibernate.model.PointOfInterest" %>
+<%@ page import="java.util.List" %>
+<%--
   Created by IntelliJ IDEA.
   User: learo
   Date: 03.11.2023
@@ -26,6 +29,7 @@
             }
         </style>
         <title>Hike Detail</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
     <body>
@@ -36,6 +40,8 @@
         <%
             Hike hike = (Hike) request.getAttribute("hike");
             double durationMinutes = (hike.getDuration() % 1) * 60;
+
+            List<PointOfInterest> pointsOfInterest = (List<PointOfInterest>) request.getAttribute("pointsOfInterest");
 
             HashMap<Integer, String> demoImages = new HashMap<Integer, String>();
             demoImages.put(1, "https://www.bergwelten.com/files/tour/images/niederkaiserkamm-14871-0.jpg?impolicy=gallerie_pictures");
@@ -113,9 +119,53 @@
                     <p><%=hike.getDescription()%></p>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+
+                    <table style="width: 400px">
+                        <tr>
+                            <td><b>Required Condition</b></td>
+                            <td>
+                                <span class="fa fa-circle" id="colored-circle-1"></span>
+                                <span class="fa fa-circle" id="colored-circle-2"></span>
+                                <span class="fa fa-circle" id="colored-circle-3"></span>
+                                <span class="fa fa-circle" id="colored-circle-4"></span>
+                                <span class="fa fa-circle" id="colored-circle-5"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Level of Difficulty</b></td>
+                            <td>
+                                <span class="fa fa-circle" id="colored-circle-6"></span>
+                                <span class="fa fa-circle" id="colored-circle-7"></span>
+                                <span class="fa fa-circle" id="colored-circle-8"></span>
+                                <span class="fa fa-circle" id="colored-circle-9"></span>
+                                <span class="fa fa-circle" id="colored-circle-10"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Required Experience</b></td>
+                            <td>
+                                <span class="fa fa-circle" id="colored-circle-11"></span>
+                                <span class="fa fa-circle" id="colored-circle-12"></span>
+                                <span class="fa fa-circle" id="colored-circle-13"></span>
+                                <span class="fa fa-circle" id="colored-circle-14"></span>
+                                <span class="fa fa-circle" id="colored-circle-15"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Landscape Beauty</b></td>
+                            <td>
+                                <span class="fa fa-circle" id="colored-circle-16"></span>
+                                <span class="fa fa-circle" id="colored-circle-17"></span>
+                                <span class="fa fa-circle" id="colored-circle-18"></span>
+                                <span class="fa fa-circle" id="colored-circle-19"></span>
+                                <span class="fa fa-circle" id="colored-circle-20"></span>
+                            </td>
+                        </tr>
+                    </table>
+
                     <div>
                         <h3 class="my-3">Optimal Season</h3>
-                        <div class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1">
+                        <div class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1 w-50">
                             <%
                                 String[] months = {"JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY", "AUG", "SEPT", "OCT", "NOV", "DEC"};
                                 Boolean[] hikeMonths = {
@@ -125,7 +175,7 @@
 
                                 for (int i = 0; i < 12; i++) {
                             %>
-                            <div class="col-6 col-md-4 col-lg-2 col-xl-1">
+                            <div class="col-6 col-md-4 col-lg-2 col-xl-2">
                                 <div class="border border-2 rounded fw-bold" <% if (hikeMonths[i]) { %> style="background-color: #B6FC9D" <% } %>>
                                     <%=months[i]%>
                                 </div>
@@ -139,6 +189,40 @@
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
                     <h3>Route Description</h3>
                     <p><%=hike.getRouteDescription()%></p>
+
+                    <h3 class="mt-5">Points Of Interest</h3>
+                    <div class="row">
+                        <div class="col md-3">
+                            <div class="card" style="width: 20rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Start</h5>
+                                    <p class="card-text">
+                                        <strong>Name: </strong>
+                                        <%=hike.getStart().getName()%>
+                                    </p>
+                                    <p>
+                                        <strong>GPS Coordinates: </strong>
+                                        <%=hike.getStart().getLongitude()%>, <%=hike.getStart().getLatitude()%>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col md-3">
+                            <div class="card" style="width: 20rem;">
+                                <div class="card-body">
+                                    <h4 class="card-title">Destination</h4>
+                                    <p>
+                                        <strong>Name: </strong>
+                                        <%=hike.getDestination().getName()%>
+                                    </p>
+                                    <p>
+                                        <strong>GPS Coordinates: </strong>
+                                        <%=hike.getDestination().getLongitude()%>, <%=hike.getStart().getLatitude()%>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">
                     Placeholder for content
@@ -146,7 +230,21 @@
             </div>
         </div>
 
-
+        <script>
+            let circles = document.getElementsByClassName("fa fa-circle");
+            for (let i = 0; i<<%=hike.getStamina()%>; i++){
+                circles[i].style.color = "#B6FC9D";
+            }
+            for (let i = 0; i<<%=hike.getStrength()%>; i++){
+                circles[i+5].style.color = "#B6FC9D";
+            }
+            for (let i = 0; i<<%=hike.getExperience()%>; i++){
+                circles[i+10].style.color = "#B6FC9D";
+            }
+            for (let i = 0; i<<%=hike.getLandscape()%>; i++){
+                circles[i+15].style.color = "#B6FC9D";
+            }
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>
