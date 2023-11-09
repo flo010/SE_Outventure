@@ -52,8 +52,15 @@ public class FacadeJPA implements Facade {
 
     @Override
     public List<Hike> getAllHikes() {
-        HikeBroker hikeBroker = new HikeBroker();
-        List<Hike> hikes = hikeBroker.getAll();
+        HikeBroker hikeBroker = null;
+        hikeBroker = new HikeBroker();
+        List<Hike> hikes = null;
+        try {
+            hikes = hikeBroker.getAll();
+        } catch (Exception e) {
+            System.out.println("abc");
+        }
+
 
         return hikes;
     }

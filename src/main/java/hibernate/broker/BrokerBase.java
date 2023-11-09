@@ -11,17 +11,13 @@ public abstract class BrokerBase<T> {
 
 
     public EntityManager getEntityManager() {
-        System.out.println("BrokerBase");
         EntityManager entityManager = null;
         try {
-            EntityManagerFactory fact = Persistence.createEntityManagerFactory("at.fhv.outventure");
-            System.out.println("vffff");
+            EntityManagerFactory fact = Persistence.createEntityManagerFactory("Outventure");
             entityManager = fact.createEntityManager();
         } catch (Exception e) {
-            System.out.println("Brokerbase1");
-            System.out.println(e.getMessage());
+            System.out.println("classInfo is null");
         }
-
         return entityManager;
     }
 

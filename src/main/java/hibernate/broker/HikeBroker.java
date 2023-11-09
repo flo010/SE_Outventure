@@ -20,11 +20,33 @@ public class HikeBroker extends BrokerBase<Hike> {
 
     @Override
     public List<Hike> getAll() {
-        EntityManager entityManager = getEntityManager();
-        List<Hike> hikes = (List<Hike>) entityManager.createQuery("SELECT h FROM Hike h", Hike.class).getResultList();
-        entityManager.close();
+        EntityManager entityManager = null;
+        try {
+            entityManager = getEntityManager();
+        } catch (Exception f){
+            System.out.println("not entityManager");
+        }
+
+        List<Hike> hikes = null;
+
+        try {
+            if (entityManager.isOpen()) {
+                hikes = entityManager.createQuery("SELECT h FROM Hike h", Hike.class).getResultList();
+            } else {
+                // Handle the situation when the EntityManager is closed
+                System.out.println("EntityManager is closed");
+            }
+        } catch (Exception e) {
+            System.out.println("def");
+            e.printStackTrace();
+        } finally {
+            if (entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
 
         return hikes;
     }
 }
+
 
