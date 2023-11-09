@@ -113,7 +113,28 @@
                     <p><%=hike.getDescription()%></p>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-                    Placeholder for content
+                    <div>
+                        <h3 class="my-3">Optimal Season</h3>
+                        <div class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1">
+                            <%
+                                String[] months = {"JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY", "AUG", "SEPT", "OCT", "NOV", "DEC"};
+                                Boolean[] hikeMonths = {
+                                        hike.isJanuary(), hike.isFebruary(), hike.isMarch(), hike.isApril(), hike.isMay(), hike.isJune(), hike.isJuly(),
+                                        hike.isAugust(), hike.isSeptember(), hike.isOctober(), hike.isNovember(), hike.isDecember()
+                                };
+
+                                for (int i = 0; i < 12; i++) {
+                            %>
+                            <div class="col-6 col-md-4 col-lg-2 col-xl-1">
+                                <div class="border border-2 rounded fw-bold" <% if (hikeMonths[i]) { %> style="background-color: #B6FC9D" <% } %>>
+                                    <%=months[i]%>
+                                </div>
+                            </div>
+                            <%
+                                }
+                            %>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
                     <h3>Route Description</h3>
