@@ -58,11 +58,11 @@
             demoImages.put(3, "https://img.oastatic.com/img2/70761600/max/t.jpg?revbust=468c8c45");
             demoImages.put(4, "https://www.steiermark.com/Alpstein/Images/67091283/1306941/image-thumb__1306941__lightbox/bad-mitterndorf-mit-grimming-25240459.jpg");
             demoImages.put(5, "https://www.almenrausch.at/uploads/tx_webxhousingv2/trips/352/DSC_2340_9461.jpg");
-        //            demoImages.put(10, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQkqmsLIREF_Nf6Qd_TwzDI-oChNaQjBs4i4vLJw6crQ&s");
-        //            demoImages.put(11, "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kibo_summit_of_Mt_Kilimanjaro_001.JPG/324px-Kibo_summit_of_Mt_Kilimanjaro_001.JPG");
-        //            demoImages.put(12, "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/The_Twelve_Apostles_Victoria_Australia_2006.JPG/1200px-The_Twelve_Apostles_Victoria_Australia_2006.JPG");
-        //            demoImages.put(13, "https://challenge8.com/wp-content/uploads/2019/05/Der-ultimative-Patagonien-Trekking-Guide-1024x685.jpg");
-        //            demoImages.put(14, "https://jakobsweg-lebensweg.de/wp-content/uploads/2019/10/Jakobsweg-Route-alte-Br%C3%BCcke.jpg");
+            //            demoImages.put(10, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQkqmsLIREF_Nf6Qd_TwzDI-oChNaQjBs4i4vLJw6crQ&s");
+            //            demoImages.put(11, "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kibo_summit_of_Mt_Kilimanjaro_001.JPG/324px-Kibo_summit_of_Mt_Kilimanjaro_001.JPG");
+            //            demoImages.put(12, "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/The_Twelve_Apostles_Victoria_Australia_2006.JPG/1200px-The_Twelve_Apostles_Victoria_Australia_2006.JPG");
+            //            demoImages.put(13, "https://challenge8.com/wp-content/uploads/2019/05/Der-ultimative-Patagonien-Trekking-Guide-1024x685.jpg");
+            //            demoImages.put(14, "https://jakobsweg-lebensweg.de/wp-content/uploads/2019/10/Jakobsweg-Route-alte-Br%C3%BCcke.jpg");
         %>
 
         <div class="container-sm hike-detail mt-5">
@@ -106,28 +106,30 @@
 
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"> <!-- insert nav-fill in class, when adding all tabs-->
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Overview</button>
+                    <button class="nav-link active" id="pills-overview-tab" data-bs-toggle="pill" data-bs-target="#pills-overview" type="button" role="tab" aria-controls="pills-overview" aria-selected="true">Overview</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Details</button>
+                    <button class="nav-link" id="pills-details-tab" data-bs-toggle="pill" data-bs-target="#pills-details" type="button" role="tab" aria-controls="pills-details" aria-selected="false">Details</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Route Description</button>
+                    <button class="nav-link" id="pills-route-tab" data-bs-toggle="pill" data-bs-target="#pills-route" type="button" role="tab" aria-controls="pills-route" aria-selected="false">Route Description</button>
                 </li>
-                <!-- preparation for other tabs (detail, hike description, getting there)
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-disabled" type="button" role="tab" aria-controls="pills-disabled" aria-selected="false">Getting There</button>
+                    <button class="nav-link" id="pills-poi-tab" data-bs-toggle="pill" data-bs-target="#pills-poi" type="button" role="tab" aria-controls="pills-poi" aria-selected="false">Points of Interest</button>
                 </li>
-                -->
+<%--                <li class="nav-item" role="presentation">--%>
+<%--                    <button class="nav-link" id="pills-getting-there-tab" data-bs-toggle="pill" data-bs-target="#pills-getting-there" type="button" role="tab" aria-controls="pills-getting-there" aria-selected="false">Getting There</button>--%>
+<%--                </li>--%>
             </ul>
 
             <hr>
             <div class="tab-content mt-4 mb-5" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+                <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                     <h3>Description</h3>
                     <p><%=hike.getDescription()%></p>
                 </div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+
+                <div class="tab-pane fade" id="pills-details" role="tabpanel" aria-labelledby="pills-details-tab" tabindex="0">
                     <h3>Details</h3>
                     <table>
                         <tr>
@@ -195,49 +197,55 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
+
+                <div class="tab-pane fade" id="pills-route" role="tabpanel" aria-labelledby="pills-route-tab" tabindex="0">
                     <div class="route-description">
                         <h3>Route Description</h3>
                         <p><%=hike.getRouteDescription()%></p>
                     </div>
+                </div>
 
-                    <h3 class="mt-5 mb-3">Points Of Interest</h3>
-                    <div class="row justify-content-center">
-                        <div class="col-4">
-                            <div class="card" style="width: 20rem;">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Start</h5>
-                                    <p class="card-text">
-                                        <strong>Name: </strong>
-                                        <%=hike.getStart().getName()%>
-                                    </p>
-                                    <p>
-                                        <strong>GPS Coordinates: </strong>
-                                        <%=hike.getStart().getLongitude()%>, <%=hike.getStart().getLatitude()%>
-                                    </p>
+                <div class="tab-pane fade" id="pills-poi" role="tabpanel" aria-labelledby="pills-poi-tab" tabindex="0">
+                    <div class="points-of-interest">
+                        <h3 class="mt-5 mb-3">Points Of Interest</h3>
+                        <div class="row justify-content-center">
+                            <div class="col-4">
+                                <div class="card" style="width: 20rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">Start</h5>
+                                        <p class="card-text">
+                                            <strong>Name: </strong>
+                                            <%=hike.getStart().getName()%>
+                                        </p>
+                                        <p>
+                                            <strong>GPS Coordinates: </strong>
+                                            <%=hike.getStart().getLongitude()%>, <%=hike.getStart().getLatitude()%>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card" style="width: 20rem;">
-                                <div class="card-body">
-                                    <h4 class="card-title text-center">Destination</h4>
-                                    <p>
-                                        <strong>Name: </strong>
-                                        <%=hike.getDestination().getName()%>
-                                    </p>
-                                    <p>
-                                        <strong>GPS Coordinates: </strong>
-                                        <%=hike.getDestination().getLongitude()%>, <%=hike.getStart().getLatitude()%>
-                                    </p>
+                            <div class="col-4">
+                                <div class="card" style="width: 20rem;">
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Destination</h4>
+                                        <p>
+                                            <strong>Name: </strong>
+                                            <%=hike.getDestination().getName()%>
+                                        </p>
+                                        <p>
+                                            <strong>GPS Coordinates: </strong>
+                                            <%=hike.getDestination().getLongitude()%>, <%=hike.getStart().getLatitude()%>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">
-                    Placeholder for content
-                </div>
+
+<%--                <div class="tab-pane fade" id="pills-getting-there" role="tabpanel" aria-labelledby="pills-getting-there-tab" tabindex="0">--%>
+<%--                    Placeholder for content--%>
+<%--                </div>--%>
             </div>
         </div>
 
