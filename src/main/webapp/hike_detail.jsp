@@ -145,15 +145,39 @@
                     <h3>Route Description</h3>
                     <p><%=hike.getRouteDescription()%></p>
 
-                    <h3>Points Of Interest</h3>
-
-
-                    <ul>
-                        <% for (PointOfInterest pof: pointsOfInterest) { %>
-                        <li></li>
-                        <% } %>
-                    </ul>
-
+                    <h3 class="mt-5">Points Of Interest</h3>
+                    <div class="row">
+                        <div class="col md-3">
+                            <div class="card" style="width: 20rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Start</h5>
+                                    <p class="card-text">
+                                        <strong>Name: </strong>
+                                        <%=hike.getStart().getName()%>
+                                    </p>
+                                    <p>
+                                        <strong>GPS Coordinates: </strong>
+                                        <%=hike.getStart().getLongitude()%>, <%=hike.getStart().getLatitude()%>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col md-3">
+                            <div class="card" style="width: 20rem;">
+                                <div class="card-body">
+                                    <h4 class="card-title">Destination</h4>
+                                    <p>
+                                        <strong>Name: </strong>
+                                        <%=hike.getDestination().getName()%>
+                                    </p>
+                                    <p>
+                                        <strong>GPS Coordinates: </strong>
+                                        <%=hike.getDestination().getLongitude()%>, <%=hike.getStart().getLatitude()%>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">
                     Placeholder for content

@@ -9,7 +9,6 @@ public class Start {
     private int _startID;
     private String _name;
     private Hike _hikeStart;
-    private String _description;
     private double _longitude;
     private double _latitude;
 
@@ -38,14 +37,6 @@ public class Start {
     }
     public void setHikeStart(Hike hikeStart) {
         _hikeStart = hikeStart;
-    }
-
-    @Column(name = "description")
-    public String getDescription() {
-        return _description;
-    }
-    public void setDescription(String description) {
-        _description = description;
     }
 
     @NotNull
