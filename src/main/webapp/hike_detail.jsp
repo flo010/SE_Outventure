@@ -1,9 +1,9 @@
-<%@ page import="hibernate.facade.FacadeJPA" %>
 <%@ page import="hibernate.model.Hike" %>
 <%@ page import="hibernate.model.Picture" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="hibernate.model.PointOfInterest" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%--
   Created by IntelliJ IDEA.
   User: learo
   Date: 03.11.2023
@@ -13,8 +13,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
+        <style>
+            .container.hike-detail.mt-5 .nav .nav-item .nav-link {
+                color: black;
+            }
+
+            .container.hike-detail.mt-5 .nav .nav-item .nav-link.active {
+                background-color: #B6FC9D !important;
+                color: black !important;
+
+            }
+
+            .container.hike-detail.mt-5 .card.mb-5.mt-5 {
+                width: 50%;
+            }
+        </style>
         <title>Hike Detail</title>
-        <link href="style.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
     <body>
@@ -41,7 +55,7 @@
 //            demoImages.put(14, "https://jakobsweg-lebensweg.de/wp-content/uploads/2019/10/Jakobsweg-Route-alte-Br%C3%BCcke.jpg");
         %>
 
-        <div class="container hike-datail mt-5">
+        <div class="container hike-detail mt-5">
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
             <img src="<%=demoImages.get(hike.getHikeID())%>" alt="mountain picture" style="width: 500px; height: auto">
             <div class="card mb-5 mt-5">
@@ -104,7 +118,28 @@
                     <p><%=hike.getDescription()%></p>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-                    Placeholder for content
+                    <div>
+                        <h3 class="my-3">Optimal Season</h3>
+                        <div class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1">
+                            <%
+                                String[] months = {"JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY", "AUG", "SEPT", "OCT", "NOV", "DEC"};
+                                Boolean[] hikeMonths = {
+                                        hike.isJanuary(), hike.isFebruary(), hike.isMarch(), hike.isApril(), hike.isMay(), hike.isJune(), hike.isJuly(),
+                                        hike.isAugust(), hike.isSeptember(), hike.isOctober(), hike.isNovember(), hike.isDecember()
+                                };
+
+                                for (int i = 0; i < 12; i++) {
+                            %>
+                            <div class="col-6 col-md-4 col-lg-2 col-xl-1">
+                                <div class="border border-2 rounded fw-bold" <% if (hikeMonths[i]) { %> style="background-color: #B6FC9D" <% } %>>
+                                    <%=months[i]%>
+                                </div>
+                            </div>
+                            <%
+                                }
+                            %>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
                     <h3>Route Description</h3>
