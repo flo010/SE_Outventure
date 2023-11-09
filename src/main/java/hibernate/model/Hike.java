@@ -34,6 +34,7 @@ public class Hike {
     private Start _start;
     private Destination _destination;
     private List<PointOfInterest> _pointOfInterests;
+    private String _routeDescription;
 
     @Id
     @NotNull
@@ -270,5 +271,14 @@ public class Hike {
     }
     public void setPointOfInterests(List<PointOfInterest> pointOfInterests) {
         _pointOfInterests = pointOfInterests;
+    }
+
+    @NotNull
+    @Column(name = "route_description")
+    public String getRouteDescription() {
+        return _routeDescription;
+    }
+    public void setRouteDescription(String routeDescription) {
+        _routeDescription = routeDescription;
     }
 }
