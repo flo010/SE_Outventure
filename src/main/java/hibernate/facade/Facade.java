@@ -2,6 +2,7 @@ package hibernate.facade;
 
 import hibernate.model.Hike;
 import hibernate.model.Picture;
+import hibernate.model.PointOfInterest;
 
 import java.util.List;
 
