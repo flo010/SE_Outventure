@@ -1,6 +1,9 @@
-
 <%@ page import="hibernate.model.Hike" %>
-<%@ page import="java.util.HashMap" %><%--
+<%@ page import="hibernate.model.Picture" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="hibernate.model.PointOfInterest" %>
+<%@ page import="java.util.List" %>
+<%--
   Created by IntelliJ IDEA.
   User: learo
   Date: 03.11.2023
@@ -37,6 +40,8 @@
         <%
             Hike hike = (Hike) request.getAttribute("hike");
             double durationMinutes = (hike.getDuration() % 1) * 60;
+
+            List<PointOfInterest> pointsOfInterest = (List<PointOfInterest>) request.getAttribute("pointsOfInterest");
 
             HashMap<Integer, String> demoImages = new HashMap<Integer, String>();
             demoImages.put(1, "https://www.bergwelten.com/files/tour/images/niederkaiserkamm-14871-0.jpg?impolicy=gallerie_pictures");
@@ -184,6 +189,16 @@
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
                     <h3>Route Description</h3>
                     <p><%=hike.getRouteDescription()%></p>
+
+                    <h3>Points Of Interest</h3>
+
+
+                    <ul>
+                        <% for (PointOfInterest pof: pointsOfInterest) { %>
+                        <li></li>
+                        <% } %>
+                    </ul>
+
                 </div>
                 <div class="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">
                     Placeholder for content

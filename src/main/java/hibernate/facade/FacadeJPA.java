@@ -4,6 +4,7 @@ import hibernate.broker.HikeBroker;
 import hibernate.broker.PictureBroker;
 import hibernate.model.Hike;
 import hibernate.model.Picture;
+import hibernate.model.PointOfInterest;
 
 import java.util.List;
 
