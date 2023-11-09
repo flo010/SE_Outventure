@@ -10,7 +10,7 @@ public class HikeBroker extends BrokerBase<Hike> {
     @Override
     public Hike get(int value) {
         EntityManager entityManager = getEntityManager();
-        Query query = entityManager.createQuery("SELECT h FROM Hike h WHERE _hikeID =: hikeID");
+        Query query = entityManager.createQuery("SELECT h FROM Hike h WHERE hikeID =: hikeID");
         query.setParameter("hikeID", value);
         Hike hike = (Hike) query.getSingleResult();
         entityManager.close();
@@ -25,16 +25,6 @@ public class HikeBroker extends BrokerBase<Hike> {
         entityManager.close();
 
         return hikes;
-    }
-
-    public static void main(String[] args) {
-        HikeBroker hb = new HikeBroker();
-        List<Hike> hikes = hb.getAll();
-        for (Hike h: hikes){
-            System.out.println(h.getTitle());
-        }
-        System.out.println("\n");
-        System.out.println(hb.get(3).getTitle());
     }
 }
 

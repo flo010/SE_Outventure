@@ -4,7 +4,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public abstract class BrokerBase<T> {
