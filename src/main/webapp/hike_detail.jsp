@@ -11,8 +11,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
+        <style>
+            .container.hike-detail.mt-5 .nav .nav-item .nav-link {
+                color: black;
+            }
+
+            .container.hike-detail.mt-5 .nav .nav-item .nav-link.active {
+                background-color: #B6FC9D !important;
+                color: black !important;
+
+            }
+
+            .container.hike-detail.mt-5 .card.mb-5.mt-5 {
+                width: 50%;
+            }
+        </style>
         <title>Hike Detail</title>
-        <link href="style.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
     <body>
@@ -37,7 +51,7 @@
 //            demoImages.put(14, "https://jakobsweg-lebensweg.de/wp-content/uploads/2019/10/Jakobsweg-Route-alte-Br%C3%BCcke.jpg");
         %>
 
-        <div class="container hike-datail mt-5">
+        <div class="container hike-detail mt-5">
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
             <img src="<%=demoImages.get(hike.getHikeID())%>" alt="mountain picture" style="width: 500px; height: auto">
             <div class="card mb-5 mt-5">
