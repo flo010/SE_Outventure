@@ -1,6 +1,5 @@
-<%@ page import="hibernate.facade.FacadeJPA" %>
+
 <%@ page import="hibernate.model.Hike" %>
-<%@ page import="hibernate.model.Picture" %>
 <%@ page import="java.util.HashMap" %><%--
   Created by IntelliJ IDEA.
   User: learo
