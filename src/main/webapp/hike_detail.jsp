@@ -13,24 +13,33 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
+        <title>Hike Detail</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
         <style>
-            .container.hike-detail.mt-5 .nav .nav-item .nav-link {
+            .container-sm.hike-detail.mt-5 .nav .nav-item .nav-link {
                 color: black;
             }
 
-            .container.hike-detail.mt-5 .nav .nav-item .nav-link.active {
+            .container-sm.hike-detail.mt-5 .nav .nav-item .nav-link.active {
                 background-color: #B6FC9D !important;
                 color: black !important;
 
             }
 
-            .container.hike-detail.mt-5 .card.mb-5.mt-5 {
+            .container-sm.hike-detail.mt-5 .card.mb-5.mt-5 {
                 width: 50%;
             }
+
+            table {
+                width: 400px;
+            }
+
+            td, th {
+                padding: 10px;
+            }
         </style>
-        <title>Hike Detail</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
     <body>
         <header>
@@ -49,14 +58,14 @@
             demoImages.put(3, "https://img.oastatic.com/img2/70761600/max/t.jpg?revbust=468c8c45");
             demoImages.put(4, "https://www.steiermark.com/Alpstein/Images/67091283/1306941/image-thumb__1306941__lightbox/bad-mitterndorf-mit-grimming-25240459.jpg");
             demoImages.put(5, "https://www.almenrausch.at/uploads/tx_webxhousingv2/trips/352/DSC_2340_9461.jpg");
-//            demoImages.put(10, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQkqmsLIREF_Nf6Qd_TwzDI-oChNaQjBs4i4vLJw6crQ&s");
-//            demoImages.put(11, "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kibo_summit_of_Mt_Kilimanjaro_001.JPG/324px-Kibo_summit_of_Mt_Kilimanjaro_001.JPG");
-//            demoImages.put(12, "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/The_Twelve_Apostles_Victoria_Australia_2006.JPG/1200px-The_Twelve_Apostles_Victoria_Australia_2006.JPG");
-//            demoImages.put(13, "https://challenge8.com/wp-content/uploads/2019/05/Der-ultimative-Patagonien-Trekking-Guide-1024x685.jpg");
-//            demoImages.put(14, "https://jakobsweg-lebensweg.de/wp-content/uploads/2019/10/Jakobsweg-Route-alte-Br%C3%BCcke.jpg");
+        //            demoImages.put(10, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQkqmsLIREF_Nf6Qd_TwzDI-oChNaQjBs4i4vLJw6crQ&s");
+        //            demoImages.put(11, "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kibo_summit_of_Mt_Kilimanjaro_001.JPG/324px-Kibo_summit_of_Mt_Kilimanjaro_001.JPG");
+        //            demoImages.put(12, "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/The_Twelve_Apostles_Victoria_Australia_2006.JPG/1200px-The_Twelve_Apostles_Victoria_Australia_2006.JPG");
+        //            demoImages.put(13, "https://challenge8.com/wp-content/uploads/2019/05/Der-ultimative-Patagonien-Trekking-Guide-1024x685.jpg");
+        //            demoImages.put(14, "https://jakobsweg-lebensweg.de/wp-content/uploads/2019/10/Jakobsweg-Route-alte-Br%C3%BCcke.jpg");
         %>
 
-        <div class="container hike-detail mt-5">
+        <div class="container-sm hike-detail mt-5">
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
             <img src="<%=demoImages.get(hike.getHikeID())%>" alt="mountain picture" style="width: 500px; height: auto">
             <div class="card mb-5 mt-5">
@@ -79,8 +88,8 @@
                             <strong class="card-text"><%=(int) hike.getDuration()%></strong>
                             h
                             <% if (durationMinutes > 0) { %>
-                                <strong class="card-text"><%=(int) durationMinutes%></strong>
-                                min
+                            <strong class="card-text"><%=(int) durationMinutes%></strong>
+                            min
                             <% } %>
                         </div>
                         <div class="col-md-3">
@@ -119,8 +128,8 @@
                     <p><%=hike.getDescription()%></p>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-
-                    <table style="width: 400px">
+                    <h3>Details</h3>
+                    <table>
                         <tr>
                             <td><b>Required Condition</b></td>
                             <td>
@@ -164,7 +173,7 @@
                     </table>
 
                     <div>
-                        <h3 class="my-3">Optimal Season</h3>
+                        <h3 class="my-3 mt-5">Optimal Season</h3>
                         <div class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1 w-50">
                             <%
                                 String[] months = {"JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY", "AUG", "SEPT", "OCT", "NOV", "DEC"};
@@ -187,15 +196,17 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
-                    <h3>Route Description</h3>
-                    <p><%=hike.getRouteDescription()%></p>
+                    <div class="route-description">
+                        <h3>Route Description</h3>
+                        <p><%=hike.getRouteDescription()%></p>
+                    </div>
 
-                    <h3 class="mt-5">Points Of Interest</h3>
-                    <div class="row">
-                        <div class="col md-3">
+                    <h3 class="mt-5 mb-3">Points Of Interest</h3>
+                    <div class="row justify-content-center">
+                        <div class="col-4">
                             <div class="card" style="width: 20rem;">
                                 <div class="card-body">
-                                    <h5 class="card-title">Start</h5>
+                                    <h5 class="card-title text-center">Start</h5>
                                     <p class="card-text">
                                         <strong>Name: </strong>
                                         <%=hike.getStart().getName()%>
@@ -207,10 +218,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col md-3">
+                        <div class="col-4">
                             <div class="card" style="width: 20rem;">
                                 <div class="card-body">
-                                    <h4 class="card-title">Destination</h4>
+                                    <h4 class="card-title text-center">Destination</h4>
                                     <p>
                                         <strong>Name: </strong>
                                         <%=hike.getDestination().getName()%>
