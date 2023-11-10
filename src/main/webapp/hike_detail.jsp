@@ -1,5 +1,4 @@
 <%@ page import="hibernate.model.Hike" %>
-<%@ page import="hibernate.model.Picture" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="hibernate.model.PointOfInterest" %>
 <%@ page import="java.util.List" %>
@@ -209,10 +208,11 @@
                     <div class="points-of-interest">
                         <h3 class="mt-5 mb-3">Points Of Interest</h3>
                         <div class="row justify-content-start">
-                            <div class="col">
+                            <div class="col mb-5">
                                 <div class="card" style="width: 38rem;">
                                     <div class="card-body">
-                                        <h5 class="card-title text-center">Start</h5>
+                                        <h4 class="card-title text-center">Start</h4>
+                                        <hr>
                                         <p class="card-text">
                                             <strong>Name: </strong>
                                             <%=hike.getStart().getName()%>
@@ -230,10 +230,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col mb-5">
                                 <div class="card" style="width: 38rem;">
                                     <div class="card-body">
                                         <h4 class="card-title text-center">Destination</h4>
+                                        <hr>
                                         <p>
                                             <strong>Name: </strong>
                                             <%=hike.getDestination().getName()%>
@@ -262,7 +263,8 @@
                             <div class="col">
                                 <div class="card" style="width: 38rem;">
                                     <div class="card-body">
-                                        <h5 class="card-title text-center">Start</h5>
+                                        <h4 class="card-title text-center">Start</h4>
+                                        <hr>
                                         <p class="card-text">
                                             <strong>Name: </strong>
                                             <%=hike.getStart().getName()%>
