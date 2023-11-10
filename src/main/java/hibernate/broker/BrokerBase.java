@@ -8,8 +8,6 @@ import java.util.List;
 
 public abstract class BrokerBase<T> {
 
-
-
     public EntityManager getEntityManager() {
         EntityManager entityManager = null;
         try {

@@ -1,4 +1,4 @@
-        <%@ page import="java.util.List" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="hibernate.model.Hike" %>
 <%@ page import="hibernate.facade.FacadeJPA" %>
@@ -23,12 +23,12 @@
 
                     FacadeJPA facadeJPA = FacadeJPA.getInstance();
                     List<Hike> hikeList = null;
+
                     try {
                         hikeList = facadeJPA.getAllHikes();
                     } catch (Exception e) {
                         System.out.println("asdf");
                     }
-
 
                     HashMap<Integer, String> demoImages = new HashMap<Integer, String>();
                     demoImages.put(1, "https://www.bergwelten.com/files/tour/images/niederkaiserkamm-14871-0.jpg?impolicy=gallerie_pictures");
@@ -70,8 +70,8 @@
                                 <strong class="card-text"><%=durationHours%></strong>
                                 h
                                 <% if (durationMinutes > 0) { %>
-                                <strong class="card-text"><%=(int) durationMinutes%></strong>
-                                min
+                                    <strong class="card-text"><%=(int) durationMinutes%></strong>
+                                    min
                                 <% } %>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"></path>
@@ -80,7 +80,6 @@
                                 m
                             </div>
                         </div>
-
                     </a>
                 </div>
                 <%
