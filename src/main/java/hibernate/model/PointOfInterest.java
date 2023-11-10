@@ -6,8 +6,8 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 @Table(name = "points_of_interest")
 public class PointOfInterest {
-    private int _pofID;
-    private Hike _hikePOF;
+    private int _poiID;
+    private Hike _hikePOI;
     private String _name;
     private String _description;
     private double _longitude;
@@ -15,22 +15,22 @@ public class PointOfInterest {
 
     @Id
     @NotNull
-    @Column(name = "pof_id")
-    public int getPofID() {
-        return _pofID;
+    @Column(name = "poi_id")
+    public int getPoiID() {
+        return _poiID;
     }
-    public void setPofID(int pofID) {
-        _pofID = pofID;
+    public void setPoiID(int poiID) {
+        _poiID = poiID;
     }
 
     @NotNull
     @ManyToOne
     @JoinColumn(name = "hike")
-    public Hike getHikePOF() {
-        return _hikePOF;
+    public Hike getHikePOI() {
+        return _hikePOI;
     }
-    public void setHikePOF(Hike hikePOF) {
-        _hikePOF = hikePOF;
+    public void setHikePOI(Hike hikePOI) {
+        _hikePOI = hikePOI;
     }
 
     @NotNull

@@ -117,9 +117,9 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-poi-tab" data-bs-toggle="pill" data-bs-target="#pills-poi" type="button" role="tab" aria-controls="pills-poi" aria-selected="false">Points of Interest</button>
                 </li>
-<%--                <li class="nav-item" role="presentation">--%>
-<%--                    <button class="nav-link" id="pills-getting-there-tab" data-bs-toggle="pill" data-bs-target="#pills-getting-there" type="button" role="tab" aria-controls="pills-getting-there" aria-selected="false">Getting There</button>--%>
-<%--                </li>--%>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-getting-there-tab" data-bs-toggle="pill" data-bs-target="#pills-getting-there" type="button" role="tab" aria-controls="pills-getting-there" aria-selected="false">Getting There</button>
+                </li>
             </ul>
 
             <hr>
@@ -208,9 +208,9 @@
                 <div class="tab-pane fade" id="pills-poi" role="tabpanel" aria-labelledby="pills-poi-tab" tabindex="0">
                     <div class="points-of-interest">
                         <h3 class="mt-5 mb-3">Points Of Interest</h3>
-                        <div class="row justify-content-center">
-                            <div class="col-4">
-                                <div class="card" style="width: 20rem;">
+                        <div class="row justify-content-start">
+                            <div class="col">
+                                <div class="card" style="width: 38rem;">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">Start</h5>
                                         <p class="card-text">
@@ -219,13 +219,19 @@
                                         </p>
                                         <p>
                                             <strong>GPS Coordinates: </strong>
-                                            <%=hike.getStart().getLongitude()%>, <%=hike.getStart().getLatitude()%>
+                                            <%=hike.getStart().getLongitude()%> E, <%=hike.getStart().getLatitude()%> N
+                                        </p>
+                                        <p>
+                                            <strong>Google Maps Link: </strong>
+                                            <a href="http://www.google.com/maps/place/<%=hike.getStart().getLatitude()%>,
+                                            <%=hike.getStart().getLongitude()%>">http://www.google.com/maps/place/<%=hike.getStart().getLatitude()%>,
+                                            <%=hike.getStart().getLongitude()%></a>
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-4">
-                                <div class="card" style="width: 20rem;">
+                            <div class="col">
+                                <div class="card" style="width: 38rem;">
                                     <div class="card-body">
                                         <h4 class="card-title text-center">Destination</h4>
                                         <p>
@@ -234,7 +240,13 @@
                                         </p>
                                         <p>
                                             <strong>GPS Coordinates: </strong>
-                                            <%=hike.getDestination().getLongitude()%>, <%=hike.getStart().getLatitude()%>
+                                            <%=hike.getDestination().getLongitude()%> E, <%=hike.getStart().getLatitude()%> N
+                                        </p>
+                                        <p>
+                                            <strong>Google Maps Link: </strong>
+                                            <a href="http://www.google.com/maps/place/<%=hike.getDestination().getLatitude()%>,
+                                            <%=hike.getDestination().getLongitude()%>">http://www.google.com/maps/place/<%=hike.getDestination().getLatitude()%>,
+                                            <%=hike.getDestination().getLongitude()%></a>
                                         </p>
                                     </div>
                                 </div>
@@ -243,9 +255,34 @@
                     </div>
                 </div>
 
-<%--                <div class="tab-pane fade" id="pills-getting-there" role="tabpanel" aria-labelledby="pills-getting-there-tab" tabindex="0">--%>
-<%--                    Placeholder for content--%>
-<%--                </div>--%>
+                <div class="tab-pane fade" id="pills-getting-there" role="tabpanel" aria-labelledby="pills-getting-there-tab" tabindex="0">
+                    <div class="getting-there">
+                        <h3 class="mt-5 mb-3">Start</h3>
+                        <div class="row justify-content-start">
+                            <div class="col">
+                                <div class="card" style="width: 38rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">Start</h5>
+                                        <p class="card-text">
+                                            <strong>Name: </strong>
+                                            <%=hike.getStart().getName()%>
+                                        </p>
+                                        <p>
+                                            <strong>GPS Coordinates: </strong>
+                                            <%=hike.getStart().getLongitude()%> E, <%=hike.getStart().getLatitude()%> N
+                                        </p>
+                                        <p>
+                                            <strong>Google Maps Link: </strong>
+                                            <a href="http://www.google.com/maps/place/<%=hike.getStart().getLatitude()%>,
+                                            <%=hike.getStart().getLongitude()%>">http://www.google.com/maps/place/<%=hike.getStart().getLatitude()%>,
+                                                <%=hike.getStart().getLongitude()%></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

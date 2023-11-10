@@ -36,6 +36,8 @@ public class Hike {
     private Destination _destination;
     private List<PointOfInterest> _pointOfInterests;
     private String _routeDescription;
+    private String _parkingInformation;
+    private String _arrivalInformation;
 
     @Id
     @NotNull
@@ -266,7 +268,7 @@ public class Hike {
     }
 
     @NotNull
-    @OneToMany(mappedBy = "hikePOF", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "hikePOI", fetch = FetchType.LAZY)
     public List<PointOfInterest> getPointOfInterests() {
         return _pointOfInterests;
     }
@@ -281,5 +283,21 @@ public class Hike {
     }
     public void setRouteDescription(String routeDescription) {
         _routeDescription = routeDescription;
+    }
+
+    @Column(name = "parking_info")
+    public String getParkingInformation() {
+        return _parkingInformation;
+    }
+    public void setParkingInformation(String parkingInformation) {
+        _parkingInformation = parkingInformation;
+    }
+
+    @Column(name = "arrival_info")
+    public String getArrivalInformation() {
+        return _arrivalInformation;
+    }
+    public void setArrivalInformation(String arrivalInformation) {
+        _arrivalInformation = arrivalInformation;
     }
 }
