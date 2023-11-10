@@ -47,8 +47,6 @@ public class HikeBroker extends BrokerBase<Hike> {
 
         return hikes;
     }
-
-
 }
 
 

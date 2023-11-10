@@ -5,6 +5,10 @@ import hibernate.broker.PictureBroker;
 import hibernate.model.Hike;
 import hibernate.model.Picture;
 import hibernate.model.PointOfInterest;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 
 import java.util.List;
 
