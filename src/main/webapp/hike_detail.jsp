@@ -277,6 +277,24 @@
                                             <%=hike.getStart().getLongitude()%>">http://www.google.com/maps/place/<%=hike.getStart().getLatitude()%>,
                                                 <%=hike.getStart().getLongitude()%></a>
                                         </p>
+                                        <p>
+                                            <strong>Arrival: </strong>
+                                            <%
+                                                String arrivalInformation = hike.getArrivalInformation();
+                                                if (arrivalInformation != null) {
+                                            %>
+                                                <%=arrivalInformation%>
+                                            <% } %>
+                                        </p>
+                                        <p>
+                                            <strong>Parking: </strong>
+                                            <%
+                                                String parkingInformation = hike.getParkingInformation();
+                                                if (parkingInformation != null){
+                                            %>
+                                                <%=parkingInformation%>
+                                            <% } %>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
