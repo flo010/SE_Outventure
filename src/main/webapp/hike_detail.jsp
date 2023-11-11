@@ -278,20 +278,21 @@
                                                 <%=hike.getStart().getLongitude()%></a>
                                         </p>
                                         <p>
-                                            <strong>Arrival: </strong>
+
                                             <%
                                                 String arrivalInformation = hike.getArrivalInformation();
                                                 if (arrivalInformation != null) {
                                             %>
+                                                 <strong>Arrival: </strong>
                                                 <%=arrivalInformation%>
                                             <% } %>
                                         </p>
                                         <p>
-                                            <strong>Parking: </strong>
                                             <%
                                                 String parkingInformation = hike.getParkingInformation();
                                                 if (parkingInformation != null){
                                             %>
+                                                <strong>Parking: </strong>
                                                 <%=parkingInformation%>
                                             <% } %>
                                         </p>
