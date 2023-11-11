@@ -50,7 +50,6 @@
             double durationMinutes = (hike.getDuration() % 1) * 60;
 
             List<PointOfInterest> pointsOfInterest = hike.getPointOfInterests();
-            System.out.println(pointsOfInterest.size());
             HashMap<Integer, String> demoImages = new HashMap<Integer, String>();
             demoImages.put(1, "https://www.bergwelten.com/files/tour/images/niederkaiserkamm-14871-0.jpg?impolicy=gallerie_pictures");
             demoImages.put(2, "https://vcdn.bergfex.at/images/resized/profiles/detail/986/1af6fc7b24cc5b2ff8a32e1953d53986.jpg?1283172909");
@@ -246,7 +245,7 @@
                                         <p>
                                             <strong>Google Maps Link: </strong>
                                             <a href="http://www.google.com/maps/place/<%=hike.getDestination().getLatitude()%>,
-                                            <%=hike.getDestination().getLongitude()%>">http://www.google.com/maps/place/<%=hike.getDestination().getLatitude()%>,
+                                            <%=hike.getDestination().getLongitude()%>", target="_blank">http://www.google.com/maps/place/<%=hike.getDestination().getLatitude()%>,
                                             <%=hike.getDestination().getLongitude()%></a>
                                         </p>
                                     </div>

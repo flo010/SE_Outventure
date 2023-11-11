@@ -1,27 +1,26 @@
 package servlets;
 
 import java.io.*;
+import java.util.List;
 
 import hibernate.facade.FacadeJPA;
 import hibernate.model.Hike;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import jakarta.transaction.Transactional;
-import org.hibernate.Hibernate;
 
-@WebServlet(name = "hikeDetailServlet", value = "/hike_detail")
-public class HikeDetailServlet extends HttpServlet {
-    @Transactional
+@WebServlet(name = "searchResultsServlet", value = "/search_results")
+public class SearchResultsServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
-        int hikeID = Integer.parseInt(request.getParameter("id"));
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
-        Hike hike = facadeJPA.getHikeByID(hikeID);
-        request.setAttribute("hike", hike);
+        List<Hike> hikeList = facadeJPA.getAllHikes();
+
+        request.setAttribute("hikeList", hikeList);
+
         try {
-            request.getRequestDispatcher("/hike_detail.jsp").forward(request, response);
+            request.getRequestDispatcher("/search_results.jsp").forward(request, response);
         } catch (ServletException e) {
             throw new RuntimeException(e);
         }
