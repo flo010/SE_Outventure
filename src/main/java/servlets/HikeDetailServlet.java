@@ -9,18 +9,19 @@ import hibernate.model.PointOfInterest;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import jakarta.transaction.Transactional;
+import org.hibernate.Hibernate;
 
 @WebServlet(name = "hikeDetailServlet", value = "/hike_detail")
 public class HikeDetailServlet extends HttpServlet {
+    @Transactional
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
         int hikeID = Integer.parseInt(request.getParameter("id"));
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         Hike hike = facadeJPA.getHikeByID(hikeID);
-
         request.setAttribute("hike", hike);
-
         try {
             request.getRequestDispatcher("/hike_detail.jsp").forward(request, response);
         } catch (ServletException e) {

@@ -49,8 +49,8 @@
             Hike hike = (Hike) request.getAttribute("hike");
             double durationMinutes = (hike.getDuration() % 1) * 60;
 
-            List<PointOfInterest> pointsOfInterest = (List<PointOfInterest>) request.getAttribute("pointsOfInterest");
-
+            List<PointOfInterest> pointsOfInterest = hike.getPointOfInterests();
+            System.out.println(pointsOfInterest.size());
             HashMap<Integer, String> demoImages = new HashMap<Integer, String>();
             demoImages.put(1, "https://www.bergwelten.com/files/tour/images/niederkaiserkamm-14871-0.jpg?impolicy=gallerie_pictures");
             demoImages.put(2, "https://vcdn.bergfex.at/images/resized/profiles/detail/986/1af6fc7b24cc5b2ff8a32e1953d53986.jpg?1283172909");
@@ -252,6 +252,32 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <%
+                                for (PointOfInterest pointOfInterest: pointsOfInterest) {
+                            %>
+                            <div class="col mb-5">
+                                <div class="card" style="width: 38rem;">
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center"><%=pointOfInterest.getName()%>></h4>
+                                        <hr>
+                                        <p>
+                                            <strong>Description: </strong>
+                                            <%=pointOfInterest.getDescription()%>
+                                        </p>
+                                        <p>
+                                            <strong>GPS Coordinates: </strong>
+                                            <%=pointOfInterest.getLongitude()%> E, <%=pointOfInterest.getLatitude()%> N
+                                        </p>
+                                        <p>
+                                            <strong>Google Maps Link: </strong>
+                                            <a href="http://www.google.com/maps/place/<%=pointOfInterest.getLatitude()%>,
+                                            <%=pointOfInterest.getLongitude()%>">Google Maps</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
                         </div>
                     </div>
                 </div>

@@ -49,7 +49,7 @@ public class Hike {
         _hikeID = hikeId;
     }
 
-    @OneToMany(mappedBy = "hikePicture", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "hikePicture")
     public List<Picture> getPictures() {
         return _pictures;
     }
@@ -268,7 +268,7 @@ public class Hike {
     }
 
     @NotNull
-    @OneToMany(mappedBy = "hikePOI", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "hikePOI",fetch = FetchType.EAGER)
     public List<PointOfInterest> getPointOfInterests() {
         return _pointOfInterests;
     }
