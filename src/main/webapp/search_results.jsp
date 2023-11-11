@@ -19,17 +19,6 @@
         <div class="container py-3">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
                 <%
-
-
-                    FacadeJPA facadeJPA = FacadeJPA.getInstance();
-                    List<Hike> hikeList = null;
-
-                    try {
-                        hikeList = facadeJPA.getAllHikes();
-                    } catch (Exception e) {
-                        System.out.println("asdf");
-                    }
-
                     HashMap<Integer, String> demoImages = new HashMap<Integer, String>();
                     demoImages.put(1, "https://www.bergwelten.com/files/tour/images/niederkaiserkamm-14871-0.jpg?impolicy=gallerie_pictures");
                     demoImages.put(2, "https://vcdn.bergfex.at/images/resized/profiles/detail/986/1af6fc7b24cc5b2ff8a32e1953d53986.jpg?1283172909");
@@ -42,32 +31,27 @@
 //                  demoImages.put(13, "https://challenge8.com/wp-content/uploads/2019/05/Der-ultimative-Patagonien-Trekking-Guide-1024x685.jpg");
 //                  demoImages.put(14, "https://jakobsweg-lebensweg.de/wp-content/uploads/2019/10/Jakobsweg-Route-alte-Br%C3%BCcke.jpg");
 
+                    List<Hike> hikeList = (List<Hike>) request.getAttribute("hikeList");
+
                     for (Hike hike : hikeList) {
-                        int hikeID = hike.getHikeID();
-
-                        double distance = hike.getDistance();
-                        double duration = hike.getDuration();
-                        int altitude = hike.getAltitude();
-
-                        int durationHours = (int) duration;
-                        double durationMinutes = (duration % 1) * 60;
+                        double durationMinutes = (hike.getDuration() % 1) * 60;
                 %>
                 <div class="col">
-                    <a class="card text-decoration-none" href="hike_detail?id=<%=hikeID%>">
-                        <img class="card-image-top" style="height: 150px" src="<%=demoImages.get(hikeID)%>" alt="hike picture">
+                    <a class="card text-decoration-none" href="hike_detail?id=<%=hike.getHikeID()%>">
+                        <img class="card-image-top" style="height: 150px" src="<%=demoImages.get(hike.getHikeID())%>" alt="hike picture">
                         <div class="card-body">
                             <h5 class="card-title text-truncate"><%=hike.getTitle()%></h5>
                             <div class="col">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows" viewBox="0 0 16 16">
                                     <path d="M1.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L2.707 7.5h10.586l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L13.293 8.5H2.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2Z"></path>
                                 </svg>
-                                <strong class="card-text"><%=distance%></strong>
+                                <strong class="card-text"><%=hike.getDistance()%></strong>
                                 km&nbsp;&nbsp;
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
                                     <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"></path>
                                     <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"></path>
                                 </svg>
-                                <strong class="card-text"><%=durationHours%></strong>
+                                <strong class="card-text"><%=(int) hike.getDuration()%></strong>
                                 h
                                 <% if (durationMinutes > 0) { %>
                                     <strong class="card-text"><%=(int) durationMinutes%></strong>
@@ -76,7 +60,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"></path>
                                 </svg>
-                                <strong class="card-text"><%=altitude%></strong>
+                                <strong class="card-text"><%=hike.getAltitude()%></strong>
                                 m
                             </div>
                         </div>
