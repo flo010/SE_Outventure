@@ -49,7 +49,7 @@
             Hike hike = (Hike) request.getAttribute("hike");
             double durationMinutes = (hike.getDuration() % 1) * 60;
 
-            List<PointOfInterest> pointsOfInterest = hike.getPointOfInterests();
+            List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
             HashMap<Integer, String> demoImages = new HashMap<Integer, String>();
             demoImages.put(1, "https://www.bergwelten.com/files/tour/images/niederkaiserkamm-14871-0.jpg?impolicy=gallerie_pictures");
             demoImages.put(2, "https://vcdn.bergfex.at/images/resized/profiles/detail/986/1af6fc7b24cc5b2ff8a32e1953d53986.jpg?1283172909");
@@ -221,10 +221,8 @@
                                             <%=hike.getStart().getLongitude()%> E, <%=hike.getStart().getLatitude()%> N
                                         </p>
                                         <p>
-                                            <strong>Google Maps Link: </strong>
                                             <a href="http://www.google.com/maps/place/<%=hike.getStart().getLatitude()%>,
-                                            <%=hike.getStart().getLongitude()%>">http://www.google.com/maps/place/<%=hike.getStart().getLatitude()%>,
-                                            <%=hike.getStart().getLongitude()%></a>
+                                            <%=hike.getStart().getLongitude()%>">Auf Google Maps anzeigen</a>
                                         </p>
                                     </div>
                                 </div>
@@ -243,10 +241,8 @@
                                             <%=hike.getDestination().getLongitude()%> E, <%=hike.getStart().getLatitude()%> N
                                         </p>
                                         <p>
-                                            <strong>Google Maps Link: </strong>
                                             <a href="http://www.google.com/maps/place/<%=hike.getDestination().getLatitude()%>,
-                                            <%=hike.getDestination().getLongitude()%>", target="_blank">http://www.google.com/maps/place/<%=hike.getDestination().getLatitude()%>,
-                                            <%=hike.getDestination().getLongitude()%></a>
+                                            <%=hike.getDestination().getLongitude()%>", target="_blank">Auf Google Maps anzeigen</a>
                                         </p>
                                     </div>
                                 </div>
@@ -258,7 +254,7 @@
                             <div class="col mb-5">
                                 <div class="card" style="width: 38rem;">
                                     <div class="card-body">
-                                        <h4 class="card-title text-center"><%=pointOfInterest.getName()%>></h4>
+                                        <h4 class="card-title text-center"><%=pointOfInterest.getName()%></h4>
                                         <hr>
                                         <p>
                                             <strong>Description: </strong>
@@ -269,9 +265,8 @@
                                             <%=pointOfInterest.getLongitude()%> E, <%=pointOfInterest.getLatitude()%> N
                                         </p>
                                         <p>
-                                            <strong>Google Maps Link: </strong>
                                             <a href="http://www.google.com/maps/place/<%=pointOfInterest.getLatitude()%>,
-                                            <%=pointOfInterest.getLongitude()%>">Google Maps</a>
+                                            <%=pointOfInterest.getLongitude()%>", target="_blank">Auf Google Maps anzeigen</a>
                                         </p>
                                     </div>
                                 </div>
@@ -299,26 +294,24 @@
                                             <%=hike.getStart().getLongitude()%> E, <%=hike.getStart().getLatitude()%> N
                                         </p>
                                         <p>
-                                            <strong>Google Maps Link: </strong>
                                             <a href="http://www.google.com/maps/place/<%=hike.getStart().getLatitude()%>,
-                                            <%=hike.getStart().getLongitude()%>">http://www.google.com/maps/place/<%=hike.getStart().getLatitude()%>,
-                                                <%=hike.getStart().getLongitude()%></a>
+                                            <%=hike.getStart().getLongitude()%>">Auf Google Maps anzeigen</a>
                                         </p>
                                         <p>
-                                            <strong>Arrival: </strong>
                                             <%
                                                 String arrivalInformation = hike.getArrivalInformation();
                                                 if (arrivalInformation != null) {
                                             %>
+                                                <strong>Arrival: </strong>
                                                 <%=arrivalInformation%>
                                             <% } %>
                                         </p>
                                         <p>
-                                            <strong>Parking: </strong>
                                             <%
                                                 String parkingInformation = hike.getParkingInformation();
                                                 if (parkingInformation != null){
                                             %>
+                                                <strong>Parking: </strong>
                                                 <%=parkingInformation%>
                                             <% } %>
                                         </p>

@@ -1,7 +1,6 @@
 package hibernate.model;
 
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
@@ -269,10 +268,10 @@ public class Hike {
 
     @NotNull
     @OneToMany(mappedBy = "hikePOI",fetch = FetchType.EAGER)
-    public List<PointOfInterest> getPointOfInterests() {
+    public List<PointOfInterest> getPointsOfInterest() {
         return _pointOfInterests;
     }
-    public void setPointOfInterests(List<PointOfInterest> pointOfInterests) {
+    public void setPointsOfInterest(List<PointOfInterest> pointOfInterests) {
         _pointOfInterests = pointOfInterests;
     }
 
