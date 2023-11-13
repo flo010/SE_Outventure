@@ -19,8 +19,12 @@
 
         <div class="container-sm create-hike mt-5">
             <form>
-                <h3>Description</h3>
                 <div class="form-group">
+                    <h3>Images</h3>
+                    <label for="coverImage">Cover Image</label>
+                    <input type="file" class="form-control-file" id="coverImage">
+
+                    <h3>Description</h3>
                     <textarea class="form-control" id="descriptionTextArea" rows="8" placeholder="Enter your description here (max. 1000 characters)"></textarea>
                 </div>
             </form>
