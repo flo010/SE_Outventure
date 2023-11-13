@@ -21,7 +21,7 @@
             <form>
                 <h3>Description</h3>
                 <div class="form-group">
-                    <textarea class="form-control" id="descriptionTextArea" rows="8" placeholder="Enter your description here"></textarea>
+                    <textarea class="form-control" id="descriptionTextArea" rows="8" placeholder="Enter your description here (max. 1000 characters)"></textarea>
                 </div>
             </form>
         </div>
