@@ -17,6 +17,14 @@
             <jsp:include page="navbar.jsp"/>
         </header>
 
+        <div class="container-sm create-hike mt-5">
+            <form>
+                <h3>Description</h3>
+                <div class="form-group">
+                    <textarea class="form-control" id="descriptionTextArea" rows="8" placeholder="Enter your description here"></textarea>
+                </div>
+            </form>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
