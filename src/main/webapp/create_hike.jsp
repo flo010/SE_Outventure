@@ -19,6 +19,12 @@
 
         <div class="container-sm create-hike mt-5">
             <form>
+                <h3>Title</h3>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="titleInput" placeholder="Enter title here (max. 100 characters)" required maxlength="100">
+                    <span class="input-group-text">*</span>
+                </div>
+
                 <h3>Description</h3>
                 <div class="form-group">
                     <textarea class="form-control" id="descriptionTextArea" rows="8" placeholder="Enter your description here (max. 1000 characters)"></textarea>
