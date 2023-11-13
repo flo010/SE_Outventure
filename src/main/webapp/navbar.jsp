@@ -23,6 +23,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-link" href="search_results">Search Hike</a>
+                        <a class="nav-link" href="create_hike.jsp">Create Hike</a>
                     </div>
                 </div>
             </div>
