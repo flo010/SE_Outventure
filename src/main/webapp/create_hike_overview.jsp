@@ -92,7 +92,7 @@
 
     function cancelProcess() {
         window.location.href = "/SE_Outventure_war_exploded/search_results";
-    } 
+    }
 
     function continueFunction() {
         window.location = "/SE_Outventure_war_exploded/create_hike_details.jsp";
