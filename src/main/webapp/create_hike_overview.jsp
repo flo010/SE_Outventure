@@ -67,6 +67,7 @@
             <div class="col text-end">
                 <button type="submit" class="btn btn-success">Continue</button>
             </div>
+
         </div>
     </form>
 </div>
