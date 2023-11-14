@@ -205,7 +205,7 @@
 
                 <div class="tab-pane fade" id="pills-poi" role="tabpanel" aria-labelledby="pills-poi-tab" tabindex="0">
                     <div class="points-of-interest">
-                        <h3 class="mt-5 mb-3">Points of Interest</h3>
+                        <h3 class="mb-3">Points of Interest</h3>
                         <div class="row justify-content-start">
                             <div class="col mb-5">
                                 <div class="card" style="width: 38rem;">
@@ -251,7 +251,7 @@
                             <%
                                 for (PointOfInterest pointOfInterest: pointsOfInterest) {
                             %>
-                            <div class="col mb-5">
+                            <div class="col">
                                 <div class="card" style="width: 38rem;">
                                     <div class="card-body">
                                         <h4 class="card-title text-center"><%=pointOfInterest.getName()%></h4>
@@ -278,7 +278,7 @@
 
                 <div class="tab-pane fade" id="pills-getting-there" role="tabpanel" aria-labelledby="pills-getting-there-tab" tabindex="0">
                     <div class="getting-there">
-                        <h3 class="mt-5 mb-3">Getting There</h3>
+                        <h3 class="mb-3">Getting There</h3>
                         <div class="row justify-content-start">
                             <div class="col">
                                 <div class="card" style="width: 38rem;">
