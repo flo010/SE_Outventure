@@ -13,11 +13,11 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
         <style>
-            .form-group {
+            .input-fields-group {
                 margin-bottom: 1em;
             }
 
-            .form-group img {
+            .input-fields-group img {
                 margin-top: 1em;
             }
         </style>
@@ -30,30 +30,30 @@
 
         <div class="container-sm create-hike mt-5 mb-5">
             <form>
-                <div class="form-group">
+                <div class="input-fields-group">
                     <h3>Title</h3>
                     <input type="text" class="form-control" id="titleInput" placeholder="Enter title here (max. 100 characters)" required maxlength="100">
-                    <small class="required-text text-muted">* Required</small>
+                    <small class="text-muted">* Required</small>
                 </div>
-                <div class="form-group">
+                <div class="input-fields-group">
                     <h3>Description</h3>
                     <textarea class="form-control" id="descriptionInput" rows="8" placeholder="Enter description here (max. 1000 characters)" required maxlength="1000"></textarea>
-                    <small class="required-text text-muted">* Required</small>
+                    <small class="text-muted">* Required</small>
                 </div>
-                <div class="form-group">
-                    <div class="form-group">
+                <div class="input-fields-group">
+                    <div class="input-fields-group">
                         <h3>Images</h3>
                         <label for="coverImageInput" class="form-label required">Cover Image</label><br>
                         <input type="file" class="form-control" id="coverImageInput" name="coverImage" accept="image/*">
-                        <small class="required-text text-muted">* Required</small><br>
+                        <small class="text-muted">* Required</small><br>
                         <img id="previewCoverImage" src="" width="250">
                     </div>
-                    <div class="form-group">
+                    <div class="input-fields-group">
                         <label for="optionalImageInput1" class="form-label">Optional Image</label><br>
                         <input type="file" class="form-control" id="optionalImageInput1" name="optionalImage1" accept="image/*">
                         <img id="previewOptionalImage1" src="" width="250">
                     </div>
-                    <div class="form-group">
+                    <div class="input-fields-group">
                         <label for="optionalImageInput2" class="form-label">Optional Image</label><br>
                         <input type="file" class="form-control" id="optionalImageInput2" name="optionalImage2" accept="image/*">
                         <img id="previewOptionalImage2" src="" width="250">
