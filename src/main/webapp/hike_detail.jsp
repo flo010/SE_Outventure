@@ -109,41 +109,41 @@
                         <tr>
                             <td><b>Required Condition</b></td>
                             <td>
-                                <span class="fa fa-circle" id="colored-circle-1" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-2" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-3" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-4" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-5" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-1" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-2" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-3" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-4" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-5" style="color: lightgrey"></span>
                             </td>
                         </tr>
                         <tr>
                             <td><b>Level of Difficulty</b></td>
                             <td>
-                                <span class="fa fa-circle" id="colored-circle-6" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-7" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-8" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-9" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-10" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-6" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-7" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-8" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-9" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-10" style="color: lightgrey"></span>
                             </td>
                         </tr>
                         <tr>
                             <td><b>Required Experience</b></td>
                             <td>
-                                <span class="fa fa-circle" id="colored-circle-11" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-12" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-13" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-14" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-15" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-11" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-12" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-13" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-14" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-15" style="color: lightgrey"></span>
                             </td>
                         </tr>
                         <tr>
                             <td><b>Landscape Beauty</b></td>
                             <td>
-                                <span class="fa fa-circle" id="colored-circle-16" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-17" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-18" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-19" style="color: lightgrey"></span>
-                                <span class="fa fa-circle" id="colored-circle-20" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-16" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-17" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-18" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-19" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-20" style="color: lightgrey"></span>
                             </td>
                         </tr>
                     </table>
@@ -301,20 +301,21 @@
         </div>
 
         <script>
-            let circles = document.getElementsByClassName("fa fa-circle");
+            document.addEventListener("DOMContentLoaded", function() {
+                let circles = document.querySelectorAll('.fa.fa-circle-o');
 
-            for (let i = 0; i < <%=hike.getStamina()%>; i++){
-                circles[i].style.color = "#B6FC9D";
-            }
-            for (let i = 0; i < <%=hike.getStrength()%>; i++){
-                circles[i+5].style.color = "#B6FC9D";
-            }
-            for (let i = 0; i < <%=hike.getExperience()%>; i++){
-                circles[i+10].style.color = "#B6FC9D";
-            }
-            for (let i = 0; i < <%=hike.getLandscape()%>; i++){
-                circles[i+15].style.color = "#B6FC9D";
-            }
+                function fillCircles(count, startIndex) {
+                    for (let i = startIndex; i < startIndex + count; i++) {
+                        circles[i].classList.replace('fa-circle-o', 'fa-circle');
+                        circles[i].style.color = "#B6FC9D";
+                    }
+                }
+
+                fillCircles(<%= hike.getStamina() %>, 0);
+                fillCircles(<%= hike.getStrength() %>, 5);
+                fillCircles(<%= hike.getExperience() %>, 10);
+                fillCircles(<%= hike.getLandscape() %>, 15);
+            });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
