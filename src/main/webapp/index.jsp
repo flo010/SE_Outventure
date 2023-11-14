@@ -10,7 +10,7 @@
 
         <style>
             body {
-                background-image: url(https://i.pinimg.com/originals/5c/33/76/5c337658742096493147ed99544534e4.jpg);
+                background-image: url(https://images-ext-2.discordapp.net/external/UWRt0WHHZy54pEdlIqTygMTM65xW8SmqjeHoKumSW3M/https/i.pinimg.com/originals/5c/33/76/5c337658742096493147ed99544534e4.jpg?width=1498&height=936);
                 background-repeat: no-repeat;
                 background-attachment: fixed;
                 background-size: cover;
