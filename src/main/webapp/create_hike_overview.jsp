@@ -44,18 +44,18 @@
                     <div class="input-fields-group">
                         <h3>Images</h3>
                         <label for="coverImageInput" class="form-label required">Cover Image</label><br>
-                        <input type="file" class="form-control" id="coverImageInput" name="coverImage" accept="image/*">
+                        <input type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg">
                         <small class="text-muted">* Required</small><br>
                         <img id="previewCoverImage" src="" width="250">
                     </div>
                     <div class="input-fields-group">
                         <label for="optionalImageInput1" class="form-label">Optional Image</label><br>
-                        <input type="file" class="form-control" id="optionalImageInput1" name="optionalImage1" accept="image/*">
+                        <input type="file" class="form-control" id="optionalImageInput1" name="optionalImage1" accept=".png, .jpg">
                         <img id="previewOptionalImage1" src="" width="250">
                     </div>
                     <div class="input-fields-group">
                         <label for="optionalImageInput2" class="form-label">Optional Image</label><br>
-                        <input type="file" class="form-control" id="optionalImageInput2" name="optionalImage2" accept="image/*">
+                        <input type="file" class="form-control" id="optionalImageInput2" name="optionalImage2" accept=".png, .jpg">
                         <img id="previewOptionalImage2" src="" width="250">
                     </div>
                 </div>
@@ -63,7 +63,7 @@
         </div>
 
         <div class="container-sm create-hike mt-5 mb-5">
-            <form action="create_hike2.jsp">
+            <form action="create_hike_details.jsp">
                 <div class="row mt-4">
                     <div class="col">
                         <button type="button" class="btn btn-warning">Abbrechen</button>
