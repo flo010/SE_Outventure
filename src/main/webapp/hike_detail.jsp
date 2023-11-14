@@ -63,7 +63,7 @@
 //                  demoImages.put(14, "https://jakobsweg-lebensweg.de/wp-content/uploads/2019/10/Jakobsweg-Route-alte-Br%C3%BCcke.jpg");
         %>
 
-        <div class="container-sm hike-detail mt-5">
+        <div class="container-sm hike-detail mt-5 mb-5">
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
             <img src="<%=demoImages.get(hike.getHikeID())%>" alt="mountain picture" style="width: 500px; height: auto">
             <div class="card mb-5 mt-5">
@@ -121,7 +121,7 @@
             </ul>
 
             <hr>
-            <div class="tab-content mt-4 mb-5" id="pills-tabContent">
+            <div class="tab-content mt-4" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                     <h3>Description</h3>
                     <p><%=hike.getDescription()%></p>
