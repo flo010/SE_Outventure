@@ -63,7 +63,7 @@
         </div>
 
         <div class="container-sm create-hike mt-5 mb-5">
-            <form>
+            <form action="create_hike2.jsp">
                 <div class="row mt-4">
                     <div class="col">
                         <button type="button" class="btn btn-warning">Abbrechen</button>
@@ -74,6 +74,7 @@
                 </div>
             </form>
         </div>
+
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script>
