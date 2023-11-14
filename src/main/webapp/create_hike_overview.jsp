@@ -55,7 +55,7 @@
                 <button type="button" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
             </div>
             <div class="col text-end">
-                <button type="submit" class="btn btn-success">Continue</button>
+                <button type="submit" class="btn btn-success" onclick="continueFunction(); return false;">Continue</button>
             </div>
 
         </div>
@@ -92,7 +92,12 @@
 
     function cancelProcess() {
         window.location.href = "/SE_Outventure_war_exploded/search_results";
+    } 
+
+    function continueFunction() {
+        window.location = "/SE_Outventure_war_exploded/create_hike_details.jsp";
     }
+
 
     function setupImagePreview(inputId, previewId) {
         const input = document.getElementById(inputId);
