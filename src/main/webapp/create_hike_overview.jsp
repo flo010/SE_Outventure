@@ -55,9 +55,9 @@
                 <button type="button" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
             </div>
             <div class="col text-end">
+                <button type="button" class="btn btn-secondary" onclick="goBack()">Back</button>
                 <button type="submit" class="btn btn-success">Continue</button>
             </div>
-
         </div>
     </form>
 </div>
