@@ -133,41 +133,41 @@
                         <tr>
                             <td><b>Required Condition</b></td>
                             <td>
-                                <span class="fa fa-circle" id="colored-circle-1"></span>
-                                <span class="fa fa-circle" id="colored-circle-2"></span>
-                                <span class="fa fa-circle" id="colored-circle-3"></span>
-                                <span class="fa fa-circle" id="colored-circle-4"></span>
-                                <span class="fa fa-circle" id="colored-circle-5"></span>
+                                <span class="fa fa-circle" id="colored-circle-1" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-2" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-3" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-4" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-5" style="color: lightgrey"></span>
                             </td>
                         </tr>
                         <tr>
                             <td><b>Level of Difficulty</b></td>
                             <td>
-                                <span class="fa fa-circle" id="colored-circle-6"></span>
-                                <span class="fa fa-circle" id="colored-circle-7"></span>
-                                <span class="fa fa-circle" id="colored-circle-8"></span>
-                                <span class="fa fa-circle" id="colored-circle-9"></span>
-                                <span class="fa fa-circle" id="colored-circle-10"></span>
+                                <span class="fa fa-circle" id="colored-circle-6" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-7" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-8" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-9" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-10" style="color: lightgrey"></span>
                             </td>
                         </tr>
                         <tr>
                             <td><b>Required Experience</b></td>
                             <td>
-                                <span class="fa fa-circle" id="colored-circle-11"></span>
-                                <span class="fa fa-circle" id="colored-circle-12"></span>
-                                <span class="fa fa-circle" id="colored-circle-13"></span>
-                                <span class="fa fa-circle" id="colored-circle-14"></span>
-                                <span class="fa fa-circle" id="colored-circle-15"></span>
+                                <span class="fa fa-circle" id="colored-circle-11" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-12" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-13" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-14" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-15" style="color: lightgrey"></span>
                             </td>
                         </tr>
                         <tr>
                             <td><b>Landscape Beauty</b></td>
                             <td>
-                                <span class="fa fa-circle" id="colored-circle-16"></span>
-                                <span class="fa fa-circle" id="colored-circle-17"></span>
-                                <span class="fa fa-circle" id="colored-circle-18"></span>
-                                <span class="fa fa-circle" id="colored-circle-19"></span>
-                                <span class="fa fa-circle" id="colored-circle-20"></span>
+                                <span class="fa fa-circle" id="colored-circle-16" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-17" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-18" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-19" style="color: lightgrey"></span>
+                                <span class="fa fa-circle" id="colored-circle-20" style="color: lightgrey"></span>
                             </td>
                         </tr>
                     </table>
@@ -326,16 +326,17 @@
 
         <script>
             let circles = document.getElementsByClassName("fa fa-circle");
-            for (let i = 0; i<<%=hike.getStamina()%>; i++){
+
+            for (let i = 0; i < <%=hike.getStamina()%>; i++){
                 circles[i].style.color = "#B6FC9D";
             }
-            for (let i = 0; i<<%=hike.getStrength()%>; i++){
+            for (let i = 0; i < <%=hike.getStrength()%>; i++){
                 circles[i+5].style.color = "#B6FC9D";
             }
-            for (let i = 0; i<<%=hike.getExperience()%>; i++){
+            for (let i = 0; i < <%=hike.getExperience()%>; i++){
                 circles[i+10].style.color = "#B6FC9D";
             }
-            for (let i = 0; i<<%=hike.getLandscape()%>; i++){
+            for (let i = 0; i < <%=hike.getLandscape()%>; i++){
                 circles[i+15].style.color = "#B6FC9D";
             }
         </script>

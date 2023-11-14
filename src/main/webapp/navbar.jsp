@@ -9,6 +9,12 @@
 <html>
     <head>
         <title>Title</title>
+
+        <style>
+            .navbar.bg-dark.navbar-expand-lg.bg-body-tertiary a:hover {
+                color: #B6FC9D !important;
+            }
+        </style>
     </head>
     <body>
         <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
