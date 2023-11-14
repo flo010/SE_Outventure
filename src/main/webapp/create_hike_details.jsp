@@ -26,5 +26,7 @@
     <header>
         <jsp:include page="navbar.jsp"/>
     </header>
+    <h2>Title</h2>
+    <p> <%= session.getAttribute("title")%></p>
 </body>
 </html>

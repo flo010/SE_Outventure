@@ -32,12 +32,12 @@
             <form>
                 <div class="input-fields-group">
                     <h3>Title</h3>
-                    <input type="text" class="form-control" id="titleInput" placeholder="Enter title here (max. 100 characters)" required maxlength="100">
+                    <input type="text" class="form-control" id="titleInput" placeholder="Enter title here (max. 100 characters)" required maxlength="100" name="titleInput">
                     <small class="text-muted">* Required</small>
                 </div>
                 <div class="input-fields-group">
                     <h3>Description</h3>
-                    <textarea class="form-control" id="descriptionInput" rows="8" placeholder="Enter description here (max. 1000 characters)" required maxlength="1000"></textarea>
+                    <textarea class="form-control" id="descriptionInput" rows="8" placeholder="Enter description here (max. 1000 characters)" required maxlength="1000" name="descriptionInput"></textarea>
                     <small class="text-muted">* Required</small>
                 </div>
                 <div class="input-fields-group">
