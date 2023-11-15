@@ -40,7 +40,7 @@
 
         <div class="container-sm hike-detail mt-5 mb-5">
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
-            <img src="<%=demoImages.get(hike.getHikeID())%>" alt="mountain picture" style="width: 500px; height: auto">
+            <img class="cover-image" src="<%=demoImages.get(hike.getHikeID())%>" alt="mountain picture">
             <div class="card mb-5 mt-5">
                 <div class="card-body">
                     <div class="row">
@@ -108,41 +108,41 @@
                         <tr>
                             <td><b>Required Condition</b></td>
                             <td>
-                                <span class="fa fa-circle-o" id="colored-circle-1" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-2" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-3" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-4" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-5" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-1"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-2"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-3"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-4"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-5"></span>
                             </td>
                         </tr>
                         <tr>
                             <td><b>Level of Difficulty</b></td>
                             <td>
-                                <span class="fa fa-circle-o" id="colored-circle-6" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-7" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-8" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-9" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-10" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-6"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-7"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-8"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-9"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-10"></span>
                             </td>
                         </tr>
                         <tr>
                             <td><b>Required Experience</b></td>
                             <td>
-                                <span class="fa fa-circle-o" id="colored-circle-11" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-12" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-13" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-14" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-15" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-11"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-12"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-13"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-14"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-15"></span>
                             </td>
                         </tr>
                         <tr>
                             <td><b>Landscape Beauty</b></td>
                             <td>
-                                <span class="fa fa-circle-o" id="colored-circle-16" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-17" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-18" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-19" style="color: lightgrey"></span>
-                                <span class="fa fa-circle-o" id="colored-circle-20" style="color: lightgrey"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-16"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-17"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-18"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-19"></span>
+                                <span class="fa fa-circle-o" id="colored-circle-20"></span>
                             </td>
                         </tr>
                     </table>
@@ -183,7 +183,7 @@
                         <h3 class="mb-3">Points of Interest</h3>
                         <div class="row justify-content-start">
                             <div class="col mb-5">
-                                <div class="card" style="width: 38rem;">
+                                <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title text-center">Start</h4>
                                         <hr>
@@ -203,7 +203,7 @@
                                 </div>
                             </div>
                             <div class="col mb-5">
-                                <div class="card" style="width: 38rem;">
+                                <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title text-center">Destination</h4>
                                         <hr>
@@ -227,7 +227,7 @@
                                 for (PointOfInterest pointOfInterest: pointsOfInterest) {
                             %>
                             <div class="col">
-                                <div class="card" style="width: 38rem;">
+                                <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title text-center"><%=pointOfInterest.getName()%></h4>
                                         <hr>
@@ -256,7 +256,7 @@
                         <h3 class="mb-3">Getting There</h3>
                         <div class="row justify-content-start">
                             <div class="col">
-                                <div class="card" style="width: 38rem;">
+                                <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title text-center">Start</h4>
                                         <hr>

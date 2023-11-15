@@ -62,3 +62,15 @@ td, th {
     background-attachment: fixed;
     background-size: cover;
 }
+
+.cover-image {
+    width: 500px;
+}
+
+.fa.fa-circle-o {
+    color: lightgrey;
+}
+
+.card {
+    width: 38rem;
+}

@@ -15,7 +15,7 @@ public class SearchResultsServlet extends HttpServlet {
         response.setContentType("text/html");
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
-        List<Hike> hikeList = facadeJPA.getAllHikes();
+        List<Hike> hikeList = facadeJPA.getAllHikesLazy();
 
         request.setAttribute("hikeList", hikeList);
 

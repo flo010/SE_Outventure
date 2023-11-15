@@ -59,7 +59,7 @@ public class FacadeJPA implements Facade {
     }
 
     @Override
-    public List<Hike> getAllHikes() {
+    public List<Hike> getAllHikesLazy() {
         HikeBroker hikeBroker = null;
         hikeBroker = new HikeBroker();
         List<Hike> hikes = null;
