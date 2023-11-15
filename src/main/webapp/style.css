@@ -23,7 +23,6 @@ td, th {
     background-color: #343a40;
 }
 
-
 .navbar .navbar-brand img {
     width: 70px;
     height: 70px;
@@ -34,6 +33,10 @@ td, th {
 }
 
 .navbar .navbar-nav .nav-link:hover {
+    color: #B6FC9D;
+}
+
+.navbar .navbar-brand:hover {
     color: #B6FC9D;
 }
 
@@ -51,4 +54,11 @@ td, th {
 
 .input-fields-group img {
     margin-top: 1em;
+}
+
+.index-background {
+    background-image: url(https://images-ext-2.discordapp.net/external/UWRt0WHHZy54pEdlIqTygMTM65xW8SmqjeHoKumSW3M/https/i.pinimg.com/originals/5c/33/76/5c337658742096493147ed99544534e4.jpg?width=1498&height=936);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
