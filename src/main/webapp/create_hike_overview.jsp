@@ -68,7 +68,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            Do you really want to cancel the process?
+                            Do you really want to cancel? You will lose all the data you have entered.
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
@@ -94,32 +94,34 @@
             }
 
 
-    function cancelProcess() {
-        window.location.href = "/SE_Outventure_war_exploded/search_results";
-    }
-    function setupImagePreview(inputId, previewId) {
-        const input = document.getElementById(inputId);
-        const preview = document.getElementById(previewId);
+            function cancelProcess() {
+                window.location.href = "/SE_Outventure_war_exploded/search_results";
+            }
+            function setupImagePreview(inputId, previewId) {
+                const input = document.getElementById(inputId);
+                const preview = document.getElementById(previewId);
 
-        if (input && preview) {
-            input.onchange = evt => {
-                const [file] = input.files;
+                if (input && preview) {
+                    input.onchange = evt => {
+                        const [file] = input.files;
 
-                if (file) {
-                    preview.src = URL.createObjectURL(file);
+                        if (file) {
+                            preview.src = URL.createObjectURL(file);
+                        }
+                    };
                 }
-            };
-        }
-    }
-            window.onbeforeunload = function() {
-                return 'Do you really want to leave this page?';
-            };
-
+            }
 
             // Setup für das Vorschaubild
             setupImagePreview('coverImageInput', 'previewCoverImage');
             setupImagePreview('optionalImageInput1', 'previewOptionalImage1');
             setupImagePreview('optionalImageInput2', 'previewOptionalImage2');
+
+            window.onbeforeunload = function() {
+                return 'Do you really want to leave this page?';
+            };
+
+
         </script>
     </body>
 </html>
