@@ -24,7 +24,7 @@ public class HikeBroker extends BrokerBase<Hike> {
         try {
             entityManager = getEntityManager();
         } catch (Exception f){
-            System.out.println("not entityManager");
+            System.out.println("no entityManager");
         }
 
         List<Hike> hikes = null;
@@ -37,7 +37,7 @@ public class HikeBroker extends BrokerBase<Hike> {
                 System.out.println("EntityManager is closed");
             }
         } catch (Exception e) {
-            System.out.println("def");
+            System.out.println("entityManager is null");
             e.printStackTrace();
         } finally {
             if (entityManager.isOpen()) {

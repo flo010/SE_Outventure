@@ -16,30 +16,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link href="style.css" rel="stylesheet">
-
-        <style>
-            .container-sm.hike-detail.mt-5 .nav .nav-item .nav-link {
-                color: black;
-            }
-
-            .container-sm.hike-detail.mt-5 .nav .nav-item .nav-link.active {
-                background-color: #B6FC9D !important;
-                color: black !important;
-
-            }
-
-            .container-sm.hike-detail.mt-5 .card.mb-5.mt-5 {
-                width: 50%;
-            }
-
-            table {
-                width: 400px;
-            }
-
-            td, th {
-                padding: 10px;
-            }
-        </style>
     </head>
     <body>
         <header>
@@ -60,8 +36,6 @@
             demoImages.put(6, "https://www.bodensee.de/extension/portal-bodensee/var/storage/images/media/bibliothek/ausflugsziele/pfaenderbahn/pfaenderbahn-mit-ausblick/46348-1-ger-DE/pfaenderbahn-mit-ausblick_front_large.jpg");
             demoImages.put(7, "https://vcdn.bergfex.at/images/resized/7c/fc07758d6a2af77c_20a169d014543ab0@2x.jpg");
             demoImages.put(8, "https://d2exd72xrrp1s7.cloudfront.net/www/000/1k4/a8/a8mx6d7f7cpz17bjyys8lhlle3eto5gp1-uhi15367968/0?width=3072&height=2304&crop=false&q=70");
-//                  demoImages.put(13, "https://challenge8.com/wp-content/uploads/2019/05/Der-ultimative-Patagonien-Trekking-Guide-1024x685.jpg");
-//                  demoImages.put(14, "https://jakobsweg-lebensweg.de/wp-content/uploads/2019/10/Jakobsweg-Route-alte-Br%C3%BCcke.jpg");
         %>
 
         <div class="container-sm hike-detail mt-5 mb-5">
