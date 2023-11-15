@@ -14,7 +14,8 @@ public abstract class BrokerBase<T> {
             EntityManagerFactory fact = Persistence.createEntityManagerFactory("Outventure");
             entityManager = fact.createEntityManager();
         } catch (Exception e) {
-            System.out.println("classInfo is null");
+            System.out.println("Error creating EntityManager: " + e.getMessage());
+            e.printStackTrace();
         }
         return entityManager;
     }
