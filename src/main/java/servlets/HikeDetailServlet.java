@@ -17,7 +17,7 @@ public class HikeDetailServlet extends HttpServlet {
 
         int hikeID = Integer.parseInt(request.getParameter("id"));
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
-        Hike hike = facadeJPA.getHikeByID(hikeID);
+        Hike hike = facadeJPA.getHikeByIDEager(hikeID);
         request.setAttribute("hike", hike);
         try {
             request.getRequestDispatcher("/hike_detail.jsp").forward(request, response);

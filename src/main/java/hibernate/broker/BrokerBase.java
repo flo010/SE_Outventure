@@ -35,7 +35,7 @@ public abstract class BrokerBase<T> {
         entityManager.close();
     }
 
-    public abstract T get(int value);
+    public abstract T getLazy(int value);
 
     public abstract List<T> getAll();
 }

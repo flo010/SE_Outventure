@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PictureBroker extends BrokerBase<Picture> {
     @Override
-    public Picture get(int value) {
+    public Picture getLazy(int value) {
         EntityManager entityManager = getEntityManager();
         Query query = entityManager.createQuery("SELECT p FROM Picture p WHERE pictureID =: pictureID");
         query.setParameter("pictureID", value);

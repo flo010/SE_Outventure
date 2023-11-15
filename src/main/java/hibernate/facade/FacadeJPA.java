@@ -4,11 +4,6 @@ import hibernate.broker.HikeBroker;
 import hibernate.broker.PictureBroker;
 import hibernate.model.Hike;
 import hibernate.model.Picture;
-import hibernate.model.PointOfInterest;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 
 import java.util.List;
 
@@ -48,9 +43,17 @@ public class FacadeJPA implements Facade {
     }
 
     @Override
-    public Hike getHikeByID(int hikeID) {
+    public Hike getHikeByIDLazy(int hikeID) {
         HikeBroker hikeBroker = new HikeBroker();
-        Hike hike = hikeBroker.get(hikeID);
+        Hike hike = hikeBroker.getLazy(hikeID);
+
+        return hike;
+    }
+
+    @Override
+    public Hike getHikeByIDEager(int hikeID) {
+        HikeBroker hikeBroker = new HikeBroker();
+        Hike hike = hikeBroker.getEager(hikeID);
 
         return hike;
     }
@@ -73,7 +76,7 @@ public class FacadeJPA implements Facade {
     @Override
     public Picture getPictureByID(int pictureID) {
         PictureBroker pictureBroker = new PictureBroker();
-        Picture picture = pictureBroker.get(pictureID);
+        Picture picture = pictureBroker.getLazy(pictureID);
 
         return picture;
     }
