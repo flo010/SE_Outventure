@@ -8,7 +8,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import jakarta.transaction.Transactional;
-import org.hibernate.Hibernate;
 
 @WebServlet(name = "hikeDetailServlet", value = "/hike_detail")
 public class HikeDetailServlet extends HttpServlet {
