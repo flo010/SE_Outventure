@@ -28,7 +28,9 @@ public class FacadeJPA implements Facade {
     public void save(Object object) {
         if (object instanceof Hike) {
             HikeBroker hikeBroker = new HikeBroker();
+            System.out.println("before saving");
             hikeBroker.save((Hike) object);
+            System.out.println("after saving");
         }
         else if (object instanceof Picture) {
             PictureBroker pictureBroker = new PictureBroker();

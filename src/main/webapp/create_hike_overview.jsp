@@ -19,22 +19,22 @@
         </header>
 
         <div class="container-sm create-hike mt-5 mb-5">
-            <form>
+            <form id="createHikeOverview" action="save_data" method="post">
                 <div class="input-fields-group">
                     <h3>Title</h3>
-                    <input type="text" class="form-control" id="titleInput" placeholder="Enter title here (max. 100 characters)" required maxlength="100">
+                    <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Enter title here (max. 100 characters)" required maxlength="100">
                     <small class="text-muted">* Required</small>
                 </div>
                 <div class="input-fields-group">
                     <h3>Description</h3>
-                    <textarea class="form-control" id="descriptionInput" rows="8" placeholder="Enter description here (max. 1000 characters)" required maxlength="1000"></textarea>
+                    <textarea class="form-control" id="descriptionInput" name="descriptionInput" rows="8" placeholder="Enter description here (max. 1000 characters)" required maxlength="1000"></textarea>
                     <small class="text-muted">* Required</small>
                 </div>
                 <div class="input-fields-group">
                     <div class="input-fields-group">
                         <h3>Images</h3>
                         <label for="coverImageInput" class="form-label">Cover Image</label><br>
-                        <input type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg" required>
+                        <input type="file" class="form-control" id="coverImageInput" name="coverImageInput" accept=".png, .jpg">
                         <small class="text-muted">* Required</small><br>
                         <img id="previewCoverImage" src="" width="250">
                     </div>
@@ -52,11 +52,14 @@
 
                 <div class="row mt-4">
                     <div class="col">
-                        <button type="button" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
+                        <button type="button" id="cancelButton" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
                     </div>
                     <div class="col text-end">
-                        <button type="submit" class="btn btn-success" onclick="continueFunction(); return false;">Continue</button>
+                        <button type="submit" id="saveButton" class="btn btn-success">Save</button>
                     </div>
+<%--                    <div class="col text-end">--%>
+<%--                        <button type="submit" class="btn btn-success" onclick="continueFunction(); return false;">Continue</button>--%>
+<%--                    </div>--%>
                 </div>
             </form>
 
@@ -82,7 +85,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script>
             function confirmCancel() {
-
                 var myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
                     keyboard: false
                 });
@@ -93,10 +95,6 @@
                 window.location.href = "/SE_Outventure_war_exploded/search_results";
             }
 
-
-            function cancelProcess() {
-                window.location.href = "/SE_Outventure_war_exploded/search_results";
-            }
             function setupImagePreview(inputId, previewId) {
                 const input = document.getElementById(inputId);
                 const preview = document.getElementById(previewId);
@@ -120,8 +118,6 @@
             window.onbeforeunload = function() {
                 return 'Do you really want to leave this page?';
             };
-
-
         </script>
     </body>
 </html>

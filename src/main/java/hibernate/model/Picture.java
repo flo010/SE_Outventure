@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 public class Picture {
     private int _pictureID;
     private Hike _hikePicture;
-    private byte[] _image;
+    private String _base64;
 
     @Id
     @NotNull
@@ -21,13 +21,12 @@ public class Picture {
     }
 
     @NotNull
-    @Lob // @Lob for large binary data, like images
-    @Column(name = "image", nullable = false)
-    public byte[] getImage() {
-        return _image;
+    @Column(name = "base64")
+    public String getBase64() {
+        return _base64;
     }
-    public void setImage(byte[] image) {
-        _image = image;
+    public void setBase64(String base64) {
+        _base64 = base64;
     }
 
     @NotNull

@@ -247,7 +247,7 @@ public class Hike {
     }
 
     @NotNull
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "start")
     public Start getStart() {
         return _start;
@@ -257,7 +257,7 @@ public class Hike {
     }
 
     @NotNull
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "destination")
     public Destination getDestination() {
         return _destination;
