@@ -34,7 +34,7 @@
                     <div class="input-fields-group">
                         <h3>Images</h3>
                         <label for="coverImageInput" class="form-label">Cover Image</label><br>
-                        <input type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg">
+                        <input type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg" required>
                         <small class="text-muted">* Required</small><br>
                         <img id="previewCoverImage" src="" width="250">
                     </div>
