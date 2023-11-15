@@ -33,7 +33,7 @@
                 <div class="input-fields-group">
                     <div class="input-fields-group">
                         <h3>Images</h3>
-                        <label for="coverImageInput" class="form-label required">Cover Image</label><br>
+                        <label for="coverImageInput" class="form-label">Cover Image</label><br>
                         <input type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg">
                         <small class="text-muted">* Required</small><br>
                         <img id="previewCoverImage" src="" width="250">
@@ -49,17 +49,16 @@
                         <img id="previewOptionalImage2" src="" width="250">
                     </div>
                 </div>
+
+                <div class="row mt-4">
+                    <div class="col">
+                        <button type="button" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
+                    </div>
+                    <div class="col text-end">
+                        <button type="submit" class="btn btn-success" onclick="continueFunction(); return false;">Continue</button>
+                    </div>
+                </div>
             </form>
-
-
-            <div class="row mt-4">
-                <div class="col">
-                    <button type="button" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
-                </div>
-                <div class="col text-end">
-                    <button type="submit" class="btn btn-success" onclick="continueFunction(); return false;">Continue</button>
-                </div>
-            </div>
 
             <div class="modal fade" id="cancelConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="cancelConfirmationModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered " role="document">
