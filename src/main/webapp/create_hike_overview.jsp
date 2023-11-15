@@ -50,76 +50,75 @@
                     </div>
                 </div>
             </form>
+
+
+            <div class="row mt-4">
+                <div class="col">
+                    <button type="button" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
+                </div>
+                <div class="col text-end">
+                    <button type="submit" class="btn btn-success" onclick="continueFunction(); return false;">Continue</button>
+                </div>
+            </div>
+
+            <div class="modal fade" id="cancelConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="cancelConfirmationModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered " role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="cancelConfirmationModalLabel">Confirm Cancel</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Do you really want to cancel the process?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-success" onclick="cancelProcess()">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="row mt-4">
-            <div class="col">
-                <button type="button" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
-            </div>
-            <div class="col text-end">
-                <button type="submit" class="btn btn-success" onclick="continueFunction(); return false;">Continue</button>
-            </div>
-        </div>
-    </form>
-</div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script>
+            function confirmCancel() {
 
-<div class="modal fade" id="cancelConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="cancelConfirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered " role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cancelConfirmationModalLabel">Confirm Cancel</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Dou you really want to cancel the process?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-success" onclick="cancelProcess()">Yes</button>
-            </div>
-        </div>
-    </div>
-</div>
+                var myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
+                    keyboard: false
+                });
+                myModal.show();
+            }
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script>
-    function confirmCancel() {
+            function cancelProcess() {
+                window.location.href = "/SE_Outventure_war_exploded/search_results";
+            }
 
-        var myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
-            keyboard: false
-        });
-        myModal.show();
-    }
-
-    function cancelProcess() {
-        window.location.href = "/SE_Outventure_war_exploded/search_results";
-    }
-
-    function continueFunction() {
-        window.location = "/SE_Outventure_war_exploded/create_hike_details.jsp";
-    }
+            function continueFunction() {
+                window.location = "/SE_Outventure_war_exploded/create_hike_details.jsp";
+            }
 
 
-    function setupImagePreview(inputId, previewId) {
-        const input = document.getElementById(inputId);
-        const preview = document.getElementById(previewId);
+            function setupImagePreview(inputId, previewId) {
+                const input = document.getElementById(inputId);
+                const preview = document.getElementById(previewId);
 
-        if (input && preview) {
-            input.onchange = evt => {
-                const [file] = input.files;
+                if (input && preview) {
+                    input.onchange = evt => {
+                        const [file] = input.files;
 
-                if (file) {
-                    preview.src = URL.createObjectURL(file);
+                        if (file) {
+                            preview.src = URL.createObjectURL(file);
+                        }
+                    };
                 }
-            };
-        }
-    }
+            }
 
-    // Setup für das Vorschaubild
-    setupImagePreview('coverImageInput', 'previewCoverImage');
-    setupImagePreview('optionalImageInput1', 'previewOptionalImage1');
-    setupImagePreview('optionalImageInput2', 'previewOptionalImage2');
-</script>
-</body>
+            // Setup für das Vorschaubild
+            setupImagePreview('coverImageInput', 'previewCoverImage');
+            setupImagePreview('optionalImageInput1', 'previewOptionalImage1');
+            setupImagePreview('optionalImageInput2', 'previewOptionalImage2');
+        </script>
+    </body>
 </html>
 
