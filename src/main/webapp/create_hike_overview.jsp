@@ -36,17 +36,20 @@
                         <label for="coverImageInput" class="form-label">Cover Image</label><br>
                         <input type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg">
                         <small class="text-muted">* Required</small><br>
-                        <img id="previewCoverImage" src="" width="250">
+                        <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
+                        <img id="previewCoverImage" width="250">
                     </div>
                     <div class="input-fields-group">
                         <label for="optionalImageInput1" class="form-label">Optional Image</label><br>
                         <input type="file" class="form-control" id="optionalImageInput1" name="optionalImage1" accept=".png, .jpg">
-                        <img id="previewOptionalImage1" src="" width="250">
+                        <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
+                        <img id="previewOptionalImage1" width="250">
                     </div>
                     <div class="input-fields-group">
                         <label for="optionalImageInput2" class="form-label">Optional Image</label><br>
                         <input type="file" class="form-control" id="optionalImageInput2" name="optionalImage2" accept=".png, .jpg">
-                        <img id="previewOptionalImage2" src="" width="250">
+                        <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
+                        <img id="previewOptionalImage2" width="250">
                     </div>
                 </div>
 
@@ -102,15 +105,23 @@
                 const preview = document.getElementById(previewId);
 
                 if (input && preview) {
-                    input.onchange = evt => {
-                        const [file] = input.files;
+                    input.addEventListener("change",
+                        () => {
+                            const [file] = input.files;
 
-                        if (file) {
-                            preview.src = URL.createObjectURL(file);
+                            if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
+                                input.classList.remove("is-invalid");
+                                preview.src = URL.createObjectURL(file);
+                                preview.style.display = "block";
+                            } else {
+                                input.classList.add("is-invalid");
+                                preview.style.display = "none";
+                            }
                         }
-                    };
+                    );
                 }
             }
+
             window.onbeforeunload = function () {
                 if (shouldPromptBeforeUnload) {
                     return 'Do you really want to leave this page?';
