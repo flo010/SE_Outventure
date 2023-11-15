@@ -71,7 +71,7 @@
                             Do you really want to cancel the process?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-danger" onclick="cancelCancel()" data-bs-dismiss="modal">No</button>
                             <button type="button" class="btn btn-success" onclick="cancelProcess()">Yes</button>
                         </div>
                     </div>
@@ -81,8 +81,10 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script>
+            let shouldPromptBeforeUnload = true; // Variable to track whether to prompt before unload
+            function cancelCancel(){
+            }
             function confirmCancel() {
-
                 var myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
                     keyboard: false
                 });
@@ -90,29 +92,29 @@
             }
 
             function cancelProcess() {
-                window.location.href = "/SE_Outventure_war_exploded/search_results";
+                shouldPromptBeforeUnload = false;
+                window.location.href = "/search_results";
             }
 
 
-    function cancelProcess() {
-        window.location.href = "/SE_Outventure_war_exploded/search_results";
-    }
-    function setupImagePreview(inputId, previewId) {
-        const input = document.getElementById(inputId);
-        const preview = document.getElementById(previewId);
+            function setupImagePreview(inputId, previewId) {
+                const input = document.getElementById(inputId);
+                const preview = document.getElementById(previewId);
 
-        if (input && preview) {
-            input.onchange = evt => {
-                const [file] = input.files;
+                if (input && preview) {
+                    input.onchange = evt => {
+                        const [file] = input.files;
 
-                if (file) {
-                    preview.src = URL.createObjectURL(file);
+                        if (file) {
+                            preview.src = URL.createObjectURL(file);
+                        }
+                    };
                 }
-            };
-        }
-    }
-            window.onbeforeunload = function() {
-                return 'Do you really want to leave this page?';
+            }
+            window.onbeforeunload = function () {
+                if (shouldPromptBeforeUnload) {
+                    return 'Do you really want to leave this page?';
+                }
             };
 
 
