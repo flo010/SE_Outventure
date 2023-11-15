@@ -93,38 +93,28 @@
                 window.location.href = "/SE_Outventure_war_exploded/search_results";
             }
 
-<<<<<<< HEAD
-        var myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
-            keyboard: false
-        });
-        myModal.show();
-    }
 
     function cancelProcess() {
         window.location.href = "/SE_Outventure_war_exploded/search_results";
     }
-    
-=======
-            function continueFunction() {
-                window.location = "/SE_Outventure_war_exploded/create_hike_details.jsp";
-            }
->>>>>>> 5c5d41708a9a65fa83f22d5c7f6493cd5f0e83d2
+    function setupImagePreview(inputId, previewId) {
+        const input = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
 
+        if (input && preview) {
+            input.onchange = evt => {
+                const [file] = input.files;
 
-            function setupImagePreview(inputId, previewId) {
-                const input = document.getElementById(inputId);
-                const preview = document.getElementById(previewId);
-
-                if (input && preview) {
-                    input.onchange = evt => {
-                        const [file] = input.files;
-
-                        if (file) {
-                            preview.src = URL.createObjectURL(file);
-                        }
-                    };
+                if (file) {
+                    preview.src = URL.createObjectURL(file);
                 }
-            }
+            };
+        }
+    }
+            window.onbeforeunload = function() {
+                return 'Do you really want to leave this page?';
+            };
+
 
             // Setup für das Vorschaubild
             setupImagePreview('coverImageInput', 'previewCoverImage');
