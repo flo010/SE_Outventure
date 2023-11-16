@@ -8,9 +8,19 @@ import java.util.List;
 
 public class HikeBroker extends BrokerBase<Hike> {
     @Override
-    public Hike get(int value) {
+    public Hike getLazy(int value) {
         EntityManager entityManager = getEntityManager();
         Query query = entityManager.createQuery("SELECT h FROM Hike h WHERE hikeID =: hikeID");
+        query.setParameter("hikeID", value);
+        Hike hike = (Hike) query.getSingleResult();
+        entityManager.close();
+
+        return hike;
+    }
+
+    public Hike getEager(int value) {
+        EntityManager entityManager = getEntityManager();
+        Query query = entityManager.createQuery("SELECT h FROM Hike h LEFT JOIN FETCH h.pointsOfInterest WHERE h.hikeID = :hikeID");
         query.setParameter("hikeID", value);
         Hike hike = (Hike) query.getSingleResult();
         entityManager.close();

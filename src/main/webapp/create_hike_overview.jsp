@@ -36,8 +36,23 @@
                         <label for="coverImageInput" class="form-label">Cover Image</label><br>
                         <input type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg" required>
                         <small class="text-muted">* Required</small><br>
-                        <img id="previewCoverImage" src="" width="250">
+                        <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
+                        <img id="previewCoverImage" width="250">
                     </div>
+<<<<<<< HEAD
+                    <div class="input-fields-group">
+                        <label for="optionalImageInput1" class="form-label">Optional Image</label><br>
+                        <input type="file" class="form-control" id="optionalImageInput1" name="optionalImage1" accept=".png, .jpg">
+                        <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
+                        <img id="previewOptionalImage1" width="250">
+                    </div>
+                    <div class="input-fields-group">
+                        <label for="optionalImageInput2" class="form-label">Optional Image</label><br>
+                        <input type="file" class="form-control" id="optionalImageInput2" name="optionalImage2" accept=".png, .jpg">
+                        <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
+                        <img id="previewOptionalImage2" width="250">
+                    </div>
+=======
 <%--                    <div class="input-fields-group">--%>
 <%--                        <label for="optionalImageInput1" class="form-label">Optional Image</label><br>--%>
 <%--                        <input type="file" class="form-control" id="optionalImageInput1" name="optionalImage1" accept=".png, .jpg">--%>
@@ -48,7 +63,27 @@
 <%--                        <input type="file" class="form-control" id="optionalImageInput2" name="optionalImage2" accept=".png, .jpg">--%>
 <%--                        <img id="previewOptionalImage2" src="" width="250">--%>
 <%--                    </div>--%>
+>>>>>>> 9d01a378dde38c0cf9174cf14f33a9e64a3c095f
                 </div>
+
+                <div class="custom-input-container">
+                    <h3>Distance</h3>
+                    <div class="input-group">
+                        <input type="text" class="form-control"  placeholder="Enter Distance" required maxlength="75">
+                    </div>
+                    <small class="text-muted">* Required</small><br><br>
+                    <h3>Duration</h3>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter Duration" required maxlength="75">
+                    </div>
+                    <small class="text-muted">* Required</small><br><br>
+                    <h3>Altitude</h3>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter Altitude" required maxlength="75">
+                    </div>
+                    <small class="text-muted">* Required</small><br>
+                </div>
+
 
                 <div class="row mt-4">
                     <div class="col">
@@ -71,7 +106,7 @@
                             Do you really want to cancel? You will lose all the data you have entered.
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-danger" onclick="cancelCancel()" data-bs-dismiss="modal">No</button>
                             <button type="button" class="btn btn-success" onclick="cancelProcess()">Yes</button>
                         </div>
                     </div>
@@ -81,8 +116,10 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script>
+            let shouldPromptBeforeUnload = true; // Variable to track whether to prompt before unload
+            function cancelCancel(){
+            }
             function confirmCancel() {
-
                 var myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
                     keyboard: false
                 });
@@ -90,18 +127,47 @@
             }
 
             function cancelProcess() {
-                window.location.href = "/SE_Outventure_war_exploded/search_results";
+                shouldPromptBeforeUnload = false;
+                window.location.href = "/search_results";
             }
 
 
+<<<<<<< HEAD
+=======
             function cancelProcess() {
                 window.location.href = "/SE_Outventure_war_exploded/search_results";
             }
+>>>>>>> 9d01a378dde38c0cf9174cf14f33a9e64a3c095f
             function setupImagePreview(inputId, previewId) {
                 const input = document.getElementById(inputId);
                 const preview = document.getElementById(previewId);
 
                 if (input && preview) {
+<<<<<<< HEAD
+                    input.addEventListener("change",
+                        () => {
+                            const [file] = input.files;
+
+                            if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
+                                input.classList.remove("is-invalid");
+                                preview.src = URL.createObjectURL(file);
+                                preview.style.display = "block";
+                            } else {
+                                input.classList.add("is-invalid");
+                                preview.style.display = "none";
+                            }
+                        }
+                    );
+                }
+            }
+
+            window.onbeforeunload = function () {
+                if (shouldPromptBeforeUnload) {
+                    return 'Do you really want to leave this page?';
+                }
+            };
+
+=======
                     input.onchange = evt => {
                         const [file] = input.files;
 
@@ -111,6 +177,7 @@
                     };
                 }
             }
+>>>>>>> 9d01a378dde38c0cf9174cf14f33a9e64a3c095f
 
             // Setup für das Vorschaubild
             setupImagePreview('coverImageInput', 'previewCoverImage');
