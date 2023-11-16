@@ -40,6 +40,7 @@ public class Hike {
 
     @Id
     @NotNull
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "hike_id")
     public int getHikeID() {
         return _hikeID;
@@ -247,7 +248,7 @@ public class Hike {
     }
 
     @NotNull
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "start")
     public Start getStart() {
         return _start;
@@ -257,7 +258,7 @@ public class Hike {
     }
 
     @NotNull
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "destination")
     public Destination getDestination() {
         return _destination;
@@ -266,7 +267,6 @@ public class Hike {
         _destination = destination;
     }
 
-    @NotNull
     @OneToMany(mappedBy = "hikePOI",fetch = FetchType.EAGER)
     public List<PointOfInterest> getPointsOfInterest() {
         return _pointOfInterests;

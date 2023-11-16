@@ -2,13 +2,7 @@ package hibernate.facade;
 
 import hibernate.broker.HikeBroker;
 import hibernate.broker.PictureBroker;
-import hibernate.model.Hike;
-import hibernate.model.Picture;
-import hibernate.model.PointOfInterest;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import hibernate.model.*;
 
 import java.util.List;
 
@@ -28,9 +22,7 @@ public class FacadeJPA implements Facade {
     public void save(Object object) {
         if (object instanceof Hike) {
             HikeBroker hikeBroker = new HikeBroker();
-            System.out.println("before saving");
             hikeBroker.save((Hike) object);
-            System.out.println("after saving");
         }
         else if (object instanceof Picture) {
             PictureBroker pictureBroker = new PictureBroker();

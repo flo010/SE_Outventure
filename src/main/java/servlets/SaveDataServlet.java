@@ -15,19 +15,10 @@ import java.io.IOException;
 
 @WebServlet(name = "hikeDetailServlet", value = "/save_data")
 public class SaveDataServlet extends HttpServlet {
-    private static int _idCounter = 20;
-
-    private int getNextID() {
-        _idCounter += 1;
-
-        return _idCounter;
-    }
-
     @Transactional
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
-        int hikeId = getNextID();
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
         double duration = 1.1;
@@ -35,14 +26,14 @@ public class SaveDataServlet extends HttpServlet {
         int altitude = 1;
 
         Start start = new Start();
-        start.setStartID(99);
-        start.setName("Start");
+        start.setStartID(1);
+        start.setName("Start Lea");
         start.setLatitude(40.12);
         start.setLongitude(10.2);
 
         Destination destination = new Destination();
-        destination.setDestinationID(90);
-        destination.setName("Destination");
+        destination.setDestinationID(1);
+        destination.setName("Destination Lea");
         destination.setLatitude(42.12);
         destination.setLongitude(10.12);
 
@@ -62,10 +53,10 @@ public class SaveDataServlet extends HttpServlet {
         boolean october = false;
         boolean november = false;
         boolean december = false;
-        String routeDescription = "Route Description";
+        String routeDescription = "New Route Description";
 
         Hike hike = new Hike();
-        hike.setHikeID(hikeId);
+//        hike.setHikeID(hikeId);
         hike.setTitle(title);
         hike.setDescription(description);
         hike.setDuration(duration);
@@ -94,11 +85,6 @@ public class SaveDataServlet extends HttpServlet {
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         facadeJPA.save(hike);
 
-        response.sendRedirect(request.getContextPath() + "/index.jsp");
-    }
-
-    @Transactional
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println(request.getContextPath() + "/index.jsp");
+        response.sendRedirect("/index.jsp");
     }
 }
