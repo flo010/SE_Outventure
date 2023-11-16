@@ -89,7 +89,7 @@
                     <small class="text-muted">* Required</small>
                 </div>
 
-                <div class="custom-input-container">
+                <div class="input-fields-group less-width">
                     <div>
                         <h5>Required Condition</h5>
                         <input type="range" class="custom-range" id="customRange1" min="0" max="5" step="1"value="0">
