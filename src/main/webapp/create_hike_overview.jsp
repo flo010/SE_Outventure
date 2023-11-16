@@ -102,8 +102,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script>
             let shouldPromptBeforeUnload = true; // Variable to track whether to prompt before unload
+
             function cancelCancel(){
             }
+
             function confirmCancel() {
                 var myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
                     keyboard: false
@@ -116,13 +118,10 @@
                 window.location.href = "/search_results";
             }
 
-<<<<<<< HEAD
             function cancelProcess() {
-                window.location.href = "/SE_Outventure_war_exploded/search_results";
+                window.location.href = "/search_results";
             }
 
-=======
->>>>>>> save_button
             function setupImagePreview(inputId, previewId) {
                 const input = document.getElementById(inputId);
                 const preview = document.getElementById(previewId);
@@ -145,29 +144,20 @@
                 }
             }
 
-            window.onbeforeunload = function () {
-                if (shouldPromptBeforeUnload) {
-                    return 'Do you really want to leave this page?';
-                }
-            };
-                    input.onchange = evt => {
-                        const [file] = input.files;
-
-                        if (file) {
-                            preview.src = URL.createObjectURL(file);
-                        }
-                    };
-                }
-            }
-
             // Setup für das Vorschaubild
             setupImagePreview('coverImageInput', 'previewCoverImage');
             setupImagePreview('optionalImageInput1', 'previewOptionalImage1');
             setupImagePreview('optionalImageInput2', 'previewOptionalImage2');
 
+            window.onbeforeunload = function () {
+                if (shouldPromptBeforeUnload) {
+                    return 'Do you really want to leave this page?';
+                }
+            }
+
             window.onbeforeunload = function() {
                 return 'Do you really want to leave this page?';
-            };
+            }
         </script>
     </body>
 </html>

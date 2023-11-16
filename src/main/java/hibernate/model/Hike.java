@@ -267,7 +267,6 @@ public class Hike {
         _destination = destination;
     }
 
-    @NotNull
     @OneToMany(mappedBy = "hikePOI",fetch = FetchType.LAZY)
     public List<PointOfInterest> getPointsOfInterest() {
         return _pointOfInterests;
