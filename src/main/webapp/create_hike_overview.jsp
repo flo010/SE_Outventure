@@ -31,28 +31,13 @@
                     <small class="text-muted">* Required</small>
                 </div>
                 <div class="input-fields-group">
-                    <div class="input-fields-group">
-                        <h3>Images</h3>
-                        <label for="coverImageInput" class="form-label">Cover Image</label><br>
-                        <input type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg" required>
-                        <small class="text-muted">* Required</small><br>
-                        <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
-                        <img id="previewCoverImage" width="250">
-                    </div>
-<<<<<<< HEAD
-                    <div class="input-fields-group">
-                        <label for="optionalImageInput1" class="form-label">Optional Image</label><br>
-                        <input type="file" class="form-control" id="optionalImageInput1" name="optionalImage1" accept=".png, .jpg">
-                        <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
-                        <img id="previewOptionalImage1" width="250">
-                    </div>
-                    <div class="input-fields-group">
-                        <label for="optionalImageInput2" class="form-label">Optional Image</label><br>
-                        <input type="file" class="form-control" id="optionalImageInput2" name="optionalImage2" accept=".png, .jpg">
-                        <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
-                        <img id="previewOptionalImage2" width="250">
-                    </div>
-=======
+                    <h3>Images</h3>
+                    <label for="coverImageInput" class="form-label">Cover Image</label><br>
+                    <input type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg" required>
+                    <small class="text-muted">* Required</small><br>
+                    <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
+                    <img id="previewCoverImage" width="250">
+                </div>
 <%--                    <div class="input-fields-group">--%>
 <%--                        <label for="optionalImageInput1" class="form-label">Optional Image</label><br>--%>
 <%--                        <input type="file" class="form-control" id="optionalImageInput1" name="optionalImage1" accept=".png, .jpg">--%>
@@ -63,8 +48,6 @@
 <%--                        <input type="file" class="form-control" id="optionalImageInput2" name="optionalImage2" accept=".png, .jpg">--%>
 <%--                        <img id="previewOptionalImage2" src="" width="250">--%>
 <%--                    </div>--%>
->>>>>>> 9d01a378dde38c0cf9174cf14f33a9e64a3c095f
-                </div>
 
                 <div class="custom-input-container">
                     <h3>Distance</h3>
@@ -131,19 +114,15 @@
                 window.location.href = "/search_results";
             }
 
-
-<<<<<<< HEAD
-=======
             function cancelProcess() {
                 window.location.href = "/SE_Outventure_war_exploded/search_results";
             }
->>>>>>> 9d01a378dde38c0cf9174cf14f33a9e64a3c095f
+
             function setupImagePreview(inputId, previewId) {
                 const input = document.getElementById(inputId);
                 const preview = document.getElementById(previewId);
 
                 if (input && preview) {
-<<<<<<< HEAD
                     input.addEventListener("change",
                         () => {
                             const [file] = input.files;
@@ -166,8 +145,6 @@
                     return 'Do you really want to leave this page?';
                 }
             };
-
-=======
                     input.onchange = evt => {
                         const [file] = input.files;
 
@@ -177,7 +154,6 @@
                     };
                 }
             }
->>>>>>> 9d01a378dde38c0cf9174cf14f33a9e64a3c095f
 
             // Setup für das Vorschaubild
             setupImagePreview('coverImageInput', 'previewCoverImage');
@@ -187,8 +163,6 @@
             window.onbeforeunload = function() {
                 return 'Do you really want to leave this page?';
             };
-
-
         </script>
     </body>
 </html>
