@@ -32,6 +32,7 @@
                 </div>
                 <div class="input-fields-group">
 
+
                     <div class="input-fields-group">
                         <h3>Images</h3>
                         <label for="coverImageInput" class="form-label">Cover Image</label><br>
@@ -51,6 +52,7 @@
 <%--                        <input type="file" class="form-control" id="optionalImageInput2" name="optionalImage2" accept=".png, .jpg">--%>
 <%--                        <img id="previewOptionalImage2" src="" width="250">--%>
 <%--                    </div>--%>
+
 
 
                 </div>
@@ -220,6 +222,60 @@
             rangeCount('customRange2', 'rangeValue2');
             rangeCount('customRange3', 'rangeValue3');
             rangeCount('customRange4', 'rangeValue4');
+
+            
+            function previewImage() {
+                const input = document.getElementById('coverImageInput');
+                const preview = document.getElementById('previewCoverImage');
+                const invalidFeedback = document.querySelector('.invalid-feedback');
+
+                const file = input.files[0];
+
+                // Check if a file is selected
+                if (file) {
+                    // Check if the file type is valid (you can modify this check based on your requirements)
+                    if (file.type === 'image/png' || file.type === 'image/jpeg') {
+                        invalidFeedback.style.display = 'none';
+
+                        // Create a FileReader to read the image
+                        const reader = new FileReader();
+
+                        // Set up the FileReader onload event
+                        reader.onload = function (e) {
+                            const img = new Image();
+
+                            // Set up the Image onload event
+                            img.onload = function () {
+                                // Resize the image using a canvas
+                                const canvas = document.createElement('canvas');
+                                const ctx = canvas.getContext('2d');
+
+                                canvas.width = 250; // Set the desired width
+                                canvas.height = (250 * img.height) / img.width; // Maintain aspect ratio
+
+                                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                                // Update the preview image source with the resized image
+                                preview.src = canvas.toDataURL('image/jpeg'); // Use 'image/png' for PNG format
+                            };
+
+                            // Set the Image source to the FileReader result (base64 data URL)
+                            img.src = e.target.result;
+                        };
+
+                        // Read the file as a data URL
+                        reader.readAsDataURL(file);
+                    } else {
+                        // Display an error message for invalid file types
+                        invalidFeedback.style.display = 'block';
+                        invalidFeedback.textContent = 'Invalid file type. Please provide a .png or .jpg.';
+                        preview.src = ''; // Clear the preview image
+                    }
+                } else {
+                    // Clear the preview image if no file is selected
+                    preview.src = '';
+                }
+            }
 
 
             //Checkboxes
