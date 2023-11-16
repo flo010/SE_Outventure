@@ -5,6 +5,7 @@ import hibernate.broker.PictureBroker;
 import hibernate.model.Hike;
 import hibernate.model.Picture;
 
+
 import java.util.List;
 
 public class FacadeJPA implements Facade {
