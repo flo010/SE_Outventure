@@ -65,6 +65,28 @@
                     </div>
                     <small class="text-muted">* Required</small><br>
                 </div>
+                <div class="custom-input-container">
+                    <div>
+                        <h5>Required Condition</h5>
+                        <input type="range" class="custom-range" id="customRange1" min="0" max="5" step="1"value="0">
+                        <label id="rangeValue1">0</label>
+                    </div>
+                    <div>
+                        <h5>Level of Difficulty</h5>
+                        <input type="range" class="custom-range" id="customRange2" min="0" max="5" step="1" value="0">
+                        <label id="rangeValue2">0</label>
+                    </div>
+                    <div>
+                        <h5>Required Experience</h5>
+                        <input type="range" class="custom-range" id="customRange3" min="0" max="5" step="1" value="0">
+                        <label id="rangeValue3">0</label>
+                    </div>
+                    <div>
+                        <h5>Landscape Beauty</h5>
+                        <input type="range" class="custom-range" id="customRange4" min="0" max="5" step="1" value="0">
+                        <label id="rangeValue4">0</label>
+                    </div>
+                </div>
 
 
                 <div class="row mt-4">
@@ -158,6 +180,21 @@
             window.onbeforeunload = function() {
                 return 'Do you really want to leave this page?';
             }
+
+            function rangeCount(id, labelId){
+                var rangeInput = document.getElementById(id);
+                var rangeValue = document.getElementById(labelId);
+
+                rangeInput.addEventListener('input', function () {
+                    rangeValue.textContent = rangeInput.value;
+                });
+            }
+
+            rangeCount('customRange1', 'rangeValue1');
+            rangeCount('customRange2', 'rangeValue2');
+            rangeCount('customRange3', 'rangeValue3');
+            rangeCount('customRange4', 'rangeValue4');
+
         </script>
     </body>
 </html>

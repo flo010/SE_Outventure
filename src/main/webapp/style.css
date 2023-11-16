@@ -84,3 +84,7 @@ td, th {
     margin-bottom: 1em;
     gap: 20px
 }
+
+.custom-range {
+    width: 95%;
+}
