@@ -87,7 +87,13 @@
                         <label id="rangeValue4">0</label>
                     </div>
                 </div>
-
+                <%--for loop for months--%>
+                <div class="input-fields-group">
+                    <h3>Optimal Season</h3>
+                    <div class="form-check form-check-inline" id="monthContainer">
+                    </div>
+                    <small class="text-muted"><br>* Required</small><br>
+                </div>
 
                 <div class="row mt-4">
                     <div class="col">
@@ -194,6 +200,51 @@
             rangeCount('customRange2', 'rangeValue2');
             rangeCount('customRange3', 'rangeValue3');
             rangeCount('customRange4', 'rangeValue4');
+
+
+            //Checkboxes
+            // Array of month names
+            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+            var container = document.getElementById("monthContainer");
+
+            for (var i = 0; i < months.length; i++) {
+                // Create the month div
+                var monthDiv = document.createElement("div");
+                monthDiv.className = "form-check form-check-inline";
+
+                // Create the checkbox input
+                var checkboxInput = document.createElement("input");
+                checkboxInput.className = "form-check-input";
+                checkboxInput.type = "checkbox";
+                checkboxInput.id = "monthCheckbox" + i;
+                checkboxInput.value = months[i];
+                checkboxInput.name = "optimalSeason"; // Added name attribute
+
+                // Create the label for the checkbox
+                var label = document.createElement("label");
+                label.className = "form-check-label";
+                label.setAttribute("for", "monthCheckbox" + i);
+                label.innerText = months[i];
+
+                // Append the input and label to the month div
+                monthDiv.appendChild(checkboxInput);
+                monthDiv.appendChild(label);
+
+                // Append the month div to the container
+                container.appendChild(monthDiv);
+            }
+
+            var form = document.getElementById("createHikeOverview");
+
+            form.addEventListener("submit", function (event) {
+                var checkboxes = document.querySelectorAll('input[name="optimalSeason"]:checked');
+
+                if (checkboxes.length === 0) {
+                    alert("Please select at least one optimal season.");
+                    event.preventDefault(); // Prevent form submission
+                }
+            });
 
         </script>
     </body>
