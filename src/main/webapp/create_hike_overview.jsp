@@ -31,11 +31,28 @@
                     <small class="text-muted">* Required</small>
                 </div>
                 <div class="input-fields-group">
-                    <h3>Images</h3>
-                    <label for="coverImageInput" class="form-label">Cover Image</label><br>
-                    <input type="file" class="form-control" id="coverImageInput" name="coverImageInput" accept=".png, .jpg">
-                    <small class="text-muted">* Required</small><br>
-                    <img id="previewCoverImage" src="" width="250">
+
+                    <div class="input-fields-group">
+                        <h3>Images</h3>
+                        <label for="coverImageInput" class="form-label">Cover Image</label><br>
+                        <input type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg" required>
+                        <small class="text-muted">* Required</small><br>
+                        <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
+                        <img id="previewCoverImage" width="250">
+                    </div>
+
+<%--                    <div class="input-fields-group">--%>
+<%--                        <label for="optionalImageInput1" class="form-label">Optional Image</label><br>--%>
+<%--                        <input type="file" class="form-control" id="optionalImageInput1" name="optionalImage1" accept=".png, .jpg">--%>
+<%--                        <img id="previewOptionalImage1" src="" width="250">--%>
+<%--                    </div>--%>
+<%--                    <div class="input-fields-group">--%>
+<%--                        <label for="optionalImageInput2" class="form-label">Optional Image</label><br>--%>
+<%--                        <input type="file" class="form-control" id="optionalImageInput2" name="optionalImage2" accept=".png, .jpg">--%>
+<%--                        <img id="previewOptionalImage2" src="" width="250">--%>
+<%--                    </div>--%>
+
+
                 </div>
 <%--                    <div class="input-fields-group">--%>
 <%--                        <label for="optionalImageInput1" class="form-label">Optional Image</label><br>--%>
@@ -48,23 +65,28 @@
 <%--                        <img id="previewOptionalImage2" src="" width="250">--%>
 <%--                    </div>--%>
 
-                <div class="custom-input-container">
+                <div class="input-fields-group less-width">
                     <h3>Distance</h3>
-                    <div class="input-group">
-                        <input type="text" class="form-control"  placeholder="Enter Distance" required maxlength="75">
-                    </div>
-                    <small class="text-muted">* Required</small><br><br>
-                    <h3>Duration</h3>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Enter Duration" required maxlength="75">
-                    </div>
-                    <small class="text-muted">* Required</small><br><br>
-                    <h3>Altitude</h3>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Enter Altitude" required maxlength="75">
-                    </div>
-                    <small class="text-muted">* Required</small><br>
+                    <input type="text" class="form-control" id="distanceID" placeholder="Enter distance here (decimal in km)" required maxlength="7" pattern="\d+(\.\d{1,2})">
+                    <small class="text-muted">* Required</small>
                 </div>
+                <div class="input-fields-group less-width">
+                    <h3>Duration</h3>
+                    <div>
+                        <input type="text" class="form-control" id="hoursID" placeholder="Enter hours here" required maxlength="2" pattern="[0-9]{1,2}">
+                        <small class="text-muted">* Required</small>
+                    </div>
+                    <div>
+                        <input type="text" class="form-control" id="minutesID" placeholder="Enter minutes here" required maxlength="2" pattern="[0-5]?[0-9]">
+                        <small class="text-muted">* Required. Must be between 0 and 59.</small>
+                    </div>
+                </div>
+                <div class="input-fields-group less-width">
+                    <h3>Altitude</h3>
+                    <input type="text" class="form-control" id="altitudeID" placeholder="Enter altitude here (in meters)" required maxlength="10" pattern="[0-9]?[0-9]?0-9]?0-9]">
+                    <small class="text-muted">* Required</small>
+                </div>
+
                 <div class="custom-input-container">
                     <div>
                         <h5>Required Condition</h5>
@@ -94,6 +116,7 @@
                     </div>
                     <small class="text-muted"><br>* Required</small><br>
                 </div>
+
 
                 <div class="row mt-4">
                     <div class="col">
@@ -150,11 +173,7 @@
                 window.location.href = "/search_results";
             }
 
-            function setupImagePreview(inputId, previewId) {
-                const input = document.getElementById(inputId);
-                const preview = document.getElementById(previewId);
 
-                if (input && preview) {
                     input.addEventListener("change",
                         () => {
                             const [file] = input.files;
@@ -182,6 +201,7 @@
                     return 'Do you really want to leave this page?';
                 }
             }
+
 
             window.onbeforeunload = function() {
                 return 'Do you really want to leave this page?';
@@ -245,6 +265,50 @@
                     event.preventDefault(); // Prevent form submission
                 }
             });
+
+
+                    input.onchange = evt => {
+                        const [file] = input.files;
+
+                        if (file) {
+                            preview.src = URL.createObjectURL(file);
+                        }
+                    };
+                }
+            }
+
+
+            // Setup für das Vorschaubild
+            setupImagePreview('coverImageInput', 'previewCoverImage');
+            setupImagePreview('optionalImageInput1', 'previewOptionalImage1');
+            setupImagePreview('optionalImageInput2', 'previewOptionalImage2');
+
+            window.onbeforeunload = function() {
+                return 'Do you really want to leave this page?';
+            };
+
+            document.getElementById('distanceID').addEventListener('input', function() {
+                let value = this.value;
+                this.value = value.replace(/[^0-9.]/g, '');
+            });
+
+            document.getElementById('hoursID').addEventListener('input', function() {
+                let value = this.value;
+                this.value = value.replace(/[^0-9]/g, '');
+            });
+
+            document.getElementById('minutesID').addEventListener('input', function() {
+                let value = this.value;
+                this.value = value.replace(/[^0-9]/g, '');
+            });
+
+            document.getElementById('altitudeID').addEventListener('input', function() {
+                let value = this.value;
+                this.value = value.replace(/[^0-9]/g, '');
+            });
+
+
+
 
         </script>
     </body>
