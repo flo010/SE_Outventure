@@ -171,10 +171,6 @@
                 window.location.href = "/search_results";
             }
 
-            function cancelProcess() {
-                window.location.href = "/search_results";
-            }
-
 
                     input.addEventListener("change",
                         () => {
@@ -204,11 +200,6 @@
                 }
             }
 
-
-            window.onbeforeunload = function() {
-                return 'Do you really want to leave this page?';
-            }
-
             function rangeCount(id, labelId){
                 var rangeInput = document.getElementById(id);
                 var rangeValue = document.getElementById(labelId);
@@ -223,7 +214,7 @@
             rangeCount('customRange3', 'rangeValue3');
             rangeCount('customRange4', 'rangeValue4');
 
-            
+
             function previewImage() {
                 const input = document.getElementById('coverImageInput');
                 const preview = document.getElementById('previewCoverImage');
@@ -333,16 +324,6 @@
                 }
             }
 
-
-            // Setup für das Vorschaubild
-            setupImagePreview('coverImageInput', 'previewCoverImage');
-            setupImagePreview('optionalImageInput1', 'previewOptionalImage1');
-            setupImagePreview('optionalImageInput2', 'previewOptionalImage2');
-
-            window.onbeforeunload = function() {
-                return 'Do you really want to leave this page?';
-            };
-
             document.getElementById('distanceID').addEventListener('input', function() {
                 let value = this.value;
                 this.value = value.replace(/[^0-9.]/g, '');
@@ -362,10 +343,6 @@
                 let value = this.value;
                 this.value = value.replace(/[^0-9]/g, '');
             });
-
-
-
-
         </script>
     </body>
 </html>
