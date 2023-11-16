@@ -53,6 +53,25 @@
                     </div>
                 </div>
 
+                <div class="custom-input-container">
+                    <h3>Distance</h3>
+                    <div class="input-group">
+                        <input type="text" class="form-control"  placeholder="Enter Distance" required maxlength="75">
+                    </div>
+                    <small class="text-muted">* Required</small><br><br>
+                    <h3>Duration</h3>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter Duration" required maxlength="75">
+                    </div>
+                    <small class="text-muted">* Required</small><br><br>
+                    <h3>Altitude</h3>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter Altitude" required maxlength="75">
+                    </div>
+                    <small class="text-muted">* Required</small><br>
+                </div>
+
+
                 <div class="row mt-4">
                     <div class="col">
                         <button type="button" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
