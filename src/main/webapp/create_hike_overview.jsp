@@ -36,7 +36,7 @@
                     <div class="input-fields-group">
                         <h3>Images</h3>
                         <label for="coverImageInput" class="form-label">Cover Image</label><br>
-                        <input type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg" required>
+                        <input onchange="previewImage()" type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg" required>
                         <small class="text-muted">* Required</small><br>
                         <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
                         <img id="previewCoverImage" width="250">
@@ -171,29 +171,6 @@
                 window.location.href = "/search_results";
             }
 
-
-                    input.addEventListener("change",
-                        () => {
-                            const [file] = input.files;
-
-                            if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
-                                input.classList.remove("is-invalid");
-                                preview.src = URL.createObjectURL(file);
-                                preview.style.display = "block";
-                            } else {
-                                input.classList.add("is-invalid");
-                                preview.style.display = "none";
-                            }
-                        }
-                    );
-                }
-            }
-
-            // Setup für das Vorschaubild
-            setupImagePreview('coverImageInput', 'previewCoverImage');
-            setupImagePreview('optionalImageInput1', 'previewOptionalImage1');
-            setupImagePreview('optionalImageInput2', 'previewOptionalImage2');
-
             window.onbeforeunload = function () {
                 if (shouldPromptBeforeUnload) {
                     return 'Do you really want to leave this page?';
@@ -215,58 +192,66 @@
             rangeCount('customRange4', 'rangeValue4');
 
 
-            function previewImage() {
-                const input = document.getElementById('coverImageInput');
-                const preview = document.getElementById('previewCoverImage');
-                const invalidFeedback = document.querySelector('.invalid-feedback');
+            function previewImage(inputId, previewId) {
+                const input = document.getElementById(inputId);
+                const preview = document.getElementById(previewId);
 
-                const file = input.files[0];
+                // Check if input and preview element are present
+                if (input && preview) {
+                    // Add EventListener for the event that the input changes
+                    input.addEventListener("change",
+                        () => {
+                            const [file] = input.files;
 
-                // Check if a file is selected
-                if (file) {
-                    // Check if the file type is valid (you can modify this check based on your requirements)
-                    if (file.type === 'image/png' || file.type === 'image/jpeg') {
-                        invalidFeedback.style.display = 'none';
-
-                        // Create a FileReader to read the image
-                        const reader = new FileReader();
-
-                        // Set up the FileReader onload event
-                        reader.onload = function (e) {
-                            const img = new Image();
-
-                            // Set up the Image onload event
-                            img.onload = function () {
-                                // Resize the image using a canvas
-                                const canvas = document.createElement('canvas');
-                                const ctx = canvas.getContext('2d');
-
-                                canvas.width = 250; // Set the desired width
-                                canvas.height = (250 * img.height) / img.width; // Maintain aspect ratio
-
-                                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-                                // Update the preview image source with the resized image
-                                preview.src = canvas.toDataURL('image/jpeg'); // Use 'image/png' for PNG format
-                            };
-
-                            // Set the Image source to the FileReader result (base64 data URL)
-                            img.src = e.target.result;
-                        };
-
-                        // Read the file as a data URL
-                        reader.readAsDataURL(file);
-                    } else {
-                        // Display an error message for invalid file types
-                        invalidFeedback.style.display = 'block';
-                        invalidFeedback.textContent = 'Invalid file type. Please provide a .png or .jpg.';
-                        preview.src = ''; // Clear the preview image
-                    }
-                } else {
-                    // Clear the preview image if no file is selected
-                    preview.src = '';
+                            // Check if a file is present and check for its file type
+                            if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
+                                input.classList.remove("is-invalid");
+                                resizeImage(file, preview);
+                            } else {
+                                input.classList.add("is-invalid");
+                                preview.style.display = "none";
+                            }
+                        }
+                    );
                 }
             }
+
+            function resizeImage(file, preview) {
+                // Create a FileReader to read the image
+                const reader = new FileReader();
+
+                // Set up the FileReader onload event
+                reader.onload = function (e) {
+                    const img = new Image();
+
+                    // Set up the Image onload event
+                    img.onload = function () {
+                        // Resize the image using a canvas
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+
+                        canvas.width = 250; // Set the desired width
+                        canvas.height = (250 * img.height) / img.width; // Maintain aspect ratio
+
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                        // Update the preview image source with the resized image
+                        preview.src = canvas.toDataURL('image/jpeg'); // Use 'image/png' for PNG format
+                        preview.style.display = "block";
+                    };
+
+                    // Set the Image source to the FileReader result (base64 data URL)
+                    img.src = e.target.result;
+                };
+
+                // Read the file as a data URL
+                reader.readAsDataURL(file);
+            }
+
+            // Setup für das Vorschaubild
+            previewImage('coverImageInput', 'previewCoverImage');
+            // previewImage('optionalImageInput1', 'previewOptionalImage1');
+            // previewImage('optionalImageInput2', 'previewOptionalImage2');
 
 
             //Checkboxes
@@ -312,17 +297,6 @@
                     event.preventDefault(); // Prevent form submission
                 }
             });
-
-
-                    input.onchange = evt => {
-                        const [file] = input.files;
-
-                        if (file) {
-                            preview.src = URL.createObjectURL(file);
-                        }
-                    };
-                }
-            }
 
             document.getElementById('distanceID').addEventListener('input', function() {
                 let value = this.value;
