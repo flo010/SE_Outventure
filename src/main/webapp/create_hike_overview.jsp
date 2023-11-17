@@ -52,20 +52,7 @@
 <%--                        <input type="file" class="form-control" id="optionalImageInput2" name="optionalImage2" accept=".png, .jpg">--%>
 <%--                        <img id="previewOptionalImage2" src="" width="250">--%>
 <%--                    </div>--%>
-
-
-
                 </div>
-<%--                    <div class="input-fields-group">--%>
-<%--                        <label for="optionalImageInput1" class="form-label">Optional Image</label><br>--%>
-<%--                        <input type="file" class="form-control" id="optionalImageInput1" name="optionalImage1" accept=".png, .jpg">--%>
-<%--                        <img id="previewOptionalImage1" src="" width="250">--%>
-<%--                    </div>--%>
-<%--                    <div class="input-fields-group">--%>
-<%--                        <label for="optionalImageInput2" class="form-label">Optional Image</label><br>--%>
-<%--                        <input type="file" class="form-control" id="optionalImageInput2" name="optionalImage2" accept=".png, .jpg">--%>
-<%--                        <img id="previewOptionalImage2" src="" width="250">--%>
-<%--                    </div>--%>
 
                 <div class="input-fields-group less-width">
                     <h3>Distance</h3>
@@ -92,23 +79,23 @@
                 <div class="input-fields-group less-width">
                     <div>
                         <h5>Required Condition</h5>
-                        <input type="range" class="custom-range" id="customRange1" name="conditionInput" min="0" max="5" step="1"value="0">
-                        <label id="rangeValue1">0</label>
+                        <input type="range" class="custom-range" id="customRange1" name="conditionInput" min="1" max="5" step="1"value="0">
+                        <label id="rangeValue1">1</label>
                     </div>
                     <div>
                         <h5>Level of Difficulty</h5>
-                        <input type="range" class="custom-range" id="customRange2" name="difficultyInput" min="0" max="5" step="1" value="0">
-                        <label id="rangeValue2">0</label>
+                        <input type="range" class="custom-range" id="customRange2" name="difficultyInput" min="1" max="5" step="1" value="0">
+                        <label id="rangeValue2">1</label>
                     </div>
                     <div>
                         <h5>Required Experience</h5>
-                        <input type="range" class="custom-range" id="customRange3" name="experienceInput" min="0" max="5" step="1" value="0">
-                        <label id="rangeValue3">0</label>
+                        <input type="range" class="custom-range" id="customRange3" name="experienceInput" min="1" max="5" step="1" value="0">
+                        <label id="rangeValue3">1</label>
                     </div>
                     <div>
                         <h5>Landscape Beauty</h5>
-                        <input type="range" class="custom-range" id="customRange4" name="landscapeInput" min="0" max="5" step="1" value="0">
-                        <label id="rangeValue4">0</label>
+                        <input type="range" class="custom-range" id="customRange4" name="landscapeInput" min="1" max="5" step="1" value="0">
+                        <label id="rangeValue4">1</label>
                     </div>
                 </div>
                 <%--for loop for months--%>
@@ -118,7 +105,6 @@
                     </div>
                     <small class="text-muted"><br>* Required</small><br>
                 </div>
-
 
                 <div class="row mt-4">
                     <div class="col">
