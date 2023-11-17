@@ -52,20 +52,7 @@
 <%--                        <input type="file" class="form-control" id="optionalImageInput2" name="optionalImage2" accept=".png, .jpg">--%>
 <%--                        <img id="previewOptionalImage2" src="" width="250">--%>
 <%--                    </div>--%>
-
-
-
                 </div>
-<%--                    <div class="input-fields-group">--%>
-<%--                        <label for="optionalImageInput1" class="form-label">Optional Image</label><br>--%>
-<%--                        <input type="file" class="form-control" id="optionalImageInput1" name="optionalImage1" accept=".png, .jpg">--%>
-<%--                        <img id="previewOptionalImage1" src="" width="250">--%>
-<%--                    </div>--%>
-<%--                    <div class="input-fields-group">--%>
-<%--                        <label for="optionalImageInput2" class="form-label">Optional Image</label><br>--%>
-<%--                        <input type="file" class="form-control" id="optionalImageInput2" name="optionalImage2" accept=".png, .jpg">--%>
-<%--                        <img id="previewOptionalImage2" src="" width="250">--%>
-<%--                    </div>--%>
 
                 <div class="input-fields-group less-width">
                     <h3>Distance</h3>
@@ -118,7 +105,6 @@
                     </div>
                     <small class="text-muted"><br>* Required</small><br>
                 </div>
-
 
                 <div class="row mt-4">
                     <div class="col">
