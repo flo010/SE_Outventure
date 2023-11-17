@@ -21,9 +21,11 @@ public class SaveDataServlet extends HttpServlet {
 
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
-        double duration = 1.1;
-        double distance = 1.1;
-        int altitude = 1;
+        double distance = Double.parseDouble(request.getParameter("distanceInput"));;
+        int hours = Integer.parseInt(request.getParameter("hoursInput"));
+        int minutes = Integer.parseInt(request.getParameter("minutesInput"));
+        double duration = hours + (minutes / 60.0);
+        int altitude = Integer.parseInt(request.getParameter("altitudeInput"));;
 
         Start start = new Start();
         start.setStartID(1);
@@ -37,22 +39,22 @@ public class SaveDataServlet extends HttpServlet {
         destination.setLatitude(42.12);
         destination.setLongitude(10.12);
 
-        int strength = 1;
-        int stamina = 1;
-        int experience = 1;
-        int landscape = 1;
-        boolean january = true;
-        boolean february = false;
-        boolean march = false;
-        boolean april = false;
-        boolean may = false;
-        boolean june = false;
-        boolean july = false;
-        boolean august = false;
-        boolean september = false;
-        boolean october = false;
-        boolean november = false;
-        boolean december = false;
+        int strength = Integer.parseInt(request.getParameter("difficultyInput"));;
+        int stamina = Integer.parseInt(request.getParameter("conditionInput"));
+        int experience = Integer.parseInt(request.getParameter("experienceInput"));;
+        int landscape = Integer.parseInt(request.getParameter("landscapeInput"));;
+        boolean january = Boolean.parseBoolean(request.getParameter("monthCheckboxJanuary"));
+        boolean february = Boolean.parseBoolean(request.getParameter("monthCheckboxFebruary"));
+        boolean march = Boolean.parseBoolean(request.getParameter("monthCheckboxMarch"));
+        boolean april = Boolean.parseBoolean(request.getParameter("monthCheckboxApril"));
+        boolean may = Boolean.parseBoolean(request.getParameter("monthCheckboxMay"));
+        boolean june = Boolean.parseBoolean(request.getParameter("monthCheckboxJune"));
+        boolean july = Boolean.parseBoolean(request.getParameter("monthCheckboxJuly"));
+        boolean august = Boolean.parseBoolean(request.getParameter("monthCheckboxAugust"));
+        boolean september = Boolean.parseBoolean(request.getParameter("monthCheckboxSeptember"));
+        boolean october = Boolean.parseBoolean(request.getParameter("monthCheckboxOctober"));
+        boolean november = Boolean.parseBoolean(request.getParameter("monthCheckboxNovember"));
+        boolean december = Boolean.parseBoolean(request.getParameter("monthCheckboxDecember"));
         String routeDescription = "New Route Description";
 
         Hike hike = new Hike();

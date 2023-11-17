@@ -69,45 +69,45 @@
 
                 <div class="input-fields-group less-width">
                     <h3>Distance</h3>
-                    <input type="text" class="form-control" id="distanceID" placeholder="Enter distance here (decimal in km)" required maxlength="7" pattern="\d+(\.\d{1,2})">
+                    <input type="text" class="form-control" id="distanceID" name="distanceInput" placeholder="Enter distance here (decimal in km)" required maxlength="7" pattern="\d+(\.\d{1,2})">
                     <small class="text-muted">* Required</small>
                 </div>
                 <div class="input-fields-group less-width">
                     <h3>Duration</h3>
                     <div>
-                        <input type="text" class="form-control" id="hoursID" placeholder="Enter hours here" required maxlength="2" pattern="[0-9]{1,2}">
+                        <input type="text" class="form-control" id="hoursID" name="hoursInput" placeholder="Enter hours here" required maxlength="2" pattern="[0-9]{1,2}">
                         <small class="text-muted">* Required</small>
                     </div>
                     <div>
-                        <input type="text" class="form-control" id="minutesID" placeholder="Enter minutes here" required maxlength="2" pattern="[0-5]?[0-9]">
+                        <input type="text" class="form-control" id="minutesID" name="minutesInput" placeholder="Enter minutes here" required maxlength="2" pattern="[0-5]?[0-9]">
                         <small class="text-muted">* Required. Must be between 0 and 59.</small>
                     </div>
                 </div>
                 <div class="input-fields-group less-width">
                     <h3>Altitude</h3>
-                    <input type="text" class="form-control" id="altitudeID" placeholder="Enter altitude here (in meters)" required maxlength="10" pattern="[0-9]?[0-9]?0-9]?0-9]">
+                    <input type="text" class="form-control" id="altitudeID" name="altitudeInput" placeholder="Enter altitude here (in meters)" required maxlength="10" pattern="[0-9]?[0-9]?0-9]?0-9]">
                     <small class="text-muted">* Required</small>
                 </div>
 
                 <div class="input-fields-group less-width">
                     <div>
                         <h5>Required Condition</h5>
-                        <input type="range" class="custom-range" id="customRange1" min="0" max="5" step="1"value="0">
+                        <input type="range" class="custom-range" id="customRange1" name="conditionInput" min="0" max="5" step="1"value="0">
                         <label id="rangeValue1">0</label>
                     </div>
                     <div>
                         <h5>Level of Difficulty</h5>
-                        <input type="range" class="custom-range" id="customRange2" min="0" max="5" step="1" value="0">
+                        <input type="range" class="custom-range" id="customRange2" name="difficultyInput" min="0" max="5" step="1" value="0">
                         <label id="rangeValue2">0</label>
                     </div>
                     <div>
                         <h5>Required Experience</h5>
-                        <input type="range" class="custom-range" id="customRange3" min="0" max="5" step="1" value="0">
+                        <input type="range" class="custom-range" id="customRange3" name="experienceInput" min="0" max="5" step="1" value="0">
                         <label id="rangeValue3">0</label>
                     </div>
                     <div>
                         <h5>Landscape Beauty</h5>
-                        <input type="range" class="custom-range" id="customRange4" min="0" max="5" step="1" value="0">
+                        <input type="range" class="custom-range" id="customRange4" name="landscapeInput" min="0" max="5" step="1" value="0">
                         <label id="rangeValue4">0</label>
                     </div>
                 </div>
@@ -278,9 +278,9 @@
                 var checkboxInput = document.createElement("input");
                 checkboxInput.className = "form-check-input";
                 checkboxInput.type = "checkbox";
-                checkboxInput.id = "monthCheckbox" + i;
-                checkboxInput.value = months[i];
-                checkboxInput.name = "optimalSeason"; // Added name attribute
+                checkboxInput.id = "optimalSeason";
+                checkboxInput.value = "true";
+                checkboxInput.name = "monthCheckbox" + months[i]; // Added name attribute
 
                 // Create the label for the checkbox
                 var label = document.createElement("label");
@@ -299,7 +299,7 @@
             var form = document.getElementById("createHikeOverview");
 
             form.addEventListener("submit", function (event) {
-                var checkboxes = document.querySelectorAll('input[name="optimalSeason"]:checked');
+                var checkboxes = document.querySelectorAll('input[id="optimalSeason"]:checked');
 
                 if (checkboxes.length === 0) {
                     alert("Please select at least one optimal season.");
