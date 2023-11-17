@@ -36,7 +36,7 @@
                     <div class="input-fields-group">
                         <h3>Images</h3>
                         <label for="coverImageInput" class="form-label">Cover Image</label><br>
-                        <input onchange="previewImage()" type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg" required>
+                        <input onchange="handleCoverImage()" type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg" required>
                         <small class="text-muted">* Required</small><br>
                         <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
                         <img id="previewCoverImage" width="250">
@@ -206,7 +206,7 @@
                             // Check if a file is present and check for its file type
                             if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
                                 input.classList.remove("is-invalid");
-                                resizeAndCompressImage(file, preview);
+                                handleCoverImage(file, preview);
                             } else {
                                 input.classList.add("is-invalid");
                                 preview.style.display = "none";
@@ -216,39 +216,44 @@
                 }
             }
 
-            function resizeAndCompressImage(file, preview) {
-                const MAX_WIDTH = 250; // Set the desired width
-                const reader = new FileReader();
+            function handleCoverImage() {
+                const input = document.getElementById('coverImageInput');
+                const preview = document.getElementById('previewCoverImage');
 
-                // Set up the FileReader onload event
-                reader.onload = function (e) {
-                    const img = new Image();
+                const file = input.files[0];
+                if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
+                    const reader = new FileReader();
 
-                    // Set up the Image onload event
-                    img.onload = function () {
-                        // Resize the image using a canvas
-                        const canvas = document.createElement('canvas');
-                        const ctx = canvas.getContext('2d');
+                    reader.onload = function (e) {
+                        const img = new Image();
 
-                        const aspectRatio = img.width / img.height;
-                        const newHeight = MAX_WIDTH / aspectRatio;
+                        img.onload = function () {
+                            // Resize the image (you can adjust width and height as needed)
+                            const canvas = document.createElement('canvas');
+                            const ctx = canvas.getContext('2d');
+                            canvas.width = 300; // set your desired width
+                            canvas.height = (300 * img.height) / img.width; // maintain aspect ratio
+                            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                        canvas.width = MAX_WIDTH;
-                        canvas.height = newHeight;
+                            // Compress the image (you can adjust quality as needed)
+                            const compressedDataURL = canvas.toDataURL('image/jpeg', 0.7);
 
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                            // Display the preview
+                            preview.src = compressedDataURL;
+                            preview.style.display = 'block';
 
-                        // Update the preview image source with the resized and compressed image
-                        preview.src = canvas.toDataURL('image/jpeg', 0.5);
-                        preview.style.display = "block";
+                            // Optionally, you can upload the compressed image to a server here.
+                            // Example: uploadImageToServer(compressedDataURL);
+                        };
+
+                        img.src = e.target.result;
                     };
 
-                    // Set the Image source to the FileReader result (base64 data URL)
-                    img.src = e.target.result;
-                };
-
-                // Read the file as a data URL
-                reader.readAsDataURL(file);
+                    reader.readAsDataURL(file);
+                } else {
+                    // Handle invalid file type
+                    alert('Invalid file type. Please provide a .png or .jpg.');
+                }
             }
 
 
