@@ -85,6 +85,6 @@ public class SaveDataServlet extends HttpServlet {
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         facadeJPA.save(hike);
 
-        response.sendRedirect("search_results");
+        response.sendRedirect("search_results?hikeCreated=true");
     }
 }

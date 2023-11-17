@@ -3,6 +3,8 @@
 <%@ page import="hibernate.model.Hike" %>
 <%@ page import="hibernate.facade.FacadeJPA" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="java.util.Objects" %>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -70,5 +72,42 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script>
+            function showToast(headerMessage, bodyMessage) {
+                // Create a new toast element
+                var toast = document.createElement("div");
+                toast.className = "toast";
+                toast.setAttribute("id", "toastID")
+                toast.setAttribute("role", "alert");
+                toast.setAttribute("aria-live", "assertive");
+                toast.setAttribute("aria-atomic", "true");
+
+                // Create toast header
+                var toastHeader = document.createElement("div");
+                toastHeader.className = "toast-header";
+                toastHeader.innerHTML = '<strong class="mr-auto"> + headerMessage + </strong>'
+                    + '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">'
+                    + '<span aria-hidden="true">&times;</span>'
+                    + '</button>';
+                toast.appendChild(toastHeader);
+
+                // Create toast body
+                var toastBody = document.createElement("div");
+                toastBody.className = "toast-body";
+                toastBody.innerText = bodyMessage;
+                toast.appendChild(toastBody);
+
+                // Append the toast to the body
+                document.body.appendChild(toast);
+
+                $('toastID').toast('show');
+            }
+
+            console.log("hike created: " + <%=request.getAttribute("hikeCreated")%>)
+
+            if (<%=request.getAttribute("hikeCreated")%>) {
+                showToast("Successful saving", "Your hike was successfully saved!");
+            }
+        </script>
     </body>
 </html>
