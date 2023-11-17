@@ -13,7 +13,7 @@ import jakarta.transaction.Transactional;
 
 import java.io.IOException;
 
-@WebServlet(name = "hikeDetailServlet", value = "/save_data")
+@WebServlet(name = "saveDataServlet", value = "/save_data")
 public class SaveDataServlet extends HttpServlet {
     @Transactional
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

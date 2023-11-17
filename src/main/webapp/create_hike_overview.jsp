@@ -206,7 +206,7 @@
                             // Check if a file is present and check for its file type
                             if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
                                 input.classList.remove("is-invalid");
-                                resizeImage(file, preview);
+                                resizeAndCompressImage(file, preview);
                             } else {
                                 input.classList.add("is-invalid");
                                 preview.style.display = "none";
@@ -216,8 +216,8 @@
                 }
             }
 
-            function resizeImage(file, preview) {
-                // Create a FileReader to read the image
+            function resizeAndCompressImage(file, preview) {
+                const MAX_WIDTH = 250; // Set the desired width
                 const reader = new FileReader();
 
                 // Set up the FileReader onload event
@@ -230,13 +230,19 @@
                         const canvas = document.createElement('canvas');
                         const ctx = canvas.getContext('2d');
 
-                        canvas.width = 250; // Set the desired width
-                        canvas.height = (250 * img.height) / img.width; // Maintain aspect ratio
+                        const aspectRatio = img.width / img.height;
+                        const newHeight = MAX_WIDTH / aspectRatio;
+
+                        canvas.width = MAX_WIDTH;
+                        canvas.height = newHeight;
 
                         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                        // Update the preview image source with the resized image
-                        preview.src = canvas.toDataURL('image/jpeg'); // Use 'image/png' for PNG format
+                        // Compress the image
+                        const compressedDataURL = canvas.toDataURL('image/jpeg', 0.7); // Adjust quality as needed
+
+                        // Update the preview image source with the resized and compressed image
+                        preview.src = compressedDataURL;
                         preview.style.display = "block";
                     };
 
@@ -247,6 +253,7 @@
                 // Read the file as a data URL
                 reader.readAsDataURL(file);
             }
+
 
             // Setup für das Vorschaubild
             previewImage('coverImageInput', 'previewCoverImage');
