@@ -238,11 +238,8 @@
 
                         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                        // Compress the image
-                        const compressedDataURL = canvas.toDataURL('image/jpeg', 0.7); // Adjust quality as needed
-
                         // Update the preview image source with the resized and compressed image
-                        preview.src = compressedDataURL;
+                        preview.src = canvas.toDataURL('image/jpeg', 0.5);
                         preview.style.display = "block";
                     };
 
