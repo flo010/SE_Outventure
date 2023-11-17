@@ -79,23 +79,23 @@
                 <div class="input-fields-group less-width">
                     <div>
                         <h5>Required Condition</h5>
-                        <input type="range" class="custom-range" id="customRange1" min="0" max="5" step="1"value="0">
-                        <label id="rangeValue1">0</label>
+                        <input type="range" class="custom-range" id="customRange1" min="1" max="5" step="1"value="0">
+                        <label id="rangeValue1">1</label>
                     </div>
                     <div>
                         <h5>Level of Difficulty</h5>
-                        <input type="range" class="custom-range" id="customRange2" min="0" max="5" step="1" value="0">
-                        <label id="rangeValue2">0</label>
+                        <input type="range" class="custom-range" id="customRange2" min="1" max="5" step="1" value="0">
+                        <label id="rangeValue2">1</label>
                     </div>
                     <div>
                         <h5>Required Experience</h5>
-                        <input type="range" class="custom-range" id="customRange3" min="0" max="5" step="1" value="0">
-                        <label id="rangeValue3">0</label>
+                        <input type="range" class="custom-range" id="customRange3" min="1" max="5" step="1" value="0">
+                        <label id="rangeValue3">1</label>
                     </div>
                     <div>
                         <h5>Landscape Beauty</h5>
-                        <input type="range" class="custom-range" id="customRange4" min="0" max="5" step="1" value="0">
-                        <label id="rangeValue4">0</label>
+                        <input type="range" class="custom-range" id="customRange4" min="1" max="5" step="1" value="0">
+                        <label id="rangeValue4">1</label>
                     </div>
                 </div>
                 <%--for loop for months--%>
