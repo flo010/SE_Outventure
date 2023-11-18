@@ -72,7 +72,7 @@
                 </div>
                 <div class="input-fields-group less-width">
                     <h3>Altitude</h3>
-                    <input type="text" class="form-control" id="altitudeID" name="altitudeInput" placeholder="Enter altitude here (in meters)" required maxlength="10" pattern="[0-9]?[0-9]?0-9]?0-9]">
+                    <input type="text" class="form-control" id="altitudeID" name="altitudeInput" placeholder="Enter altitude here (in meters)" required maxlength="10" pattern="\d{1,10}">
                     <small class="text-muted">* Required</small>
                 </div>
 
@@ -104,6 +104,17 @@
                     <div class="form-check form-check-inline" id="monthContainer">
                     </div>
                     <small class="text-muted"><br>* Required</small><br>
+                </div>
+
+                <div class="input-fields-group less-width">
+                    <h3>Start</h3>
+                    <input type="text" class="form-control" id="startID" name="startInput" placeholder="Enter start Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
+                    <small class="text-muted">* Required.Format:-XX.XXXXXX,YY.YYYYYY (negative sign optional)</small>
+                </div>
+                <div class="input-fields-group less-width">
+                    <h3>Destination</h3>
+                    <input type="text" class="form-control" id="destinationID" name="destinationInput" placeholder="Enter destination Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
+                    <small class="text-muted">* Required.Format:-XX.XXXXXX,YY.YYYYYY (negative sign optional)</small>
                 </div>
 
                 <div class="row mt-4">
@@ -312,6 +323,18 @@
                 let value = this.value;
                 this.value = value.replace(/[^0-9]/g, '');
             });
+
+            document.getElementById('startID').addEventListener('input', function() {
+                let value = this.value;
+                this.value = value.replace(/[^\d.,-]/g, '');
+            });
+
+
+            document.getElementById('destinationID').addEventListener('input', function() {
+                let value = this.value;
+                this.value = value.replace(/[^\d.,-]/g, '');
+            });
+
         </script>
     </body>
 </html>
