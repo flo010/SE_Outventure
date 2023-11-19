@@ -122,7 +122,7 @@
                         <button type="button" id="cancelButton" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
                     </div>
                     <div class="col text-end">
-                        <button type="submit" id="saveButton" class="btn btn-success">Save</button>
+                        <button type="submit" id="saveButton" class="btn btn-success" onclick="saveInput()">Save</button>
                     </div>
 <%--                    <div class="col text-end">--%>
 <%--                        <button type="submit" class="btn btn-success" onclick="continueFunction(); return false;">Continue</button>--%>
@@ -165,7 +165,12 @@
 
             function cancelProcess() {
                 shouldPromptBeforeUnload = false;
-                window.location.href = "/search_results";
+                window.location.href = "search_results";
+            }
+
+            function saveInput() {
+                shouldPromptBeforeUnload = false;
+                window.location.href = "search_results";
             }
 
             window.onbeforeunload = function () {
