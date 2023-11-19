@@ -18,14 +18,15 @@
             <jsp:include page="navbar.jsp"/>
         </header>
 
+
         <div class="container-sm create-hike mt-5 mb-5">
-            <form name="createHikeOverview" id="createHikeOverview" action="save_data" method="post" class="needs-validation" novalidate>
+            <form id="createHikeOverview" action="save_data" method="post">
                 <div class="input-fields-group">
                     <h3>Title</h3>
                     <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Enter title here (max. 100 characters)" required maxlength="100">
                     <small class="text-muted">* Required</small>
                 </div>
-                <div class="input-fields-group">
+                    <div class="input-fields-group">
                     <h3>Description</h3>
                     <textarea class="form-control" id="descriptionInput" name="descriptionInput" rows="8" placeholder="Enter description here (max. 1000 characters)" required maxlength="1000"></textarea>
                     <small class="text-muted">* Required</small>
@@ -101,12 +102,12 @@
                 <%--for loop for months--%>
                 <div class="input-fields-group">
                     <h3>Optimal Season</h3>
-                    <div class="form-check form-check-inline" id="monthContainer" >
+                    <div class="form-check form-check-inline" id="monthContainer">
                     </div>
                     <small class="text-muted"><br>* Required</small><br>
                 </div>
 
-                <div class="input-fields-group less-width">
+        <div class="input-fields-group less-width">
                     <h3>Start</h3>
                     <input type="text" class="form-control" id="startID" name="startInput" placeholder="Enter start Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
                     <small class="text-muted">* Required.Format:-XX.XXXXXX,YY.YYYYYY (negative sign optional)</small>
@@ -116,20 +117,23 @@
                     <input type="text" class="form-control" id="destinationID" name="destinationInput" placeholder="Enter destination Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
                     <small class="text-muted">* Required.Format:-XX.XXXXXX,YY.YYYYYY (negative sign optional)</small>
                 </div>
-
+                <!-- Pluszeichen hinzugefügt -->
+                <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pointsOfInterestModal">
+                    <i class="fa fa-plus"></i> Add Points of Interest
+                </button>
+        </div>
                 <div class="row mt-4">
-                    <div class="col">
+                    <div class="col-md-6">
                         <button type="button" id="cancelButton" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
                     </div>
                     <div class="col text-end">
-                        <button type="submit" id="saveButton" class="btn btn-success">Save</button>
+                        <button type="submit" id="saveButton" class="btn btn-success" onclick="saveInput()">Save</button>
                     </div>
 <%--                    <div class="col text-end">--%>
 <%--                        <button type="submit" class="btn btn-success" onclick="continueFunction(); return false;">Continue</button>--%>
 <%--                    </div>--%>
                 </div>
             </form>
-
             <div class="modal fade" id="cancelConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="cancelConfirmationModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered " role="document">
                     <div class="modal-content">
@@ -149,11 +153,68 @@
             </div>
         </div>
 
+        <!-- Modal for Points of Interest -->
+        <div class="modal fade" id="pointsOfInterestModal" tabindex="-1" role="dialog" aria-labelledby="pointsOfInterestModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="pointsOfInterestModalLabel">Add Points of Interest</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Content for adding Points of Interest goes here -->
+                        <!-- For example: a form to input Points of Interest -->
+                        <form id="poiForm">
+                            <div class="input-fields-group">
+                                <h3>Name</h3>
+                                <input type="text" class="form-control" id="poiName" name="poiName" placeholder="Enter Point of Interest Name" required maxlength="100">
+                                <small class="text-muted">* Required</small>
+                            </div>
+                            <div class="input-fields-group">
+                                <h3>Coordinates</h3>
+                                <input type="text" class="form-control" id="poiCoordinates" name="poiCoordinates" placeholder="Enter Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
+                                <small class="text-muted">* Required. Format:-XX.XXXXXX,YY.YYYYYY  </small>
+                            </div>
+                            <!-- Error message for required fields -->
+                            <div id="poiErrorMessage" class="alert alert-danger mt-2" style="display: none;">
+                                Please fill out all required fields.
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-success" onclick="savePointOfInterest()">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script>
+            // JavaScript code to activate the modal
+            var pointsOfInterestModal = new bootstrap.Modal(document.getElementById('pointsOfInterestModal'));
+
+            function openPointsOfInterestModal() {
+                pointsOfInterestModal.show();
+            }
             let shouldPromptBeforeUnload = true; // Variable to track whether to prompt before unload
 
+            function savePointOfInterest() {
+                // Get values from the form
+                var poiName = document.getElementById('poiName').value;
+                var poiCoordinates = document.getElementById('poiCoordinates').value;
+
+                // Check if required fields are empty
+                if (!poiName || !poiCoordinates) {
+                    var errorMessage = document.getElementById('poiErrorMessage');
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                // Do something with the values, e.g., save to a list, update UI, etc.
+
+                // Close the modal
+                pointsOfInterestModal.hide();
+            }
             function cancelCancel(){
             }
 
@@ -163,10 +224,14 @@
                 });
                 myModal.show();
             }
-
             function cancelProcess() {
                 shouldPromptBeforeUnload = false;
-                window.location.href = "/search_results";
+                window.location.href = "search_results";
+            }
+
+            function saveInput() {
+                shouldPromptBeforeUnload = false;
+                window.location.href = "search_results";
             }
 
             window.onbeforeunload = function () {
@@ -174,6 +239,7 @@
                     return 'Do you really want to leave this page?';
                 }
             }
+
 
             function rangeCount(id, labelId){
                 var rangeInput = document.getElementById(id);
@@ -197,8 +263,7 @@
                 // Check if input and preview element are present
                 if (input && preview) {
                     // Add EventListener for the event that the input changes
-                    input.addEventListener("change",
-                        () => {
+                    input.addEventListener("change", function () {
                             const [file] = input.files;
 
                             // Check if a file is present and check for its file type
@@ -272,13 +337,11 @@
                 var monthDiv = document.createElement("div");
                 monthDiv.className = "form-check form-check-inline";
 
-
                 // Create the checkbox input
                 var checkboxInput = document.createElement("input");
-                checkboxInput.classList.add("exclude-validation");
-                checkboxInput.className = "form-check-input no-validation";
+                checkboxInput.className = "form-check-input";
                 checkboxInput.type = "checkbox";
-                checkboxInput.id = "optimalSeason" + i; //unique ID for each checkbox
+                checkboxInput.id = "optimalSeason";
                 checkboxInput.value = "true";
                 checkboxInput.name = "monthCheckbox" + months[i]; // Added name attribute
 
@@ -299,9 +362,9 @@
             var form = document.getElementById("createHikeOverview");
 
             form.addEventListener("submit", function (event) {
-                var checkboxes = document.querySelectorAll('input[id^="optimalSeason"]:checked');
+                var checkboxes = document.querySelectorAll('input[id="optimalSeason"]:checked');
 
-               if (checkboxes.length === 0) {
+                if (checkboxes.length === 0) {
                     alert("Please select at least one optimal season.");
                     event.preventDefault(); // Prevent form submission
                 }
@@ -338,27 +401,6 @@
                 this.value = value.replace(/[^\d.,-]/g, '');
             });
 
-            // Example starter JavaScript for disabling form submissions if there are invalid fields
-            (() => {
-                'use strict';
-
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                const forms = document.querySelectorAll('.needs-validation')
-
-                // Loop over them and prevent submission
-                Array.from(forms).forEach(form => {
-
-                    form.addEventListener('submit', event => {
-
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }
-
-                        form.classList.add('was-validated')
-                    }, false)
-                })
-            })()
         </script>
     </body>
 </html>

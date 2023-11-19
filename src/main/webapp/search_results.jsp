@@ -3,6 +3,8 @@
 <%@ page import="hibernate.model.Hike" %>
 <%@ page import="hibernate.facade.FacadeJPA" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="java.util.Objects" %>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -70,5 +72,51 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script>
+            function createToast(headerMessage, bodyMessage) {
+                // Create a new toast element
+                var toast = document.createElement("div");
+                toast.className = "toast position-fixed top-0 start-50 translate-middle-x";
+                toast.setAttribute("id", "saveHikeToast")
+                toast.setAttribute("role", "alert");
+                toast.setAttribute("aria-live", "assertive");
+                toast.setAttribute("aria-atomic", "true");
+
+                // Create toast header
+                var toastHeader = document.createElement("div");
+                toastHeader.className = "toast-header";
+
+                var strongElement = document.createElement("strong");
+                strongElement.className = "me-auto";
+                strongElement.innerText = headerMessage;
+                var buttonElement = document.createElement("button");
+                buttonElement.className = "btn-close";
+                buttonElement.setAttribute("data-bs-dismiss", "toast");
+                buttonElement.setAttribute("aria-label", "Close");
+
+                toastHeader.appendChild(strongElement);
+                toastHeader.appendChild(buttonElement);
+                toast.appendChild(toastHeader);
+
+                // Create toast body
+                var toastBody = document.createElement("div");
+                toastBody.className = "toast-body";
+                toastBody.innerText = bodyMessage;
+                toast.appendChild(toastBody);
+
+                // Append the toast to the body
+                document.body.appendChild(toast);
+            }
+
+            function showSaveHikeToast() {
+                var toast = new bootstrap.Toast(document.getElementById("saveHikeToast"));
+                toast.show();
+            }
+
+            if (<%=request.getAttribute("hikeCreated")%>) {
+                createToast("Successful saving", "Your hike was successfully saved!");
+                showSaveHikeToast();
+            }
+        </script>
     </body>
 </html>
