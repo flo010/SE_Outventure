@@ -19,7 +19,7 @@
         </header>
 
         <div class="container-sm create-hike mt-5 mb-5">
-            <form name="createHikeOverview" id="createHikeOverview" action="save_data" method="post">
+            <form name="createHikeOverview" id="createHikeOverview" action="save_data" method="post" class="needs-validation" novalidate>
                 <div class="input-fields-group">
                     <h3>Title</h3>
                     <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Enter title here (max. 100 characters)" required maxlength="100">
@@ -101,7 +101,7 @@
                 <%--for loop for months--%>
                 <div class="input-fields-group">
                     <h3>Optimal Season</h3>
-                    <div class="form-check form-check-inline" id="monthContainer">
+                    <div class="form-check form-check-inline" id="monthContainer" >
                     </div>
                     <small class="text-muted"><br>* Required</small><br>
                 </div>
@@ -272,11 +272,13 @@
                 var monthDiv = document.createElement("div");
                 monthDiv.className = "form-check form-check-inline";
 
+
                 // Create the checkbox input
                 var checkboxInput = document.createElement("input");
-                checkboxInput.className = "form-check-input";
+                checkboxInput.classList.add("exclude-validation");
+                checkboxInput.className = "form-check-input no-validation";
                 checkboxInput.type = "checkbox";
-                checkboxInput.id = "optimalSeason";
+                checkboxInput.id = "optimalSeason" + i; //unique ID for each checkbox
                 checkboxInput.value = "true";
                 checkboxInput.name = "monthCheckbox" + months[i]; // Added name attribute
 
@@ -297,9 +299,9 @@
             var form = document.getElementById("createHikeOverview");
 
             form.addEventListener("submit", function (event) {
-                var checkboxes = document.querySelectorAll('input[id="optimalSeason"]:checked');
+                var checkboxes = document.querySelectorAll('input[id^="optimalSeason"]:checked');
 
-                if (checkboxes.length === 0) {
+               if (checkboxes.length === 0) {
                     alert("Please select at least one optimal season.");
                     event.preventDefault(); // Prevent form submission
                 }
@@ -336,7 +338,27 @@
                 this.value = value.replace(/[^\d.,-]/g, '');
             });
 
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (() => {
+                'use strict';
 
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                const forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.from(forms).forEach(form => {
+
+                    form.addEventListener('submit', event => {
+
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+            })()
         </script>
     </body>
 </html>
