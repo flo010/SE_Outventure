@@ -20,20 +20,18 @@
 
 
         <div class="container-sm create-hike mt-5 mb-5">
-            <form id="createHikeOverview" action="save_data" method="post" class="needs-validation" novalidate>
+            <form id="createHikeOverview" action="save_data" method="post">
                 <div class="input-fields-group">
                     <h3>Title</h3>
                     <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Enter title here (max. 100 characters)" required maxlength="100">
                     <small class="text-muted">* Required</small>
                 </div>
-                    <div class="input-fields-group">
+                <div class="input-fields-group">
                     <h3>Description</h3>
                     <textarea class="form-control" id="descriptionInput" name="descriptionInput" rows="8" placeholder="Enter description here (max. 1000 characters)" required maxlength="1000"></textarea>
                     <small class="text-muted">* Required</small>
                 </div>
                 <div class="input-fields-group">
-
-
                     <div class="input-fields-group">
                         <h3>Images</h3>
                         <label for="coverImageInput" class="form-label">Cover Image</label><br>
@@ -42,7 +40,6 @@
                         <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
                         <img id="previewCoverImage" width="250">
                     </div>
-
 <%--                    <div class="input-fields-group">--%>
 <%--                        <label for="optionalImageInput1" class="form-label">Optional Image</label><br>--%>
 <%--                        <input type="file" class="form-control" id="optionalImageInput1" name="optionalImage1" accept=".png, .jpg">--%>
@@ -54,7 +51,6 @@
 <%--                        <img id="previewOptionalImage2" src="" width="250">--%>
 <%--                    </div>--%>
                 </div>
-
                 <div class="input-fields-group less-width">
                     <h3>Distance</h3>
                     <input type="text" class="form-control" id="distanceID" name="distanceInput" placeholder="Enter distance here (decimal in km)" required maxlength="7" pattern="\d+(\.\d{1,2})">
@@ -76,7 +72,6 @@
                     <input type="text" class="form-control" id="altitudeID" name="altitudeInput" placeholder="Enter altitude here (in meters)" required maxlength="10" pattern="\d{1,10}">
                     <small class="text-muted">* Required</small>
                 </div>
-
                 <div class="input-fields-group less-width">
                     <div>
                         <h5>Required Condition</h5>
@@ -106,8 +101,7 @@
                     </div>
                     <small class="text-muted"><br>* Required</small><br>
                 </div>
-
-        <div class="input-fields-group less-width">
+                <div class="input-fields-group less-width">
                     <h3>Start</h3>
                     <input type="text" class="form-control" id="startID" name="startInput" placeholder="Enter start Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
                     <small class="text-muted">* Required.Format:-XX.XXXXXX,YY.YYYYYY (negative sign optional)</small>
@@ -117,11 +111,12 @@
                     <input type="text" class="form-control" id="destinationID" name="destinationInput" placeholder="Enter destination Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
                     <small class="text-muted">* Required.Format:-XX.XXXXXX,YY.YYYYYY (negative sign optional)</small>
                 </div>
-                <!-- Pluszeichen hinzugefügt -->
-                <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pointsOfInterestModal">
-                    <i class="fa fa-plus"></i> Add Points of Interest
-                </button>
-        </div>
+                <div>
+                    <!-- Add Points of Interest Button -->
+                    <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pointsOfInterestModal">
+                        <i class="fa fa-plus"></i> Add Points of Interest
+                    </button>
+                </div>
                 <div class="row mt-4">
                     <div class="col-md-6">
                         <button type="button" id="cancelButton" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
@@ -134,20 +129,22 @@
 <%--                    </div>--%>
                 </div>
             </form>
-            <div class="modal fade" id="cancelConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="cancelConfirmationModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered " role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="cancelConfirmationModalLabel">Confirm Cancel</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Do you really want to cancel? You will lose all the data you have entered.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" onclick="cancelCancel()" data-bs-dismiss="modal">No</button>
-                            <button type="button" class="btn btn-success" onclick="cancelProcess()">Yes</button>
-                        </div>
+        </div>
+
+        <!-- Modal for Cancel -->
+        <div class="modal fade" id="cancelConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="cancelConfirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cancelConfirmationModalLabel">Confirm Cancel</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Do you really want to cancel? You will lose all the data you have entered.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" onclick="cancelCancel()" data-bs-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-success" onclick="cancelProcess()">Yes</button>
                     </div>
                 </div>
             </div>
@@ -158,7 +155,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="pointsOfInterestModalLabel">Add Points of Interest</h5>
+                        <h3 class="modal-title" id="pointsOfInterestModalLabel">Add Points of Interest</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -166,24 +163,24 @@
                         <!-- For example: a form to input Points of Interest -->
                         <form id="poiForm">
                             <div class="input-fields-group">
-                                <h3>Name</h3>
+                                <h5>Name</h5>
                                 <input type="text" class="form-control" id="poiName" name="poiName" placeholder="Enter Point of Interest Name" required maxlength="100">
                                 <small class="text-muted">* Required</small>
                             </div>
                             <div class="input-fields-group">
-                                <h3>Coordinates</h3>
+                                <h5>Coordinates</h5>
                                 <input type="text" class="form-control" id="poiCoordinates" name="poiCoordinates" placeholder="Enter Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
-                                <small class="text-muted">* Required. Format:-XX.XXXXXX,YY.YYYYYY  </small>
+                                <small class="text-muted">* Required. Format:-XX.XXXXXX, YY.YYYYYY  </small>
                             </div>
                             <!-- Error message for required fields -->
-                            <div id="poiErrorMessage" class="alert alert-danger mt-2" style="display: none;">
+                            <div id="poiErrorMessage" class="alert alert-danger mt-2" style="display: none">
                                 Please fill out all required fields.
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-success" onclick="savePointOfInterest()">Save changes</button>
+                        <button type="button" class="btn btn-success" onclick="savePointOfInterest()">Save</button>
                     </div>
                 </div>
             </div>
@@ -191,13 +188,10 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script>
-            // JavaScript code to activate the modal
-            var pointsOfInterestModal = new bootstrap.Modal(document.getElementById('pointsOfInterestModal'));
-
-            function openPointsOfInterestModal() {
-                pointsOfInterestModal.show();
-            }
             let shouldPromptBeforeUnload = true; // Variable to track whether to prompt before unload
+
+            // JavaScript code to activate the modal
+            var pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
 
             function savePointOfInterest() {
                 // Get values from the form
@@ -215,6 +209,7 @@
                 // Close the modal
                 pointsOfInterestModal.hide();
             }
+
             function cancelCancel(){
             }
 
@@ -224,6 +219,7 @@
                 });
                 myModal.show();
             }
+
             function cancelProcess() {
                 shouldPromptBeforeUnload = false;
                 window.location.href = "search_results";
@@ -283,10 +279,7 @@
                 const input = document.getElementById('coverImageInput');
                 const preview = document.getElementById('previewCoverImage');
 
-                input.addEventListener('change', function () {
-                    const file = input.files[0];
-
-
+                const file = input.files[0];
                 if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
                     const reader = new FileReader();
 
@@ -308,12 +301,18 @@
                             preview.src = compressedDataURL;
                             preview.style.display = 'block';
 
+                            // Optionally, you can upload the compressed image to a server here.
+                            // Example: uploadImageToServer(compressedDataURL);
                         };
 
                         img.src = e.target.result;
                     };
 
                     reader.readAsDataURL(file);
+                } else {
+                    // Handle invalid file type
+                    alert('Invalid file type. Please provide a .png or .jpg.');
+                }
             }
 
 
@@ -397,24 +396,6 @@
                 let value = this.value;
                 this.value = value.replace(/[^\d.,-]/g, '');
             });
-
-            (function() {
-                'use strict';
-
-                window.addEventListener('load', function() {
-                    var forms = document.getElementsByClassName('needs-validation');
-
-                    var validation = Array.prototype.filter.call(forms, function(form) {
-                        form.addEventListener('submit', function(event) {
-                            if (form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                }, false);
-            })();
         </script>
     </body>
 </html>
