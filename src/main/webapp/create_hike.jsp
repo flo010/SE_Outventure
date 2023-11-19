@@ -282,36 +282,38 @@
                 input.addEventListener('change', function () {
                     const file = input.files[0];
 
-                    
-                if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
-                    const reader = new FileReader();
 
-                    reader.onload = function (e) {
-                        const img = new Image();
+                    if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
+                        const reader = new FileReader();
 
-                        img.onload = function () {
-                            // Resize the image (you can adjust width and height as needed)
-                            const canvas = document.createElement('canvas');
-                            const ctx = canvas.getContext('2d');
-                            canvas.width = 300; // set your desired width
-                            canvas.height = (300 * img.height) / img.width; // maintain aspect ratio
-                            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        reader.onload = function (e) {
+                            const img = new Image();
 
-                            // Compress the image (you can adjust quality as needed)
-                            const compressedDataURL = canvas.toDataURL('image/jpeg', 0.7);
+                            img.onload = function () {
+                                // Resize the image (you can adjust width and height as needed)
+                                const canvas = document.createElement('canvas');
+                                const ctx = canvas.getContext('2d');
+                                canvas.width = 300; // set your desired width
+                                canvas.height = (300 * img.height) / img.width; // maintain aspect ratio
+                                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                            // Display the preview
-                            preview.src = compressedDataURL;
-                            preview.style.display = 'block';
+                                // Compress the image (you can adjust quality as needed)
+                                const compressedDataURL = canvas.toDataURL('image/jpeg', 0.7);
 
-                            // Optionally, you can upload the compressed image to a server here.
-                            // Example: uploadImageToServer(compressedDataURL);
+                                // Display the preview
+                                preview.src = compressedDataURL;
+                                preview.style.display = 'block';
+
+                                // Optionally, you can upload the compressed image to a server here.
+                                // Example: uploadImageToServer(compressedDataURL);
+                            };
+
+                            img.src = e.target.result;
                         };
 
-                        img.src = e.target.result;
-                    };
-
-                    reader.readAsDataURL(file);
+                        reader.readAsDataURL(file);
+                    }
+                });
             }
 
 
