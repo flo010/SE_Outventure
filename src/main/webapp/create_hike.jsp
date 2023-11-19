@@ -279,7 +279,10 @@
                 const input = document.getElementById('coverImageInput');
                 const preview = document.getElementById('previewCoverImage');
 
-                const file = input.files[0];
+                input.addEventListener('change', function () {
+                    const file = input.files[0];
+
+                    
                 if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
                     const reader = new FileReader();
 
@@ -309,10 +312,6 @@
                     };
 
                     reader.readAsDataURL(file);
-                } else {
-                    // Handle invalid file type
-                    alert('Invalid file type. Please provide a .png or .jpg.');
-                }
             }
 
 
