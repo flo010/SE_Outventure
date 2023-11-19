@@ -19,7 +19,7 @@
         </header>
 
         <div class="container-sm create-hike mt-5 mb-5">
-            <form id="createHikeOverview" action="save_data" method="post">
+            <form name="createHikeOverview" id="createHikeOverview" action="save_data" method="post">
                 <div class="input-fields-group">
                     <h3>Title</h3>
                     <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Enter title here (max. 100 characters)" required maxlength="100">
@@ -148,6 +148,7 @@
                 </div>
             </div>
         </div>
+
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script>
@@ -334,6 +335,7 @@
                 let value = this.value;
                 this.value = value.replace(/[^\d.,-]/g, '');
             });
+
 
         </script>
     </body>
