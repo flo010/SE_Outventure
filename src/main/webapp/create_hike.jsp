@@ -18,6 +18,7 @@
             <jsp:include page="navbar.jsp"/>
         </header>
 
+
         <div class="container-sm create-hike mt-5 mb-5">
             <form id="createHikeOverview" action="save_data" method="post">
                 <div class="input-fields-group">
@@ -25,7 +26,7 @@
                     <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Enter title here (max. 100 characters)" required maxlength="100">
                     <small class="text-muted">* Required</small>
                 </div>
-                <div class="input-fields-group">
+                    <div class="input-fields-group">
                     <h3>Description</h3>
                     <textarea class="form-control" id="descriptionInput" name="descriptionInput" rows="8" placeholder="Enter description here (max. 1000 characters)" required maxlength="1000"></textarea>
                     <small class="text-muted">* Required</small>
@@ -106,7 +107,7 @@
                     <small class="text-muted"><br>* Required</small><br>
                 </div>
 
-                <div class="input-fields-group less-width">
+        <div class="input-fields-group less-width">
                     <h3>Start</h3>
                     <input type="text" class="form-control" id="startID" name="startInput" placeholder="Enter start Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
                     <small class="text-muted">* Required.Format:-XX.XXXXXX,YY.YYYYYY (negative sign optional)</small>
@@ -116,9 +117,13 @@
                     <input type="text" class="form-control" id="destinationID" name="destinationInput" placeholder="Enter destination Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
                     <small class="text-muted">* Required.Format:-XX.XXXXXX,YY.YYYYYY (negative sign optional)</small>
                 </div>
-
+                <!-- Pluszeichen hinzugefügt -->
+                <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pointsOfInterestModal">
+                    <i class="fa fa-plus"></i> Add Points of Interest
+                </button>
+        </div>
                 <div class="row mt-4">
-                    <div class="col">
+                    <div class="col-md-6">
                         <button type="button" id="cancelButton" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
                     </div>
                     <div class="col text-end">
@@ -129,7 +134,6 @@
 <%--                    </div>--%>
                 </div>
             </form>
-
             <div class="modal fade" id="cancelConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="cancelConfirmationModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered " role="document">
                     <div class="modal-content">
@@ -149,10 +153,68 @@
             </div>
         </div>
 
+        <!-- Modal for Points of Interest -->
+        <div class="modal fade" id="pointsOfInterestModal" tabindex="-1" role="dialog" aria-labelledby="pointsOfInterestModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="pointsOfInterestModalLabel">Add Points of Interest</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Content for adding Points of Interest goes here -->
+                        <!-- For example: a form to input Points of Interest -->
+                        <form id="poiForm">
+                            <div class="input-fields-group">
+                                <h3>Name</h3>
+                                <input type="text" class="form-control" id="poiName" name="poiName" placeholder="Enter Point of Interest Name" required maxlength="100">
+                                <small class="text-muted">* Required</small>
+                            </div>
+                            <div class="input-fields-group">
+                                <h3>Coordinates</h3>
+                                <input type="text" class="form-control" id="poiCoordinates" name="poiCoordinates" placeholder="Enter Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
+                                <small class="text-muted">* Required. Format:-XX.XXXXXX,YY.YYYYYY  </small>
+                            </div>
+                            <!-- Error message for required fields -->
+                            <div id="poiErrorMessage" class="alert alert-danger mt-2" style="display: none;">
+                                Please fill out all required fields.
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-success" onclick="savePointOfInterest()">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script>
+            // JavaScript code to activate the modal
+            var pointsOfInterestModal = new bootstrap.Modal(document.getElementById('pointsOfInterestModal'));
+
+            function openPointsOfInterestModal() {
+                pointsOfInterestModal.show();
+            }
             let shouldPromptBeforeUnload = true; // Variable to track whether to prompt before unload
 
+            function savePointOfInterest() {
+                // Get values from the form
+                var poiName = document.getElementById('poiName').value;
+                var poiCoordinates = document.getElementById('poiCoordinates').value;
+
+                // Check if required fields are empty
+                if (!poiName || !poiCoordinates) {
+                    var errorMessage = document.getElementById('poiErrorMessage');
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                // Do something with the values, e.g., save to a list, update UI, etc.
+
+                // Close the modal
+                pointsOfInterestModal.hide();
+            }
             function cancelCancel(){
             }
 
@@ -162,7 +224,6 @@
                 });
                 myModal.show();
             }
-
             function cancelProcess() {
                 shouldPromptBeforeUnload = false;
                 window.location.href = "search_results";
@@ -178,6 +239,7 @@
                     return 'Do you really want to leave this page?';
                 }
             }
+
 
             function rangeCount(id, labelId){
                 var rangeInput = document.getElementById(id);
