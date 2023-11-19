@@ -20,7 +20,7 @@
 
 
         <div class="container-sm create-hike mt-5 mb-5">
-            <form id="createHikeOverview" action="save_data" method="post">
+            <form id="createHikeOverview" action="save_data" method="post" class="needs-validation" novalidate>
                 <div class="input-fields-group">
                     <h3>Title</h3>
                     <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Enter title here (max. 100 characters)" required maxlength="100">
@@ -283,7 +283,10 @@
                 const input = document.getElementById('coverImageInput');
                 const preview = document.getElementById('previewCoverImage');
 
-                const file = input.files[0];
+                input.addEventListener('change', function () {
+                    const file = input.files[0];
+
+
                 if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
                     const reader = new FileReader();
 
@@ -305,18 +308,12 @@
                             preview.src = compressedDataURL;
                             preview.style.display = 'block';
 
-                            // Optionally, you can upload the compressed image to a server here.
-                            // Example: uploadImageToServer(compressedDataURL);
                         };
 
                         img.src = e.target.result;
                     };
 
                     reader.readAsDataURL(file);
-                } else {
-                    // Handle invalid file type
-                    alert('Invalid file type. Please provide a .png or .jpg.');
-                }
             }
 
 
@@ -401,6 +398,23 @@
                 this.value = value.replace(/[^\d.,-]/g, '');
             });
 
+            (function() {
+                'use strict';
+
+                window.addEventListener('load', function() {
+                    var forms = document.getElementsByClassName('needs-validation');
+
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                        form.addEventListener('submit', function(event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
         </script>
     </body>
 </html>
