@@ -196,8 +196,7 @@
                 // Check if input and preview element are present
                 if (input && preview) {
                     // Add EventListener for the event that the input changes
-                    input.addEventListener("change",
-                        () => {
+                    input.addEventListener("change", function () {
                             const [file] = input.files;
 
                             // Check if a file is present and check for its file type
