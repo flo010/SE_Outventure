@@ -261,14 +261,14 @@
                     }
                 }
 
-                var checkboxes = document.querySelectorAll('form-check-input[id="optimalSeason"]:checked');
-                var atLeastOneCheckbox = checkboxes.length > 0;
+                // var checkboxes = document.querySelectorAll('form-check-input[id="optimalSeason"]:checked');
+                // var atLeastOneCheckbox = checkboxes.length > 0;
+                //
+                // if (!atLeastOneCheckbox) {
+                //     alert("Please select at least one optimal season.");
+                // }
 
-                if (!atLeastOneCheckbox) {
-                    alert("Please select at least one optimal season.");
-                }
-
-                if (allInputsFilled && atLeastOneCheckbox) {
+                if (allInputsFilled) {
                     shouldPromptBeforeUnload = false;
                     window.location.href = "search_results";
                 }
