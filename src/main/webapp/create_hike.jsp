@@ -231,8 +231,26 @@
             }
 
             function saveInput() {
-                shouldPromptBeforeUnload = false;
-                window.location.href = "search_results";
+                var requiredInputs = document.querySelectorAll("[required]");
+                var allInputsFilled = true;
+
+                for (var i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
+                    if (!requiredInputs[i].value.trim()) {
+                        allInputsFilled = false;
+                    }
+                }
+
+                var checkboxes = document.querySelectorAll('form-check-input[id="optimalSeason"]:checked');
+                var atLeastOneCheckbox = checkboxes.length > 0;
+
+                if (!atLeastOneCheckbox) {
+                    alert("Please select at least one optimal season.");
+                }
+
+                if (allInputsFilled && atLeastOneCheckbox) {
+                    shouldPromptBeforeUnload = false;
+                    window.location.href = "search_results";
+                }
             }
 
             window.onbeforeunload = function () {
@@ -269,7 +287,6 @@
 
                             // Check if a file is present and check for its file type
                             if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
-                                input.classList.remove("is-invalid");
                                 handleCoverImage(file, preview);
                             } else {
                                 input.classList.add("is-invalid");
@@ -321,12 +338,10 @@
                 });
             }
 
-
             // Setup für das Vorschaubild
             previewImage('coverImageInput', 'previewCoverImage');
             // previewImage('optionalImageInput1', 'previewOptionalImage1');
             // previewImage('optionalImageInput2', 'previewOptionalImage2');
-
 
             //Checkboxes
             // Array of month names
@@ -360,17 +375,6 @@
                 // Append the month div to the container
                 container.appendChild(monthDiv);
             }
-
-            var form = document.getElementById("createHikeOverview");
-
-            form.addEventListener("submit", function (event) {
-                var checkboxes = document.querySelectorAll('input[id="optimalSeason"]:checked');
-
-                if (checkboxes.length === 0) {
-                    alert("Please select at least one optimal season.");
-                    event.preventDefault(); // Prevent form submission
-                }
-            });
 
             document.getElementById('distanceID').addEventListener('input', function() {
                 let value = this.value;
