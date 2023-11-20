@@ -20,7 +20,7 @@
 
 
         <div class="container-sm create-hike mt-5 mb-5">
-            <form id="createHikeOverview" action="save_data" method="post">
+            <form id="createHikeOverview" action="save_data" method="post" class="needs-validation" novalidate>
                 <div class="input-fields-group">
                     <h3>Title</h3>
                     <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Enter title here (max. 100 characters)" required maxlength="100">
@@ -420,6 +420,31 @@
             //         event.preventDefault(); // Prevent form submission
             //     }
             // });
+
+            (function() {
+                'use strict';
+
+                window.addEventListener('load', function() {
+                    var forms = document.getElementsByClassName('needs-validation');
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                        form.addEventListener('submit', function(event) {
+                            var checkboxes = document.querySelectorAll('input[name^="monthCheckbox[]"]:checked');
+
+                            // Check if at least one checkbox is selected
+                            if (checkboxes.length === 0) {
+                                alert("Please select at least one optimal season.");
+                                event.preventDefault(); // Prevent form submission
+                            }
+
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
         </script>
     </body>
 </html>
