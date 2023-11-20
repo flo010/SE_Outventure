@@ -194,12 +194,12 @@
                         <form id="poiForm">
                             <div class="input-fields-group">
                                 <h5>Name</h5>
-                                <input type="text" class="form-control" id="poiName" name="poiName" placeholder="Enter Point of Interest Name" required maxlength="100">
+                                <input type="text" class="form-control exclude-from-validation" id="poiName" name="poiName" placeholder="Enter Point of Interest Name" required maxlength="100">
                                 <small class="text-muted">* Required</small>
                             </div>
                             <div class="input-fields-group">
                                 <h5>Coordinates</h5>
-                                <input type="text" class="form-control" id="poiCoordinates" name="poiCoordinates" placeholder="Enter Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\\-?(\d+(\.\d{1,7})?)">
+                                <input type="text" class="form-control exclude-from-validation" id="poiCoordinates" name="poiCoordinates" placeholder="Enter Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\\-?(\d+(\.\d{1,7})?)">
                                 <small class="text-muted">* Required. Format:-XX.XXXXXX, YY.YYYYYY  </small>
                             </div>
                             <!-- Error message for required fields -->
@@ -220,7 +220,45 @@
         <script>
             let shouldPromptBeforeUnload = true; // Variable to track whether to prompt before unload
 
-            // JavaScript code to activate the modal
+            // prompt functions
+            function cancelCancel(){
+            }
+
+            function confirmCancel() {
+                var myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
+                    keyboard: false
+                });
+                myModal.show();
+            }
+
+            function cancelProcess() {
+                shouldPromptBeforeUnload = false;
+                window.location.href = "search_results";
+            }
+
+            window.onbeforeunload = function () {
+                if (shouldPromptBeforeUnload) {
+                    return 'Do you really want to leave this page?';
+                }
+            }
+
+            function saveInput() {
+                let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
+                let allInputsFilled = true;
+
+                for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled == true)); i += 1) {
+                    if (!requiredInputs[i].value.trim()) {
+                        allInputsFilled = false;
+                    }
+                }
+
+                if (allInputsFilled) {
+                    shouldPromptBeforeUnload = false;
+                    window.location.href = "search_results";
+                }
+            }
+
+            // POI modal
             var pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
 
             function savePointOfInterest() {
@@ -254,33 +292,7 @@
                 poiContainer.appendChild(pointOfInterest);
             }
 
-            function cancelCancel(){
-            }
-
-            function confirmCancel() {
-                var myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
-                    keyboard: false
-                });
-                myModal.show();
-            }
-
-            function cancelProcess() {
-                shouldPromptBeforeUnload = false;
-                window.location.href = "search_results";
-            }
-
-            function saveInput() {
-                shouldPromptBeforeUnload = false;
-                window.location.href = "search_results";
-            }
-
-            window.onbeforeunload = function () {
-                if (shouldPromptBeforeUnload) {
-                    return 'Do you really want to leave this page?';
-                }
-            }
-
-
+            // slider functions
             function rangeCount(id, labelId){
                 var rangeInput = document.getElementById(id);
                 var rangeValue = document.getElementById(labelId);
@@ -295,7 +307,7 @@
             rangeCount('customRange3', 'rangeValue3');
             rangeCount('customRange4', 'rangeValue4');
 
-
+            // image functions
             function previewImage(inputId, previewId) {
                 const input = document.getElementById(inputId);
                 const preview = document.getElementById(previewId);
@@ -360,12 +372,10 @@
                 });
             }
 
-
-            // Setup für das Vorschaubild
+            // Setup for images
             previewImage('coverImageInput', 'previewCoverImage');
             // previewImage('optionalImageInput1', 'previewOptionalImage1');
             // previewImage('optionalImageInput2', 'previewOptionalImage2');
-
 
             //Checkboxes
             // Array of month names
@@ -400,47 +410,16 @@
                 container.appendChild(monthDiv);
             }
 
-            var form = document.getElementById("createHikeOverview");
-
-            form.addEventListener("submit", function (event) {
-                var checkboxes = document.querySelectorAll('input[id="optimalSeason"]:checked');
-
-                if (checkboxes.length === 0) {
-                    alert("Please select at least one optimal season.");
-                    event.preventDefault(); // Prevent form submission
-                }
-            });
-
-            document.getElementById('distanceID').addEventListener('input', function() {
-                let value = this.value;
-                this.value = value.replace(/[^0-9.]/g, '');
-            });
-
-            document.getElementById('hoursID').addEventListener('input', function() {
-                let value = this.value;
-                this.value = value.replace(/[^0-9]/g, '');
-            });
-
-            document.getElementById('minutesID').addEventListener('input', function() {
-                let value = this.value;
-                this.value = value.replace(/[^0-9]/g, '');
-            });
-
-            document.getElementById('altitudeID').addEventListener('input', function() {
-                let value = this.value;
-                this.value = value.replace(/[^0-9]/g, '');
-            });
-
-            document.getElementById('startID').addEventListener('input', function() {
-                let value = this.value;
-                this.value = value.replace(/[^\d.,-]/g, '');
-            });
-
-
-            document.getElementById('destinationID').addEventListener('input', function() {
-                let value = this.value;
-                this.value = value.replace(/[^\d.,-]/g, '');
-            });
+            // var form = document.getElementById("createHikeOverview");
+            //
+            // form.addEventListener("submit", function (event) {
+            //     var checkboxes = document.querySelectorAll('input[id="optimalSeason"]:checked');
+            //
+            //     if (checkboxes.length === 0) {
+            //         alert("Please select at least one optimal season.");
+            //         event.preventDefault(); // Prevent form submission
+            //     }
+            // });
         </script>
     </body>
 </html>
