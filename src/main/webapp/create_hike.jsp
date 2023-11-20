@@ -293,7 +293,7 @@
 
             function cancelProcess() {
                 shouldPromptBeforeUnload = false;
-                window.location.href = "search_results";
+                window.location.href = "index.jsp";
             }
 
             window.onbeforeunload = function () {
