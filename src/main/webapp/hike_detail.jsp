@@ -38,7 +38,7 @@
             demoImages.put(108, "https://d2exd72xrrp1s7.cloudfront.net/www/000/1k4/a8/a8mx6d7f7cpz17bjyys8lhlle3eto5gp1-uhi15367968/0?width=3072&height=2304&crop=false&q=70");
         %>
 
-        <div class="container-sm hike-detail mt-5 mb-5">
+        <div class="container-sm mt-5 mb-5">
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
             <img class="cover-image" src="<%=demoImages.get(hike.getHikeID())%>" alt="mountain picture">
             <div class="card mb-5 mt-5">
