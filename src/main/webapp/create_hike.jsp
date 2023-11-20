@@ -111,6 +111,11 @@
                     <input type="text" class="form-control" id="destinationID" name="destinationInput" placeholder="Enter destination Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
                     <small class="text-muted">* Required.Format:-XX.XXXXXX,YY.YYYYYY (negative sign optional)</small>
                 </div>
+                <div class="input-fields-group">
+                    <h3>Route Description</h3>
+                    <textarea class="form-control" id="routeDescriptionInput" name="routeDescriptionInput" rows="8" placeholder="Enter route description here (max. 1000 characters)" required maxlength="1000"></textarea>
+                    <small class="text-muted">* Required</small>
+                </div>
                 <div>
                     <!-- List of Points of Interest -->
                     <div id="poiContainer" class="row">
