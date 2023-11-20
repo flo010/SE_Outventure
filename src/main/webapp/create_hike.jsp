@@ -245,7 +245,7 @@
             function saveInput() {
                 let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
                 let allInputsFilled = true;
-
+ 
                 for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled == true)); i += 1) {
                     if (!requiredInputs[i].value.trim()) {
                         allInputsFilled = false;
