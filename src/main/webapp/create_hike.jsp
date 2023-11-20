@@ -316,18 +316,18 @@
                 if (input && preview) {
                     // Add EventListener for the event that the input changes
                     input.addEventListener("change", function () {
-                            const [file] = input.files;
+                        const [file] = input.files;
 
-                            // Check if a file is present and check for its file type
-                            if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
-                                input.classList.remove("is-invalid");
-                                handleCoverImage(file, preview);
-                            } else {
-                                input.classList.add("is-invalid");
-                                preview.style.display = "none";
-                            }
+                        // Check if a file is present and check for its file type
+                        if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
+                            // Display the preview
+                            preview.src = URL.createObjectURL(file);
+                            preview.style.display = "block";
+                        } else {
+                            input.classList.add("is-invalid");
+                            preview.style.display = "none";
                         }
-                    );
+                    });
                 }
             }
 
