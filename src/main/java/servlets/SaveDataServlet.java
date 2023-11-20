@@ -55,7 +55,7 @@ public class SaveDataServlet extends HttpServlet {
         boolean october = Boolean.parseBoolean(request.getParameter("monthCheckboxOctober"));
         boolean november = Boolean.parseBoolean(request.getParameter("monthCheckboxNovember"));
         boolean december = Boolean.parseBoolean(request.getParameter("monthCheckboxDecember"));
-        String routeDescription = request.getParameter("RouteDescriptionInput");
+        String routeDescription = request.getParameter("routeDescriptionInput");
 
         Hike hike = new Hike();
 //        hike.setHikeID(hikeId);

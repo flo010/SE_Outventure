@@ -113,7 +113,7 @@
                 </div>
                 <div class="input-fields-group">
                     <h3>Route Description</h3>
-                    <textarea class="form-control" id="RouteDescriptionInput" name="RouteDescriptionInput" rows="8" placeholder="Enter route description here (max. 1000 characters)" required maxlength="1000"></textarea>
+                    <textarea class="form-control" id="routeDescriptionInput" name="routeDescriptionInput" rows="8" placeholder="Enter route description here (max. 1000 characters)" required maxlength="1000"></textarea>
                     <small class="text-muted">* Required</small>
                 </div>
                 <div>
