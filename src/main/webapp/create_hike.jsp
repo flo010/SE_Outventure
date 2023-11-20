@@ -22,19 +22,19 @@
         <div class="container-sm mt-5 mb-5">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"> <!-- insert nav-fill in class, when adding all tabs-->
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-overview-tab" data-bs-toggle="pill" data-bs-target="#pills-overview" type="button" role="tab" aria-controls="pills-overview" aria-selected="true">Overview</button>
+                    <button class="nav-link active" id="pills-overview-tab" data-bs-toggle="pill" data-bs-target="#pills-overview" type="button" role="tab" aria-controls="pills-overview" aria-selected="true" disabled>Overview</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-details-tab" data-bs-toggle="pill" data-bs-target="#pills-details" type="button" role="tab" aria-controls="pills-details" aria-selected="false">Details</button>
+                    <button class="nav-link" id="pills-details-tab" data-bs-toggle="pill" data-bs-target="#pills-details" type="button" role="tab" aria-controls="pills-details" aria-selected="false" disabled>Details</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-route-tab" data-bs-toggle="pill" data-bs-target="#pills-route" type="button" role="tab" aria-controls="pills-route" aria-selected="false">Route Description</button>
+                    <button class="nav-link" id="pills-route-tab" data-bs-toggle="pill" data-bs-target="#pills-route" type="button" role="tab" aria-controls="pills-route" aria-selected="false" disabled>Route Description</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-poi-tab" data-bs-toggle="pill" data-bs-target="#pills-poi" type="button" role="tab" aria-controls="pills-poi" aria-selected="false">Points of Interest</button>
+                    <button class="nav-link" id="pills-poi-tab" data-bs-toggle="pill" data-bs-target="#pills-poi" type="button" role="tab" aria-controls="pills-poi" aria-selected="false" disabled>Points of Interest</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-getting-there-tab" data-bs-toggle="pill" data-bs-target="#pills-getting-there" type="button" role="tab" aria-controls="pills-getting-there" aria-selected="false">Getting There</button>
+                    <button class="nav-link" id="pills-getting-there-tab" data-bs-toggle="pill" data-bs-target="#pills-getting-there" type="button" role="tab" aria-controls="pills-getting-there" aria-selected="false" disabled>Getting There</button>
                 </li>
             </ul>
 
@@ -60,6 +60,14 @@
                             <small class="text-muted">* Required</small><br>
                             <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
                             <img id="previewCoverImage" width="250">
+                        </div>
+                        <div class="d-flex bd-highlight mb-3">
+                            <div class="me-auto p-2 bd-highlight">
+                                <button type="button" id="cancelButtonOverview" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
+                            </div>
+                            <div class="p-2 bd-highlight">
+                                <button type="submit" id="nextButtonOverview" class="btn btn-success" onclick="nextTab()">Next</button>
+                            </div>
                         </div>
                     </div>
 
@@ -114,6 +122,17 @@
                             </div>
                             <small class="text-muted"><br>* Required</small><br>
                         </div>
+                        <div class="d-flex bd-highlight mb-3">
+                            <div class="me-auto p-2 bd-highlight">
+                                <button type="button" id="cancelButtonDetails" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
+                            </div>
+                            <div class="p-2 bd-highlight">
+                                <button type="button" id="previousButtonDetails" class="btn btn-secondary" onclick="prevTab()">Previous</button>
+                            </div>
+                            <div class="p-2 bd-highlight">
+                                <button type="submit" id="nextButtonDetails" class="btn btn-success" onclick="nextTab()">Next</button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="tab-pane fade" id="pills-route" role="tabpanel" aria-labelledby="pills-route-tab" tabindex="0">
@@ -121,6 +140,17 @@
                             <h3>Route Description</h3>
                             <textarea class="form-control" id="RouteDescriptionInput" name="RouteDescriptionInput" rows="8" placeholder="Enter route description here (max. 1000 characters)" required maxlength="1000"></textarea>
                             <small class="text-muted">* Required</small>
+                        </div>
+                        <div class="d-flex bd-highlight mb-3">
+                            <div class="me-auto p-2 bd-highlight">
+                                <button type="button" id="cancelButtonRoute" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
+                            </div>
+                            <div class="p-2 bd-highlight">
+                                <button type="button" id="previousButtonRoute" class="btn btn-secondary" onclick="prevTab()">Previous</button>
+                            </div>
+                            <div class="p-2 bd-highlight">
+                                <button type="submit" id="nextButtonRoute" class="btn btn-success" onclick="nextTab()">Next</button>
+                            </div>
                         </div>
                     </div>
 
@@ -141,15 +171,29 @@
                                 <i class="fa fa-plus"></i> Add Points of Interest
                             </button>
                         </div>
+                        <div class="d-flex bd-highlight mb-3">
+                            <div class="me-auto p-2 bd-highlight">
+                                <button type="button" id="cancelButtonPOI" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
+                            </div>
+                            <div class="p-2 bd-highlight">
+                                <button type="button" id="previousButtonPOI" class="btn btn-secondary" onclick="prevTab()">Previous</button>
+                            </div>
+                            <div class="p-2 bd-highlight">
+                                <button type="submit" id="nextButtonPOI" class="btn btn-success" onclick="nextTab()">Next</button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="tab-pane fade" id="pills-getting-there" role="tabpanel" aria-labelledby="pills-getting-there-tab" tabindex="0">
-                        <div class="row mt-4">
-                            <div class="col-md-6">
-                                <button type="button" id="cancelButton" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
+                        <div class="d-flex bd-highlight mb-3">
+                            <div class="me-auto p-2 bd-highlight">
+                                <button type="button" id="cancelButtonGettingThere" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
                             </div>
-                            <div class="col text-end">
-                                <button type="submit" id="saveButton" class="btn btn-success" onclick="saveInput()">Save</button>
+                            <div class="p-2 bd-highlight">
+                                <button type="button" id="previousButtonGettingThere" class="btn btn-secondary" onclick="prevTab()">Previous</button>
+                            </div>
+                            <div class="p-2 bd-highlight">
+                                <button type="submit" id="saveButtonGettingThere" class="btn btn-success" onclick="saveInput()">Save</button>
                             </div>
                         </div>
                     </div>
@@ -427,6 +471,41 @@
                 let value = this.value;
                 this.value = value.replace(/[^\d.,-]/g, '');
             });
+
+            // functions for switching pills
+            function nextTab() {
+                let activeTab = document.querySelector(".nav-link.active");
+                let nextTab = activeTab.parentElement.nextElementSibling.querySelector(".nav-link");
+
+                if (nextTab) {
+                    activeTab.classList.remove("active");
+                    nextTab.classList.add("active");
+                    activeTab.setAttribute("aria-selected", "false");
+                    nextTab.setAttribute("aria-selected", "true");
+
+                    let targetIdActiveTab = activeTab.getAttribute("data-bs-target");
+                    document.querySelector(targetIdActiveTab).classList.remove("show", "active");
+                    let targetIdNextTab = nextTab.getAttribute("data-bs-target");
+                    document.querySelector(targetIdNextTab).classList.add("show", "active");
+                }
+            }
+
+            function prevTab() {
+                let activeTab = document.querySelector(".nav-link.active");
+                let prevTab = activeTab.parentElement.previousElementSibling.querySelector(".nav-link");
+
+                if (prevTab) {
+                    activeTab.classList.remove("active");
+                    prevTab.classList.add("active");
+                    activeTab.setAttribute("aria-selected", "false");
+                    prevTab.setAttribute("aria-selected", "true");
+
+                    let targetIdActiveTab = activeTab.getAttribute("data-bs-target");
+                    document.querySelector(targetIdActiveTab).classList.remove("show", "active");
+                    let targetIdPrevTab = prevTab.getAttribute("data-bs-target");
+                    document.querySelector(targetIdPrevTab).classList.add("show", "active");
+                }
+            }
         </script>
     </body>
 </html>
