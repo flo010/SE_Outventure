@@ -59,7 +59,7 @@
                             <input onchange="handleCoverImage()" type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg" required>
                             <small class="text-muted">* Required</small><br>
                             <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
-                            <img id="previewCoverImage" width="250">
+                            <img id="previewCoverImage" width="250" alt="" src="">
                         </div>
                         <div class="d-flex bd-highlight mb-3">
                             <div class="me-auto p-2 bd-highlight">
@@ -96,7 +96,7 @@
                         <div class="input-fields-group less-width">
                             <div>
                                 <h5>Required Condition</h5>
-                                <input type="range" class="custom-range" id="customRange1" name="conditionInput" min="1" max="5" step="1"value="0">
+                                <input type="range" class="custom-range" id="customRange1" name="conditionInput" min="1" max="5" step="1" value="0">
                                 <label id="rangeValue1">1</label>
                             </div>
                             <div>
@@ -285,7 +285,7 @@
                 let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
                 let allInputsFilled = true;
  
-                for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled == true)); i += 1) {
+                for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
                     if (!requiredInputs[i].value.trim()) {
                         allInputsFilled = false;
                     }
@@ -346,7 +346,7 @@
             rangeCount('customRange3', 'rangeValue3');
             rangeCount('customRange4', 'rangeValue4');
 
-            // image functions
+           /* // image functions
             function previewImage(inputId, previewId) {
                 const input = document.getElementById(inputId);
                 const preview = document.getElementById(previewId);
@@ -367,7 +367,32 @@
                         }
                     );
                 }
+            }*/
+
+            // image functions
+            function previewImage(inputId, previewId) {
+                const input = document.getElementById(inputId);
+                const preview = document.getElementById(previewId);
+
+                // Check if input and preview element are present
+                if (input && preview) {
+                    // Add EventListener for the event that the input changes
+                    input.addEventListener("change", function () {
+                        const [file] = input.files;
+
+                        // Check if a file is present and check for its file type
+                        if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
+                            // Display the preview
+                            preview.src = URL.createObjectURL(file);
+                            preview.style.display = "block";
+                        } else {
+                            input.classList.add("is-invalid");
+                            preview.style.display = "none";
+                        }
+                    });
+                }
             }
+
 
             function handleCoverImage() {
                 const input = document.getElementById('coverImageInput');
