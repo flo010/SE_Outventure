@@ -156,13 +156,21 @@
                     <div class="tab-pane fade" id="pills-poi" role="tabpanel" aria-labelledby="pills-poi-tab" tabindex="0">
                         <div class="input-fields-group less-width">
                             <h3>Start</h3>
-                            <input type="text" class="form-control" id="startID" name="startInput" placeholder="Enter start Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
-                            <small class="text-muted">* Required.Format:-XX.XXXXXX,YY.YYYYYY (negative sign optional)</small>
+                            <input type="text" class="form-control" id="startName" name="startNameInput" placeholder="Enter name here" required maxlength="100">
+                            <small class="text-muted">* Required</small>
+                            <input type="text" class="form-control" id="altitudeStartCordinateID" name="altitudeStartCordinateInput" placeholder="Enter altitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
+                            <input type="text" class="form-control" id="longitudeStartCordinateID" name="longitudeStartCordinateInput" placeholder="Enter longitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
                         </div>
                         <div class="input-fields-group less-width">
                             <h3>Destination</h3>
-                            <input type="text" class="form-control" id="destinationID" name="destinationInput" placeholder="Enter destination Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
-                            <small class="text-muted">* Required.Format:-XX.XXXXXX,YY.YYYYYY (negative sign optional)</small>
+                            <input type="text" class="form-control" id="destinationName" name="destinationNameInput" placeholder="Enter name here" required maxlength="100">
+                            <small class="text-muted">* Required</small>
+                            <input type="text" class="form-control" id="altitudeDestinationCordinateID" name="altitudeDestinationCordinateInput" placeholder="Enter altitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
+                            <input type="text" class="form-control" id="longitudeDestinationCordinateID" name="longitudeDestinationCordinateInput" placeholder="Enter longitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
                         </div>
                         <div>
                             <!-- Add Points of Interest Button -->
@@ -184,6 +192,19 @@
                     </div>
 
                     <div class="tab-pane fade" id="pills-getting-there" role="tabpanel" aria-labelledby="pills-getting-there-tab" tabindex="0">
+                            <div class="input-fields-group less-width">
+                                <h3>Start</h3>
+                                <input type="text" class="form-control" id="startNameGT" name="startNameGTInput" placeholder="Enter name here" required maxlength="100">
+                                <small class="text-muted">* Required</small>
+                                <input type="text" class="form-control" id="altitudeGTCordinateID" name="altitudeGTCordinateInput" placeholder="Enter altitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                                <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
+                                <input type="text" class="form-control" id="longitudeGTCordinateID" name="longitudeGTCordinateInput" placeholder="Enter longitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                                <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
+                            </div>
+                            <div class="input-fields-group">
+                                <textarea class="form-control" id="GTInput" name="GettingThereInputFeld" rows="8" placeholder="Enter getting there description and parking spots here (max. 1000 characters)" required maxlength="1000"></textarea>
+                                <small class="text-muted">* Required</small>
+                            </div>
                         <div class="d-flex bd-highlight mb-3">
                             <div class="me-auto p-2 bd-highlight">
                                 <button type="button" id="cancelButtonGettingThere" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
