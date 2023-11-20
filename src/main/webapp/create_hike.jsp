@@ -102,14 +102,22 @@
                     <small class="text-muted"><br>* Required</small><br>
                 </div>
                 <div class="input-fields-group less-width">
-                    <h3>Start</h3>
-                    <input type="text" class="form-control" id="startID" name="startInput" placeholder="Enter start Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
-                    <small class="text-muted">* Required.Format:-XX.XXXXXX,YY.YYYYYY (negative sign optional)</small>
+                    <h3>Start</h3></he>
+                    <input type="text" class="form-control" id="startName" name="startCoordinateInput" placeholder="Enter name here" required maxlength="100">
+                    <small class="text-muted">* Required</small>
+                    <input type="text" class="form-control" id="longitudeCoordinateStartID" name="longitudeInput" placeholder="Enter Longitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                    <small class="text-muted">* Required. Format: XX.XXXXXX (negative sign optional)</small>
+                    <input type="text" class="form-control" id="altitudeCoordinateStartID" name="altitudeInput" placeholder="Enter Altitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                    <small class="text-muted">* Required. Format: XX.XXXXXX(negative sign optional)</small>
                 </div>
                 <div class="input-fields-group less-width">
                     <h3>Destination</h3>
-                    <input type="text" class="form-control" id="destinationID" name="destinationInput" placeholder="Enter destination Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
-                    <small class="text-muted">* Required.Format:-XX.XXXXXX,YY.YYYYYY (negative sign optional)</small>
+                    <input type="text" class="form-control" id="destinationName" name="startCoordinateInput" placeholder="Enter name here" required maxlength="100">
+                    <small class="text-muted">* Required</small>
+                    <input type="text" class="form-control" id="longitudeCoordinateDestinationID" name="longitudeInput" placeholder="Enter Longitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                    <small class="text-muted">* Required. Format: XX.XXXXXX (negative sign optional)</small>
+                    <input type="text" class="form-control" id="altitudeCoordinateDestinationID" name="altitudeInput" placeholder="Enter Altitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                    <small class="text-muted">* Required. Format: XX.XXXXXX(negative sign optional)</small>
                 </div>
                 <div class="input-fields-group">
                     <h3>Route Description</h3>
