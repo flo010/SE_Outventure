@@ -367,7 +367,7 @@
             rangeCount('customRange3', 'rangeValue3');
             rangeCount('customRange4', 'rangeValue4');
 
-            // image functions
+           /* // image functions
             function previewImage(inputId, previewId) {
                 const input = document.getElementById(inputId);
                 const preview = document.getElementById(previewId);
@@ -387,7 +387,32 @@
                         }
                     });
                 }
+            }*/
+
+            // image functions
+            function previewImage(inputId, previewId) {
+                const input = document.getElementById(inputId);
+                const preview = document.getElementById(previewId);
+
+                // Check if input and preview element are present
+                if (input && preview) {
+                    // Add EventListener for the event that the input changes
+                    input.addEventListener("change", function () {
+                        const [file] = input.files;
+
+                        // Check if a file is present and check for its file type
+                        if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
+                            // Display the preview
+                            preview.src = URL.createObjectURL(file);
+                            preview.style.display = "block";
+                        } else {
+                            input.classList.add("is-invalid");
+                            preview.style.display = "none";
+                        }
+                    });
+                }
             }
+
 
             function handleCoverImage() {
                 const input = document.getElementById('coverImageInput');
