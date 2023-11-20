@@ -75,7 +75,7 @@
                 <div class="input-fields-group less-width">
                     <div>
                         <h5>Required Condition</h5>
-                        <input type="range" class="custom-range" id="customRange1" name="conditionInput" min="1" max="5" step="1"value="0">
+                        <input type="range" class="custom-range" id="customRange1" name="conditionInput" min="1" max="5" step="1" value="0">
                         <label id="rangeValue1">1</label>
                     </div>
                     <div>
@@ -112,6 +112,23 @@
                     <small class="text-muted">* Required.Format:-XX.XXXXXX,YY.YYYYYY (negative sign optional)</small>
                 </div>
                 <div>
+                    <!-- List of Points of Interest -->
+                    <div id="poiContainer" class="row">
+                        <template id="poiTemplate">
+                            <div class="col-lg-6">
+                                <div class="card my-2">
+                                    <div class="card-body">
+                                        <h4 id="poiTempName" class="card-title text-center"></h4>
+                                        <hr>
+                                        <p id="poiTempCoordinates">
+                                            <strong>GPS Coordinates: </strong>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                        </template>
+                    </div>
                     <!-- Add Points of Interest Button -->
                     <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pointsOfInterestModal">
                         <i class="fa fa-plus"></i> Add Points of Interest
@@ -169,7 +186,7 @@
                             </div>
                             <div class="input-fields-group">
                                 <h5>Coordinates</h5>
-                                <input type="text" class="form-control" id="poiCoordinates" name="poiCoordinates" placeholder="Enter Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\-?(\d+(\.\d{1,7})?)">
+                                <input type="text" class="form-control" id="poiCoordinates" name="poiCoordinates" placeholder="Enter Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\\-?(\d+(\.\d{1,7})?)">
                                 <small class="text-muted">* Required. Format:-XX.XXXXXX, YY.YYYYYY  </small>
                             </div>
                             <!-- Error message for required fields -->
@@ -204,10 +221,24 @@
                     errorMessage.style.display = 'block';
                     return;
                 }
-                // Do something with the values, e.g., save to a list, update UI, etc.
+
+                appendNewPOI(poiName, poiCoordinates);
 
                 // Close the modal
                 pointsOfInterestModal.hide();
+            }
+
+            function appendNewPOI(poiName, poiCoordinates) {
+                const poiContainer = document.getElementById("poiContainer");
+                const poiTemplate = document.getElementById("poiTemplate");
+
+                const pointOfInterest = poiTemplate.content.cloneNode(true);
+                const name = pointOfInterest.getElementById("poiTempName");
+                const coordinates = pointOfInterest.getElementById("poiTempCoordinates");
+                name.textContent = poiName;
+                coordinates.textContent += poiCoordinates;
+
+                poiContainer.appendChild(pointOfInterest);
             }
 
             function cancelCancel(){
