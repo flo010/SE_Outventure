@@ -192,19 +192,19 @@
                     </div>
 
                     <div class="tab-pane fade" id="pills-getting-there" role="tabpanel" aria-labelledby="pills-getting-there-tab" tabindex="0">
-                            <div class="input-fields-group less-width">
-                                <h3>Start</h3>
-                                <input type="text" class="form-control" id="startNameGT" name="startNameGTInput" placeholder="Enter name here" required maxlength="100">
-                                <small class="text-muted">* Required</small>
-                                <input type="text" class="form-control" id="altitudeGTCordinateID" name="altitudeGTCordinateInput" placeholder="Enter altitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
-                                <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
-                                <input type="text" class="form-control" id="longitudeGTCordinateID" name="longitudeGTCordinateInput" placeholder="Enter longitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
-                                <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
-                            </div>
-                            <div class="input-fields-group">
-                                <textarea class="form-control" id="GTInput" name="GettingThereInputFeld" rows="8" placeholder="Enter getting there description and parking spots here (max. 1000 characters)" required maxlength="1000"></textarea>
-                                <small class="text-muted">* Required</small>
-                            </div>
+                        <div class="input-fields-group less-width">
+                            <h3>Start</h3>
+                            <input type="text" class="form-control" id="startNameGT" name="startNameGTInput" placeholder="Enter name here" required maxlength="100">
+                            <small class="text-muted">* Required</small>
+                            <input type="text" class="form-control" id="altitudeGTCordinateID" name="altitudeGTCordinateInput" placeholder="Enter altitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
+                            <input type="text" class="form-control" id="longitudeGTCordinateID" name="longitudeGTCordinateInput" placeholder="Enter longitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
+                        </div>
+                        <div class="input-fields-group">
+                            <textarea class="form-control" id="GTInput" name="GettingThereInputFeld" rows="8" placeholder="Enter getting there description and parking spots here (max. 1000 characters)" required maxlength="1000"></textarea>
+                            <small class="text-muted">* Required</small>
+                        </div>
                         <div class="d-flex bd-highlight mb-3">
                             <div class="me-auto p-2 bd-highlight">
                                 <button type="button" id="cancelButtonGettingThere" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
@@ -305,7 +305,7 @@
             function saveInput() {
                 let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
                 let allInputsFilled = true;
- 
+
                 for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
                     if (!requiredInputs[i].value.trim()) {
                         allInputsFilled = false;
@@ -371,22 +371,21 @@
             function previewImage(inputId, previewId) {
                 const input = document.getElementById(inputId);
                 const preview = document.getElementById(previewId);
-
                 // Check if input and preview element are present
                 if (input && preview) {
                     // Add EventListener for the event that the input changes
                     input.addEventListener("change", function () {
-                            const [file] = input.files;
-
-                            // Check if a file is present and check for its file type
-                            if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
-                                handleCoverImage(file, preview);
-                            } else {
-                                input.classList.add("is-invalid");
-                                preview.style.display = "none";
-                            }
+                        const [file] = input.files;
+                        // Check if a file is present and check for its file type
+                        if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
+                            // Display the preview
+                            preview.src = URL.createObjectURL(file);
+                            preview.style.display = "block";
+                        } else {
+                            input.classList.add("is-invalid");
+                            preview.style.display = "none";
                         }
-                    );
+                    });
                 }
             }*/
 
@@ -526,6 +525,7 @@
 
             // functions for switching pills
             function nextTab() {
+                shouldPromptBeforeUnload = false;
                 let activeTab = document.querySelector(".nav-link.active");
                 let nextTab = activeTab.parentElement.nextElementSibling.querySelector(".nav-link");
 
@@ -543,6 +543,7 @@
             }
 
             function prevTab() {
+                shouldPromptBeforeUnload = false;
                 let activeTab = document.querySelector(".nav-link.active");
                 let prevTab = activeTab.parentElement.previousElementSibling.querySelector(".nav-link");
 
