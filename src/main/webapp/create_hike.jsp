@@ -157,7 +157,7 @@
                     <div class="tab-pane fade" id="pills-route" role="tabpanel" aria-labelledby="pills-route-tab" tabindex="0">
                         <div class="input-fields-group">
                             <label for="routeDescriptionInput" class="form-label">Route Description *</label>
-                            <textarea class="form-control" id="routeDescriptionInput" name="RouteDescriptionInput" rows="8" placeholder="Route Description" aria-describedby="routeHelpText" required maxlength="1000"></textarea>
+                            <textarea class="form-control" id="routeDescriptionInput" name="routeDescriptionInput" rows="8" placeholder="Route Description" aria-describedby="routeHelpText" required maxlength="1000"></textarea>
                             <small id="routeHelpText" class="form-text text-muted">
                                 Describe the route of your hike in detail. The maximum length is 1000 characters.
                             </small>
@@ -238,14 +238,14 @@
                     <div class="tab-pane fade" id="pills-getting-there" role="tabpanel" aria-labelledby="pills-getting-there-tab" tabindex="0">
                         <div class="input-fields-group">
                             <label for="gettingThereInput" class="form-label">Getting There</label>
-                            <textarea class="form-control" id="gettingThereInput" name="gettingThereInput" rows="8" placeholder="Getting There" aria-describedby="gettingThereHelpText" required maxlength="1000"></textarea>
+                            <textarea class="form-control" id="gettingThereInput" name="gettingThereInput" rows="8" placeholder="Getting There" aria-describedby="gettingThereHelpText" maxlength="1000"></textarea>
                             <small id="gettingThereHelpText" class="form-text text-muted">
                                 Provide information on the best way to get to the starting point of your hike. The maximum length is 1000 characters.
                             </small>
                         </div>
                         <div class="input-fields-group">
                             <label for="parkingInput" class="form-label">Parking</label>
-                            <textarea class="form-control" id="parkingInput" name="parkingInput" rows="8" placeholder="Parking" aria-describedby="parkingHelpText"required maxlength="1000"></textarea>
+                            <textarea class="form-control" id="parkingInput" name="parkingInput" rows="8" placeholder="Parking" aria-describedby="parkingHelpText" maxlength="1000"></textarea>
                             <small id="parkingHelpText" class="form-text text-muted">
                                 Provide information about the best parking options near the starting point of the hike. The maximum length is 1000 characters.
                             </small>
