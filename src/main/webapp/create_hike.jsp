@@ -173,6 +173,23 @@
                             <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
                         </div>
                         <div>
+                            <!-- List of Points of Interest -->
+                            <div id="poiContainer" class="row">
+                                <template id="poiTemplate">
+                                    <div class="col-lg-6">
+                                        <div class="card my-2">
+                                            <div class="card-body">
+                                                <h4 id="poiTempName" class="card-title text-center"></h4>
+                                                <hr>
+                                                <p id="poiTempCoordinates">
+                                                    <strong>GPS Coordinates: </strong>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-100"></div>
+                                </template>
+                            </div>
                             <!-- Add Points of Interest Button -->
                             <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pointsOfInterestModal">
                                 <i class="fa fa-plus"></i> Add Points of Interest
@@ -443,7 +460,6 @@
                                 // Optionally, you can upload the compressed image to a server here.
                                 // Example: uploadImageToServer(compressedDataURL);
                             };
-
                             img.src = e.target.result;
                         };
 
@@ -451,6 +467,8 @@
                     }
                 });
             }
+
+
 
             // Setup for images
             previewImage('coverImageInput', 'previewCoverImage');
