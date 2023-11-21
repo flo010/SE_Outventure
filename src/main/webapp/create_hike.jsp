@@ -173,6 +173,23 @@
                             <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
                         </div>
                         <div>
+                            <!-- List of Points of Interest -->
+                            <div id="poiContainer" class="row">
+                                <template id="poiTemplate">
+                                    <div class="col-lg-6">
+                                        <div class="card my-2">
+                                            <div class="card-body">
+                                                <h4 id="poiTempName" class="card-title text-center"></h4>
+                                                <hr>
+                                                <p id="poiTempCoordinates">
+                                                    <strong>GPS Coordinates: </strong>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-100"></div>
+                                </template>
+                            </div>
                             <!-- Add Points of Interest Button -->
                             <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pointsOfInterestModal">
                                 <i class="fa fa-plus"></i> Add Points of Interest
@@ -303,7 +320,7 @@
             }
 
             function saveInput() {
-                let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
+                let requiredInputs = document.querySelectorAll(":not(.exclude-from[required]-validation)");
                 let allInputsFilled = true;
 
                 for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
@@ -367,28 +384,6 @@
             rangeCount('customRange3', 'rangeValue3');
             rangeCount('customRange4', 'rangeValue4');
 
-           /* // image functions
-            function previewImage(inputId, previewId) {
-                const input = document.getElementById(inputId);
-                const preview = document.getElementById(previewId);
-                // Check if input and preview element are present
-                if (input && preview) {
-                    // Add EventListener for the event that the input changes
-                    input.addEventListener("change", function () {
-                        const [file] = input.files;
-                        // Check if a file is present and check for its file type
-                        if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
-                            // Display the preview
-                            preview.src = URL.createObjectURL(file);
-                            preview.style.display = "block";
-                        } else {
-                            input.classList.add("is-invalid");
-                            preview.style.display = "none";
-                        }
-                    });
-                }
-            }*/
-
             // image functions
             function previewImage(inputId, previewId) {
                 const input = document.getElementById(inputId);
@@ -412,7 +407,6 @@
                     });
                 }
             }
-
 
             function handleCoverImage() {
                 const input = document.getElementById('coverImageInput');
@@ -457,8 +451,6 @@
 
             // Setup for images
             previewImage('coverImageInput', 'previewCoverImage');
-            // previewImage('optionalImageInput1', 'previewOptionalImage1');
-            // previewImage('optionalImageInput2', 'previewOptionalImage2');
 
             //Checkboxes
             // Array of month names
