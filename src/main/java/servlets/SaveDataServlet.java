@@ -28,13 +28,11 @@ public class SaveDataServlet extends HttpServlet {
         int altitude = Integer.parseInt(request.getParameter("altitudeInput"));;
 
         Start start = new Start();
-        start.setStartID(1);
         start.setName("Start Lea");
         start.setLatitude(40.12);
         start.setLongitude(10.2);
 
         Destination destination = new Destination();
-        destination.setDestinationID(1);
         destination.setName("Destination Lea");
         destination.setLatitude(42.12);
         destination.setLongitude(10.12);
@@ -55,8 +53,9 @@ public class SaveDataServlet extends HttpServlet {
         boolean october = Boolean.parseBoolean(request.getParameter("monthCheckboxOctober"));
         boolean november = Boolean.parseBoolean(request.getParameter("monthCheckboxNovember"));
         boolean december = Boolean.parseBoolean(request.getParameter("monthCheckboxDecember"));
-        String routeDescription = request.getParameter("routeDescriptionInput");
+        String routeDescription = request.getParameter("RouteDescriptionInput");
 
+        System.out.println("Recieved Data");
         Hike hike = new Hike();
 //        hike.setHikeID(hikeId);
         hike.setTitle(title);
@@ -83,10 +82,10 @@ public class SaveDataServlet extends HttpServlet {
         hike.setNovember(november);
         hike.setDecember(december);
         hike.setRouteDescription(routeDescription);
-
+        System.out.println("Data Saved Locally");
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         facadeJPA.save(hike);
-
+        System.out.println("Data Save on Server");
         response.sendRedirect("search_results?hikeCreated=true");
     }
 }

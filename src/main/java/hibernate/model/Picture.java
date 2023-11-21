@@ -8,10 +8,11 @@ import jakarta.validation.constraints.NotNull;
 public class Picture {
     private int _pictureID;
     private Hike _hikePicture;
-    private String _base64;
+    private byte[] _base64;
 
     @Id
     @NotNull
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "picture_id")
     public int getPictureID() {
         return _pictureID;
@@ -22,14 +23,14 @@ public class Picture {
 
     @NotNull
     @Column(name = "base64")
-    public String getBase64() {
+    public byte[] getBase64() {
         return _base64;
     }
-    public void setBase64(String base64) {
+    public void setBase64(byte[] base64) {
         _base64 = base64;
     }
 
-    @NotNull
+
     @ManyToOne
     @JoinColumn(name = "hike")
     public Hike getHikePicture() {
