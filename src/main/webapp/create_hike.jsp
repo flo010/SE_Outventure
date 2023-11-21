@@ -40,7 +40,7 @@
 
             <hr>
 
-            <form id="createHikeOverview" action="save_data" method="post">
+            <form class="needs-validation" id="createHikeOverview" action="save_data" method="post" novalidate>
                 <div class="tab-content mt-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                         <div class="input-fields-group">
@@ -49,9 +49,6 @@
                             <small id="titleHelpText" class="form-text text-muted">
                                 The maximum length is 100 characters.
                             </small>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
                         </div>
                         <div class="input-fields-group">
                             <label for="titleInput" class="form-label">Description *</label>
@@ -59,16 +56,10 @@
                             <small id="descriptionHelpText" class="form-text text-muted">
                                 Describe your hike in a few sentences to provide an overview of the route. The maximum length is 1000 characters.
                             </small>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
                         </div>
                         <div class="input-fields-group">
                             <label for="coverImageInput" class="form-label">Cover Image *</label><br>
                             <input onchange="handleCoverImage()" type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg" required>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
                             <div class="invalid-feedback alert alert-danger mt-2">
                                 Invalid file type. Please provide a .png or.jpg.
                             </div>
@@ -157,7 +148,7 @@
                     <div class="tab-pane fade" id="pills-route" role="tabpanel" aria-labelledby="pills-route-tab" tabindex="0">
                         <div class="input-fields-group">
                             <label for="routeDescriptionInput" class="form-label">Route Description *</label>
-                            <textarea class="form-control" id="routeDescriptionInput" name="RouteDescriptionInput" rows="8" placeholder="Route Description" aria-describedby="routeHelpText" required maxlength="1000"></textarea>
+                            <textarea class="form-control" id="routeDescriptionInput" name="routeDescriptionInput" rows="8" placeholder="Route Description" aria-describedby="routeHelpText" required maxlength="1000"></textarea>
                             <small id="routeHelpText" class="form-text text-muted">
                                 Describe the route of your hike in detail. The maximum length is 1000 characters.
                             </small>
@@ -322,6 +313,23 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                    var forms = document.getElementsByClassName('needs-validation');
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                        form.addEventListener('submit', function(event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+
             let shouldPromptBeforeUnload = true; // Variable to track whether to prompt before unload
 
             // prompt functions
@@ -410,28 +418,6 @@
             rangeCount('difficultyInput', 'rangeValue2');
             rangeCount('experienceInput', 'rangeValue3');
             rangeCount('landscapeInput', 'rangeValue4');
-
-           /* // image functions
-            function previewImage(inputId, previewId) {
-                const input = document.getElementById(inputId);
-                const preview = document.getElementById(previewId);
-                // Check if input and preview element are present
-                if (input && preview) {
-                    // Add EventListener for the event that the input changes
-                    input.addEventListener("change", function () {
-                        const [file] = input.files;
-                        // Check if a file is present and check for its file type
-                        if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
-                            // Display the preview
-                            preview.src = URL.createObjectURL(file);
-                            preview.style.display = "block";
-                        } else {
-                            input.classList.add("is-invalid");
-                            preview.style.display = "none";
-                        }
-                    });
-                }
-            }*/
 
             // image functions
             function previewImage(inputId, previewId) {
