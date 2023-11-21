@@ -375,14 +375,13 @@
                     document.getElementById("createHikeOverview").submit();
                 }
             }
-
             // POI modal
             var pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
 
             function savePointOfInterest() {
                 // Get values from the form
                 var poiName = document.getElementById('poiName').value;
-                var poiCoordinates = document.getElementById('poiCoordinates').value;
+                var poiCoordinates = document.getElementById('longitude').value + ', ' + document.getElementById('latitude').value;
 
                 // Check if required fields are empty
                 if (!poiName || !poiCoordinates) {
@@ -390,13 +389,11 @@
                     errorMessage.style.display = 'block';
                     return;
                 }
-
                 appendNewPOI(poiName, poiCoordinates);
 
                 // Close the modal
                 pointsOfInterestModal.hide();
             }
-
             function appendNewPOI(poiName, poiCoordinates) {
                 const poiContainer = document.getElementById("poiContainer");
                 const poiTemplate = document.getElementById("poiTemplate");
@@ -405,11 +402,10 @@
                 const name = pointOfInterest.getElementById("poiTempName");
                 const coordinates = pointOfInterest.getElementById("poiTempCoordinates");
                 name.textContent = poiName;
-                coordinates.textContent += poiCoordinates;
+                coordinates.textContent = 'GPS Coordinates: ' + poiCoordinates;
 
                 poiContainer.appendChild(pointOfInterest);
             }
-
             // slider functions
             function rangeCount(id, labelId){
                 var rangeInput = document.getElementById(id);
