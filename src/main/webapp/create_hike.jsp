@@ -443,7 +443,6 @@
                                 // Optionally, you can upload the compressed image to a server here.
                                 // Example: uploadImageToServer(compressedDataURL);
                             };
-
                             img.src = e.target.result;
                         };
 
@@ -451,6 +450,8 @@
                     }
                 });
             }
+
+
 
             // Setup for images
             previewImage('coverImageInput', 'previewCoverImage');
