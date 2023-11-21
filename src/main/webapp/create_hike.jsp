@@ -158,7 +158,7 @@
                             <h3>Start</h3>
                             <input type="text" class="form-control" id="startName" name="startNameInput" placeholder="Enter name here" required maxlength="100">
                             <small class="text-muted">* Required</small>
-                            <input type="text" class="form-control" id="altitudeStartCordinateID" name="altitudeStartCordinateInput" placeholder="Enter altitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <input type="text" class="form-control" id="latitudeStartCordinateID" name="latitudeStartCordinateInput" placeholder="Enter latitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
                             <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
                             <input type="text" class="form-control" id="longitudeStartCordinateID" name="longitudeStartCordinateInput" placeholder="Enter longitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
                             <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
@@ -167,7 +167,7 @@
                             <h3>Destination</h3>
                             <input type="text" class="form-control" id="destinationName" name="destinationNameInput" placeholder="Enter name here" required maxlength="100">
                             <small class="text-muted">* Required</small>
-                            <input type="text" class="form-control" id="altitudeDestinationCordinateID" name="altitudeDestinationCordinateInput" placeholder="Enter altitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <input type="text" class="form-control" id="latitudeDestinationCordinateID" name="latitudeDestinationCordinateInput" placeholder="Enter latitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
                             <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
                             <input type="text" class="form-control" id="longitudeDestinationCordinateID" name="longitudeDestinationCordinateInput" placeholder="Enter longitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
                             <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
@@ -192,17 +192,14 @@
                     </div>
 
                     <div class="tab-pane fade" id="pills-getting-there" role="tabpanel" aria-labelledby="pills-getting-there-tab" tabindex="0">
-                        <div class="input-fields-group less-width">
-                            <h3>Start</h3>
-                            <input type="text" class="form-control" id="startNameGT" name="startNameGTInput" placeholder="Enter name here" required maxlength="100">
+                        <div class="input-fields-group">
+                            <h3>Getting there</h3>
+                            <textarea class="form-control" id="GTInput" name="GettingThereInputFeld" rows="8" placeholder="Enter a description for getting there (max. 1000 characters)" required maxlength="1000"></textarea>
                             <small class="text-muted">* Required</small>
-                            <input type="text" class="form-control" id="altitudeGTCordinateID" name="altitudeGTCordinateInput" placeholder="Enter altitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
-                            <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
-                            <input type="text" class="form-control" id="longitudeGTCordinateID" name="longitudeGTCordinateInput" placeholder="Enter longitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
-                            <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
                         </div>
                         <div class="input-fields-group">
-                            <textarea class="form-control" id="GTInput" name="GettingThereInputFeld" rows="8" placeholder="Enter getting there description and parking spots here (max. 1000 characters)" required maxlength="1000"></textarea>
+                            <h3>Parking</h3>
+                            <textarea class="form-control" id="ParkingInput" name="ParkingInputField" rows="8" placeholder="Enter a description for parking there (max. 1000 characters)" required maxlength="1000"></textarea>
                             <small class="text-muted">* Required</small>
                         </div>
                         <div class="d-flex bd-highlight mb-3">
@@ -293,7 +290,7 @@
 
             function cancelProcess() {
                 shouldPromptBeforeUnload = false;
-                window.location.href = "search_results";
+                window.location.href = "index.jsp";
             }
 
             window.onbeforeunload = function () {
