@@ -44,133 +44,160 @@
                 <div class="tab-content mt-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                         <div class="input-fields-group">
-                            <h3>Title</h3>
-                            <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Enter title here (max. 100 characters)" required maxlength="100">
-                            <small class="text-muted">* Required</small>
-                        </div>
-                        <div class="input-fields-group">
-                            <h3>Description</h3>
-                            <textarea class="form-control" id="descriptionInput" name="descriptionInput" rows="8" placeholder="Enter description here (max. 1000 characters)" required maxlength="1000"></textarea>
-                            <small class="text-muted">* Required</small>
-                        </div>
-                        <div class="input-fields-group">
-                            <h3>Image</h3>
-                            <label for="coverImageInput" class="form-label">Cover Image</label><br>
-                            <input onchange="handleCoverImage()" type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg" required>
-                            <small class="text-muted">* Required</small><br>
-                            <div class="invalid-feedback alert alert-danger mt-2">Invalid file type. Please provide a .png or.jpg.</div>
-                            <img id="previewCoverImage" width="250" alt="" src="">
-                        </div>
-                        <div class="d-flex bd-highlight mb-3">
-                            <div class="me-auto p-2 bd-highlight">
-                                <button type="button" id="cancelButtonOverview" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
+                            <label for="titleInput" class="form-label">Title *</label>
+                            <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Title" required maxlength="100" aria-describedby="titleHelpText">
+                            <small id="titleHelpText" class="form-text text-muted">
+                                The maximum length is 100 characters.
+                            </small>
+                            <div class="valid-feedback">
+                                Looks good!
                             </div>
+                        </div>
+                        <div class="input-fields-group">
+                            <label for="titleInput" class="form-label">Description *</label>
+                            <textarea class="form-control" id="descriptionInput" name="descriptionInput" rows="8" placeholder="Description" required maxlength="1000" aria-describedby="descriptionHelpText"></textarea>
+                            <small id="descriptionHelpText" class="form-text text-muted">
+                                Describe your hike in a few sentences to provide an overview of the route. The maximum length is 1000 characters.
+                            </small>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="input-fields-group">
+                            <label for="coverImageInput" class="form-label">Cover Image *</label><br>
+                            <input onchange="handleCoverImage()" type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback alert alert-danger mt-2">
+                                Invalid file type. Please provide a .png or.jpg.
+                            </div>
+                            <img id="previewCoverImage" width="250">
+                        </div>
+                        <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
                                 <button type="submit" id="nextButtonOverview" class="btn btn-success" onclick="nextTab()">Next</button>
+                            </div>
+                            <div class="p-2 bd-highlight">
+                                <button type="button" id="cancelButtonOverview" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
                             </div>
                         </div>
                     </div>
 
                     <div class="tab-pane fade" id="pills-details" role="tabpanel" aria-labelledby="pills-details-tab" tabindex="0">
                         <div class="input-fields-group less-width">
-                            <h3>Distance</h3>
-                            <input type="text" class="form-control" id="distanceID" name="distanceInput" placeholder="Enter distance here (decimal in km)" required maxlength="7" pattern="\d+(\.\d{1,2})">
-                            <small class="text-muted">* Required</small>
+                            <label for="distanceInput" class="form-label">Distance *</label>
+                            <input type="text" class="form-control" id="distanceInput" name="distanceInput" placeholder="Distance" required maxlength="7" aria-describedby="distanceHelpText" pattern="\d+(\.\d{1,2})">
+                            <small id="distanceHelpText" class="form-text text-muted">
+                                The value must be specified as a decimal number in kilometers.
+                            </small>
                         </div>
                         <div class="input-fields-group less-width">
-                            <h3>Duration</h3>
-                            <div>
-                                <input type="text" class="form-control" id="hoursID" name="hoursInput" placeholder="Enter hours here" required maxlength="2" pattern="[0-9]{1,2}">
-                                <small class="text-muted">* Required</small>
+                            <div class="row">
+                                <label for="hoursInput" class="form-label">Duration *</label>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="hoursInput" name="hoursInput" placeholder="Hours" required maxlength="2" pattern="[0-9]{1,2}">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="minutesInput" name="minutesInput" placeholder="Minutes" required maxlength="2" aria-describedby="minutesHelpText" pattern="[0-5]?[0-9]">
+                                    <small id="minutesHelpText" class="form-text text-muted">
+                                        The value must be between 0 and 59.
+                                    </small>
+                                </div>
                             </div>
-                            <div>
-                                <input type="text" class="form-control" id="minutesID" name="minutesInput" placeholder="Enter minutes here" required maxlength="2" pattern="[0-5]?[0-9]">
-                                <small class="text-muted">* Required. Must be between 0 and 59.</small>
-                            </div>
                         </div>
                         <div class="input-fields-group less-width">
-                            <h3>Altitude</h3>
-                            <input type="text" class="form-control" id="altitudeID" name="altitudeInput" placeholder="Enter altitude here (in meters)" required maxlength="10" pattern="\d{1,10}">
-                            <small class="text-muted">* Required</small>
+                            <label for="hoursInput" class="form-label">Altitude *</label>
+                            <input type="text" class="form-control" id="altitudeID" name="altitudeInput" placeholder="Altitude" required maxlength="10" aria-describedby="altitudeHelpText" pattern="\d{1,10}">
+                            <small id="altitudeHelpText" class="form-text text-muted">
+                                The value must be specified in meters.
+                            </small>
                         </div>
                         <div class="input-fields-group less-width">
                             <div>
-                                <h5>Required Condition</h5>
-                                <input type="range" class="custom-range" id="customRange1" name="conditionInput" min="1" max="5" step="1" value="0">
+                                <label for="conditionInput" class="form-label">Required Condition *</label>
+                                <input type="range" class="custom-range" id="conditionInput" name="conditionInput" min="1" max="5" step="1" value="0">
                                 <label id="rangeValue1">1</label>
                             </div>
                             <div>
-                                <h5>Level of Difficulty</h5>
-                                <input type="range" class="custom-range" id="customRange2" name="difficultyInput" min="1" max="5" step="1" value="0">
+                                <label for="difficultyInput" class="form-label">Level of Difficulty *</label>
+                                <input type="range" class="custom-range" id="difficultyInput" name="difficultyInput" min="1" max="5" step="1" value="0">
                                 <label id="rangeValue2">1</label>
                             </div>
                             <div>
-                                <h5>Required Experience</h5>
-                                <input type="range" class="custom-range" id="customRange3" name="experienceInput" min="1" max="5" step="1" value="0">
+                                <label for="experienceInput" class="form-label">Required Experience *</label>
+                                <input type="range" class="custom-range" id="experienceInput" name="experienceInput" min="1" max="5" step="1" value="0">
                                 <label id="rangeValue3">1</label>
                             </div>
                             <div>
-                                <h5>Landscape Beauty</h5>
-                                <input type="range" class="custom-range" id="customRange4" name="landscapeInput" min="1" max="5" step="1" value="0">
+                                <label for="landscapeInput" class="form-label">Beauty of Landscape *</label>
+                                <input type="range" class="custom-range" id="landscapeInput" name="landscapeInput" min="1" max="5" step="1" value="0">
                                 <label id="rangeValue4">1</label>
                             </div>
                         </div>
                         <%--for loop for months--%>
                         <div class="input-fields-group">
-                            <h3>Optimal Season</h3>
+                            <label class="form-label">Optimal Season *</label>
                             <div class="form-check form-check-inline" id="monthContainer">
                             </div>
-                            <small class="text-muted"><br>* Required</small><br>
                         </div>
-                        <div class="d-flex bd-highlight mb-3">
-                            <div class="me-auto p-2 bd-highlight">
-                                <button type="button" id="cancelButtonDetails" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
+                        <div class="d-flex flex-row-reverse bd-highlight">
+                            <div class="p-2 bd-highlight">
+                                <button type="submit" id="nextButtonDetails" class="btn btn-success" onclick="nextTab()">Next</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonDetails" class="btn btn-secondary" onclick="prevTab()">Previous</button>
                             </div>
                             <div class="p-2 bd-highlight">
-                                <button type="submit" id="nextButtonDetails" class="btn btn-success" onclick="nextTab()">Next</button>
+                                <button type="button" id="cancelButtonDetails" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
                             </div>
                         </div>
                     </div>
 
                     <div class="tab-pane fade" id="pills-route" role="tabpanel" aria-labelledby="pills-route-tab" tabindex="0">
                         <div class="input-fields-group">
-                            <h3>Route Description</h3>
-                            <textarea class="form-control" id="RouteDescriptionInput" name="RouteDescriptionInput" rows="8" placeholder="Enter route description here (max. 1000 characters)" required maxlength="1000"></textarea>
-                            <small class="text-muted">* Required</small>
+                            <label for="routeDescriptionInput" class="form-label">Route Description *</label>
+                            <textarea class="form-control" id="routeDescriptionInput" name="RouteDescriptionInput" rows="8" placeholder="Route Description" aria-describedby="routeHelpText" required maxlength="1000"></textarea>
+                            <small id="routeHelpText" class="form-text text-muted">
+                                Describe the route of your hike in detail. The maximum length is 1000 characters.
+                            </small>
                         </div>
-                        <div class="d-flex bd-highlight mb-3">
-                            <div class="me-auto p-2 bd-highlight">
-                                <button type="button" id="cancelButtonRoute" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
+                        <div class="d-flex flex-row-reverse bd-highlight">
+                            <div class="p-2 bd-highlight">
+                                <button type="submit" id="nextButtonRoute" class="btn btn-success" onclick="nextTab()">Next</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonRoute" class="btn btn-secondary" onclick="prevTab()">Previous</button>
                             </div>
                             <div class="p-2 bd-highlight">
-                                <button type="submit" id="nextButtonRoute" class="btn btn-success" onclick="nextTab()">Next</button>
+                                <button type="button" id="cancelButtonRoute" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="pills-poi" role="tabpanel" aria-labelledby="pills-poi-tab" tabindex="0">
                         <div class="input-fields-group less-width">
-                            <h3>Start</h3>
-                            <input type="text" class="form-control" id="startName" name="startNameInput" placeholder="Enter name here" required maxlength="100">
-                            <small class="text-muted">* Required</small>
-                            <input type="text" class="form-control" id="latitudeStartCordinateID" name="latitudeStartCordinateInput" placeholder="Enter latitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
-                            <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
-                            <input type="text" class="form-control" id="longitudeStartCordinateID" name="longitudeStartCordinateInput" placeholder="Enter longitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
-                            <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
+                            <label for="startNameInput" class="form-label">Start *</label>
+                            <input type="text" class="form-control" id="startNameInput" name="startNameInput" placeholder="Name" aria-describedby="startLatitudeHelpText" required maxlength="100">
+                            <input type="text" class="form-control mt-3" id="latitudeStartCoordinateInput" name="latitudeStartCoordinateInput" placeholder="Latitude" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <small id="startLatitudeHelpText" class="form-text text-muted">
+                                The value must be in the format XX.XXXXXX (negative sign optional).
+                            </small>
+                            <input type="text" class="form-control mt-3" id="longitudeStartCoordinateInput" name="longitudeStartCoordinateInput" placeholder="Longitude" aria-describedby="startLongitudeHelpText" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <small id="startLongitudeHelpText" class="form-text text-muted">
+                                The value must be in the format XX.XXXXXX (negative sign optional).
+                            </small>
                         </div>
                         <div class="input-fields-group less-width">
-                            <h3>Destination</h3>
-                            <input type="text" class="form-control" id="destinationName" name="destinationNameInput" placeholder="Enter name here" required maxlength="100">
-                            <small class="text-muted">* Required</small>
-                            <input type="text" class="form-control" id="latitudeDestinationCordinateID" name="latitudeDestinationCordinateInput" placeholder="Enter latitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
-                            <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
-                            <input type="text" class="form-control" id="longitudeDestinationCordinateID" name="longitudeDestinationCordinateInput" placeholder="Enter longitude here" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
-                            <small class="text-muted">* Required.Format: XX.XXXXXX (negative sign optional)</small>
+                            <label for="destinationNameInput" class="form-label">Destination *</label>
+                            <input type="text" class="form-control" id="destinationNameInput" name="destinationNameInput" placeholder="Name" required maxlength="100">
+                            <input type="text" class="form-control mt-3" id="latitudeDestinationCoordinateInput" name="latitudeDestinationCoordinateInput" placeholder="Latitude" aria-describedby="destinationLatitudeHelpText" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <small id="destinationLatitudeHelpText" class="form-text text-muted">
+                                The value must be in the format XX.XXXXXX (negative sign optional).
+                            </small>
+                            <input type="text" class="form-control mt-3" id="longitudeDestinationCordinateID" name="longitudeDestinationCoordinateInput" placeholder="Longitude" aria-describedby="destinationLongitudeHelpText" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <small id="destinationLongitudeHelpText" class="form-text text-muted">
+                                The value must be in the format XX.XXXXXX (negative sign optional).
+                            </small>
                         </div>
                         <div>
                             <!-- List of Points of Interest -->
@@ -195,39 +222,43 @@
                                 <i class="fa fa-plus"></i> Add Points of Interest
                             </button>
                         </div>
-                        <div class="d-flex bd-highlight mb-3">
-                            <div class="me-auto p-2 bd-highlight">
-                                <button type="button" id="cancelButtonPOI" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
+                        <div class="d-flex flex-row-reverse bd-highlight">
+                            <div class="p-2 bd-highlight">
+                                <button type="submit" id="nextButtonPOI" class="btn btn-success" onclick="nextTab()">Next</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonPOI" class="btn btn-secondary" onclick="prevTab()">Previous</button>
                             </div>
                             <div class="p-2 bd-highlight">
-                                <button type="submit" id="nextButtonPOI" class="btn btn-success" onclick="nextTab()">Next</button>
+                                <button type="button" id="cancelButtonPOI" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
                             </div>
                         </div>
                     </div>
 
                     <div class="tab-pane fade" id="pills-getting-there" role="tabpanel" aria-labelledby="pills-getting-there-tab" tabindex="0">
                         <div class="input-fields-group">
-                            <h3>Getting there</h3>
-                            <textarea class="form-control" id="GTInput" name="GettingThereInputFeld" rows="8" placeholder="Enter a description for getting there (max. 1000 characters)" required maxlength="1000"></textarea>
-                            <small class="text-muted">* Required</small>
+                            <label for="gettingThereInput" class="form-label">Getting There *</label>
+                            <textarea class="form-control" id="gettingThereInput" name="gettingThereInput" rows="8" placeholder="Getting There" aria-describedby="gettingThereHelpText" required maxlength="1000"></textarea>
+                            <small id="gettingThereHelpText" class="form-text text-muted">
+                                Provide information on the best way to get to the starting point of your hike. The maximum length is 1000 characters.
+                            </small>
                         </div>
                         <div class="input-fields-group">
-                            <h3>Parking</h3>
-                            <textarea class="form-control" id="ParkingInput" name="ParkingInputField" rows="8" placeholder="Enter a description for parking there (max. 1000 characters)" required maxlength="1000"></textarea>
-                            <small class="text-muted">* Required</small>
+                            <label for="parkingInput" class="form-label">Parking *</label>
+                            <textarea class="form-control" id="parkingInput" name="parkingInput" rows="8" placeholder="Parking" aria-describedby="parkingHelpText"required maxlength="1000"></textarea>
+                            <small id="parkingHelpText" class="form-text text-muted">
+                                Provide information about the best parking options near the starting point of the hike. The maximum length is 1000 characters.
+                            </small>
                         </div>
-                        <div class="d-flex bd-highlight mb-3">
-                            <div class="me-auto p-2 bd-highlight">
-                                <button type="button" id="cancelButtonGettingThere" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
+                        <div class="d-flex flex-row-reverse bd-highlight">
+                            <div class="p-2 bd-highlight">
+                                <button type="submit" id="saveButtonGettingThere" class="btn btn-success" onclick="saveInput()">Save</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonGettingThere" class="btn btn-secondary" onclick="prevTab()">Previous</button>
                             </div>
                             <div class="p-2 bd-highlight">
-                                <button type="submit" id="saveButtonGettingThere" class="btn btn-success" onclick="saveInput()">Save</button>
+                                <button type="button" id="cancelButtonGettingThere" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -258,7 +289,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title" id="pointsOfInterestModalLabel">Add Points of Interest</h3>
+                            <h3 class="modal-title" id="pointsOfInterestModalLabel">Add Point of Interest</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -266,13 +297,12 @@
                             <!-- For example: a form to input Points of Interest -->
                             <form id="poiForm">
                                 <div class="input-fields-group">
-                                    <h5>Name</h5>
-                                    <input type="text" class="form-control exclude-from-validation" id="poiName" name="poiName" placeholder="Enter Point of Interest Name" required maxlength="100">
-                                    <small class="text-muted">* Required</small>
+                                    <label for="poiName" class="form-label">Name *</label>
+                                    <input type="text" class="form-control exclude-from-validation" id="poiName" name="poiName" placeholder="Point of Interest Name" required maxlength="100">
                                 </div>
                                 <div class="input-fields-group">
-                                    <h5>Coordinates</h5>
-                                    <input type="text" class="form-control exclude-from-validation" id="poiCoordinates" name="poiCoordinates" placeholder="Enter Coordinates here" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\\-?(\d+(\.\d{1,7})?)">
+                                    <label for="poiName" class="form-label">Coordinates *</label>
+                                    <input type="text" class="form-control exclude-from-validation" id="poiCoordinates" name="poiCoordinates" placeholder="Coordinates" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\\-?(\d+(\.\d{1,7})?)">
                                     <small class="text-muted">* Required. Format:-XX.XXXXXX, YY.YYYYYY  </small>
                                 </div>
                                 <!-- Error message for required fields -->
@@ -376,10 +406,10 @@
                 });
             }
 
-            rangeCount('customRange1', 'rangeValue1');
-            rangeCount('customRange2', 'rangeValue2');
-            rangeCount('customRange3', 'rangeValue3');
-            rangeCount('customRange4', 'rangeValue4');
+            rangeCount('conditionInput', 'rangeValue1');
+            rangeCount('difficultyInput', 'rangeValue2');
+            rangeCount('experienceInput', 'rangeValue3');
+            rangeCount('landscapeInput', 'rangeValue4');
 
            /* // image functions
             function previewImage(inputId, previewId) {
@@ -508,17 +538,17 @@
                 container.appendChild(monthDiv);
             }
 
-            document.getElementById('distanceID').addEventListener('input', function() {
+            document.getElementById('distanceInput').addEventListener('input', function() {
                 let value = this.value;
                 this.value = value.replace(/[^0-9.]/g, '');
             });
 
-            document.getElementById('hoursID').addEventListener('input', function() {
+            document.getElementById('hoursInput').addEventListener('input', function() {
                 let value = this.value;
                 this.value = value.replace(/[^0-9]/g, '');
             });
 
-            document.getElementById('minutesID').addEventListener('input', function() {
+            document.getElementById('minutesInput').addEventListener('input', function() {
                 let value = this.value;
                 this.value = value.replace(/[^0-9]/g, '');
             });
