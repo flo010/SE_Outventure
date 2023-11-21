@@ -48,7 +48,7 @@ public class Hike {
     public void setHikeID(int hikeId) {
         _hikeID = hikeId;
     }
-
+    @Column(name = "picture")
     public int getPreviewPicture() {
         return _previewPicture;
     }
