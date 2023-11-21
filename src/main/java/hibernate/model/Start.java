@@ -14,6 +14,7 @@ public class Start {
     @Id
     @NotNull
     @Column(name = "start_id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getStartID() {
         return _startID;
     }

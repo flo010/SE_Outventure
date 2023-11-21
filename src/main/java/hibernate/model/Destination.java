@@ -14,6 +14,7 @@ public class Destination {
     @Id
     @NotNull
     @Column(name = "destination_id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getDestinationID() {
         return _destinationID;
     }
