@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.*;
+import java.util.Arrays;
 
 import static Proceesing.ImageProcessecing.extractBytes;
 
@@ -42,7 +43,7 @@ class ImageProcessecingTest {
 
             byte[] test = extractBytes(mockPart);
             Picture picture = new Picture();
-            picture.setBase64(test);
+            picture.setBase64(Arrays.toString(test));
             PictureBroker p = new PictureBroker();
             p.save(picture);
 
