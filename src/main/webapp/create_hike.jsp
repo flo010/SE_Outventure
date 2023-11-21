@@ -283,13 +283,12 @@
                     </div>
                 </div>
             </div>
-
             <!-- Modal for Points of Interest -->
             <div class="modal fade" id="pointsOfInterestModal" tabindex="-1" role="dialog" aria-labelledby="pointsOfInterestModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title" id="pointsOfInterestModalLabel">Add Point of Interest</h3>
+                            <h3 class="modal-title" id="pointsOfInterestModalLabel">Add Points of Interest</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -297,13 +296,28 @@
                             <!-- For example: a form to input Points of Interest -->
                             <form id="poiForm">
                                 <div class="input-fields-group">
-                                    <label for="poiName" class="form-label">Name *</label>
-                                    <input type="text" class="form-control exclude-from-validation" id="poiName" name="poiName" placeholder="Point of Interest Name" required maxlength="100">
+                                    <h5>Name</h5>
+                                    <input type="text" class="form-control exclude-from-validation" id="poiName" name="poiName" placeholder="Enter Point of Interest Name" required maxlength="100">
+                                    <small class="text-muted">* Required</small>
                                 </div>
                                 <div class="input-fields-group">
-                                    <label for="poiName" class="form-label">Coordinates *</label>
-                                    <input type="text" class="form-control exclude-from-validation" id="poiCoordinates" name="poiCoordinates" placeholder="Coordinates" required maxlength="50" pattern="-?(\d+(\.\d{1,7})?),\\-?(\d+(\.\d{1,7})?)">
-                                    <small class="text-muted">* Required. Format:-XX.XXXXXX, YY.YYYYYY  </small>
+                                    <h5>Coordinates</h5>
+                                    <div class="coordinates-container">
+                                        <div class="coordinate-field">
+                                            <label for="longitude">Longitude</label>
+                                            <input type="text" class="form-control exclude-from-validation" id="longitude" name="longitude" placeholder="Enter Longitude" required maxlength="20" pattern="-?\d+(\.\d{1,7})?">
+                                            <small class="text-muted">* Required. Format: -XX.XXXXXX, YY.YYYYYY</small>
+                                        </div>
+                                        <div class="coordinate-field">
+                                            <label for="latitude">Latitude</label>
+                                            <input type="text" class="form-control exclude-from-validation" id="latitude" name="latitude" placeholder="Enter Latitude" required maxlength="20" pattern="-?\d+(\.\d{1,7})?">
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">* Required. Format: -XX.XXXXXX, YY.YYYYYY</small>
+                                </div>
+                                <div class="input-fields-group">
+                                    <h5>Description</h5>
+                                    <textarea class="form-control exclude-from-validation" id="poiDescription" name="poiDescription" placeholder="Enter Point of Interest Description" maxlength="255"></textarea>
                                 </div>
                                 <!-- Error message for required fields -->
                                 <div id="poiErrorMessage" class="alert alert-danger mt-2" style="display: none">
