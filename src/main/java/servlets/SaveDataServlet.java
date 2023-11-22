@@ -56,6 +56,8 @@ public class SaveDataServlet extends HttpServlet {
         boolean november = Boolean.parseBoolean(request.getParameter("monthCheckboxNovember"));
         boolean december = Boolean.parseBoolean(request.getParameter("monthCheckboxDecember"));
         String routeDescription = request.getParameter("routeDescriptionInput");
+        String arrivalInformation = request.getParameter("gettingThereInput");
+        String parkingInformation = request.getParameter("parkingInput");
 
         Hike hike = new Hike();
 //        hike.setHikeID(hikeId);
@@ -83,6 +85,8 @@ public class SaveDataServlet extends HttpServlet {
         hike.setNovember(november);
         hike.setDecember(december);
         hike.setRouteDescription(routeDescription);
+        hike.setArrivalInformation(arrivalInformation);
+        hike.setParkingInformation(parkingInformation);
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         facadeJPA.save(hike);
