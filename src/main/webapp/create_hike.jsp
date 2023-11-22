@@ -21,7 +21,9 @@
 
         <div class="container-sm mt-5 mb-5">
             <div class="progress mb-5">
-                <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                    20%
+                </div>
             </div>
 
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"> <!-- insert nav-fill in class, when adding all tabs-->
@@ -625,28 +627,33 @@
 
             function updateProgressBar () {
                 let activeLink = document.querySelector(".nav-link.active");
-                let progressBar = document.querySelector(".progress-bar");
+                let progressBar = document.querySelector(".progress-bar.progress-bar-success");
 
                 switch (activeLink.id) {
                     case "pills-overview-tab":
-                        progressBar.setAttribute("aria-valuenow", "0");
+                        progressBar.setAttribute("aria-valuenow", "20");
                         progressBar.style.width = "20%";
+                        progressBar.innerHTML = "20%";
                         break;
                     case "pills-details-tab":
-                        progressBar.setAttribute("aria-valuenow", "0");
+                        progressBar.setAttribute("aria-valuenow", "40");
                         progressBar.style.width = "40%";
+                        progressBar.innerHTML = "40%";
                         break;
                     case "pills-route-tab":
-                        progressBar.setAttribute("aria-valuenow", "0");
+                        progressBar.setAttribute("aria-valuenow", "60");
                         progressBar.style.width = "60%";
+                        progressBar.innerHTML = "60%";
                         break;
                     case "pills-poi-tab":
-                        progressBar.setAttribute("aria-valuenow", "0");
+                        progressBar.setAttribute("aria-valuenow", "80");
                         progressBar.style.width = "80%";
+                        progressBar.innerHTML = "80%";
                         break;
                     case "pills-getting-there-tab":
-                        progressBar.setAttribute("aria-valuenow", "0");
+                        progressBar.setAttribute("aria-valuenow", "100");
                         progressBar.style.width = "100%";
+                        progressBar.innerHTML = "100%";
                         break;
                 }
             }
