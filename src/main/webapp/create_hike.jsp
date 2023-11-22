@@ -211,12 +211,25 @@
                                 <template id="poiTemplate">
                                     <div class="col-lg-6">
                                         <div class="card my-2">
-                                            <div class="card-body">
+                                            <div class="card-body d-flex flex-column">
                                                 <h4 id="poiTempName" class="card-title text-center"></h4>
-                                                <hr>
-                                                <p id="poiTempCoordinates">
-                                                    <strong>GPS Coordinates: </strong>
-                                                </p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <p id="poiTempCoordinates">
+                                                        <strong>GPS Coordinates: </strong>
+                                                    </p>
+                                                    <!-- Edit- und Delete-Buttons mit den gewünschten Symbolen -->
+                                                    <div class="d-flex gap-2">
+                                                        <!-- Edit-Button mit Stift-Icon -->
+                                                        <span class="input-group-text" id="editCoordinates" onclick="editCoordinates()">
+                                                             <i class="fa fa-pencil"></i>
+                                                        </span>
+
+                                                        <!-- Delete-Button mit Mülleimer-Icon -->
+                                                        <span class="input-group-text" onclick="deleteCoordinates()">
+                                                            <i class="fa fa-trash"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -348,7 +361,31 @@
             // prompt functions
             function cancelCancel(){
             }
+            // Funktion zum Öffnen des Points of Interest-Modals
+            function openPoiModal() {
+                // JavaScript code to activate the modal
+                var pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
+                pointsOfInterestModal.show();
+            }
 
+            // Funktion zum Bearbeiten der Koordinaten
+            function editCoordinates() {
+                // Hier rufst du die Funktion zum Öffnen des Modals auf
+                openPoiModal();
+
+                // Implementiere ggf. zusätzliche Logik, um die bestehenden Koordinaten im Modal zu laden
+                // Beispiel: document.getElementById('longitude').value = /* Wert aus deiner Datenbank */;
+                // Beispiel: document.getElementById('latitude').value = /* Wert aus deiner Datenbank */;
+            }
+            // Funktion zum Löschen der Koordinaten
+            function deleteCoordinates() {
+                // Hier rufst du die Funktion zum Öffnen des Modals auf
+                openPoiModal();
+
+                // Setze die Werte der Koordinaten im Modal auf leer
+                document.getElementById('longitude').value = '';
+                document.getElementById('latitude').value = '';
+            }
             function confirmCancel() {
                 let myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
                     keyboard: false
