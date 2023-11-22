@@ -40,7 +40,7 @@
 
         <div class="container-sm mt-5 mb-5">
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
-            <img class="cover-image" src="<%=demoImages.get(hike.getHikeID())%>" alt="mountain picture">
+            <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
             <div class="card mb-5 mt-5">
                 <div class="card-body">
                     <div class="row">

@@ -38,7 +38,7 @@
                 %>
                 <div class="col">
                     <a class="card text-decoration-none" href="hike_detail?id=<%=hike.getHikeID()%>">
-                        <img class="card-image-top" src="<%=demoImages.get(hike.getHikeID())%>" alt="hike picture">
+                        <img class="card-image-top" src="/api/image/<%=hike.getPreviewPicture()%>" alt="hike picture">
                         <div class="card-body">
                             <h5 class="card-title text-truncate"><%=hike.getTitle()%></h5>
                             <div class="col">

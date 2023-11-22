@@ -3,14 +3,17 @@ package servlets;
 import hibernate.facade.FacadeJPA;
 import hibernate.model.Destination;
 import hibernate.model.Hike;
+import hibernate.model.Picture;
 import hibernate.model.Start;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import jakarta.transaction.Transactional;
-
+import static Proceesing.ImageProcessecing.extractBytes;
 import java.io.IOException;
 
 @WebServlet(name = "saveDataServlet", value = "/save_data")
@@ -18,7 +21,6 @@ public class SaveDataServlet extends HttpServlet {
     @Transactional
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
         double distance = Double.parseDouble(request.getParameter("distanceInput"));;
@@ -60,7 +62,6 @@ public class SaveDataServlet extends HttpServlet {
         String parkingInformation = request.getParameter("parkingInput");
 
         Hike hike = new Hike();
-//        hike.setHikeID(hikeId);
         hike.setTitle(title);
         hike.setDescription(description);
         hike.setDuration(duration);
@@ -87,8 +88,8 @@ public class SaveDataServlet extends HttpServlet {
         hike.setRouteDescription(routeDescription);
         hike.setArrivalInformation(arrivalInformation);
         hike.setParkingInformation(parkingInformation);
-
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
+        hike.setPreviewPicture(1);
         facadeJPA.save(hike);
 
         response.sendRedirect("search_results?hikeCreated=true");

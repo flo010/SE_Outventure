@@ -7,11 +7,19 @@ import jakarta.persistence.Persistence;
 import java.util.List;
 
 public abstract class BrokerBase<T> {
+    private static EntityManagerFactory _entityManagerFactory;
+
+    private EntityManagerFactory getEntityManagerFactory(){
+        if(_entityManagerFactory == null){
+            _entityManagerFactory = Persistence.createEntityManagerFactory("Outventure");
+        }
+        return _entityManagerFactory;
+    }
 
     public EntityManager getEntityManager() {
         EntityManager entityManager = null;
         try {
-            EntityManagerFactory fact = Persistence.createEntityManagerFactory("Outventure");
+            EntityManagerFactory fact = getEntityManagerFactory();
             entityManager = fact.createEntityManager();
         } catch (Exception e) {
             System.out.println("Error creating EntityManager: " + e.getMessage());

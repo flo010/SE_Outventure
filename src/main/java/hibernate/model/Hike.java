@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "hikes")
 public class Hike {
     private int _hikeID;
-    private List<Picture> _pictures;
+    private int _previewPicture;
     private String _title;
     private String _description;
     private double _duration;
@@ -49,14 +49,14 @@ public class Hike {
         _hikeID = hikeId;
     }
 
-    @OneToMany(mappedBy = "hikePicture")
-    public List<Picture> getPictures() {
-        return _pictures;
-    }
-    public void setPictures(List<Picture> pictures) {
-        _pictures = pictures;
-    }
 
+    @Column(name = "picture")
+    public int getPreviewPicture() {
+        return _previewPicture;
+    }
+    public void setPreviewPicture(int picture) {
+        _previewPicture = picture;
+    }
     @NotNull
     @Column(name = "title")
     public String getTitle() {

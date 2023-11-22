@@ -82,7 +82,7 @@
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button type="submit" id="nextButtonOverview" class="btn btn-success" onclick="nextTab()">Next</button>
+                                <button id="nextButtonOverview" class="btn btn-success" onclick="nextTab()">Next</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="cancelButtonOverview" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
@@ -149,7 +149,7 @@
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button type="submit" id="nextButtonDetails" class="btn btn-success" onclick="nextTab()">Next</button>
+                                <button id="nextButtonDetails" class="btn btn-success" onclick="nextTab()">Next</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonDetails" class="btn btn-secondary" onclick="prevTab()">Previous</button>
@@ -170,7 +170,7 @@
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button type="submit" id="nextButtonRoute" class="btn btn-success" onclick="nextTab()">Next</button>
+                                <button id="nextButtonRoute" class="btn btn-success" onclick="nextTab()">Next</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonRoute" class="btn btn-secondary" onclick="prevTab()">Previous</button>
@@ -230,7 +230,7 @@
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button type="submit" id="nextButtonPOI" class="btn btn-success" onclick="nextTab()">Next</button>
+                                <button id="nextButtonPOI" class="btn btn-success" onclick="nextTab()">Next</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonPOI" class="btn btn-secondary" onclick="prevTab()">Previous</button>
