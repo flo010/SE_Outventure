@@ -93,5 +93,7 @@ td, th {
     font-size: 1.3em;
 }
 
-
+.progress.mb-5 {
+    height: 20px;
+}
 

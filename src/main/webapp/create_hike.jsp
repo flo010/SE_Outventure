@@ -20,6 +20,10 @@
 
 
         <div class="container-sm mt-5 mb-5">
+            <div class="progress mb-5">
+                <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"> <!-- insert nav-fill in class, when adding all tabs-->
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="pills-overview-tab" data-bs-toggle="pill" data-bs-target="#pills-overview" type="button" role="tab" aria-controls="pills-overview" aria-selected="true" disabled>Overview</button>
@@ -594,6 +598,8 @@
                     document.querySelector(targetIdActiveTab).classList.remove("show", "active");
                     let targetIdNextTab = nextTab.getAttribute("data-bs-target");
                     document.querySelector(targetIdNextTab).classList.add("show", "active");
+
+                    updateProgressBar();
                 }
             }
 
@@ -612,8 +618,39 @@
                     document.querySelector(targetIdActiveTab).classList.remove("show", "active");
                     let targetIdPrevTab = prevTab.getAttribute("data-bs-target");
                     document.querySelector(targetIdPrevTab).classList.add("show", "active");
+
+                    updateProgressBar();
                 }
             }
+
+            function updateProgressBar () {
+                let activeLink = document.querySelector(".nav-link.active");
+                let progressBar = document.querySelector(".progress-bar");
+
+                switch (activeLink.id) {
+                    case "pills-overview-tab":
+                        progressBar.setAttribute("aria-valuenow", "0");
+                        progressBar.style.width = "20%";
+                        break;
+                    case "pills-details-tab":
+                        progressBar.setAttribute("aria-valuenow", "0");
+                        progressBar.style.width = "40%";
+                        break;
+                    case "pills-route-tab":
+                        progressBar.setAttribute("aria-valuenow", "0");
+                        progressBar.style.width = "60%";
+                        break;
+                    case "pills-poi-tab":
+                        progressBar.setAttribute("aria-valuenow", "0");
+                        progressBar.style.width = "80%";
+                        break;
+                    case "pills-getting-there-tab":
+                        progressBar.setAttribute("aria-valuenow", "0");
+                        progressBar.style.width = "100%";
+                        break;
+                }
+            }
+
         </script>
     </body>
 </html>
