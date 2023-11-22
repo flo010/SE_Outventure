@@ -225,8 +225,8 @@
                                                         </span>
 
                                                         <!-- Delete-Button mit Mülleimer-Icon -->
-                                                        <span class="input-group-text" onclick="deleteCoordinates()">
-                                                            <i class="fa fa-trash"></i>
+                                                        <span class="input-group-text" onclick="deletePointOfInterest(this)">
+                                                             <i class="fa fa-trash"></i>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -377,14 +377,10 @@
                 // Beispiel: document.getElementById('longitude').value = /* Wert aus deiner Datenbank */;
                 // Beispiel: document.getElementById('latitude').value = /* Wert aus deiner Datenbank */;
             }
-            // Funktion zum Löschen der Koordinaten
-            function deleteCoordinates() {
-                // Hier rufst du die Funktion zum Öffnen des Modals auf
-                openPoiModal();
-
-                // Setze die Werte der Koordinaten im Modal auf leer
-                document.getElementById('longitude').value = '';
-                document.getElementById('latitude').value = '';
+            function deletePointOfInterest(button) {
+                // Get the parent card element and remove it
+                var card = button.closest('.card');
+                card.remove();
             }
             function confirmCancel() {
                 let myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
