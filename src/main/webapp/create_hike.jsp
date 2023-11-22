@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="input-fields-group">
-                            <label for="titleInput" class="form-label">Description *</label>
+                            <label for="descriptionInput" class="form-label">Description *</label>
                             <textarea class="form-control" id="descriptionInput" name="descriptionInput" rows="8" placeholder="Description" required maxlength="1000" aria-describedby="descriptionHelpText"></textarea>
                             <small id="descriptionHelpText" class="form-text text-muted">
                                 Describe your hike in a few sentences to provide an overview of the route. The maximum length is 1000 characters.
@@ -113,8 +113,8 @@
                             </div>
                         </div>
                         <div class="input-fields-group less-width">
-                            <label for="hoursInput" class="form-label">Altitude *</label>
-                            <input type="text" class="form-control" id="altitudeID" name="altitudeInput" placeholder="Altitude" required maxlength="10" aria-describedby="altitudeHelpText" pattern="\d{1,10}">
+                            <label for="altitudeInput" class="form-label">Altitude *</label>
+                            <input type="text" class="form-control" id="altitudeInput" name="altitudeInput" placeholder="Altitude" required maxlength="10" aria-describedby="altitudeHelpText" pattern="\d{1,10}">
                             <small id="altitudeHelpText" class="form-text text-muted">
                                 The value must be specified in meters.
                             </small>
@@ -350,7 +350,7 @@
             }
 
             function confirmCancel() {
-                var myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
+                let myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
                     keyboard: false
                 });
                 myModal.show();
@@ -444,17 +444,17 @@
 
             //Checkboxes
             // Array of month names
-            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-            var container = document.getElementById("monthContainer");
+            let container = document.getElementById("monthContainer");
 
-            for (var i = 0; i < months.length; i++) {
+            for (let i = 0; i < months.length; i++) {
                 // Create the month div
-                var monthDiv = document.createElement("div");
+                let monthDiv = document.createElement("div");
                 monthDiv.className = "form-check form-check-inline";
 
                 // Create the checkbox input
-                var checkboxInput = document.createElement("input");
+                let checkboxInput = document.createElement("input");
                 checkboxInput.className = "form-check-input months";
                 checkboxInput.type = "checkbox";
                 checkboxInput.id = "optimalSeason" + months[i];
@@ -462,7 +462,7 @@
                 checkboxInput.name = "monthCheckbox" + months[i]; // Added name attribute
 
                 // Create the label for the checkbox
-                var label = document.createElement("label");
+                let label = document.createElement("label");
                 label.className = "form-check-label";
                 label.setAttribute("for", "monthCheckbox" + i);
                 label.innerText = months[i];
@@ -490,7 +490,7 @@
                 this.value = value.replace(/[^0-9]/g, '');
             });
 
-            document.getElementById('altitudeID').addEventListener('input', function() {
+            document.getElementById('altitudeInput').addEventListener('input', function() {
                 let value = this.value;
                 this.value = value.replace(/[^0-9]/g, '');
             });
