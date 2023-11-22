@@ -11,7 +11,7 @@
         <title>Create Hike Overview</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link href="style.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -341,6 +341,7 @@
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="java_script/create_hike.js"></script>
         <script>
             let shouldPromptBeforeUnload = true; // Variable to track whether to prompt before unload
 
@@ -366,88 +367,10 @@
                 }
             }
 
-            function saveInput() {
-                let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
-                let allInputsFilled = true;
-
-                for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
-                    if (!requiredInputs[i].value.trim()) {
-                        allInputsFilled = false;
-                    }
-                }
-
-                if (allInputsFilled) {
-                    shouldPromptBeforeUnload = false;
-                    document.getElementById("createHikeOverview").submit();
-                }
-            }
-            // POI modal
-            var pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
-
-            function savePointOfInterest() {
-                // Get values from the form
-                var poiName = document.getElementById('poiName').value;
-                var poiCoordinates = document.getElementById('longitude').value + ', ' + document.getElementById('latitude').value;
-
-                // Check if required fields are empty
-                if (!poiName || !poiCoordinates) {
-                    var errorMessage = document.getElementById('poiErrorMessage');
-                    errorMessage.style.display = 'block';
-                    return;
-                }
-                appendNewPOI(poiName, poiCoordinates);
-
-                // Close the modal
-                pointsOfInterestModal.hide();
-            }
-            function appendNewPOI(poiName, poiCoordinates) {
-                const poiContainer = document.getElementById("poiContainer");
-                const poiTemplate = document.getElementById("poiTemplate");
-
-                const pointOfInterest = poiTemplate.content.cloneNode(true);
-                const name = pointOfInterest.getElementById("poiTempName");
-                const coordinates = pointOfInterest.getElementById("poiTempCoordinates");
-                name.textContent = poiName;
-                coordinates.textContent = 'GPS Coordinates: ' + poiCoordinates;
-
-                poiContainer.appendChild(pointOfInterest);
-            }
-            // slider functions
-            function rangeCount(id, labelId){
-                var rangeInput = document.getElementById(id);
-                var rangeValue = document.getElementById(labelId);
-
-                rangeInput.addEventListener('input', function () {
-                    rangeValue.textContent = rangeInput.value;
-                });
-            }
-
             rangeCount('conditionInput', 'rangeValue1');
             rangeCount('difficultyInput', 'rangeValue2');
             rangeCount('experienceInput', 'rangeValue3');
             rangeCount('landscapeInput', 'rangeValue4');
-
-           /* // image functions
-            function previewImage(inputId, previewId) {
-                const input = document.getElementById(inputId);
-                const preview = document.getElementById(previewId);
-                // Check if input and preview element are present
-                if (input && preview) {
-                    // Add EventListener for the event that the input changes
-                    input.addEventListener("change", function () {
-                        const [file] = input.files;
-                        // Check if a file is present and check for its file type
-                        if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
-                            // Display the preview
-                            preview.src = URL.createObjectURL(file);
-                            preview.style.display = "block";
-                        } else {
-                            input.classList.add("is-invalid");
-                            preview.style.display = "none";
-                        }
-                    });
-                }
-            }*/
 
             // image functions
             function previewImage(inputId, previewId) {
@@ -513,8 +436,6 @@
                     }
                 });
             }
-
-
 
             // Setup for images
             previewImage('coverImageInput', 'previewCoverImage');
@@ -583,81 +504,6 @@
                 let value = this.value;
                 this.value = value.replace(/[^\d.,-]/g, '');
             });
-
-            // functions for switching pills
-            function nextTab() {
-                shouldPromptBeforeUnload = false;
-                let activeTab = document.querySelector(".nav-link.active");
-                let nextTab = activeTab.parentElement.nextElementSibling.querySelector(".nav-link");
-
-                if (nextTab) {
-                    activeTab.classList.remove("active");
-                    nextTab.classList.add("active");
-                    activeTab.setAttribute("aria-selected", "false");
-                    nextTab.setAttribute("aria-selected", "true");
-
-                    let targetIdActiveTab = activeTab.getAttribute("data-bs-target");
-                    document.querySelector(targetIdActiveTab).classList.remove("show", "active");
-                    let targetIdNextTab = nextTab.getAttribute("data-bs-target");
-                    document.querySelector(targetIdNextTab).classList.add("show", "active");
-
-                    updateProgressBar();
-                }
-            }
-
-            function prevTab() {
-                shouldPromptBeforeUnload = false;
-                let activeTab = document.querySelector(".nav-link.active");
-                let prevTab = activeTab.parentElement.previousElementSibling.querySelector(".nav-link");
-
-                if (prevTab) {
-                    activeTab.classList.remove("active");
-                    prevTab.classList.add("active");
-                    activeTab.setAttribute("aria-selected", "false");
-                    prevTab.setAttribute("aria-selected", "true");
-
-                    let targetIdActiveTab = activeTab.getAttribute("data-bs-target");
-                    document.querySelector(targetIdActiveTab).classList.remove("show", "active");
-                    let targetIdPrevTab = prevTab.getAttribute("data-bs-target");
-                    document.querySelector(targetIdPrevTab).classList.add("show", "active");
-
-                    updateProgressBar();
-                }
-            }
-
-            function updateProgressBar () {
-                let activeLink = document.querySelector(".nav-link.active");
-                let progressBar = document.querySelector(".progress-bar.bg-success");
-
-                switch (activeLink.id) {
-                    case "pills-overview-tab":
-                        progressBar.setAttribute("aria-valuenow", "20");
-                        progressBar.style.width = "20%";
-                        progressBar.innerHTML = "20%";
-                        break;
-                    case "pills-details-tab":
-                        progressBar.setAttribute("aria-valuenow", "40");
-                        progressBar.style.width = "40%";
-                        progressBar.innerHTML = "40%";
-                        break;
-                    case "pills-route-tab":
-                        progressBar.setAttribute("aria-valuenow", "60");
-                        progressBar.style.width = "60%";
-                        progressBar.innerHTML = "60%";
-                        break;
-                    case "pills-poi-tab":
-                        progressBar.setAttribute("aria-valuenow", "80");
-                        progressBar.style.width = "80%";
-                        progressBar.innerHTML = "80%";
-                        break;
-                    case "pills-getting-there-tab":
-                        progressBar.setAttribute("aria-valuenow", "100");
-                        progressBar.style.width = "100%";
-                        progressBar.innerHTML = "100%";
-                        break;
-                }
-            }
-
         </script>
     </body>
 </html>
