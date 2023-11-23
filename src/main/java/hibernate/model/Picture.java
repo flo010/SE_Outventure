@@ -9,7 +9,6 @@ public class Picture {
     private int _pictureID;
     private Hike _hikePicture;
     private byte[] _picture;
-    private String _base64;
 
     @Id
     @NotNull
@@ -31,14 +30,6 @@ public class Picture {
         _picture = picture;
     }
 
-    @NotNull
-    @Column(name = "base64")
-    public String getBase64() {
-        return _base64;
-    }
-    public void setBase64(String base64) {
-        _base64 = base64;
-    }
 
     @ManyToOne
     @JoinColumn(name = "hike")
