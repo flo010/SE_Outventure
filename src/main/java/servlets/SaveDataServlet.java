@@ -74,14 +74,16 @@ public class SaveDataServlet extends HttpServlet {
 
         List<PointOfInterest> pointsOfInterest = new ArrayList<>();
 
-        for (int i = 0; i < poiNames.length; i++) {
-            PointOfInterest pointOfInterest = new PointOfInterest();
-            pointOfInterest.setName(poiNames[i]);
-            pointOfInterest.setLatitude(Double.parseDouble(poiLatitudes[i]));
-            pointOfInterest.setLongitude(Double.parseDouble(poiLongitudes[i]));
-            pointOfInterest.setDescription(poiDescriptions[i]);
-            pointOfInterest.setHikePOI(hike);
-            pointsOfInterest.add(pointOfInterest);
+        if(poiNames != null) {
+            for (int i = 0; i < poiNames.length; i++) {
+                PointOfInterest pointOfInterest = new PointOfInterest();
+                pointOfInterest.setName(poiNames[i]);
+                pointOfInterest.setLatitude(Double.parseDouble(poiLatitudes[i]));
+                pointOfInterest.setLongitude(Double.parseDouble(poiLongitudes[i]));
+                pointOfInterest.setDescription(poiDescriptions[i]);
+                pointOfInterest.setHikePOI(hike);
+                pointsOfInterest.add(pointOfInterest);
+            }
         }
 
         hike.setPointsOfInterest(pointsOfInterest);
