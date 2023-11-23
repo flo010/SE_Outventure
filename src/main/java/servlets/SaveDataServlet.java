@@ -71,6 +71,7 @@ public class SaveDataServlet extends HttpServlet {
 
 
         Hike hike = new Hike();
+        hike.setPreviewPicture(1);
 
         List<PointOfInterest> pointsOfInterest = new ArrayList<>();
 
