@@ -223,7 +223,6 @@
                                                         <span class="input-group-text" id="editCoordinates" onclick="editCoordinates()">
                                                              <i class="fa fa-pencil"></i>
                                                         </span>
-
                                                         <!-- Delete-Button mit Mülleimer-Icon -->
                                                         <span class="input-group-text" onclick="deletePointOfInterest(this)">
                                                              <i class="fa fa-trash"></i>
