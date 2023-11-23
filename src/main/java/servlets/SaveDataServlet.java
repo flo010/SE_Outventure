@@ -15,7 +15,6 @@ import jakarta.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "saveDataServlet", value = "/save_data")
@@ -26,7 +25,7 @@ public class SaveDataServlet extends HttpServlet {
 
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
-        double distance = Double.parseDouble(request.getParameter("distanceInput"));;
+        double distance = Double.parseDouble(request.getParameter("distanceInput"));
         int hours = Integer.parseInt(request.getParameter("hoursInput"));
         int minutes = Integer.parseInt(request.getParameter("minutesInput"));
         double duration = hours + (minutes / 60.0);
@@ -45,10 +44,10 @@ public class SaveDataServlet extends HttpServlet {
         destination.setLatitude(42.12);
         destination.setLongitude(10.12);
 
-        int strength = Integer.parseInt(request.getParameter("difficultyInput"));;
+        int strength = Integer.parseInt(request.getParameter("difficultyInput"));
         int stamina = Integer.parseInt(request.getParameter("conditionInput"));
-        int experience = Integer.parseInt(request.getParameter("experienceInput"));;
-        int landscape = Integer.parseInt(request.getParameter("landscapeInput"));;
+        int experience = Integer.parseInt(request.getParameter("experienceInput"));
+        int landscape = Integer.parseInt(request.getParameter("landscapeInput"));
         boolean january = Boolean.parseBoolean(request.getParameter("monthCheckboxJanuary"));
         boolean february = Boolean.parseBoolean(request.getParameter("monthCheckboxFebruary"));
         boolean march = Boolean.parseBoolean(request.getParameter("monthCheckboxMarch"));
