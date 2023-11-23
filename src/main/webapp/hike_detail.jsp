@@ -44,8 +44,9 @@
         <div class="container-sm mt-5 mb-5">
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
             <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
-            <div>
-                <h6>Created by: <%=hike.getAuthor()%> at: <%=formattedDate%></h6>
+            <div class="paragraph-container">
+                <span class="author">Author: <%= hike.getAuthor() %></span>
+                <span class="created-at">Created at: <%= formattedDate %></span>
             </div>
             <div class="card mb-5 mt-5">
                 <div class="card-body">
