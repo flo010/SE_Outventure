@@ -213,14 +213,18 @@
                                         <div class="card my-2">
                                             <div class="card-body">
                                                 <h4 id="poiTempName" class="card-title text-center"></h4>
+                                                <input type="hidden" id="poiNameInput" name="poiNameInput">
                                                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                                                     <div>
                                                         <p id="poiTempCoordinates">
                                                             <strong>GPS Coordinates: </strong>
                                                         </p>
+                                                        <input type="hidden" id="poiLatitudeInput" name="poiLatitudeInput">
+                                                        <input type="hidden" id="poiLongitudeInput" name="poiLongitudeInput">
                                                         <p id="poiTempDescription" class="text-break">
                                                             <strong>Description: </strong>
                                                         </p>
+                                                        <input type="hidden" id="poiDescriptionInput" name="poiDescriptionInput">
                                                     </div>
                                                     <!-- Edit- und Delete-Buttons mit den gewünschten Symbolen -->
                                                     <div class="d-flex gap-2">

@@ -94,11 +94,12 @@ function savePointOfInterest() {
     const poiDescription = document.getElementById("poiDescription").value;
 
     // Check if required fields are empty
-    if (!poiName || !poiLatitude || !poiLongitude || !poiDescription) {
-        var errorMessage = document.getElementById('poiErrorMessage');
+    if (!poiName || !poiLatitude || !poiLongitude) {
+        const errorMessage = document.getElementById('poiErrorMessage');
         errorMessage.style.display = 'block';
         return;
     }
+
     appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription);
 
     // Close the modal
@@ -112,13 +113,27 @@ function appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription) {
     const pointOfInterest = poiTemplate.content.cloneNode(true);
     const name = pointOfInterest.getElementById("poiTempName");
     const coordinates = pointOfInterest.getElementById("poiTempCoordinates");
-    const description = pointOfInterest.getElementById("poiTempDescription");
-    const coordinatesTextNode = document.createTextNode(`${poiLatitude}, ${poiLongitude}`);
-    const descriptionTextNode = document.createTextNode(poiDescription);
 
+    const poiNameInput = pointOfInterest.getElementById("poiNameInput");
+    const poiLatitudeInput = pointOfInterest.getElementById("poiLatitudeInput");
+    const poiLongitudeInput = pointOfInterest.getElementById("poiLongitudeInput");
+    const description = pointOfInterest.getElementById("poiTempDescription");
+
+    const coordinatesTextNode = document.createTextNode(`${poiLatitude}, ${poiLongitude}`);
     name.textContent = poiName;
     coordinates.appendChild(coordinatesTextNode);
-    description.appendChild(descriptionTextNode);
+    poiNameInput.value = poiName;
+    poiLatitudeInput.value = poiLatitude;
+    poiLongitudeInput.value = poiLongitude;
+
+    if (poiDescription) {
+        const descriptionTextNode = document.createTextNode(poiDescription);
+        description.appendChild(descriptionTextNode);
+        const poiDescriptionInput = pointOfInterest.getElementById("poiDescriptionInput");
+        poiDescriptionInput.value = poiDescription;
+    } else {
+        description.remove();
+    }
 
     poiContainer.appendChild(pointOfInterest);
 }

@@ -3,6 +3,7 @@ package servlets;
 import hibernate.facade.FacadeJPA;
 import hibernate.model.Destination;
 import hibernate.model.Hike;
+import hibernate.model.PointOfInterest;
 import hibernate.model.Start;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,7 +14,9 @@ import jakarta.transaction.Transactional;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet(name = "saveDataServlet", value = "/save_data")
 public class SaveDataServlet extends HttpServlet {
@@ -62,8 +65,28 @@ public class SaveDataServlet extends HttpServlet {
         String arrivalInformation = request.getParameter("gettingThereInput");
         String parkingInformation = request.getParameter("parkingInput");
         LocalDate currentDate = LocalDate.now();
+        String[] poiNames = request.getParameterValues("poiNameInput");
+        String[] poiLatitudes = request.getParameterValues("poiLatitudeInput");
+        String[] poiLongitudes = request.getParameterValues("poiLongitudeInput");
+        String[] poiDescriptions = request.getParameterValues("poiDescriptionInput");
+
 
         Hike hike = new Hike();
+
+        List<PointOfInterest> pointsOfInterest = new ArrayList<>();
+
+        for (int i = 0; i < poiNames.length; i++) {
+            PointOfInterest pointOfInterest = new PointOfInterest();
+            pointOfInterest.setName(poiNames[i]);
+            pointOfInterest.setLatitude(Double.parseDouble(poiLatitudes[i]));
+            pointOfInterest.setLongitude(Double.parseDouble(poiLongitudes[i]));
+            pointOfInterest.setDescription(poiDescriptions[i]);
+            pointOfInterest.setHikePOI(hike);
+            pointsOfInterest.add(pointOfInterest);
+        }
+
+        hike.setPointsOfInterest(pointsOfInterest);
+
 //        hike.setHikeID(hikeId);
         hike.setTitle(title);
         hike.setDescription(description);
