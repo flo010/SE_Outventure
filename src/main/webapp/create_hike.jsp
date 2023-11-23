@@ -470,6 +470,26 @@
                 });
             }
 
+            function uploadImageToServer(compressedDataURL) {
+                // Send a POST request to your server endpoint to handle the image upload
+                fetch('/api/image', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ image: compressedDataURL }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Log the server response
+                        alert('Image uploaded and saved to the database.');
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error uploading image.');
+                    });
+            }
+
             // Setup for images
             previewImage('coverImageInput', 'previewCoverImage');
             // previewImage('optionalImageInput1', 'previewOptionalImage1');

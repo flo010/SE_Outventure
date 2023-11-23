@@ -43,7 +43,7 @@ class ImageProcessecingTest {
 
             byte[] test = extractBytes(mockPart);
             Picture picture = new Picture();
-            picture.setPicture(test);
+            picture.setBase64(Arrays.toString(test));
             PictureBroker p = new PictureBroker();
             p.save(picture);
 

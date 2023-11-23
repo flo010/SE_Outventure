@@ -80,7 +80,7 @@ td, th {
 }
 
 .less-width{
-    width: 50%;
+    width: 300px;
     margin-bottom: 1em;
     gap: 20px
 }
@@ -89,12 +89,5 @@ td, th {
     width: 95%;
 }
 
-.form-label {
-    font-size: 1.3em;
-}
 
-.progress.mb-5 {
-    height: 20px;
-
-}
 
