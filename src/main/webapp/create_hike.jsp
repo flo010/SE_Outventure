@@ -225,7 +225,7 @@
                                                     <!-- Edit- und Delete-Buttons mit den gewünschten Symbolen -->
                                                     <div class="d-flex gap-2">
                                                         <!-- Edit-Button mit Stift-Icon -->
-                                                        <span class="input-group-text" id="editCoordinates" onclick="editCoordinates()">
+                                                        <span class="input-group-text" id="editCoordinates" onclick="editPointOfInterest()">
                                                              <i class="fa fa-pencil"></i>
                                                         </span>
 
@@ -374,7 +374,7 @@
             }
 
             // Funktion zum Bearbeiten der Koordinaten
-            function editCoordinates() {
+            function editPointOfInterest() {
                 // Hier rufst du die Funktion zum Öffnen des Modals auf
                 openPoiModal();
 
