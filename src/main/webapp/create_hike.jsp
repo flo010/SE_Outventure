@@ -46,7 +46,7 @@
 
             <hr>
 
-            <form id="createHikeOverview" action="save_data" method="post">
+            <form class="needs-validation" id="createHikeOverview" action="save_data" method="post" novalidate>
                 <div class="tab-content mt-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                         <div class="input-fields-group">
@@ -55,8 +55,8 @@
                             <small id="titleHelpText" class="form-text text-muted">
                                 The maximum length is 100 characters.
                             </small>
-                            <div class="valid-feedback">
-                                Looks good!
+                            <div class="invalid-feedback">
+                                Please enter a title.
                             </div>
                         </div>
                         <div class="input-fields-group">
@@ -65,16 +65,13 @@
                             <small id="descriptionHelpText" class="form-text text-muted">
                                 Describe your hike in a few sentences to provide an overview of the route. The maximum length is 1000 characters.
                             </small>
-                            <div class="valid-feedback">
-                                Looks good!
+                            <div class="invalid-feedback">
+                                Please enter a description.
                             </div>
                         </div>
                         <div class="input-fields-group">
                             <label for="coverImageInput" class="form-label">Cover Image *</label><br>
                             <input onchange="handleCoverImage()" type="file" class="form-control" id="coverImageInput" name="coverImage" accept=".png, .jpg" required>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
                             <div class="invalid-feedback alert alert-danger mt-2">
                                 Invalid file type. Please provide a .png or.jpg.
                             </div>
@@ -82,7 +79,7 @@
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button id="nextButtonOverview" class="btn btn-success" onclick="nextTab()">Next</button>
+                                <button type="button" id="nextButtonOverview" class="btn btn-success" onclick="nextTab()">Next</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="cancelButtonOverview" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
@@ -97,6 +94,9 @@
                             <small id="distanceHelpText" class="form-text text-muted">
                                 The value must be specified as a decimal number in kilometers.
                             </small>
+                            <div class="invalid-feedback">
+                                Please enter a valid distance.
+                            </div>
                         </div>
                         <div class="input-fields-group less-width">
                             <div class="row">
@@ -104,11 +104,17 @@
                                 <div class="col">
                                     <input type="text" class="form-control" id="hoursInput" name="hoursInput" placeholder="Hours" required maxlength="2" pattern="[0-9]{1,2}">
                                 </div>
+                                <div class="invalid-feedback">
+                                    Please enter a valid duration.
+                                </div>
                                 <div class="col">
-                                    <input type="text" class="form-control" id="minutesInput" name="minutesInput" placeholder="Minutes" required maxlength="2" aria-describedby="minutesHelpText" pattern="[0-5]?[0-9]">
+                                    <input type="number" min="0" max="59" class="form-control" id="minutesInput" name="minutesInput" placeholder="Minutes" required maxlength="2" aria-describedby="minutesHelpText" pattern="[0-5]?[0-9]">
                                     <small id="minutesHelpText" class="form-text text-muted">
                                         The value must be between 0 and 59.
                                     </small>
+                                    <div class="invalid-feedback">
+                                        Please enter a valid duration.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -118,6 +124,9 @@
                             <small id="altitudeHelpText" class="form-text text-muted">
                                 The value must be specified in meters.
                             </small>
+                            <div class="invalid-feedback">
+                                Please enter a valid altitude.
+                            </div>
                         </div>
                         <div class="input-fields-group less-width">
                             <div>
@@ -149,7 +158,7 @@
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button id="nextButtonDetails" class="btn btn-success" onclick="nextTab()">Next</button>
+                                <button type="button" id="nextButtonDetails" class="btn btn-success" onclick="nextTab()">Next</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonDetails" class="btn btn-secondary" onclick="prevTab()">Previous</button>
@@ -167,10 +176,13 @@
                             <small id="routeHelpText" class="form-text text-muted">
                                 Describe the route of your hike in detail. The maximum length is 1000 characters.
                             </small>
+                            <div class="invalid-feedback">
+                                Please enter a route description.
+                            </div>
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button id="nextButtonRoute" class="btn btn-success" onclick="nextTab()">Next</button>
+                                <button type="button" id="nextButtonRoute" class="btn btn-success" onclick="nextTab()">Next</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonRoute" class="btn btn-secondary" onclick="prevTab()">Previous</button>
@@ -184,26 +196,44 @@
                         <div class="input-fields-group less-width">
                             <label for="startNameInput" class="form-label">Start *</label>
                             <input type="text" class="form-control" id="startNameInput" name="startNameInput" placeholder="Name" aria-describedby="startLatitudeHelpText" required maxlength="100">
+                            <div class="invalid-feedback">
+                                Please enter a name for the starting point.
+                            </div>
                             <input type="text" class="form-control mt-3" id="latitudeStartCoordinateInput" name="latitudeStartCoordinateInput" placeholder="Latitude" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
                             <small id="startLatitudeHelpText" class="form-text text-muted">
                                 The value must be in the format XX.XXXXXX (negative sign optional).
                             </small>
+                            <div class="invalid-feedback">
+                                Please enter a valid latitude.
+                            </div>
                             <input type="text" class="form-control mt-3" id="longitudeStartCoordinateInput" name="longitudeStartCoordinateInput" placeholder="Longitude" aria-describedby="startLongitudeHelpText" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
                             <small id="startLongitudeHelpText" class="form-text text-muted">
                                 The value must be in the format XX.XXXXXX (negative sign optional).
                             </small>
+                            <div class="invalid-feedback">
+                                Please enter a valid longitude.
+                            </div>
                         </div>
                         <div class="input-fields-group less-width">
                             <label for="destinationNameInput" class="form-label">Destination *</label>
                             <input type="text" class="form-control" id="destinationNameInput" name="destinationNameInput" placeholder="Name" required maxlength="100">
+                            <div class="invalid-feedback">
+                                Please enter a name for the destination point.
+                            </div>
                             <input type="text" class="form-control mt-3" id="latitudeDestinationCoordinateInput" name="latitudeDestinationCoordinateInput" placeholder="Latitude" aria-describedby="destinationLatitudeHelpText" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
                             <small id="destinationLatitudeHelpText" class="form-text text-muted">
                                 The value must be in the format XX.XXXXXX (negative sign optional).
                             </small>
+                            <div class="invalid-feedback">
+                                Please enter a valid latitude.
+                            </div>
                             <input type="text" class="form-control mt-3" id="longitudeDestinationCordinateID" name="longitudeDestinationCoordinateInput" placeholder="Longitude" aria-describedby="destinationLongitudeHelpText" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
                             <small id="destinationLongitudeHelpText" class="form-text text-muted">
                                 The value must be in the format XX.XXXXXX (negative sign optional).
                             </small>
+                            <div class="invalid-feedback">
+                                Please enter a valid longitude.
+                            </div>
                         </div>
                         <div>
                             <!-- List of Points of Interest -->
@@ -243,7 +273,7 @@
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button id="nextButtonPOI" class="btn btn-success" onclick="nextTab()">Next</button>
+                                <button type="button" id="nextButtonPOI" class="btn btn-success" onclick="nextTab()">Next</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonPOI" class="btn btn-secondary" onclick="prevTab()">Previous</button>
@@ -264,7 +294,7 @@
                         </div>
                         <div class="input-fields-group">
                             <label for="parkingInput" class="form-label">Parking</label>
-                            <textarea class="form-control" id="parkingInput" name="parkingInput" rows="8" placeholder="Parking" aria-describedby="parkingHelpText" maxlength="1000"></textarea>
+                            <textarea class="form-control" id="parkingInput" name="parkingInput" rows="8" placeholder="Parking" aria-describedby="parkingHelpText"maxlength="1000"></textarea>
                             <small id="parkingHelpText" class="form-text text-muted">
                                 Provide information about the best parking options near the starting point of the hike. The maximum length is 1000 characters.
                             </small>
@@ -278,6 +308,14 @@
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="cancelButtonGettingThere" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
+                            </div>
+                        </div>
+                        <div class="toast position-fixed bottom-0 end-0 align-items-center text-white bg-danger border-0" id="validationToast" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="d-flex">
+                                <div class="toast-body">
+                                    Validation failed! Please check your input.
+                                </div>
+                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
                         </div>
                     </div>
@@ -356,6 +394,25 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="java_script/create_hike.js"></script>
         <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                    let forms = document.getElementsByClassName('needs-validation');
+                    let validation = Array.prototype.filter.call(forms, function(form) {
+                        form.addEventListener('submit', function(event) {
+                            if (form.checkValidity() === false) {
+                                var toast = new bootstrap.Toast(document.getElementById("validationToast"));
+                                toast.show();
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+
             let shouldPromptBeforeUnload = true; // Variable to track whether to prompt before unload
 
             // prompt functions
@@ -511,7 +568,7 @@
                 checkboxInput.className = "form-check-input months";
                 checkboxInput.type = "checkbox";
                 checkboxInput.id = "optimalSeason" + months[i];
-                checkboxInput.value = "true";
+                checkboxInput.value = "false";
                 checkboxInput.name = "monthCheckbox" + months[i]; // Added name attribute
 
                 // Create the label for the checkbox
