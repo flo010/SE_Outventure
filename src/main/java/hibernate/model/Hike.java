@@ -11,6 +11,7 @@ import java.util.List;
 @Table(name = "hikes")
 public class Hike {
     private int _hikeID;
+
     private int _previewPicture;
     private String _title;
     private String _description;
@@ -42,6 +43,9 @@ public class Hike {
     private List<Picture> _pictures;
     private String _author;
     private LocalDate _date;
+
+    public Hike() {
+    }
 
     @Id
     @NotNull
@@ -312,4 +316,12 @@ public class Hike {
     @Column(name = "date")
     public LocalDate getDate(){return _date;}
     public void setDate(LocalDate date){_date = date;}
+
+    public int getPreviewPicture() {
+        return _previewPicture;
+    }
+
+    public void setPreviewPicture(int previewPicture) {
+        _previewPicture = previewPicture;
+    }
 }
