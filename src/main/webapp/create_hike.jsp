@@ -258,7 +258,7 @@
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button id="saveButtonGettingThere" class="btn btn-success" onclick="saveInput()">Save</button>
+                                <button type="submit" id="saveButtonGettingThere" class="btn btn-success" onclick="saveInput()">Save</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonGettingThere" class="btn btn-secondary" onclick="prevTab()">Previous</button>

@@ -3,17 +3,14 @@ package servlets;
 import hibernate.facade.FacadeJPA;
 import hibernate.model.Destination;
 import hibernate.model.Hike;
-import hibernate.model.Picture;
 import hibernate.model.Start;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
 import jakarta.transaction.Transactional;
-import static Proceesing.ImageProcessecing.extractBytes;
+
 import java.io.IOException;
 
 @WebServlet(name = "saveDataServlet", value = "/save_data")

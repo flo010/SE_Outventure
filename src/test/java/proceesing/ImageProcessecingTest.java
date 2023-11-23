@@ -1,4 +1,4 @@
-package Proceesing;
+package proceesing;
 
 import hibernate.broker.PictureBroker;
 import hibernate.model.Picture;
@@ -7,9 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.*;
-import java.util.Arrays;
 
-import static Proceesing.ImageProcessecing.extractBytes;
+import static proceesing.ImageProcessecing.extractBytes;
 
 
 class ImageProcessecingTest {

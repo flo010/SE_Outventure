@@ -4,16 +4,11 @@ package servlets;
 import hibernate.facade.FacadeJPA;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
-import org.mockito.Mockito;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
 
 import java.io.*;
-import java.sql.Blob;
-import java.sql.SQLException;
-
-import static Proceesing.ImageProcessecing.extractBytes;
 
 @WebServlet(name = "Image", value = "/api/image/*")
 @MultipartConfig
