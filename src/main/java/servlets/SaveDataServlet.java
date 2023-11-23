@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
 
 @WebServlet(name = "saveDataServlet", value = "/save_data")
 public class SaveDataServlet extends HttpServlet {
@@ -25,7 +27,8 @@ public class SaveDataServlet extends HttpServlet {
         int hours = Integer.parseInt(request.getParameter("hoursInput"));
         int minutes = Integer.parseInt(request.getParameter("minutesInput"));
         double duration = hours + (minutes / 60.0);
-        int altitude = Integer.parseInt(request.getParameter("altitudeInput"));;
+        int altitude = Integer.parseInt(request.getParameter("altitudeInput"));
+
 
         Start start = new Start();
         start.setStartID(1);
@@ -56,6 +59,9 @@ public class SaveDataServlet extends HttpServlet {
         boolean november = Boolean.parseBoolean(request.getParameter("monthCheckboxNovember"));
         boolean december = Boolean.parseBoolean(request.getParameter("monthCheckboxDecember"));
         String routeDescription = request.getParameter("routeDescriptionInput");
+        String arrivalInformation = request.getParameter("gettingThereInput");
+        String parkingInformation = request.getParameter("parkingInput");
+        LocalDate currentDate = LocalDate.now();
 
         Hike hike = new Hike();
 //        hike.setHikeID(hikeId);
@@ -83,6 +89,10 @@ public class SaveDataServlet extends HttpServlet {
         hike.setNovember(november);
         hike.setDecember(december);
         hike.setRouteDescription(routeDescription);
+        hike.setArrivalInformation(arrivalInformation);
+        hike.setParkingInformation(parkingInformation);
+        hike.setAuthor("Admin");
+        hike.setDate(currentDate);
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         facadeJPA.save(hike);
