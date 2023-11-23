@@ -5,9 +5,11 @@ import hibernate.facade.FacadeJPA;
 import hibernate.model.Picture;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
+import org.json.JSONObject;
 import org.mockito.Mockito;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+
 
 
 import java.io.*;
@@ -56,8 +58,16 @@ public class ImageServlet extends HttpServlet {
 
             request.setAttribute("pictureID", pictureID);
 
+            String pictureId = (String) request.getAttribute("pictureId");
+
+            // Create a JSON object with the picture ID
+            JSONObject jsonResponse = new JSONObject();
+            jsonResponse.put("pictureID", pictureId);
+
+
+
             response.setContentType("application/json");
-            response.getWriter().write("{ \"message\": \"Image uploaded and saved to the database.\" }");
+            response.getWriter().write(jsonResponse.toString());
         } catch (Exception e) {
             response.setContentType("application/json");
             response.getWriter().write("{ \"error\": \"" + e.getMessage() + "\" }");
