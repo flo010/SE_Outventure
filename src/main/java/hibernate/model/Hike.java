@@ -304,9 +304,11 @@ public class Hike {
     public void setArrivalInformation(String arrivalInformation) {
         _arrivalInformation = arrivalInformation;
     }
+    @NotNull
     @Column(name = "author")
     public String getAuthor() {return _author;}
     public void setAuthor(String author) {_author = author;}
+    @NotNull
     @Column(name = "date")
     public LocalDate getDate(){return _date;}
     public void setDate(LocalDate date){_date = date;}
