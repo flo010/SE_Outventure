@@ -26,6 +26,9 @@
             Hike hike = (Hike) request.getAttribute("hike");
             double durationMinutes = (hike.getDuration() % 1) * 60;
 
+            java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("dd/MM/yyyy");
+            String formattedDate = dateFormat.format(hike.getDate());
+
             List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
             HashMap<Integer, String> demoImages = new HashMap<Integer, String>();
             demoImages.put(101, "https://www.bergwelten.com/files/tour/images/niederkaiserkamm-14871-0.jpg?impolicy=gallerie_pictures");
@@ -41,6 +44,10 @@
         <div class="container-sm mt-5 mb-5">
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
             <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
+            <div class="paragraph-container">
+                <span class="author">Author: <%= hike.getAuthor() %></span>
+                <span class="created-at">Created at: <%= formattedDate %></span>
+            </div>
             <div class="card mb-5 mt-5">
                 <div class="card-body">
                     <div class="row">

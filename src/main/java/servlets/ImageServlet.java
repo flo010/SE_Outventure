@@ -2,10 +2,14 @@ package servlets;
 
 
 import hibernate.facade.FacadeJPA;
+import hibernate.model.Picture;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
+import org.json.JSONObject;
+import org.mockito.Mockito;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+
 
 
 import java.io.*;
@@ -38,5 +42,59 @@ public class ImageServlet extends HttpServlet {
             outputStream.write(imageData);
             outputStream.close();
         }
+    }
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            Part filePart = request.getPart("image");
+            String fileName = filePart.getSubmittedFileName();
+
+            InputStream is = filePart.getInputStream();
+            byte[] compressedImageData = getBytesFromInputStream(is);
+            int pictureID = saveToDatabase(compressedImageData);
+
+            request.setAttribute("pictureID", pictureID);
+
+            String pictureId = (String) request.getAttribute("pictureId");
+
+            // Create a JSON object with the picture ID
+            JSONObject jsonResponse = new JSONObject();
+            jsonResponse.put("pictureID", pictureId);
+
+
+
+            response.setContentType("application/json");
+            response.getWriter().write(jsonResponse.toString());
+        } catch (Exception e) {
+            response.setContentType("application/json");
+            response.getWriter().write("{ \"error\": \"" + e.getMessage() + "\" }");
+        }
+    }
+
+    private byte[] getBytesFromInputStream(InputStream is) throws IOException {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+        int nRead;
+        byte[] data = new byte[1024];
+
+        while ((nRead = is.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+
+        buffer.flush();
+
+        return buffer.toByteArray();
+    }
+
+    private int saveToDatabase(byte[] compressedImageData) {
+        FacadeJPA facadeJPA = FacadeJPA.getInstance();
+
+        Picture picture = new Picture();
+        picture.setPicture(compressedImageData);
+        int pictureID = picture.getPictureID();
+        facadeJPA.save(picture);
+
+        System.out.println("Saving compressed image to the database. Image size: " + compressedImageData.length + " bytes");
+
+        return pictureID;
     }
 }

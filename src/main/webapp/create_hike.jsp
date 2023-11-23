@@ -213,10 +213,28 @@
                                         <div class="card my-2">
                                             <div class="card-body">
                                                 <h4 id="poiTempName" class="card-title text-center"></h4>
-                                                <hr>
-                                                <p id="poiTempCoordinates">
-                                                    <strong>GPS Coordinates: </strong>
-                                                </p>
+                                                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                                    <div>
+                                                        <p id="poiTempCoordinates">
+                                                            <strong>GPS Coordinates: </strong>
+                                                        </p>
+                                                        <p id="poiTempDescription" class="text-break">
+                                                            <strong>Description: </strong>
+                                                        </p>
+                                                    </div>
+                                                    <!-- Edit- und Delete-Buttons mit den gewünschten Symbolen -->
+                                                    <div class="d-flex gap-2">
+                                                        <!-- Edit-Button mit Stift-Icon -->
+                                                        <span class="input-group-text" id="editCoordinates" onclick="editCoordinates()">
+                                                             <i class="fa fa-pencil"></i>
+                                                        </span>
+
+                                                        <!-- Delete-Button mit Mülleimer-Icon -->
+                                                        <span class="input-group-text" onclick="deletePointOfInterest(this)">
+                                                             <i class="fa fa-trash"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -348,7 +366,27 @@
             // prompt functions
             function cancelCancel(){
             }
+            // Funktion zum Öffnen des Points of Interest-Modals
+            function openPoiModal() {
+                // JavaScript code to activate the modal
+                var pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
+                pointsOfInterestModal.show();
+            }
 
+            // Funktion zum Bearbeiten der Koordinaten
+            function editCoordinates() {
+                // Hier rufst du die Funktion zum Öffnen des Modals auf
+                openPoiModal();
+
+                // Implementiere ggf. zusätzliche Logik, um die bestehenden Koordinaten im Modal zu laden
+                // Beispiel: document.getElementById('longitude').value = /* Wert aus deiner Datenbank */;
+                // Beispiel: document.getElementById('latitude').value = /* Wert aus deiner Datenbank */;
+            }
+            function deletePointOfInterest(button) {
+                // Get the parent card element and remove it
+                var card = button.closest('.card');
+                card.remove();
+            }
             function confirmCancel() {
                 let myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
                     keyboard: false
@@ -435,6 +473,26 @@
                         reader.readAsDataURL(file);
                     }
                 });
+            }
+
+            function uploadImageToServer(compressedDataURL) {
+                // Send a POST request to your server endpoint to handle the image upload
+                fetch('/api/image', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ image: compressedDataURL }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Log the server response
+                        alert('Image uploaded and saved to the database.');
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error uploading image.');
+                    });
             }
 
             // Setup for images

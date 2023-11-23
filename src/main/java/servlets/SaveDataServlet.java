@@ -12,19 +12,23 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
 
 @WebServlet(name = "saveDataServlet", value = "/save_data")
 public class SaveDataServlet extends HttpServlet {
     @Transactional
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
+
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
         double distance = Double.parseDouble(request.getParameter("distanceInput"));;
         int hours = Integer.parseInt(request.getParameter("hoursInput"));
         int minutes = Integer.parseInt(request.getParameter("minutesInput"));
         double duration = hours + (minutes / 60.0);
-        int altitude = Integer.parseInt(request.getParameter("altitudeInput"));;
+        int altitude = Integer.parseInt(request.getParameter("altitudeInput"));
+
 
         Start start = new Start();
         start.setStartID(1);
@@ -57,8 +61,10 @@ public class SaveDataServlet extends HttpServlet {
         String routeDescription = request.getParameter("routeDescriptionInput");
         String arrivalInformation = request.getParameter("gettingThereInput");
         String parkingInformation = request.getParameter("parkingInput");
+        LocalDate currentDate = LocalDate.now();
 
         Hike hike = new Hike();
+//        hike.setHikeID(hikeId);
         hike.setTitle(title);
         hike.setDescription(description);
         hike.setDuration(duration);
@@ -85,8 +91,10 @@ public class SaveDataServlet extends HttpServlet {
         hike.setRouteDescription(routeDescription);
         hike.setArrivalInformation(arrivalInformation);
         hike.setParkingInformation(parkingInformation);
+        hike.setAuthor("Admin");
+        hike.setDate(currentDate);
+
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
-        hike.setPreviewPicture(1);
         facadeJPA.save(hike);
 
         response.sendRedirect("search_results?hikeCreated=true");

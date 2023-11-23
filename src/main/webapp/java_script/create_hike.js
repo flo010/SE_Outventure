@@ -88,30 +88,37 @@ var pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsO
 
 function savePointOfInterest() {
     // Get values from the form
-    var poiName = document.getElementById('poiName').value;
-    var poiCoordinates = document.getElementById('longitude').value + ', ' + document.getElementById('latitude').value;
+    const poiName = document.getElementById('poiName').value;
+    const poiLatitude = document.getElementById('latitude').value;
+    const poiLongitude = document.getElementById('longitude').value;
+    const poiDescription = document.getElementById("poiDescription").value;
 
     // Check if required fields are empty
-    if (!poiName || !poiCoordinates) {
+    if (!poiName || !poiLatitude || !poiLongitude || !poiDescription) {
         var errorMessage = document.getElementById('poiErrorMessage');
         errorMessage.style.display = 'block';
         return;
     }
-    appendNewPOI(poiName, poiCoordinates);
+    appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription);
 
     // Close the modal
     pointsOfInterestModal.hide();
 }
 
-function appendNewPOI(poiName, poiCoordinates) {
+function appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription) {
     const poiContainer = document.getElementById("poiContainer");
     const poiTemplate = document.getElementById("poiTemplate");
 
     const pointOfInterest = poiTemplate.content.cloneNode(true);
     const name = pointOfInterest.getElementById("poiTempName");
     const coordinates = pointOfInterest.getElementById("poiTempCoordinates");
+    const description = pointOfInterest.getElementById("poiTempDescription");
+    const coordinatesTextNode = document.createTextNode(`${poiLatitude}, ${poiLongitude}`);
+    const descriptionTextNode = document.createTextNode(poiDescription);
+
     name.textContent = poiName;
-    coordinates.textContent = 'GPS Coordinates: ' + poiCoordinates;
+    coordinates.appendChild(coordinatesTextNode);
+    description.appendChild(descriptionTextNode);
 
     poiContainer.appendChild(pointOfInterest);
 }

@@ -3,6 +3,8 @@ package hibernate.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -37,6 +39,9 @@ public class Hike {
     private String _routeDescription;
     private String _parkingInformation;
     private String _arrivalInformation;
+    private List<Picture> _pictures;
+    private String _author;
+    private LocalDate _date;
 
     @Id
     @NotNull
@@ -49,14 +54,14 @@ public class Hike {
         _hikeID = hikeId;
     }
 
+    @OneToMany(mappedBy = "hikePicture")
+    public List<Picture> getPictures() {
+        return _pictures;
+    }
+    public void setPictures(List<Picture> pictures) {
+        _pictures = pictures;
+    }
 
-    @Column(name = "picture")
-    public int getPreviewPicture() {
-        return _previewPicture;
-    }
-    public void setPreviewPicture(int picture) {
-        _previewPicture = picture;
-    }
     @NotNull
     @Column(name = "title")
     public String getTitle() {
@@ -299,4 +304,10 @@ public class Hike {
     public void setArrivalInformation(String arrivalInformation) {
         _arrivalInformation = arrivalInformation;
     }
+    @Column(name = "author")
+    public String getAuthor() {return _author;}
+    public void setAuthor(String author) {_author = author;}
+    @Column(name = "date")
+    public LocalDate getDate(){return _date;}
+    public void setDate(LocalDate date){_date = date;}
 }
