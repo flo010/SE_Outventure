@@ -149,6 +149,7 @@ function saveInput() {
     }
 
     if (allInputsFilled) {
+
         shouldPromptBeforeUnload = false;
         document.getElementById("createHikeOverview").submit();
     }

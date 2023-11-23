@@ -469,7 +469,7 @@
                                 preview.style.display = 'block';
 
                                 // Optionally, you can upload the compressed image to a server here.
-                                // Example: uploadImageToServer(compressedDataURL);
+                                uploadImageToServer(compressedDataURL);
                             };
                             img.src = e.target.result;
                         };
