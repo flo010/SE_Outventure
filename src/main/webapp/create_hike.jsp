@@ -211,16 +211,21 @@
                                 <template id="poiTemplate">
                                     <div class="col-lg-6">
                                         <div class="card my-2">
-                                            <div class="card-body d-flex flex-column">
+                                            <div class="card-body">
                                                 <h4 id="poiTempName" class="card-title text-center"></h4>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <p id="poiTempCoordinates">
-                                                        <strong>GPS Coordinates: </strong>
-                                                    </p>
+                                                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                                    <div>
+                                                        <p id="poiTempCoordinates">
+                                                            <strong>GPS Coordinates: </strong>
+                                                        </p>
+                                                        <p id="poiTempDescription" class="text-break">
+                                                            <strong>Description: </strong>
+                                                        </p>
+                                                    </div>
                                                     <!-- Edit- und Delete-Buttons mit den gewünschten Symbolen -->
                                                     <div class="d-flex gap-2">
                                                         <!-- Edit-Button mit Stift-Icon -->
-                                                        <span class="input-group-text" id="editCoordinates" onclick="editCoordinates()">
+                                                        <span class="input-group-text" id="editCoordinates" onclick="editPointOfInterest()">
                                                              <i class="fa fa-pencil"></i>
                                                         </span>
                                                         <!-- Delete-Button mit Mülleimer-Icon -->
@@ -270,7 +275,7 @@
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button id="saveButtonGettingThere" class="btn btn-success" onclick="saveInput()">Save</button>
+                                <button type="submit" id="saveButtonGettingThere" class="btn btn-success" onclick="saveInput()">Save</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonGettingThere" class="btn btn-secondary" onclick="prevTab()">Previous</button>
@@ -368,7 +373,7 @@
             }
 
             // Funktion zum Bearbeiten der Koordinaten
-            function editCoordinates() {
+            function editPointOfInterest() {
                 // Hier rufst du die Funktion zum Öffnen des Modals auf
                 openPoiModal();
 
@@ -467,6 +472,26 @@
                         reader.readAsDataURL(file);
                     }
                 });
+            }
+
+            function uploadImageToServer(compressedDataURL) {
+                // Send a POST request to your server endpoint to handle the image upload
+                fetch('/api/image', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ image: compressedDataURL }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Log the server response
+                        alert('Image uploaded and saved to the database.');
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error uploading image.');
+                    });
             }
 
             // Setup for images
