@@ -15,7 +15,6 @@ public abstract class BrokerBase<T> {
             entityManager = fact.createEntityManager();
         } catch (Exception e) {
             System.out.println("Error creating EntityManager: " + e.getMessage());
-            e.printStackTrace();
         }
         return entityManager;
     }

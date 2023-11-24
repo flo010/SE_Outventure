@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "pictures")
 public class Picture {
     private int _pictureID;
-    private Hike _hikePicture;
     private byte[] _picture;
 
     @Id
@@ -28,15 +27,5 @@ public class Picture {
     }
     public void setPicture(byte[] picture) {
         _picture = picture;
-    }
-
-
-    @ManyToOne
-    @JoinColumn(name = "hike")
-    public Hike getHikePicture() {
-        return _hikePicture;
-    }
-    public void setHikePicture(Hike hikePicture) {
-        _hikePicture = hikePicture;
     }
 }

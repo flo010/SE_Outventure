@@ -3,28 +3,30 @@ package servlets;
 
 import hibernate.facade.FacadeJPA;
 import hibernate.model.Picture;
-import jakarta.servlet.annotation.*;
-import jakarta.servlet.http.*;
-import org.json.JSONObject;
-import org.mockito.Mockito;
-import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import org.json.JSONObject;
 
-
-
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 @WebServlet(name = "Image", value = "/api/image/*")
 @MultipartConfig
 public class ImageServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Assuming you have the byte[] representation of your image
         int id = -1;
         byte[] imageData = null;
-        String[] pathInfo =request.getPathInfo().split("/");
-        for (int i = 0; i < pathInfo.length; i++) {
-            System.out.println(pathInfo[i]);
+        String[] pathInfo = request.getPathInfo().split("/");
+        for (String s : pathInfo) {
+            System.out.println(s);
         }
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         if(pathInfo.length == 2){
@@ -43,11 +45,9 @@ public class ImageServlet extends HttpServlet {
             outputStream.close();
         }
     }
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             Part filePart = request.getPart("image");
-            String fileName = filePart.getSubmittedFileName();
-
             InputStream is = filePart.getInputStream();
             byte[] compressedImageData = getBytesFromInputStream(is);
             int pictureID = saveToDatabase(compressedImageData);

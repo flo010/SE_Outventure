@@ -21,7 +21,7 @@ public class PictureBroker extends BrokerBase<Picture> {
     @Override
     public List<Picture> getAll() {
         EntityManager entityManager = getEntityManager();
-        List<Picture> pictures = (List<Picture>) entityManager.createQuery("SELECT p FROM Picture p", Picture.class).getResultList();
+        List<Picture> pictures = entityManager.createQuery("SELECT p FROM Picture p", Picture.class).getResultList();
         entityManager.close();
 
         return pictures;
