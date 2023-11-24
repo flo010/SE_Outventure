@@ -114,8 +114,12 @@ public class SaveDataServlet extends HttpServlet {
         hike.setNovember(november);
         hike.setDecember(december);
         hike.setRouteDescription(routeDescription);
-        hike.setArrivalInformation(arrivalInformation);
-        hike.setParkingInformation(parkingInformation);
+        if (!arrivalInformation.isEmpty()) {
+            hike.setArrivalInformation(arrivalInformation);
+        }
+        if (!parkingInformation.isEmpty()) {
+            hike.setParkingInformation(parkingInformation);
+        }
         hike.setAuthor("Admin");
         hike.setDate(currentDate);
 
