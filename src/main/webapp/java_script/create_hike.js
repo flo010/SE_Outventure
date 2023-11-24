@@ -88,30 +88,52 @@ var pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsO
 
 function savePointOfInterest() {
     // Get values from the form
-    var poiName = document.getElementById('poiName').value;
-    var poiCoordinates = document.getElementById('longitude').value + ', ' + document.getElementById('latitude').value;
+    const poiName = document.getElementById('poiName').value;
+    const poiLatitude = document.getElementById('latitude').value;
+    const poiLongitude = document.getElementById('longitude').value;
+    const poiDescription = document.getElementById("poiDescription").value;
 
     // Check if required fields are empty
-    if (!poiName || !poiCoordinates) {
-        var errorMessage = document.getElementById('poiErrorMessage');
+    if (!poiName || !poiLatitude || !poiLongitude) {
+        const errorMessage = document.getElementById('poiErrorMessage');
         errorMessage.style.display = 'block';
         return;
     }
-    appendNewPOI(poiName, poiCoordinates);
+
+    appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription);
 
     // Close the modal
     pointsOfInterestModal.hide();
 }
 
-function appendNewPOI(poiName, poiCoordinates) {
+function appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription) {
     const poiContainer = document.getElementById("poiContainer");
     const poiTemplate = document.getElementById("poiTemplate");
 
     const pointOfInterest = poiTemplate.content.cloneNode(true);
     const name = pointOfInterest.getElementById("poiTempName");
     const coordinates = pointOfInterest.getElementById("poiTempCoordinates");
+
+    const poiNameInput = pointOfInterest.getElementById("poiNameInput");
+    const poiLatitudeInput = pointOfInterest.getElementById("poiLatitudeInput");
+    const poiLongitudeInput = pointOfInterest.getElementById("poiLongitudeInput");
+    const description = pointOfInterest.getElementById("poiTempDescription");
+
+    const coordinatesTextNode = document.createTextNode(`${poiLatitude}, ${poiLongitude}`);
     name.textContent = poiName;
-    coordinates.textContent = 'GPS Coordinates: ' + poiCoordinates;
+    coordinates.appendChild(coordinatesTextNode);
+    poiNameInput.value = poiName;
+    poiLatitudeInput.value = poiLatitude;
+    poiLongitudeInput.value = poiLongitude;
+
+    if (poiDescription) {
+        const descriptionTextNode = document.createTextNode(poiDescription);
+        description.appendChild(descriptionTextNode);
+        const poiDescriptionInput = pointOfInterest.getElementById("poiDescriptionInput");
+        poiDescriptionInput.value = poiDescription;
+    } else {
+        description.remove();
+    }
 
     poiContainer.appendChild(pointOfInterest);
 }
@@ -127,6 +149,7 @@ function saveInput() {
     }
 
     if (allInputsFilled) {
+
         shouldPromptBeforeUnload = false;
         document.getElementById("createHikeOverview").submit();
     }

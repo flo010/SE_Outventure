@@ -2,6 +2,8 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="hibernate.model.PointOfInterest" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%--
   Created by IntelliJ IDEA.
   User: learo
@@ -26,6 +28,17 @@
             Hike hike = (Hike) request.getAttribute("hike");
             double durationMinutes = (hike.getDuration() % 1) * 60;
 
+            LocalDate localDate = hike.getDate(); // Retrieve the LocalDate object
+
+// Define the desired date pattern
+            String pattern = "dd/MM/yyyy";
+
+// Create a DateTimeFormatter using the specified pattern
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+
+// Format the LocalDate into a String using the DateTimeFormatter
+            String formattedDate = localDate.format(formatter);
+
             List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
             HashMap<Integer, String> demoImages = new HashMap<Integer, String>();
             demoImages.put(101, "https://www.bergwelten.com/files/tour/images/niederkaiserkamm-14871-0.jpg?impolicy=gallerie_pictures");
@@ -41,6 +54,10 @@
         <div class="container-sm mt-5 mb-5">
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
             <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
+            <div class="paragraph-container">
+                <span class="author">Author: <%= hike.getAuthor() %></span>
+                <span class="created-at">Created at: <%= formattedDate %></span>
+            </div>
             <div class="card mb-5 mt-5">
                 <div class="card-body">
                     <div class="row">

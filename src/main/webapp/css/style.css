@@ -92,6 +92,10 @@ td, th {
 .form-label {
     font-size: 1.3em;
 }
+.paragraph-container {
+    display: flex;
+    justify-content: space-between;
+}
 
 
 

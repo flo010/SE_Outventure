@@ -15,6 +15,7 @@ public class PointOfInterest {
 
     @Id
     @NotNull
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "poi_id")
     public int getPoiID() {
         return _poiID;

@@ -3,6 +3,8 @@ package hibernate.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -38,6 +40,8 @@ public class Hike {
     private String _parkingInformation;
     private String _arrivalInformation;
     private List<Picture> _pictures;
+    private String _author;
+    private LocalDate _date;
 
     @Id
     @NotNull
@@ -48,6 +52,14 @@ public class Hike {
     }
     public void setHikeID(int hikeId) {
         _hikeID = hikeId;
+    }
+    @Column(name = "picture")
+    public int getPreviewPicture() {
+        return _previewPicture;
+    }
+
+    public void setPreviewPicture(int previewPicture) {
+        _previewPicture = previewPicture;
     }
 
     @OneToMany(mappedBy = "hikePicture")
@@ -268,7 +280,7 @@ public class Hike {
         _destination = destination;
     }
 
-    @OneToMany(mappedBy = "hikePOI",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "hikePOI",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<PointOfInterest> getPointsOfInterest() {
         return _pointOfInterests;
     }
@@ -300,4 +312,12 @@ public class Hike {
     public void setArrivalInformation(String arrivalInformation) {
         _arrivalInformation = arrivalInformation;
     }
+    @NotNull
+    @Column(name = "author")
+    public String getAuthor() {return _author;}
+    public void setAuthor(String author) {_author = author;}
+    @NotNull
+    @Column(name = "date")
+    public LocalDate getDate(){return _date;}
+    public void setDate(LocalDate date){_date = date;}
 }

@@ -3,6 +3,7 @@ package servlets;
 import hibernate.facade.FacadeJPA;
 import hibernate.model.Destination;
 import hibernate.model.Hike;
+import hibernate.model.PointOfInterest;
 import hibernate.model.Start;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,6 +13,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "saveDataServlet", value = "/save_data")
 public class SaveDataServlet extends HttpServlet {
@@ -21,11 +25,12 @@ public class SaveDataServlet extends HttpServlet {
 
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
-        double distance = Double.parseDouble(request.getParameter("distanceInput"));;
+        double distance = Double.parseDouble(request.getParameter("distanceInput"));
         int hours = Integer.parseInt(request.getParameter("hoursInput"));
         int minutes = Integer.parseInt(request.getParameter("minutesInput"));
         double duration = hours + (minutes / 60.0);
-        int altitude = Integer.parseInt(request.getParameter("altitudeInput"));;
+        int altitude = Integer.parseInt(request.getParameter("altitudeInput"));
+
 
         Start start = new Start();
         start.setStartID(1);
@@ -39,10 +44,10 @@ public class SaveDataServlet extends HttpServlet {
         destination.setLatitude(42.12);
         destination.setLongitude(10.12);
 
-        int strength = Integer.parseInt(request.getParameter("difficultyInput"));;
+        int strength = Integer.parseInt(request.getParameter("difficultyInput"));
         int stamina = Integer.parseInt(request.getParameter("conditionInput"));
-        int experience = Integer.parseInt(request.getParameter("experienceInput"));;
-        int landscape = Integer.parseInt(request.getParameter("landscapeInput"));;
+        int experience = Integer.parseInt(request.getParameter("experienceInput"));
+        int landscape = Integer.parseInt(request.getParameter("landscapeInput"));
         boolean january = Boolean.parseBoolean(request.getParameter("monthCheckboxJanuary"));
         boolean february = Boolean.parseBoolean(request.getParameter("monthCheckboxFebruary"));
         boolean march = Boolean.parseBoolean(request.getParameter("monthCheckboxMarch"));
@@ -56,8 +61,34 @@ public class SaveDataServlet extends HttpServlet {
         boolean november = Boolean.parseBoolean(request.getParameter("monthCheckboxNovember"));
         boolean december = Boolean.parseBoolean(request.getParameter("monthCheckboxDecember"));
         String routeDescription = request.getParameter("routeDescriptionInput");
+        String arrivalInformation = request.getParameter("gettingThereInput");
+        String parkingInformation = request.getParameter("parkingInput");
+        LocalDate currentDate = LocalDate.now();
+        String[] poiNames = request.getParameterValues("poiNameInput");
+        String[] poiLatitudes = request.getParameterValues("poiLatitudeInput");
+        String[] poiLongitudes = request.getParameterValues("poiLongitudeInput");
+        String[] poiDescriptions = request.getParameterValues("poiDescriptionInput");
+
 
         Hike hike = new Hike();
+        hike.setPreviewPicture(1);
+
+        List<PointOfInterest> pointsOfInterest = new ArrayList<>();
+
+        if(poiNames != null) {
+            for (int i = 0; i < poiNames.length; i++) {
+                PointOfInterest pointOfInterest = new PointOfInterest();
+                pointOfInterest.setName(poiNames[i]);
+                pointOfInterest.setLatitude(Double.parseDouble(poiLatitudes[i]));
+                pointOfInterest.setLongitude(Double.parseDouble(poiLongitudes[i]));
+                pointOfInterest.setDescription(poiDescriptions[i]);
+                pointOfInterest.setHikePOI(hike);
+                pointsOfInterest.add(pointOfInterest);
+            }
+        }
+
+        hike.setPointsOfInterest(pointsOfInterest);
+
 //        hike.setHikeID(hikeId);
         hike.setTitle(title);
         hike.setDescription(description);
@@ -83,6 +114,14 @@ public class SaveDataServlet extends HttpServlet {
         hike.setNovember(november);
         hike.setDecember(december);
         hike.setRouteDescription(routeDescription);
+        if (!arrivalInformation.isEmpty()) {
+            hike.setArrivalInformation(arrivalInformation);
+        }
+        if (!parkingInformation.isEmpty()) {
+            hike.setParkingInformation(parkingInformation);
+        }
+        hike.setAuthor("Admin");
+        hike.setDate(currentDate);
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         facadeJPA.save(hike);
