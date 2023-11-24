@@ -5,7 +5,7 @@
   Time: 13:20
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="" %>
 <html>
     <head>
         <title>Create Hike Overview</title>
@@ -76,6 +76,7 @@
                                 Invalid file type. Please provide a .png or.jpg.
                             </div>
                             <img id="previewCoverImage" width="250">
+                            <input type="hidden" id="hiddenImageId" name="hiddenField">
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
@@ -310,7 +311,7 @@
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button type="submit" id="saveButtonGettingThere" class="btn btn-success" onclick="saveInput()">Save</button>
+                                <button type="button" id="saveButtonGettingThere" class="btn btn-success" onclick="saveInput()">Save</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonGettingThere" class="btn btn-secondary" onclick="prevTab()">Previous</button>
@@ -526,7 +527,6 @@
                                 preview.style.display = 'block';
 
                                 // Optionally, you can upload the compressed image to a server here.
-                                uploadImageToServer(compressedDataURL);
                             };
                             img.src = e.target.result;
                         };
@@ -536,25 +536,7 @@
                 });
             }
 
-            function uploadImageToServer(compressedDataURL) {
-                // Send a POST request to your server endpoint to handle the image upload
-                fetch('/api/image', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ image: compressedDataURL }),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data); // Log the server response
-                        alert('Image uploaded and saved to the database.');
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error uploading image.');
-                    });
-            }
+
 
             // Setup for images
             previewImage('coverImageInput', 'previewCoverImage');

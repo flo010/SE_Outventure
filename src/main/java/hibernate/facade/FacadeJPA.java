@@ -21,15 +21,18 @@ public class FacadeJPA implements Facade {
     }
 
     @Override
-    public void save(Object object) {
+    public Object save(Object object) {
         if (object instanceof Hike) {
             HikeBroker hikeBroker = new HikeBroker();
             hikeBroker.save((Hike) object);
+            return object;
         }
         else if (object instanceof Picture) {
             PictureBroker pictureBroker = new PictureBroker();
             pictureBroker.save((Picture) object);
+            return object;
         }
+        return null;
     }
 
     @Override
@@ -88,5 +91,12 @@ public class FacadeJPA implements Facade {
         List<Picture> pictures = pictureBroker.getAll();
 
         return pictures;
+    }
+
+    public Picture getNewPicture(){
+        PictureBroker pictureBroker = new PictureBroker();
+        Picture picture = pictureBroker.getNewPicture();
+
+        return picture;
     }
 }

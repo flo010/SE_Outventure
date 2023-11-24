@@ -149,8 +149,39 @@ function saveInput() {
     }
 
     if (allInputsFilled) {
+        const fileInput = document.getElementById('coverImageInput');
+        const file = fileInput.files[0];
 
-        shouldPromptBeforeUnload = false;
-        document.getElementById("createHikeOverview").submit();
+        if (file) {
+            uploadImageToServer(file);
+            shouldPromptBeforeUnload = false;
+            document.getElementById("createHikeOverview").submit();
+        } else {
+            // Handle case when no file is selected
+            console.error('No file selected');
+            alert('Please select a file.');
+        }
     }
 }
+
+function uploadImageToServer(file) {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    // Send a POST request to your server endpoint to handle the image upload
+    fetch('/api/image', {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Log the server response
+            const hiddenInput = document.getElementById('hiddenFieldValue');
+            hiddenInput.value = 1;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error uploading image.');
+        });
+}
+

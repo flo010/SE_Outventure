@@ -26,4 +26,14 @@ public class PictureBroker extends BrokerBase<Picture> {
 
         return pictures;
     }
+
+    public Picture getNewPicture(){
+        EntityManager entityManager = getEntityManager();
+        Query query = entityManager.createQuery("SELECT p FROM Picture p WHERE set =: set");
+        query.setParameter("set", true);
+        Picture picture = (Picture) query.getSingleResult();
+        entityManager.close();
+
+        return picture;
+    }
 }

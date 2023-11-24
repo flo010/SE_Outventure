@@ -1,10 +1,7 @@
 package servlets;
 
 import hibernate.facade.FacadeJPA;
-import hibernate.model.Destination;
-import hibernate.model.Hike;
-import hibernate.model.PointOfInterest;
-import hibernate.model.Start;
+import hibernate.model.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -124,6 +121,15 @@ public class SaveDataServlet extends HttpServlet {
         hike.setDate(currentDate);
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
+        try {
+            Thread.sleep(2 * 1000);
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
+        }
+        Picture picture = facadeJPA.getNewPicture();
+        picture.setSet(false);
+        hike.setPreviewPicture(picture.getPictureID());
+        facadeJPA.save(picture);
         facadeJPA.save(hike);
 
         response.sendRedirect("search_results?hikeCreated=true");
