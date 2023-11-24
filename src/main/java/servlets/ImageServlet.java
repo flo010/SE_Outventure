@@ -8,16 +8,22 @@ import jakarta.servlet.http.*;
 import org.json.JSONObject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import org.json.JSONObject;
 
-
-
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 @WebServlet(name = "Image", value = "/api/image/*")
 @MultipartConfig
 public class ImageServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Assuming you have the byte[] representation of your image
         int id = -1;
         byte[] imageData = null;
@@ -42,8 +48,7 @@ public class ImageServlet extends HttpServlet {
             outputStream.close();
         }
     }
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("ImageServlet");
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             Part filePart = request.getPart("image");
 
@@ -53,6 +58,9 @@ public class ImageServlet extends HttpServlet {
             System.out.println("Test picture");
             System.out.println(picture.getPictureID());
 
+            request.setAttribute("pictureID", pictureID);
+
+            String pictureId = (String) request.getAttribute("pictureId");
 
             // Create a JSON object with the picture ID
             JSONObject jsonResponse = new JSONObject();

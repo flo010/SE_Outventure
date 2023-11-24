@@ -5,7 +5,7 @@
   Time: 13:20
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
         <title>Create Hike Overview</title>
@@ -311,7 +311,7 @@
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button type="button" id="saveButtonGettingThere" class="btn btn-success" onclick="saveInput()">Save</button>
+                                <button type="submit" id="saveButtonGettingThere" class="btn btn-success" onclick="saveInput()">Save</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonGettingThere" class="btn btn-secondary" onclick="prevTab()">Previous</button>
@@ -527,6 +527,7 @@
                                 preview.style.display = 'block';
 
                                 // Optionally, you can upload the compressed image to a server here.
+                                uploadImageToServer(compressedDataURL);
                             };
                             img.src = e.target.result;
                         };
