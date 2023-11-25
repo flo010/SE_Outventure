@@ -27,7 +27,7 @@
 
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <form class="d-flex align-items-center form-search" style="padding-right:150px">
+                        <form id="search-input" action="/search_results" method="get" class="d-flex align-items-center form-search" style="padding-right:150px">
                             <div class="input-group">
                                 <button class="btn btn-light dropdown-toggle shadow-0" type="button" data-mdb-toggle="dropdown"
                                         aria-expanded="false" style="padding-bottom: 0.4rem;">
@@ -66,10 +66,9 @@
                                             search<i class="fas fa-chevron-right ps-2"></i></a>
                                     </li>
                                 </ul>
-                                <input type="search" class="form-control" placeholder="Search" aria-label="Search" style="width:500px; max-width:500px "/>
+                                <input name="search" type="search" class="form-control" placeholder="Search" aria-label="Search" style="width:500px; max-width:500px "/>
                             </div>
-                            <a href="#!" class="text-white"><i class="fas fa-search ps-3"></i></a>
-                        </form>
+                            <a href="#" class="text-white" onclick="commitSearch(event)"><i class="fas fa-search ps-3"></i></a>                        </form>
                         <a class="nav-link" href="search_results">Search Hike</a>
                         <a class="nav-link" href="create_hike_overview.jsp">Create Hike</a>
                     </div>
@@ -79,5 +78,13 @@
         </nav>
 
     </body>
+    <script>
+        function commitSearch(event) {
+            event.preventDefault(); // Prevent the default action of the anchor tag
 
+            // You can perform additional operations here before submitting the form if needed
+
+            document.getElementById("search-input").submit(); // Submit the form
+        }
+    </script>
 </html>

@@ -13,7 +13,7 @@ import jakarta.servlet.annotation.*;
 public class SearchResultsServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-
+        System.out.println(request.getParameter("search"));
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         List<Hike> hikeList = facadeJPA.getAllHikesLazy();
 
