@@ -228,7 +228,7 @@
                             <div class="invalid-feedback">
                                 Please enter a valid latitude.
                             </div>
-                            <input type="text" class="form-control mt-3" id="longitudeDestinationCordinateID" name="longitudeDestinationCoordinateInput" placeholder="Longitude" aria-describedby="destinationLongitudeHelpText" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <input type="text" class="form-control mt-3" id="longitudeDestinationCoordinateID" name="longitudeDestinationCoordinateInput" placeholder="Longitude" aria-describedby="destinationLongitudeHelpText" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
                             <small id="destinationLongitudeHelpText" class="form-text text-muted">
                                 The value must be in the format XX.XXXXXX (negative sign optional).
                             </small>
