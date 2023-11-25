@@ -34,6 +34,7 @@
                     List<Hike> hikeList = (List<Hike>) request.getAttribute("hikeList");
 
                     for (Hike hike : hikeList) {
+                        if (hike.isVisible()){
                         double durationMinutes = (hike.getDuration() % 1) * 60;
                 %>
                 <div class="col">
@@ -67,6 +68,7 @@
                     </a>
                 </div>
                 <%
+                     }
                     }
                 %>
             </div>
