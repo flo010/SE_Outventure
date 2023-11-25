@@ -30,13 +30,13 @@
 
             LocalDate localDate = hike.getDate(); // Retrieve the LocalDate object
 
-// Define the desired date pattern
+            // Define the desired date pattern
             String pattern = "dd/MM/yyyy";
 
-// Create a DateTimeFormatter using the specified pattern
+            // Create a DateTimeFormatter using the specified pattern
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
-// Format the LocalDate into a String using the DateTimeFormatter
+            // Format the LocalDate into a String using the DateTimeFormatter
             String formattedDate = localDate.format(formatter);
 
             List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
@@ -52,6 +52,10 @@
         %>
 
         <div class="container-sm mt-5 mb-5">
+            <div class="float-right">
+                <button type="button" class="btn btn-outline-secondary" onclick="deleteHike(<%=hike.getHikeID()%>)">Delete</button>
+            </div>
+
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
             <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
             <div class="paragraph-container">
