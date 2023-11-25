@@ -119,10 +119,10 @@ public class SaveDataServlet extends HttpServlet {
         }
         hike.setAuthor("Admin");
         hike.setDate(currentDate);
-
+        hike.setVisible(true);
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         try {
-            Thread.sleep(2 * 1000);
+            Thread.sleep(4 * 1000);
         } catch (InterruptedException ie) {
             Thread.currentThread().interrupt();
         }

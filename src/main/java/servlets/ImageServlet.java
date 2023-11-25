@@ -58,9 +58,6 @@ public class ImageServlet extends HttpServlet {
             System.out.println("Test picture");
             System.out.println(picture.getPictureID());
 
-            request.setAttribute("pictureID", pictureID);
-
-            String pictureId = (String) request.getAttribute("pictureId");
 
             // Create a JSON object with the picture ID
             JSONObject jsonResponse = new JSONObject();
