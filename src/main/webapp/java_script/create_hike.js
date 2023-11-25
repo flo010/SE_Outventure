@@ -84,25 +84,32 @@ function rangeCount(id, labelId){
 }
 
 // POI modal functions
-var pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
 
+let pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
 function savePointOfInterest() {
     // Get values from the form
     const poiName = document.getElementById('poiName').value;
-    const poiLatitude = document.getElementById('latitude').value;
-    const poiLongitude = document.getElementById('longitude').value;
+    const poiLatitude = document.getElementById('poiLatitude').value;
+    const poiLongitude = document.getElementById('poiLongitude').value;
     const poiDescription = document.getElementById("poiDescription").value;
 
     // Check if required fields are empty
-    if (!poiName || !poiLatitude || !poiLongitude || !poiDescription) {
-        var errorMessage = document.getElementById('poiErrorMessage');
+    if (!poiName || !poiLatitude || !poiLongitude) {
+        const errorMessage = document.getElementById('poiErrorMessage');
         errorMessage.style.display = 'block';
-        return;
     }
-    appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription);
+    else {
+        appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription);
 
-    // Close the modal
-    pointsOfInterestModal.hide();
+        // Clear the input fields in the modal
+        document.getElementById('poiName').value = '';
+        document.getElementById('poiLatitude').value = '';
+        document.getElementById('poiLongitude').value = '';
+        document.getElementById('poiDescription').value = '';
+
+        // Close the modal
+        pointsOfInterestModal.hide();
+    }
 }
 
 function appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription) {
@@ -112,13 +119,27 @@ function appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription) {
     const pointOfInterest = poiTemplate.content.cloneNode(true);
     const name = pointOfInterest.getElementById("poiTempName");
     const coordinates = pointOfInterest.getElementById("poiTempCoordinates");
-    const description = pointOfInterest.getElementById("poiTempDescription");
-    const coordinatesTextNode = document.createTextNode(`${poiLatitude}, ${poiLongitude}`);
-    const descriptionTextNode = document.createTextNode(poiDescription);
 
+    const poiNameInput = pointOfInterest.getElementById("poiNameInput");
+    const poiLatitudeInput = pointOfInterest.getElementById("poiLatitudeInput");
+    const poiLongitudeInput = pointOfInterest.getElementById("poiLongitudeInput");
+    const description = pointOfInterest.getElementById("poiTempDescription");
+
+    const coordinatesTextNode = document.createTextNode(`${poiLatitude}, ${poiLongitude}`);
     name.textContent = poiName;
     coordinates.appendChild(coordinatesTextNode);
-    description.appendChild(descriptionTextNode);
+    poiNameInput.value = poiName;
+    poiLatitudeInput.value = poiLatitude;
+    poiLongitudeInput.value = poiLongitude;
+
+    if (poiDescription) {
+        const descriptionTextNode = document.createTextNode(poiDescription);
+        description.appendChild(descriptionTextNode);
+        const poiDescriptionInput = pointOfInterest.getElementById("poiDescriptionInput");
+        poiDescriptionInput.value = poiDescription;
+    } else {
+        description.remove();
+    }
 
     poiContainer.appendChild(pointOfInterest);
 }
@@ -134,7 +155,39 @@ function saveInput() {
     }
 
     if (allInputsFilled) {
-        shouldPromptBeforeUnload = false;
-        document.getElementById("createHikeOverview").submit();
+        const fileInput = document.getElementById('coverImageInput');
+        const file = fileInput.files[0];
+
+        if (file) {
+            uploadImageToServer(file);
+            shouldPromptBeforeUnload = false;
+            document.getElementById("createHikeOverview").submit();
+        } else {
+            // Handle case when no file is selected
+            console.error('No file selected');
+            alert('Please select a file.');
+        }
     }
 }
+
+function uploadImageToServer(file) {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    // Send a POST request to your server endpoint to handle the image upload
+    fetch('/api/image', {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Log the server response
+            const hiddenInput = document.getElementById('hiddenFieldValue');
+            hiddenInput.value = 1;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error uploading image.');
+        });
+}
+

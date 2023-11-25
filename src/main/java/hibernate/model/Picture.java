@@ -10,6 +10,7 @@ public class Picture {
     private Hike _hikePicture;
     private byte[] _picture;
 
+    private boolean _set;
     @Id
     @NotNull
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -38,5 +39,13 @@ public class Picture {
     }
     public void setHikePicture(Hike hikePicture) {
         _hikePicture = hikePicture;
+    }
+    @Column(name = "set")
+    public boolean isSet() {
+        return _set;
+    }
+
+    public void setSet(boolean set) {
+        _set = set;
     }
 }

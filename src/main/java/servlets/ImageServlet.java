@@ -6,13 +6,18 @@ import hibernate.model.Picture;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
 import org.json.JSONObject;
-import org.mockito.Mockito;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import org.json.JSONObject;
 
-
-
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 @WebServlet(name = "Image", value = "/api/image/*")
 @MultipartConfig
@@ -23,8 +28,8 @@ public class ImageServlet extends HttpServlet {
         int id = -1;
         byte[] imageData = null;
         String[] pathInfo =request.getPathInfo().split("/");
-        for (int i = 0; i < pathInfo.length; i++) {
-            System.out.println(pathInfo[i]);
+        for (String s : pathInfo) {
+            System.out.println(s);
         }
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         if(pathInfo.length == 2){
@@ -43,22 +48,23 @@ public class ImageServlet extends HttpServlet {
             outputStream.close();
         }
     }
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             Part filePart = request.getPart("image");
-            String fileName = filePart.getSubmittedFileName();
 
             InputStream is = filePart.getInputStream();
             byte[] compressedImageData = getBytesFromInputStream(is);
-            int pictureID = saveToDatabase(compressedImageData);
+            Picture picture = saveToDatabase(compressedImageData);
+            System.out.println("Test picture");
+            System.out.println(picture.getPictureID());
 
-            request.setAttribute("pictureID", pictureID);
+//            request.setAttribute("pictureID", pictureID);
 
             String pictureId = (String) request.getAttribute("pictureId");
 
             // Create a JSON object with the picture ID
             JSONObject jsonResponse = new JSONObject();
-            jsonResponse.put("pictureID", pictureId);
+            jsonResponse.put("pictureID", picture.getPictureID());
 
 
 
@@ -85,16 +91,15 @@ public class ImageServlet extends HttpServlet {
         return buffer.toByteArray();
     }
 
-    private int saveToDatabase(byte[] compressedImageData) {
+    private Picture saveToDatabase(byte[] compressedImageData) {
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
 
         Picture picture = new Picture();
         picture.setPicture(compressedImageData);
-        int pictureID = picture.getPictureID();
-        facadeJPA.save(picture);
-
+        picture.setSet(true);
+        Picture savedPicture = (Picture) (facadeJPA.save(picture));
         System.out.println("Saving compressed image to the database. Image size: " + compressedImageData.length + " bytes");
-
-        return pictureID;
+        System.out.println(savedPicture.getPictureID());
+        return savedPicture;
     }
 }

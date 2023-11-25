@@ -2,6 +2,8 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="hibernate.model.PointOfInterest" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%--
   Created by IntelliJ IDEA.
   User: learo
@@ -26,8 +28,16 @@
             Hike hike = (Hike) request.getAttribute("hike");
             double durationMinutes = (hike.getDuration() % 1) * 60;
 
-            java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("dd/MM/yyyy");
-            String formattedDate = dateFormat.format(hike.getDate());
+            LocalDate localDate = hike.getDate(); // Retrieve the LocalDate object
+
+// Define the desired date pattern
+            String pattern = "dd/MM/yyyy";
+
+// Create a DateTimeFormatter using the specified pattern
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+
+// Format the LocalDate into a String using the DateTimeFormatter
+            String formattedDate = localDate.format(formatter);
 
             List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
             HashMap<Integer, String> demoImages = new HashMap<Integer, String>();

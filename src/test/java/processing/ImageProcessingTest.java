@@ -1,4 +1,4 @@
-package proceesing;
+package processing;
 
 import hibernate.broker.PictureBroker;
 import hibernate.model.Picture;
@@ -8,10 +8,10 @@ import org.mockito.Mockito;
 
 import java.io.*;
 
-import static proceesing.ImageProcessecing.extractBytes;
+import static processing.ImageProcessing.extractBytes;
 
 
-class ImageProcessecingTest {
+class ImageProcessingTest {
 
     @Test
     void extractBytesTest() throws IOException {
@@ -43,6 +43,7 @@ class ImageProcessecingTest {
             byte[] test = extractBytes(mockPart);
             Picture picture = new Picture();
             picture.setPicture(test);
+            picture.setSet(false);
             PictureBroker p = new PictureBroker();
             p.save(picture);
 
