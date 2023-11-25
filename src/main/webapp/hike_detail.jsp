@@ -40,10 +40,10 @@
             demoImages.put(107, "https://vcdn.bergfex.at/images/resized/7c/fc07758d6a2af77c_20a169d014543ab0@2x.jpg");
             demoImages.put(108, "https://d2exd72xrrp1s7.cloudfront.net/www/000/1k4/a8/a8mx6d7f7cpz17bjyys8lhlle3eto5gp1-uhi15367968/0?width=3072&height=2304&crop=false&q=70");
         %>
- 
+
         <div class="container-sm mt-5 mb-5">
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
-            <img class="cover-image" src="/api/image/<%=hike.getPicture()%>" alt="mountain picture">
+            <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
             <div class="paragraph-container">
                 <span class="author">Author: <%= hike.getAuthor() %></span>
                 <span class="created-at">Created at: <%= formattedDate %></span>
