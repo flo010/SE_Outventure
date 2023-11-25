@@ -22,7 +22,7 @@ public class DeleteHikeServlet extends HttpServlet {
         setVisibleFalse(hikeID);
 
         // Redirect back to the hike details page or any other appropriate page
-        response.sendRedirect("hike_detail?id=" + hikeID);
+        response.sendRedirect("search_results?hikeDeleted=true");
     }
 
     private void setVisibleFalse(int hikeID) {

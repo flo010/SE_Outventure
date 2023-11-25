@@ -75,8 +75,12 @@
         <script src="/java_script/search_results.js"></script>
         <script>
             if (<%=request.getAttribute("hikeCreated")%>) {
-                createToast("Successful saving", "Your hike was successfully saved!");
-                showSaveHikeToast();
+                createToast("saveHikeToast", "Saving completed successfully", "Your hike was successfully saved!");
+                showToast("saveHikeToast");
+            }
+            if (<%=request.getAttribute("hikeDeleted")%>) {
+                createToast("deleteHikeToast", "Deletion successfully completed", "Your hike was successfully deleted!");
+                showToast("deleteHikeToast");
             }
         </script>
     </body>

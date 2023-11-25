@@ -53,7 +53,7 @@
 
         <div class="container-sm mt-5 mb-5">
             <div class="float-right">
-                <button type="button" class="btn btn-outline-secondary" onclick="deleteHike(<%=hike.getHikeID()%>)">Delete</button>
+                <button id="deleteHikeButton" type="button" class="btn btn-outline-secondary" onclick="showDeleteHikeModal()">Delete</button>
             </div>
 
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
@@ -314,6 +314,24 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal for Delete Hike -->
+            <div class="modal fade" id="deleteHikeModal" tabindex="-1" role="dialog" aria-labelledby="deleteHikeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered " role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteHikeModalLabel">Delete Hike</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete this hike?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-success" onclick="deleteHike(<%=hike.getHikeID()%>)">Delete</button>
                         </div>
                     </div>
                 </div>

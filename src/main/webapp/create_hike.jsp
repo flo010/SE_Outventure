@@ -435,7 +435,7 @@
             // Funktion zum Öffnen des Points of Interest-Modals
             function openPoiModal() {
                 // JavaScript code to activate the modal
-                var pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
+                let pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
                 pointsOfInterestModal.show();
             }
 
