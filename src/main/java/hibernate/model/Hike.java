@@ -313,12 +313,4 @@ public class Hike {
     @Column(name = "date")
     public LocalDate getDate(){return _date;}
     public void setDate(LocalDate date){_date = date;}
-
-    public int getPreviewPicture() {
-        return _previewPicture;
-    }
-
-    public void setPreviewPicture(int previewPicture) {
-        _previewPicture = previewPicture;
-    }
 }
