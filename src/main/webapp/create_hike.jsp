@@ -359,36 +359,40 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <!-- Content for adding Points of Interest goes here -->
-                            <!-- For example: a form to input Points of Interest -->
                             <form id="poiForm">
                                 <div class="input-fields-group">
-                                    <h5>Name</h5>
+                                    <label for="poiName" class="form-label">Name *</label>
                                     <input type="text" class="form-control exclude-from-validation" id="poiName" name="poiName" placeholder="Enter Point of Interest Name" required maxlength="100">
                                     <small class="text-muted">* Required</small>
                                 </div>
                                 <div class="input-fields-group">
-                                    <h5>Coordinates</h5>
                                     <div class="coordinates-container">
-                                        <div class="coordinate-field">
-                                            <label for="longitude">Longitude</label>
-                                            <input type="text" class="form-control exclude-from-validation" id="longitude" name="longitude" placeholder="Enter Longitude" required maxlength="20" pattern="-?\d+(\.\d{1,7})?">
-                                            <small class="text-muted">* Required. Format: -XX.XXXXXX, YY.YYYYYY</small>
-                                        </div>
-                                        <div class="coordinate-field">
-                                            <label for="latitude">Latitude</label>
-                                            <input type="text" class="form-control exclude-from-validation" id="latitude" name="latitude" placeholder="Enter Latitude" required maxlength="20" pattern="-?\d+(\.\d{1,7})?">
+                                        <div class="coordinates-container">
+                                            <div class="row">
+                                                <label for="poiLongitude" class="form-label">Coordinates *</label>
+                                                <div class="col">
+                                                    <input type="text" class="form-control exclude-from-validation" id="poiLongitude" name="longitude" placeholder="Longitude" required maxlength="20" aria-describedby="POILongitudeHelpText" pattern="-?\d+(\.\d{1,7})?">
+                                                    <small id="POILongitudeHelpText" class="form-text text-muted">
+                                                        The value must be in the format XX.XXXXXX (negative sign optional).
+                                                    </small>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control exclude-from-validation" id="poiLatitude" name="latitude" placeholder="Latitude" required maxlength="20" aria-describedby="POILatitudeHelpText" pattern="-?\d+(\.\d{1,7})?">
+                                                    <small id="POILatitudeHelpText" class="form-text text-muted">
+                                                        The value must be in the format XX.XXXXXX (negative sign optional).
+                                                    </small>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <small class="text-muted">* Required. Format: -XX.XXXXXX, YY.YYYYYY</small>
                                 </div>
                                 <div class="input-fields-group">
-                                    <h5>Description</h5>
+                                    <label for="poiDescription" class="form-label">Description</label>
                                     <textarea class="form-control exclude-from-validation" id="poiDescription" name="poiDescription" placeholder="Enter Point of Interest Description" maxlength="255"></textarea>
                                 </div>
                                 <!-- Error message for required fields -->
                                 <div id="poiErrorMessage" class="alert alert-danger mt-2" style="display: none">
-                                    Please fill out all required fields.
+                                    Please fill out all required fields marked with *.
                                 </div>
                             </form>
                         </div>
