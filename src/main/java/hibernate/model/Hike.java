@@ -10,6 +10,7 @@ import java.util.List;
 @Table(name = "hikes")
 public class Hike {
     private int _hikeID;
+
     private int _previewPicture;
     private String _title;
     private String _description;
@@ -41,6 +42,9 @@ public class Hike {
     private String _author;
     private LocalDate _date;
     private boolean _visible;
+
+    public Hike() {
+    }
 
     @Id
     @NotNull

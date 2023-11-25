@@ -84,26 +84,32 @@ function rangeCount(id, labelId){
 }
 
 // POI modal functions
-var pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
 
+let pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
 function savePointOfInterest() {
     // Get values from the form
     const poiName = document.getElementById('poiName').value;
-    const poiLatitude = document.getElementById('latitude').value;
-    const poiLongitude = document.getElementById('longitude').value;
+    const poiLatitude = document.getElementById('poiLatitude').value;
+    const poiLongitude = document.getElementById('poiLongitude').value;
     const poiDescription = document.getElementById("poiDescription").value;
 
     // Check if required fields are empty
     if (!poiName || !poiLatitude || !poiLongitude) {
         const errorMessage = document.getElementById('poiErrorMessage');
         errorMessage.style.display = 'block';
-        return;
     }
+    else {
+        appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription);
 
-    appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription);
+        // Clear the input fields in the modal
+        document.getElementById('poiName').value = '';
+        document.getElementById('poiLatitude').value = '';
+        document.getElementById('poiLongitude').value = '';
+        document.getElementById('poiDescription').value = '';
 
-    // Close the modal
-    pointsOfInterestModal.hide();
+        // Close the modal
+        pointsOfInterestModal.hide();
+    }
 }
 
 function appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription) {
