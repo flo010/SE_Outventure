@@ -86,7 +86,6 @@ public class SaveDataServlet extends HttpServlet {
 
         hike.setPointsOfInterest(pointsOfInterest);
 
-//        hike.setHikeID(hikeId);
         hike.setTitle(title);
         hike.setDescription(description);
         hike.setDuration(duration);
@@ -119,6 +118,7 @@ public class SaveDataServlet extends HttpServlet {
         }
         hike.setAuthor("Admin");
         hike.setDate(currentDate);
+        hike.setVisible(true);
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         try {

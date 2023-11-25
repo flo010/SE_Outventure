@@ -40,6 +40,7 @@ public class Hike {
     private String _arrivalInformation;
     private String _author;
     private LocalDate _date;
+    private boolean _visible;
 
     @Id
     @NotNull
@@ -309,4 +310,13 @@ public class Hike {
     @Column(name = "date")
     public LocalDate getDate(){return _date;}
     public void setDate(LocalDate date){_date = date;}
+
+    @NotNull
+    @Column(name = "visible")
+    public boolean isVisible() {
+        return _visible;
+    }
+    public void setVisible(boolean visible) {
+        _visible = visible;
+    }
 }
