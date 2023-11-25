@@ -58,7 +58,7 @@ public class ImageServlet extends HttpServlet {
             System.out.println("Test picture");
             System.out.println(picture.getPictureID());
 
-            request.setAttribute("pictureID", pictureID);
+//            request.setAttribute("pictureID", pictureID);
 
             String pictureId = (String) request.getAttribute("pictureId");
 
