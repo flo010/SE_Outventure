@@ -17,6 +17,9 @@ public class SearchResultsServlet extends HttpServlet {
         String hikeCreated = request.getParameter("hikeCreated");
         request.setAttribute("hikeCreated", hikeCreated);
 
+        String hikeDeleted = request.getParameter("hikeDeleted");
+        request.setAttribute("hikeDeleted", hikeDeleted);
+
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         List<Hike> hikeList = facadeJPA.getAllHikesLazy();
 
