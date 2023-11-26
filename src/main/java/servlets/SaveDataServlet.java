@@ -1,10 +1,7 @@
 package servlets;
 
 import hibernate.facade.FacadeJPA;
-import hibernate.model.Destination;
-import hibernate.model.Hike;
-import hibernate.model.Start;
-import jakarta.servlet.ServletException;
+import hibernate.model.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,17 +10,18 @@ import jakarta.transaction.Transactional;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "saveDataServlet", value = "/save_data")
 public class SaveDataServlet extends HttpServlet {
     @Transactional
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
-        double distance = Double.parseDouble(request.getParameter("distanceInput"));;
+        double distance = Double.parseDouble(request.getParameter("distanceInput"));
         int hours = Integer.parseInt(request.getParameter("hoursInput"));
         int minutes = Integer.parseInt(request.getParameter("minutesInput"));
         double duration = hours + (minutes / 60.0);
@@ -42,10 +40,10 @@ public class SaveDataServlet extends HttpServlet {
         destination.setLatitude(42.12);
         destination.setLongitude(10.12);
 
-        int strength = Integer.parseInt(request.getParameter("difficultyInput"));;
+        int strength = Integer.parseInt(request.getParameter("difficultyInput"));
         int stamina = Integer.parseInt(request.getParameter("conditionInput"));
-        int experience = Integer.parseInt(request.getParameter("experienceInput"));;
-        int landscape = Integer.parseInt(request.getParameter("landscapeInput"));;
+        int experience = Integer.parseInt(request.getParameter("experienceInput"));
+        int landscape = Integer.parseInt(request.getParameter("landscapeInput"));
         boolean january = Boolean.parseBoolean(request.getParameter("monthCheckboxJanuary"));
         boolean february = Boolean.parseBoolean(request.getParameter("monthCheckboxFebruary"));
         boolean march = Boolean.parseBoolean(request.getParameter("monthCheckboxMarch"));
@@ -62,8 +60,30 @@ public class SaveDataServlet extends HttpServlet {
         String arrivalInformation = request.getParameter("gettingThereInput");
         String parkingInformation = request.getParameter("parkingInput");
         LocalDate currentDate = LocalDate.now();
+        String[] poiNames = request.getParameterValues("poiNameInput");
+        String[] poiLatitudes = request.getParameterValues("poiLatitudeInput");
+        String[] poiLongitudes = request.getParameterValues("poiLongitudeInput");
+        String[] poiDescriptions = request.getParameterValues("poiDescriptionInput");
+
 
         Hike hike = new Hike();
+
+        List<PointOfInterest> pointsOfInterest = new ArrayList<>();
+
+        if(poiNames != null) {
+            for (int i = 0; i < poiNames.length; i++) {
+                PointOfInterest pointOfInterest = new PointOfInterest();
+                pointOfInterest.setName(poiNames[i]);
+                pointOfInterest.setLatitude(Double.parseDouble(poiLatitudes[i]));
+                pointOfInterest.setLongitude(Double.parseDouble(poiLongitudes[i]));
+                pointOfInterest.setDescription(poiDescriptions[i]);
+                pointOfInterest.setHikePOI(hike);
+                pointsOfInterest.add(pointOfInterest);
+            }
+        }
+
+        hike.setPointsOfInterest(pointsOfInterest);
+
 //        hike.setHikeID(hikeId);
         hike.setTitle(title);
         hike.setDescription(description);
@@ -89,12 +109,25 @@ public class SaveDataServlet extends HttpServlet {
         hike.setNovember(november);
         hike.setDecember(december);
         hike.setRouteDescription(routeDescription);
-        hike.setArrivalInformation(arrivalInformation);
-        hike.setParkingInformation(parkingInformation);
+        if (!arrivalInformation.isEmpty()) {
+            hike.setArrivalInformation(arrivalInformation);
+        }
+        if (!parkingInformation.isEmpty()) {
+            hike.setParkingInformation(parkingInformation);
+        }
         hike.setAuthor("Admin");
         hike.setDate(currentDate);
-
+        hike.setVisible(true);
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
+        try {
+            Thread.sleep(4 * 1000);
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
+        }
+        Picture picture = facadeJPA.getNewPicture();
+        picture.setSet(false);
+        hike.setPreviewPicture(picture.getPictureID());
+        facadeJPA.save(picture);
         facadeJPA.save(hike);
 
         response.sendRedirect("search_results?hikeCreated=true");

@@ -1,4 +1,4 @@
-package proceesing;
+package processing;
 
 import jakarta.servlet.http.Part;
 
@@ -6,7 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class ImageProcessecing {
+public class ImageProcessing {
     // A utility method to convert Image to byte array
     public static byte[] extractBytes(Part image) throws IOException {
         InputStream imageStream = image.getInputStream();

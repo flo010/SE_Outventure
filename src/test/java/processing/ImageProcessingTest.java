@@ -1,4 +1,4 @@
-package proceesing;
+package processing;
 
 import hibernate.broker.PictureBroker;
 import hibernate.model.Picture;
@@ -8,23 +8,23 @@ import org.mockito.Mockito;
 
 import java.io.*;
 
-import static proceesing.ImageProcessecing.extractBytes;
+import static processing.ImageProcessing.extractBytes;
 
 
-class ImageProcessecingTest {
+class ImageProcessingTest {
 
     @Test
     void extractBytesTest() throws IOException {
         String[] imagePaths =
                 {
-                        "src/test/java/Proceesing/2.jpg",
-                        "src/test/java/Proceesing/3.jpg",
-                        "src/test/java/Proceesing/4.jpg",
-                        "src/test/java/Proceesing/5.jpg",
-                        "src/test/java/Proceesing/6.jpg",
-                        "src/test/java/Proceesing/7.jpg",
-                        "src/test/java/Proceesing/ezgif-2-d1850fad73.jpg",
-                        "src/test/java/Proceesing/niederkaiserkamm-14871-0.jpg",
+                        "src/test/java/processing/2.jpg",
+                        "src/test/java/processing/3.jpg",
+                        "src/test/java/processing/4.jpg",
+                        "src/test/java/processing/5.jpg",
+                        "src/test/java/processing/6.jpg",
+                        "src/test/java/processing/7.jpg",
+                        "src/test/java/processing/ezgif-2-d1850fad73.jpg",
+                        "src/test/java/processing/niederkaiserkamm-14871-0.jpg",
                 };
 
         for (String imagePath : imagePaths) {
@@ -43,6 +43,7 @@ class ImageProcessecingTest {
             byte[] test = extractBytes(mockPart);
             Picture picture = new Picture();
             picture.setPicture(test);
+            picture.setSet(false);
             PictureBroker p = new PictureBroker();
             p.save(picture);
 
