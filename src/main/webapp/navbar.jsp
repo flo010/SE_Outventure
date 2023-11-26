@@ -15,9 +15,6 @@
     </head>
     <body>
 
-    <%
-        List<Hike> hikes = (List<Hike>) request.getAttribute("hikesByTitle");
-    %>
 
         <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
             <div class="container-fluid align-self-start">
