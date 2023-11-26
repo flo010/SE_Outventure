@@ -263,7 +263,6 @@
                                                         <span class="input-group-text" id="editCoordinates" onclick="editPointOfInterest(this)">
                                                              <i class="fa fa-pencil"></i>
                                                         </span>
-
                                                         <!-- Delete-Button mit Mülleimer-Icon -->
                                                         <span class="input-group-text" onclick="deletePointOfInterest(this)">
                                                              <i class="fa fa-trash"></i>
@@ -364,6 +363,20 @@
                                     <label for="poiName" class="form-label">Name *</label>
                                     <input type="text" class="form-control exclude-from-validation" id="poiName" name="poiName" placeholder="Enter Point of Interest Name" required maxlength="100">
                                     <small class="text-muted">* Required</small>
+                                </div>
+                                <div class="input-fields-group">
+                                    <label for="poiType" class="form-label">Select Point of Interest Type</label>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="poiType">
+                                            Select Type
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Hut</a></li>
+                                            <li><a class="dropdown-item" href="#">Rest Area</a></li>
+                                            <li><a class="dropdown-item" href="#">Scenic Viewpoint</a></li>
+                                            <li><a class="dropdown-item" href="#">Landmark</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div class="input-fields-group">
                                     <div class="coordinates-container">
