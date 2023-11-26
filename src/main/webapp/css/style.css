@@ -97,5 +97,6 @@ td, th {
     justify-content: space-between;
 }
 
-
-
+.cover-image {
+    width: 50%;
+}

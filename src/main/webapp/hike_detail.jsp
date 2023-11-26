@@ -52,13 +52,15 @@
         %>
 
         <div class="container-sm mt-5 mb-5">
-            <div class="float-right">
-                <button id="deleteHikeButton" type="button" class="btn btn-outline-secondary" onclick="showDeleteHikeModal()">Delete</button>
+            <div class="d-flex flex-row-reverse bd-highlight">
+                <div class="p-2 bd-highlight">
+                    <button id="deleteHikeButton" type="button" class="btn btn-outline-secondary" onclick="showDeleteHikeModal()">Delete</button>
+                </div>
             </div>
 
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
             <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
-            <div class="paragraph-container">
+            <div class="paragraph-container mt-3" style="width: 50%">
                 <span class="author">Author: <%= hike.getAuthor() %></span>
                 <span class="created-at">Created at: <%= formattedDate %></span>
             </div>
@@ -338,6 +340,7 @@
             </div>
         </div>
 
+        <script src="java_script/hike_detail.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 let circles = document.querySelectorAll('.fa.fa-circle-o');
