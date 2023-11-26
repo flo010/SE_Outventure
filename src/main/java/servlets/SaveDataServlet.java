@@ -2,7 +2,6 @@ package servlets;
 
 import hibernate.facade.FacadeJPA;
 import hibernate.model.*;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -68,7 +67,6 @@ public class SaveDataServlet extends HttpServlet {
 
 
         Hike hike = new Hike();
-        hike.setPreviewPicture(1);
 
         List<PointOfInterest> pointsOfInterest = new ArrayList<>();
 
