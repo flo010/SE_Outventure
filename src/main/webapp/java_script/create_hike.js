@@ -201,3 +201,99 @@ function uploadImageToServer(file) {
         });
 }
 
+let cardToEdit;
+
+function editPointOfInterest(editButton) {
+    const card = editButton.closest('.pointOfInterest');
+    const cardPOIName = card.querySelector(".poiTempName");
+    const cardPOICoordinates = card.querySelector(".poiTempCoordinates");
+    const cardPOIDescription = card.querySelector(".poiTempDescription");
+
+    const latitude = cardPOICoordinates.innerText.split(", ")[0];
+    const longitude = cardPOICoordinates.innerText.split(", ")[1];
+
+    document.getElementById('poiName').value = cardPOIName.innerText;
+    document.getElementById('poiLatitude').value = latitude.slice(17);
+    document.getElementById('poiLongitude').value = longitude;
+    if (cardPOIDescription) {
+        document.getElementById('poiDescription').value = cardPOIDescription.innerText.slice(13);
+    }
+    else {
+        document.getElementById('poiDescription').value = '';
+    }
+
+    cardToEdit = card;
+
+    openPoiModal();
+}
+
+function deletePointOfInterest(button) {
+    // Get the parent card element and remove it
+    const card = button.closest('.pointOfInterest');
+    card.remove();
+}
+
+// image functions
+function previewImage(inputId, previewId) {
+    const input = document.getElementById(inputId);
+    const preview = document.getElementById(previewId);
+
+    // Check if input and preview element are present
+    if (input && preview) {
+        // Add EventListener for the event that the input changes
+        input.addEventListener("change", function () {
+            const [file] = input.files;
+
+            // Check if a file is present and check for its file type
+            if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
+                // Display the preview
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = "block";
+            } else {
+                input.classList.add("is-invalid");
+                preview.style.display = "none";
+            }
+        });
+    }
+}
+
+
+function handleCoverImage() {
+    const input = document.getElementById('coverImageInput');
+    const preview = document.getElementById('previewCoverImage');
+
+    input.addEventListener('change', function () {
+        const file = input.files[0];
+
+
+        if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const img = new Image();
+
+                img.onload = function () {
+                    // Resize the image (you can adjust width and height as needed)
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = 300; // set your desired width
+                    canvas.height = (300 * img.height) / img.width; // maintain aspect ratio
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                    // Compress the image (you can adjust quality as needed)
+                    const compressedDataURL = canvas.toDataURL('image/jpeg', 0.7);
+
+                    // Display the preview
+                    preview.src = compressedDataURL;
+                    preview.style.display = 'block';
+
+                    // Optionally, you can upload the compressed image to a server here.
+                    uploadImageToServer(compressedDataURL);
+                };
+                img.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+}
