@@ -7,16 +7,16 @@ import java.util.List;
 
 public interface Facade {
     // INSERT + UPDATE
-    public void save(Object object);
+    void save(Object object);
 
     // DELETE
-    public void delete(Object object);
+    void delete(Object object);
 
     //READ
-    public Hike getHikeByIDLazy(int hikeID);
-    public Hike getHikeByIDEager(int hikeID);
-    public List<Hike> getAllHikesLazy();
-    public Picture getPictureByID(int pictureID);
-    public List<Picture> getAllPictures();
+    Hike getHikeByIDLazy(int hikeID);
+    Hike getHikeByIDEager(int hikeID);
+    List<Hike> getAllHikesLazy();
+    Picture getPictureByID(int pictureID);
+    List<Picture> getAllPictures();
 
 }

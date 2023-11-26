@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="hibernate.model.Hike" %><%--
   Created by IntelliJ IDEA.
   User: Lea Roncero
   Date: 07.11.2023
@@ -13,6 +14,11 @@
         <link href="style.css" rel="stylesheet">
     </head>
     <body>
+
+    <%
+        List<Hike> hikes = (List<Hike>) request.getAttribute("hikesByTitle");
+    %>
+
         <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
             <div class="container-fluid align-self-start">
                 <a class="navbar-brand" href="index.jsp">

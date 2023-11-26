@@ -50,6 +50,7 @@ public class FacadeJPA implements Facade {
         return hike;
     }
 
+
     @Override
     public Hike getHikeByIDEager(int hikeID) {
         HikeBroker hikeBroker = new HikeBroker();
@@ -65,6 +66,20 @@ public class FacadeJPA implements Facade {
         List<Hike> hikes = null;
         try {
             hikes = hikeBroker.getAll();
+        } catch (Exception e) {
+            System.out.println("getAllHikes is null");
+        }
+
+
+        return hikes;
+    }
+
+
+    public List<Hike> getHikesByTitleLazy(String title) {
+        HikeBroker hikeBroker = new HikeBroker();
+        List<Hike> hikes = null;
+        try {
+            hikes = hikeBroker.getByTitle(title);
         } catch (Exception e) {
             System.out.println("getAllHikes is null");
         }
