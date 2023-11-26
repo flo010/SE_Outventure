@@ -240,27 +240,27 @@
                             <!-- List of Points of Interest -->
                             <div id="poiContainer" class="row">
                                 <template id="poiTemplate">
-                                    <div class="col-lg-6">
+                                    <div class="pointOfInterest col-lg-6">
                                         <div class="card my-2">
                                             <div class="card-body">
-                                                <h4 id="poiTempName" class="card-title text-center"></h4>
-                                                <input type="hidden" id="poiNameInput" name="poiNameInput">
+                                                <h4 class="poiTempName card-title text-center"></h4>
+                                                <input type="hidden" class="poiNameInput" name="poiNameInput">
                                                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                                                     <div>
-                                                        <p id="poiTempCoordinates">
+                                                        <p class="poiTempCoordinates">
                                                             <strong>GPS Coordinates: </strong>
                                                         </p>
-                                                        <input type="hidden" id="poiLatitudeInput" name="poiLatitudeInput">
-                                                        <input type="hidden" id="poiLongitudeInput" name="poiLongitudeInput">
-                                                        <p id="poiTempDescription" class="text-break">
+                                                        <input type="hidden" class="poiLatitudeInput" name="poiLatitudeInput">
+                                                        <input type="hidden" class="poiLongitudeInput" name="poiLongitudeInput">
+                                                        <p class="poiTempDescription text-break">
                                                             <strong>Description: </strong>
                                                         </p>
-                                                        <input type="hidden" id="poiDescriptionInput" name="poiDescriptionInput">
+                                                        <input type="hidden" class="poiDescriptionInput" name="poiDescriptionInput">
                                                     </div>
                                                     <!-- Edit- und Delete-Buttons mit den gewünschten Symbolen -->
                                                     <div class="d-flex gap-2">
                                                         <!-- Edit-Button mit Stift-Icon -->
-                                                        <span class="input-group-text" id="editCoordinates" onclick="editPointOfInterest()">
+                                                        <span class="input-group-text" id="editCoordinates" onclick="editPointOfInterest(this)">
                                                              <i class="fa fa-pencil"></i>
                                                         </span>
 
@@ -273,7 +273,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="w-100"></div>
+                                    <div class="poiDivider w-100"></div>
                                 </template>
                             </div>
                             <!-- Add Points of Interest Button -->
@@ -434,25 +434,38 @@
             }
             // Funktion zum Öffnen des Points of Interest-Modals
             function openPoiModal() {
-                // JavaScript code to activate the modal
-                var pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
                 pointsOfInterestModal.show();
             }
 
+            let cardToEdit;
+
             // Funktion zum Bearbeiten der Koordinaten
-            function editPointOfInterest() {
+            function editPointOfInterest(editButton) {
+                const card = editButton.closest('.pointOfInterest');
+                const cardPOIName = card.querySelector(".poiTempName");
+                const cardPOICoordinates = card.querySelector(".poiTempCoordinates");
+                const cardPOIDescription = card.querySelector(".poiTempDescription");
+
+                const latitude = cardPOICoordinates.innerText.split(", ")[0];
+                const longitude = cardPOICoordinates.innerText.split(", ")[1];
+
+                document.getElementById('poiName').value = cardPOIName.innerText;
+                document.getElementById('poiLatitude').value = latitude.slice(17);
+                document.getElementById('poiLongitude').value = longitude;
+                document.getElementById('poiDescription').value = cardPOIDescription.innerText.slice(13);
+
+                cardToEdit = card;
+
                 // Hier rufst du die Funktion zum Öffnen des Modals auf
                 openPoiModal();
-
-                // Implementiere ggf. zusätzliche Logik, um die bestehenden Koordinaten im Modal zu laden
-                // Beispiel: document.getElementById('longitude').value = /* Wert aus deiner Datenbank */;
-                // Beispiel: document.getElementById('latitude').value = /* Wert aus deiner Datenbank */;
             }
+
             function deletePointOfInterest(button) {
                 // Get the parent card element and remove it
-                var card = button.closest('.card');
+                const card = button.closest('.pointOfInterest');
                 card.remove();
             }
+
             function confirmCancel() {
                 let myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
                     keyboard: false

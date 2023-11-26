@@ -85,7 +85,8 @@ function rangeCount(id, labelId){
 
 // POI modal functions
 
-let pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
+const pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
+
 function savePointOfInterest() {
     // Get values from the form
     const poiName = document.getElementById('poiName').value;
@@ -117,13 +118,13 @@ function appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription) {
     const poiTemplate = document.getElementById("poiTemplate");
 
     const pointOfInterest = poiTemplate.content.cloneNode(true);
-    const name = pointOfInterest.getElementById("poiTempName");
-    const coordinates = pointOfInterest.getElementById("poiTempCoordinates");
+    const name = pointOfInterest.querySelector(".poiTempName");
+    const coordinates = pointOfInterest.querySelector(".poiTempCoordinates");
+    const description = pointOfInterest.querySelector(".poiTempDescription");
 
-    const poiNameInput = pointOfInterest.getElementById("poiNameInput");
-    const poiLatitudeInput = pointOfInterest.getElementById("poiLatitudeInput");
-    const poiLongitudeInput = pointOfInterest.getElementById("poiLongitudeInput");
-    const description = pointOfInterest.getElementById("poiTempDescription");
+    const poiNameInput = pointOfInterest.querySelector(".poiNameInput");
+    const poiLatitudeInput = pointOfInterest.querySelector(".poiLatitudeInput");
+    const poiLongitudeInput = pointOfInterest.querySelector(".poiLongitudeInput");
 
     const coordinatesTextNode = document.createTextNode(`${poiLatitude}, ${poiLongitude}`);
     name.textContent = poiName;
@@ -135,13 +136,20 @@ function appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription) {
     if (poiDescription) {
         const descriptionTextNode = document.createTextNode(poiDescription);
         description.appendChild(descriptionTextNode);
-        const poiDescriptionInput = pointOfInterest.getElementById("poiDescriptionInput");
+
+        const poiDescriptionInput = pointOfInterest.querySelector(".poiDescriptionInput");
         poiDescriptionInput.value = poiDescription;
     } else {
         description.remove();
     }
 
-    poiContainer.appendChild(pointOfInterest);
+    if (!cardToEdit) {
+        poiContainer.appendChild(pointOfInterest);
+        return;
+    }
+
+    cardToEdit.before(pointOfInterest);
+    cardToEdit = cardToEdit.remove();
 }
 
 function saveInput() {
