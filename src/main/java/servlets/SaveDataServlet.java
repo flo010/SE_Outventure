@@ -64,7 +64,7 @@ public class SaveDataServlet extends HttpServlet {
         String[] poiLatitudes = request.getParameterValues("poiLatitudeInput");
         String[] poiLongitudes = request.getParameterValues("poiLongitudeInput");
         String[] poiDescriptions = request.getParameterValues("poiDescriptionInput");
-
+        String[] poiTypes = request.getParameterValues("poiTypeInput");
 
         Hike hike = new Hike();
 
@@ -77,6 +77,7 @@ public class SaveDataServlet extends HttpServlet {
                 pointOfInterest.setLatitude(Double.parseDouble(poiLatitudes[i]));
                 pointOfInterest.setLongitude(Double.parseDouble(poiLongitudes[i]));
                 pointOfInterest.setDescription(poiDescriptions[i]);
+                pointOfInterest.setDescription(poiTypes[i]);
                 pointOfInterest.setHikePOI(hike);
                 pointsOfInterest.add(pointOfInterest);
             }
@@ -84,7 +85,6 @@ public class SaveDataServlet extends HttpServlet {
 
         hike.setPointsOfInterest(pointsOfInterest);
 
-//        hike.setHikeID(hikeId);
         hike.setTitle(title);
         hike.setDescription(description);
         hike.setDuration(duration);

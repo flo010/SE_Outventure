@@ -97,5 +97,6 @@ td, th {
     justify-content: space-between;
 }
 
-
-
+.pointer {
+    cursor: pointer;
+}

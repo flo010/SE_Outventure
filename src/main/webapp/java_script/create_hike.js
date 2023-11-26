@@ -75,8 +75,8 @@ function updateProgressBar () {
 
 // slider functions
 function rangeCount(id, labelId){
-    var rangeInput = document.getElementById(id);
-    var rangeValue = document.getElementById(labelId);
+    let rangeInput = document.getElementById(id);
+    let rangeValue = document.getElementById(labelId);
 
     rangeInput.addEventListener('input', function () {
         rangeValue.textContent = rangeInput.value;
@@ -93,9 +93,10 @@ function savePointOfInterest() {
     const poiLatitude = document.getElementById('poiLatitude').value;
     const poiLongitude = document.getElementById('poiLongitude').value;
     const poiDescription = document.getElementById("poiDescription").value;
+    const poiType = document.getElementById("poiType").value;
 
     // Check if required fields are empty
-    if (!poiName || !poiLatitude || !poiLongitude) {
+    if (!poiName || !poiLatitude || !poiLongitude || poiType === "Select type") {
         const errorMessage = document.getElementById('poiErrorMessage');
         errorMessage.style.display = 'block';
     }
@@ -107,6 +108,7 @@ function savePointOfInterest() {
         document.getElementById('poiLatitude').value = '';
         document.getElementById('poiLongitude').value = '';
         document.getElementById('poiDescription').value = '';
+        document.getElementById('poiType').value = 'Select type';
 
         // Close the modal
         pointsOfInterestModal.hide();

@@ -260,11 +260,11 @@
                                                     <!-- Edit- und Delete-Buttons mit den gewünschten Symbolen -->
                                                     <div class="d-flex gap-2">
                                                         <!-- Edit-Button mit Stift-Icon -->
-                                                        <span class="input-group-text" id="editCoordinates" onclick="editPointOfInterest(this)">
+                                                        <span class="input-group-text pointer" id="editCoordinates" onclick="editPointOfInterest(this)">
                                                              <i class="fa fa-pencil"></i>
                                                         </span>
                                                         <!-- Delete-Button mit Mülleimer-Icon -->
-                                                        <span class="input-group-text" onclick="deletePointOfInterest(this)">
+                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this)">
                                                              <i class="fa fa-trash"></i>
                                                         </span>
                                                     </div>
@@ -365,17 +365,15 @@
                                     <small class="text-muted">* Required</small>
                                 </div>
                                 <div class="input-fields-group">
-                                    <label for="poiType" class="form-label">Select Point of Interest Type</label>
+                                    <label for="poiType" class="form-label">Type *</label>
                                     <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="poiType">
-                                            Select Type
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Hut</a></li>
-                                            <li><a class="dropdown-item" href="#">Rest Area</a></li>
-                                            <li><a class="dropdown-item" href="#">Scenic Viewpoint</a></li>
-                                            <li><a class="dropdown-item" href="#">Landmark</a></li>
-                                        </ul>
+                                        <select id="poiType" name="poiType" class="form-select" aria-label="POI Type" required>
+                                            <option selected>Select type</option>
+                                            <option value="hut">Hut</option>
+                                            <option value="refreshmentPoint">Refreshment Point</option>
+                                            <option value="viewpoint">Viewpoint</option>
+                                            <option value="sight">Sight</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="input-fields-group">
@@ -452,7 +450,7 @@
 
             let cardToEdit;
 
-            // Funktion zum Bearbeiten der Koordinaten
+            // function to edit POI
             function editPointOfInterest(editButton) {
                 const card = editButton.closest('.pointOfInterest');
                 const cardPOIName = card.querySelector(".poiTempName");
@@ -465,11 +463,15 @@
                 document.getElementById('poiName').value = cardPOIName.innerText;
                 document.getElementById('poiLatitude').value = latitude.slice(17);
                 document.getElementById('poiLongitude').value = longitude;
-                document.getElementById('poiDescription').value = cardPOIDescription.innerText.slice(13);
+                if (cardPOIDescription) {
+                    document.getElementById('poiDescription').value = cardPOIDescription.innerText.slice(13);
+                }
+                else {
+                    document.getElementById('poiDescription').value = '';
+                }
 
                 cardToEdit = card;
 
-                // Hier rufst du die Funktion zum Öffnen des Modals auf
                 openPoiModal();
             }
 
