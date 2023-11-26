@@ -221,6 +221,9 @@ function editPointOfInterest(editButton) {
     else {
         document.getElementById('poiDescription').value = '';
     }
+    
+    const errorMessage = document.getElementById('poiErrorMessage');
+    errorMessage.style.display = 'none';
 
     cardToEdit = card;
 
