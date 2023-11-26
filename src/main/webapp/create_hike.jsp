@@ -247,15 +247,19 @@
                                                 <input type="hidden" class="poiNameInput" name="poiNameInput">
                                                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                                                     <div>
+                                                        <p class="poiTempType">
+                                                            <strong>Type: </strong>
+                                                        </p>
+                                                        <input type="hidden" class="poiTypeInput" name="poiTypeInput">
+                                                        <p class="poiTempDescription text-break">
+                                                            <strong>Description: </strong>
+                                                        </p>
+                                                        <input type="hidden" class="poiDescriptionInput" name="poiDescriptionInput">
                                                         <p class="poiTempCoordinates">
                                                             <strong>GPS Coordinates: </strong>
                                                         </p>
                                                         <input type="hidden" class="poiLatitudeInput" name="poiLatitudeInput">
                                                         <input type="hidden" class="poiLongitudeInput" name="poiLongitudeInput">
-                                                        <p class="poiTempDescription text-break">
-                                                            <strong>Description: </strong>
-                                                        </p>
-                                                        <input type="hidden" class="poiDescriptionInput" name="poiDescriptionInput">
                                                     </div>
                                                     <!-- Edit- und Delete-Buttons mit den gewünschten Symbolen -->
                                                     <div class="d-flex gap-2">
@@ -369,10 +373,10 @@
                                     <div class="dropdown">
                                         <select id="poiType" name="poiType" class="form-select" aria-label="POI Type" required>
                                             <option selected>Select type</option>
-                                            <option value="hut">Hut</option>
-                                            <option value="refreshmentPoint">Refreshment Point</option>
-                                            <option value="viewpoint">Viewpoint</option>
-                                            <option value="sight">Sight</option>
+                                            <option value="Hut">Hut</option>
+                                            <option value="Refreshment Point">Refreshment Point</option>
+                                            <option value="Viewpoint">Viewpoint</option>
+                                            <option value="Sight">Sight</option>
                                         </select>
                                     </div>
                                 </div>

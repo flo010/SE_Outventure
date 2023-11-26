@@ -77,7 +77,7 @@ public class SaveDataServlet extends HttpServlet {
                 pointOfInterest.setLatitude(Double.parseDouble(poiLatitudes[i]));
                 pointOfInterest.setLongitude(Double.parseDouble(poiLongitudes[i]));
                 pointOfInterest.setDescription(poiDescriptions[i]);
-                pointOfInterest.setDescription(poiTypes[i]);
+                pointOfInterest.setType(poiTypes[i]);
                 pointOfInterest.setHikePOI(hike);
                 pointsOfInterest.add(pointOfInterest);
             }

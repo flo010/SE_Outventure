@@ -101,7 +101,7 @@ function savePointOfInterest() {
         errorMessage.style.display = 'block';
     }
     else {
-        appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription);
+        appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitude);
 
         // Clear the input fields in the modal
         document.getElementById('poiName').value = '';
@@ -115,23 +115,30 @@ function savePointOfInterest() {
     }
 }
 
-function appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription) {
+function appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitude) {
     const poiContainer = document.getElementById("poiContainer");
     const poiTemplate = document.getElementById("poiTemplate");
 
     const pointOfInterest = poiTemplate.content.cloneNode(true);
     const name = pointOfInterest.querySelector(".poiTempName");
-    const coordinates = pointOfInterest.querySelector(".poiTempCoordinates");
+    const type = pointOfInterest.querySelector(".poiTempType");
     const description = pointOfInterest.querySelector(".poiTempDescription");
+    const coordinates = pointOfInterest.querySelector(".poiTempCoordinates");
 
     const poiNameInput = pointOfInterest.querySelector(".poiNameInput");
+    const poiTypeInput = pointOfInterest.querySelector(".poiTypeInput");
     const poiLatitudeInput = pointOfInterest.querySelector(".poiLatitudeInput");
     const poiLongitudeInput = pointOfInterest.querySelector(".poiLongitudeInput");
 
+    const typeTextNode = document.createTextNode(poiType);
     const coordinatesTextNode = document.createTextNode(`${poiLatitude}, ${poiLongitude}`);
-    name.textContent = poiName;
+
+    name.innerText = poiName;
+    type.appendChild(typeTextNode);
     coordinates.appendChild(coordinatesTextNode);
+
     poiNameInput.value = poiName;
+    poiTypeInput.value = poiType;
     poiLatitudeInput.value = poiLatitude;
     poiLongitudeInput.value = poiLongitude;
 
@@ -206,6 +213,7 @@ let cardToEdit;
 function editPointOfInterest(editButton) {
     const card = editButton.closest('.pointOfInterest');
     const cardPOIName = card.querySelector(".poiTempName");
+    const cardPOIType = card.querySelector(".poiTempType");
     const cardPOICoordinates = card.querySelector(".poiTempCoordinates");
     const cardPOIDescription = card.querySelector(".poiTempDescription");
 
@@ -213,12 +221,13 @@ function editPointOfInterest(editButton) {
     const longitude = cardPOICoordinates.innerText.split(", ")[1];
 
     document.getElementById('poiName').value = cardPOIName.innerText;
+    document.getElementById("poiType").value = cardPOIType.innerText.slice(6);
     document.getElementById('poiLatitude').value = latitude.slice(17);
     document.getElementById('poiLongitude').value = longitude;
+
     if (cardPOIDescription) {
         document.getElementById('poiDescription').value = cardPOIDescription.innerText.slice(13);
-    }
-    else {
+    } else {
         document.getElementById('poiDescription').value = '';
     }
     
