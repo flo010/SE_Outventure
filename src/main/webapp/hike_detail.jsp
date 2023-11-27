@@ -219,7 +219,7 @@
                                             <%=hike.getStart().getLongitude()%> E, <%=hike.getStart().getLatitude()%> N
                                         </p>
                                         <p>
-                                            <a href="http://www.google.com/maps/place/<%=hike.getStart().getLatitude()%>,
+                                            <a href="http://www.google.com/maps?saddr=My+Location&daddr=<%=hike.getStart().getLatitude()%>,
                                             <%=hike.getStart().getLongitude()%>", target="_blank">Auf Google Maps anzeigen</a>
                                         </p>
                                     </div>
@@ -301,7 +301,7 @@
                                             <%=hike.getStart().getLongitude()%> E, <%=hike.getStart().getLatitude()%> N
                                         </p>
                                         <p>
-                                            <a href="http://www.google.com/maps/place/<%=hike.getStart().getLatitude()%>,
+                                            <a href="http://www.google.com/maps?saddr=My+Location&daddr=<%=hike.getStart().getLatitude()%>,
                                             <%=hike.getStart().getLongitude()%>", target="_blank">Auf Google Maps anzeigen</a>
                                         </p>
                                         <p>
