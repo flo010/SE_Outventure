@@ -503,6 +503,11 @@
                 label.setAttribute("for", "monthCheckbox" + i);
                 label.innerText = months[i];
 
+                checkboxInput.addEventListener("change", function () {
+                    // Update the value of the checkbox based on its checked state
+                    checkboxInput.value = checkboxInput.checked ? "true" : "false";
+                });
+
                 // Append the input and label to the month div
                 monthDiv.appendChild(checkboxInput);
                 monthDiv.appendChild(label);
