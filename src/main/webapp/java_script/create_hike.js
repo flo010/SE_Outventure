@@ -199,7 +199,7 @@ function uploadImageToServer(file) {
         .then(response => response.json())
         .then(data => {
             console.log(data); // Log the server response
-            const hiddenInput = document.getElementById('hiddenFieldValue');
+            const hiddenInput = document.getElementById('hiddenImageId');
             hiddenInput.value = 1;
         })
         .catch(error => {
