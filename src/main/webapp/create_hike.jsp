@@ -104,12 +104,12 @@
                                 <label for="hoursInput" class="form-label">Duration *</label>
                                 <div class="col">
                                     <input type="text" class="form-control" id="hoursInput" name="hoursInput" placeholder="Hours" required maxlength="2" pattern="[0-9]{1,2}">
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please enter a valid duration.
+                                    <div class="invalid-feedback">
+                                        Please enter a valid duration.
+                                    </div>
                                 </div>
                                 <div class="col">
-                                    <input type="number" min="0" max="59" class="form-control" id="minutesInput" name="minutesInput" placeholder="Minutes" required maxlength="2" aria-describedby="minutesHelpText" pattern="[0-5]?[0-9]">
+                                    <input type="text" min="0" max="59" class="form-control" id="minutesInput" name="minutesInput" placeholder="Minutes" required maxlength="2" aria-describedby="minutesHelpText" pattern="[0-5]?[0-9]">
                                     <small id="minutesHelpText" class="form-text text-muted">
                                         The value must be between 0 and 59.
                                     </small>
