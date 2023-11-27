@@ -11,11 +11,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Search Results</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link href="css/style.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
     </head>
     <body style="background-color: #F8F7EF">
         <header>
-            <jsp:include page="navbar.jsp"/>
+            <jsp:include page="../navbar/navbar.jsp"/>
         </header>
 
         <div class="container py-3">
@@ -38,7 +38,7 @@
                             double durationMinutes = (hike.getDuration() % 1) * 60;
                 %>
                             <div class="col">
-                                <a class="card text-decoration-none" href="hike_detail?id=<%=hike.getHikeID()%>">
+                                <a class="card text-decoration-none" href="../hike_detail?id=<%=hike.getHikeID()%>">
                                     <img class="card-image-top" src="/api/image/<%=hike.getPreviewPicture()%>" alt="hike picture">
                                     <div class="card-body">
                                         <h5 class="card-title text-truncate"><%=hike.getTitle()%></h5>
@@ -73,17 +73,13 @@
                 %>
             </div>
         </div>
+
+        <div id="toastData"
+             data-hike-created="<%= request.getAttribute("hikeCreated") %>"
+             data-hike-deleted="<%= request.getAttribute("hikeDeleted") %>">
+        </div>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        <script src="/java_script/search_results.js"></script>
-        <script>
-            if (<%=request.getAttribute("hikeCreated")%>) {
-                createToast("saveHikeToast", "Saving completed successfully", "Your hike was successfully saved!");
-                showToast("saveHikeToast");
-            }
-            if (<%=request.getAttribute("hikeDeleted")%>) {
-                createToast("deleteHikeToast", "Deletion successfully completed", "Your hike was successfully deleted!");
-                showToast("deleteHikeToast");
-            }
-        </script>
+        <script src="/search_results/search_results.js"></script>
     </body>
 </html>

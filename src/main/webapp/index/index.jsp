@@ -10,7 +10,7 @@
     </head>
     <body class="index-background">
         <header>
-            <jsp:include page="navbar.jsp"/>
+            <jsp:include page="../navbar/navbar.jsp"/>
         </header>
         <div class="d-flex justify-content-center align-items-end">
             <div style="height: 200px;"></div>

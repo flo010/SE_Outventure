@@ -1,3 +1,24 @@
+// functions to check whether flags are true
+let toastDataElements = document.getElementById('toastData');
+
+if (toastDataElements) {
+    let hikeCreated = toastDataElements.getAttribute('data-hike-created');
+    let hikeDeleted = toastDataElements.getAttribute('data-hike-deleted');
+
+    console.log(hikeCreated);
+    console.log(hikeDeleted);
+
+    if (hikeCreated === "true") {
+        createToast("saveHikeToast", "Saving completed successfully", "Your hike was successfully saved!");
+        showToast("saveHikeToast");
+    }
+
+    if (hikeDeleted === "true") {
+        createToast("deleteHikeToast", "Deletion successfully completed", "Your hike was successfully deleted!");
+        showToast("deleteHikeToast");
+    }
+}
+
 // toast functions
 function createToast(id, headerMessage, bodyMessage) {
     // Create a new toast element

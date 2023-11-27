@@ -11,11 +11,11 @@
         <title>Create Hike Overview</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link href="css/style.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
     </head>
     <body>
         <header>
-            <jsp:include page="navbar.jsp"/>
+            <jsp:include page="../navbar/navbar.jsp"/>
         </header>
 
 
@@ -421,134 +421,7 @@
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        <script src="java_script/create_hike.js"></script>
-        <script>
-            // Example starter JavaScript for disabling form submissions if there are invalid fields
-            (function() {
-                'use strict';
-                window.addEventListener('load', function() {
-                    let forms = document.getElementsByClassName('needs-validation');
-                    let validation = Array.prototype.filter.call(forms, function(form) {
-                        form.addEventListener('submit', function(event) {
-                            if (form.checkValidity() === false) {
-                                var toast = new bootstrap.Toast(document.getElementById("validationToast"));
-                                toast.show();
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                }, false);
-            })();
-
-            let shouldPromptBeforeUnload = true; // Variable to track whether to prompt before unload
-
-            // prompt functions
-            function cancelCancel(){
-            }
-            // Funktion zum Öffnen des Points of Interest-Modals
-            function openPoiModal() {
-                // JavaScript code to activate the modal
-                let pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
-
-                pointsOfInterestModal.show();
-            }
-
-            function confirmCancel() {
-                let myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
-                    keyboard: false
-                });
-                myModal.show();
-            }
-
-            function cancelProcess() {
-                shouldPromptBeforeUnload = false;
-                window.location.href = "index.jsp";
-            }
-
-            window.onbeforeunload = function () {
-                if (shouldPromptBeforeUnload) {
-                    return 'Do you really want to leave this page?';
-                }
-            }
-
-            rangeCount('conditionInput', 'rangeValue1');
-            rangeCount('difficultyInput', 'rangeValue2');
-            rangeCount('experienceInput', 'rangeValue3');
-            rangeCount('landscapeInput', 'rangeValue4');
-
-            // Setup for images
-            previewImage('coverImageInput', 'previewCoverImage');
-
-            //Checkboxes
-            // Array of month names
-            let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-            let container = document.getElementById("monthContainer");
-
-            for (let i = 0; i < months.length; i++) {
-                // Create the month div
-                let monthDiv = document.createElement("div");
-                monthDiv.className = "form-check form-check-inline";
-
-                // Create the checkbox input
-                let checkboxInput = document.createElement("input");
-                checkboxInput.className = "form-check-input months";
-                checkboxInput.type = "checkbox";
-                checkboxInput.id = "optimalSeason" + months[i];
-                checkboxInput.value = "false";
-                checkboxInput.name = "monthCheckbox" + months[i]; // Added name attribute
-
-                // Create the label for the checkbox
-                let label = document.createElement("label");
-                label.className = "form-check-label";
-                label.setAttribute("for", "monthCheckbox" + i);
-                label.innerText = months[i];
-
-                checkboxInput.addEventListener("change", function () {
-                    // Update the value of the checkbox based on its checked state
-                    checkboxInput.value = checkboxInput.checked ? "true" : "false";
-                });
-
-                // Append the input and label to the month div
-                monthDiv.appendChild(checkboxInput);
-                monthDiv.appendChild(label);
-
-                // Append the month div to the container
-                container.appendChild(monthDiv);
-            }
-
-            document.getElementById('distanceInput').addEventListener('input', function() {
-                let value = this.value;
-                this.value = value.replace(/[^0-9.]/g, '');
-            });
-
-            document.getElementById('hoursInput').addEventListener('input', function() {
-                let value = this.value;
-                this.value = value.replace(/[^0-9]/g, '');
-            });
-
-            document.getElementById('minutesInput').addEventListener('input', function() {
-                let value = this.value;
-                this.value = value.replace(/[^0-9]/g, '');
-            });
-
-            document.getElementById('altitudeInput').addEventListener('input', function() {
-                let value = this.value;
-                this.value = value.replace(/[^0-9]/g, '');
-            });
-
-            document.getElementById('startID').addEventListener('input', function() {
-                let value = this.value;
-                this.value = value.replace(/[^\d.,-]/g, '');
-            });
-
-            document.getElementById('destinationID').addEventListener('input', function() {
-                let value = this.value;
-                this.value = value.replace(/[^\d.,-]/g, '');
-            });
-        </script>
+        <script src="/create_hike/create_hike.js"></script>
     </body>
 </html>
 
