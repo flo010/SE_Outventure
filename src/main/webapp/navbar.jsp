@@ -10,7 +10,7 @@
     <head>
         <title>Title</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link href="style.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
         <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
@@ -24,11 +24,57 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
+                        <form class="d-flex align-items-center form-search" style="padding-right:150px">
+                            <div class="input-group">
+                                <button class="btn btn-light dropdown-toggle shadow-0" type="button" data-mdb-toggle="dropdown"
+                                        aria-expanded="false" style="padding-bottom: 0.4rem;">
+                                    All
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark fa-ul">
+                                    <li>
+                                        <a class="dropdown-item" href="#"><span class="fa-li pe-2"><i class="fas fa-search"></i></span>All</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#"><span class="fa-li pe-2"><i
+                                                class="fas fa-film"></i></span>Titles</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#"><span class="fa-li pe-2"><i class="fas fa-tv"></i></span>TV
+                                            Episodes</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#"><span class="fa-li pe-2"><i
+                                                class="fas fa-user-friends"></i></span>Celebs</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#"><span class="fa-li pe-2"><i
+                                                class="fas fa-building"></i></span>Companies</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#"><span class="fa-li pe-2"><i
+                                                class="fas fa-key"></i></span>Keywords</a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#"><span class="fa-li pe-2"><i
+                                                class="fas fa-search-plus"></i></span>Advanced
+                                            search<i class="fas fa-chevron-right ps-2"></i></a>
+                                    </li>
+                                </ul>
+                                <input type="search" class="form-control" placeholder="Search" aria-label="Search" style="width:500px; max-width:500px "/>
+                            </div>
+                            <a href="/search_results/" class="text-white"><i class="fas fa-search ps-3"></i></a>
+                        </form>
                         <a class="nav-link" href="search_results">Search Hike</a>
-                        <a class="nav-link" href="create_hike_overview.jsp">Create Hike</a>
+                        <a class="nav-link" href="create_hike.jsp">Create Hike</a>
                     </div>
                 </div>
             </div>
+
         </nav>
+
     </body>
+
 </html>

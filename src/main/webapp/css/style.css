@@ -1,13 +1,13 @@
-.container-sm.hike-detail.mt-5 .nav .nav-item .nav-link {
+.container-sm.mt-5.mb-5 .nav .nav-item .nav-link {
     color: black;
 }
 
-.container-sm.hike-detail.mt-5 .nav .nav-item .nav-link.active {
+.container-sm.mt-5.mb-5 .nav .nav-item .nav-link.active {
     background-color: #B6FC9D;
     color: black;
 }
 
-.container-sm.hike-detail.mt-5 .card.mb-5.mt-5 {
+.container-sm.mt-5.mb-5 .card.mb-5.mt-5 {
     width: 50%;
 }
 
@@ -80,7 +80,7 @@ td, th {
 }
 
 .less-width{
-    width: 300px;
+    width: 45%;
     margin-bottom: 1em;
     gap: 20px
 }
@@ -93,3 +93,18 @@ td, th {
     background-color: #F8F7EF;
 }
 
+.form-label {
+    font-size: 1.3em;
+}
+.paragraph-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cover-image {
+    width: 50%;
+}
+
+.pointer {
+    cursor: pointer;
+}

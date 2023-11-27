@@ -21,15 +21,18 @@ public class FacadeJPA implements Facade {
     }
 
     @Override
-    public void save(Object object) {
+    public Object save(Object object) {
         if (object instanceof Hike) {
             HikeBroker hikeBroker = new HikeBroker();
             hikeBroker.save((Hike) object);
+            return object;
         }
         else if (object instanceof Picture) {
             PictureBroker pictureBroker = new PictureBroker();
             pictureBroker.save((Picture) object);
+            return object;
         }
+        return null;
     }
 
     @Override
@@ -61,15 +64,14 @@ public class FacadeJPA implements Facade {
 
     @Override
     public List<Hike> getAllHikesLazy() {
-        HikeBroker hikeBroker = null;
-        hikeBroker = new HikeBroker();
+        HikeBroker hikeBroker = new HikeBroker();
         List<Hike> hikes = null;
         try {
             hikes = hikeBroker.getAll();
+            System.out.println(hikes.get(0).getTitle());
         } catch (Exception e) {
             System.out.println("getAllHikes is null");
         }
-
 
         return hikes;
     }
@@ -88,5 +90,12 @@ public class FacadeJPA implements Facade {
         List<Picture> pictures = pictureBroker.getAll();
 
         return pictures;
+    }
+
+    public Picture getNewPicture(){
+        PictureBroker pictureBroker = new PictureBroker();
+        Picture picture = pictureBroker.getNewPicture();
+
+        return picture;
     }
 }

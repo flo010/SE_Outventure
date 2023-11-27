@@ -3,13 +3,15 @@ package hibernate.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "hikes")
 public class Hike {
     private int _hikeID;
-    private List<Picture> _pictures;
+
+    private int _previewPicture;
     private String _title;
     private String _description;
     private double _duration;
@@ -37,6 +39,13 @@ public class Hike {
     private String _routeDescription;
     private String _parkingInformation;
     private String _arrivalInformation;
+    private String _author;
+    private LocalDate _date;
+    private boolean _visible;
+
+
+    public Hike() {
+    }
 
     @Id
     @NotNull
@@ -48,13 +57,12 @@ public class Hike {
     public void setHikeID(int hikeId) {
         _hikeID = hikeId;
     }
-
-    @OneToMany(mappedBy = "hikePicture")
-    public List<Picture> getPictures() {
-        return _pictures;
+    @Column(name = "picture")
+    public int getPreviewPicture() {
+        return _previewPicture;
     }
-    public void setPictures(List<Picture> pictures) {
-        _pictures = pictures;
+    public void setPreviewPicture(int previewPicture) {
+        _previewPicture = previewPicture;
     }
 
     @NotNull
@@ -267,7 +275,7 @@ public class Hike {
         _destination = destination;
     }
 
-    @OneToMany(mappedBy = "hikePOI",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "hikePOI",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<PointOfInterest> getPointsOfInterest() {
         return _pointOfInterests;
     }
@@ -298,5 +306,22 @@ public class Hike {
     }
     public void setArrivalInformation(String arrivalInformation) {
         _arrivalInformation = arrivalInformation;
+    }
+    @NotNull
+    @Column(name = "author")
+    public String getAuthor() {return _author;}
+    public void setAuthor(String author) {_author = author;}
+    @NotNull
+    @Column(name = "date")
+    public LocalDate getDate(){return _date;}
+    public void setDate(LocalDate date){_date = date;}
+
+    @NotNull
+    @Column(name = "visible")
+    public boolean isVisible() {
+        return _visible;
+    }
+    public void setVisible(boolean visible) {
+        _visible = visible;
     }
 }

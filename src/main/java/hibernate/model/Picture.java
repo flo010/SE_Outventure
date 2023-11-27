@@ -8,10 +8,12 @@ import jakarta.validation.constraints.NotNull;
 public class Picture {
     private int _pictureID;
     private Hike _hikePicture;
-    private String _base64;
+    private byte[] _picture;
 
+    private boolean _inUse;
     @Id
     @NotNull
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "picture_id")
     public int getPictureID() {
         return _pictureID;
@@ -21,15 +23,15 @@ public class Picture {
     }
 
     @NotNull
-    @Column(name = "base64")
-    public String getBase64() {
-        return _base64;
+    @Column(name = "picture")
+    public byte[] getPicture() {
+        return _picture;
     }
-    public void setBase64(String base64) {
-        _base64 = base64;
+    public void setPicture(byte[] picture) {
+        _picture = picture;
     }
 
-    @NotNull
+
     @ManyToOne
     @JoinColumn(name = "hike")
     public Hike getHikePicture() {
@@ -37,5 +39,12 @@ public class Picture {
     }
     public void setHikePicture(Hike hikePicture) {
         _hikePicture = hikePicture;
+    }
+    @Column(name = "in_use")
+    public boolean isInUse() {
+        return _inUse;
+    }
+    public void setInUse(boolean inUse) {
+        _inUse = inUse;
     }
 }
