@@ -43,7 +43,7 @@ class ImageProcessingTest {
             byte[] test = extractBytes(mockPart);
             Picture picture = new Picture();
             picture.setPicture(test);
-            picture.setSet(false);
+            picture.setInUse(false);
             PictureBroker p = new PictureBroker();
             p.save(picture);
 

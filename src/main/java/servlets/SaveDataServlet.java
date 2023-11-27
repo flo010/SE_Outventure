@@ -125,7 +125,7 @@ public class SaveDataServlet extends HttpServlet {
             Thread.currentThread().interrupt();
         }
         Picture picture = facadeJPA.getNewPicture();
-        picture.setSet(false);
+        picture.setInUse(false);
         hike.setPreviewPicture(picture.getPictureID());
         facadeJPA.save(picture);
         facadeJPA.save(hike);
