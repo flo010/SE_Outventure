@@ -2,6 +2,7 @@ package hibernate.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import org.checkerframework.checker.units.qual.C;
 
 @Entity
 @Table(name = "points_of_interest")
@@ -12,9 +13,11 @@ public class PointOfInterest {
     private String _description;
     private double _longitude;
     private double _latitude;
+    private String _type;
 
     @Id
     @NotNull
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "poi_id")
     public int getPoiID() {
         return _poiID;
@@ -66,5 +69,14 @@ public class PointOfInterest {
     }
     public void setLatitude(double latitude) {
         _latitude = latitude;
+    }
+
+    @NotNull
+    @Column(name = "type")
+    public String getType() {
+        return _type;
+    }
+    public void setType(String type) {
+        _type = type;
     }
 }

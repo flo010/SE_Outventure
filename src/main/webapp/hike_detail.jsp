@@ -2,6 +2,8 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="hibernate.model.PointOfInterest" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%--
   Created by IntelliJ IDEA.
   User: learo
@@ -15,7 +17,7 @@
         <title>Hike Detail</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link href="style.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -26,21 +28,42 @@
             Hike hike = (Hike) request.getAttribute("hike");
             double durationMinutes = (hike.getDuration() % 1) * 60;
 
+            LocalDate localDate = hike.getDate(); // Retrieve the LocalDate object
+
+            // Define the desired date pattern
+            String pattern = "dd/MM/yyyy";
+
+            // Create a DateTimeFormatter using the specified pattern
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+
+            // Format the LocalDate into a String using the DateTimeFormatter
+            String formattedDate = localDate.format(formatter);
+
             List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
             HashMap<Integer, String> demoImages = new HashMap<Integer, String>();
-            demoImages.put(1, "https://www.bergwelten.com/files/tour/images/niederkaiserkamm-14871-0.jpg?impolicy=gallerie_pictures");
-            demoImages.put(2, "https://vcdn.bergfex.at/images/resized/profiles/detail/986/1af6fc7b24cc5b2ff8a32e1953d53986.jpg?1283172909");
-            demoImages.put(3, "https://img.oastatic.com/img2/70761600/max/t.jpg?revbust=468c8c45");
-            demoImages.put(4, "https://www.steiermark.com/Alpstein/Images/67091283/1306941/image-thumb__1306941__lightbox/bad-mitterndorf-mit-grimming-25240459.jpg");
-            demoImages.put(5, "https://www.almenrausch.at/uploads/tx_webxhousingv2/trips/352/DSC_2340_9461.jpg");
-            demoImages.put(6, "https://www.bodensee.de/extension/portal-bodensee/var/storage/images/media/bibliothek/ausflugsziele/pfaenderbahn/pfaenderbahn-mit-ausblick/46348-1-ger-DE/pfaenderbahn-mit-ausblick_front_large.jpg");
-            demoImages.put(7, "https://vcdn.bergfex.at/images/resized/7c/fc07758d6a2af77c_20a169d014543ab0@2x.jpg");
-            demoImages.put(8, "https://d2exd72xrrp1s7.cloudfront.net/www/000/1k4/a8/a8mx6d7f7cpz17bjyys8lhlle3eto5gp1-uhi15367968/0?width=3072&height=2304&crop=false&q=70");
+            demoImages.put(101, "https://www.bergwelten.com/files/tour/images/niederkaiserkamm-14871-0.jpg?impolicy=gallerie_pictures");
+            demoImages.put(102, "https://vcdn.bergfex.at/images/resized/profiles/detail/986/1af6fc7b24cc5b2ff8a32e1953d53986.jpg?1283172909");
+            demoImages.put(103, "https://img.oastatic.com/img2/70761600/max/t.jpg?revbust=468c8c45");
+            demoImages.put(104, "https://www.steiermark.com/Alpstein/Images/67091283/1306941/image-thumb__1306941__lightbox/bad-mitterndorf-mit-grimming-25240459.jpg");
+            demoImages.put(105, "https://www.almenrausch.at/uploads/tx_webxhousingv2/trips/352/DSC_2340_9461.jpg");
+            demoImages.put(106, "https://www.bodensee.de/extension/portal-bodensee/var/storage/images/media/bibliothek/ausflugsziele/pfaenderbahn/pfaenderbahn-mit-ausblick/46348-1-ger-DE/pfaenderbahn-mit-ausblick_front_large.jpg");
+            demoImages.put(107, "https://vcdn.bergfex.at/images/resized/7c/fc07758d6a2af77c_20a169d014543ab0@2x.jpg");
+            demoImages.put(108, "https://d2exd72xrrp1s7.cloudfront.net/www/000/1k4/a8/a8mx6d7f7cpz17bjyys8lhlle3eto5gp1-uhi15367968/0?width=3072&height=2304&crop=false&q=70");
         %>
 
-        <div class="container-sm hike-detail mt-5 mb-5">
+        <div class="container-sm mt-5 mb-5">
+            <div class="d-flex flex-row-reverse bd-highlight">
+                <div class="p-2 bd-highlight">
+                    <button id="deleteHikeButton" type="button" class="btn btn-outline-secondary" onclick="showDeleteHikeModal()">Delete</button>
+                </div>
+            </div>
+
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
-            <img class="cover-image" src="<%=demoImages.get(hike.getHikeID())%>" alt="mountain picture">
+            <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
+            <div class="paragraph-container mt-3" style="width: 50%">
+                <span class="author">Author: <%= hike.getAuthor() %></span>
+                <span class="created-at">Created at: <%= formattedDate %></span>
+            </div>
             <div class="card mb-5 mt-5">
                 <div class="card-body">
                     <div class="row">
@@ -232,8 +255,17 @@
                                         <h4 class="card-title text-center"><%=pointOfInterest.getName()%></h4>
                                         <hr>
                                         <p>
-                                            <strong>Description: </strong>
-                                            <%=pointOfInterest.getDescription()%>
+                                            <strong> Type: </strong><%= pointOfInterest.getType() %>
+                                        </p>
+                                        <p>
+                                            <%
+                                                if (pointOfInterest.getDescription() != null) {
+                                            %>
+                                                    <strong>Description: </strong>
+                                                    <%=pointOfInterest.getDescription()%>
+                                            <%
+                                                }
+                                            %>
                                         </p>
                                         <p>
                                             <strong>GPS Coordinates: </strong>
@@ -297,8 +329,27 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal for Delete Hike -->
+            <div class="modal fade" id="deleteHikeModal" tabindex="-1" role="dialog" aria-labelledby="deleteHikeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered " role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteHikeModalLabel">Delete Hike</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete this hike?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-success" onclick="deleteHike(<%=hike.getHikeID()%>)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <script src="java_script/hike_detail.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 let circles = document.querySelectorAll('.fa.fa-circle-o');
