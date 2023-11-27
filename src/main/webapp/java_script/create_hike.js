@@ -75,8 +75,8 @@ function updateProgressBar () {
 
 // slider functions
 function rangeCount(id, labelId){
-    var rangeInput = document.getElementById(id);
-    var rangeValue = document.getElementById(labelId);
+    let rangeInput = document.getElementById(id);
+    let rangeValue = document.getElementById(labelId);
 
     rangeInput.addEventListener('input', function () {
         rangeValue.textContent = rangeInput.value;
@@ -85,63 +85,80 @@ function rangeCount(id, labelId){
 
 // POI modal functions
 
-let pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
+const pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
+
 function savePointOfInterest() {
     // Get values from the form
     const poiName = document.getElementById('poiName').value;
     const poiLatitude = document.getElementById('poiLatitude').value;
     const poiLongitude = document.getElementById('poiLongitude').value;
     const poiDescription = document.getElementById("poiDescription").value;
+    const poiType = document.getElementById("poiType").value;
 
     // Check if required fields are empty
-    if (!poiName || !poiLatitude || !poiLongitude) {
+    if (!poiName || !poiLatitude || !poiLongitude || poiType === "Select type") {
         const errorMessage = document.getElementById('poiErrorMessage');
         errorMessage.style.display = 'block';
     }
     else {
-        appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription);
+        appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitude);
 
         // Clear the input fields in the modal
         document.getElementById('poiName').value = '';
         document.getElementById('poiLatitude').value = '';
         document.getElementById('poiLongitude').value = '';
         document.getElementById('poiDescription').value = '';
+        document.getElementById('poiType').value = 'Select type';
 
         // Close the modal
         pointsOfInterestModal.hide();
     }
 }
 
-function appendNewPOI(poiName, poiLatitude, poiLongitude, poiDescription) {
+function appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitude) {
     const poiContainer = document.getElementById("poiContainer");
     const poiTemplate = document.getElementById("poiTemplate");
 
     const pointOfInterest = poiTemplate.content.cloneNode(true);
-    const name = pointOfInterest.getElementById("poiTempName");
-    const coordinates = pointOfInterest.getElementById("poiTempCoordinates");
+    const name = pointOfInterest.querySelector(".poiTempName");
+    const type = pointOfInterest.querySelector(".poiTempType");
+    const description = pointOfInterest.querySelector(".poiTempDescription");
+    const coordinates = pointOfInterest.querySelector(".poiTempCoordinates");
 
-    const poiNameInput = pointOfInterest.getElementById("poiNameInput");
-    const poiLatitudeInput = pointOfInterest.getElementById("poiLatitudeInput");
-    const poiLongitudeInput = pointOfInterest.getElementById("poiLongitudeInput");
-    const description = pointOfInterest.getElementById("poiTempDescription");
+    const poiNameInput = pointOfInterest.querySelector(".poiNameInput");
+    const poiTypeInput = pointOfInterest.querySelector(".poiTypeInput");
+    const poiLatitudeInput = pointOfInterest.querySelector(".poiLatitudeInput");
+    const poiLongitudeInput = pointOfInterest.querySelector(".poiLongitudeInput");
 
+    const typeTextNode = document.createTextNode(poiType);
     const coordinatesTextNode = document.createTextNode(`${poiLatitude}, ${poiLongitude}`);
-    name.textContent = poiName;
+
+    name.innerText = poiName;
+    type.appendChild(typeTextNode);
     coordinates.appendChild(coordinatesTextNode);
+
     poiNameInput.value = poiName;
+    poiTypeInput.value = poiType;
     poiLatitudeInput.value = poiLatitude;
     poiLongitudeInput.value = poiLongitude;
 
     if (poiDescription) {
         const descriptionTextNode = document.createTextNode(poiDescription);
         description.appendChild(descriptionTextNode);
-        const poiDescriptionInput = pointOfInterest.getElementById("poiDescriptionInput");
+
+        const poiDescriptionInput = pointOfInterest.querySelector(".poiDescriptionInput");
         poiDescriptionInput.value = poiDescription;
     } else {
         description.remove();
     }
 
-    poiContainer.appendChild(pointOfInterest);
+    if (!cardToEdit) {
+        poiContainer.appendChild(pointOfInterest);
+        return;
+    }
+
+    cardToEdit.before(pointOfInterest);
+    cardToEdit = cardToEdit.remove();
 }
 
 function saveInput() {
@@ -182,7 +199,7 @@ function uploadImageToServer(file) {
         .then(response => response.json())
         .then(data => {
             console.log(data); // Log the server response
-            const hiddenInput = document.getElementById('hiddenFieldValue');
+            const hiddenInput = document.getElementById('hiddenImageId');
             hiddenInput.value = 1;
         })
         .catch(error => {
@@ -191,3 +208,104 @@ function uploadImageToServer(file) {
         });
 }
 
+let cardToEdit;
+
+function editPointOfInterest(editButton) {
+    const card = editButton.closest('.pointOfInterest');
+    const cardPOIName = card.querySelector(".poiTempName");
+    const cardPOIType = card.querySelector(".poiTempType");
+    const cardPOICoordinates = card.querySelector(".poiTempCoordinates");
+    const cardPOIDescription = card.querySelector(".poiTempDescription");
+
+    const latitude = cardPOICoordinates.innerText.split(", ")[0];
+    const longitude = cardPOICoordinates.innerText.split(", ")[1];
+
+    document.getElementById('poiName').value = cardPOIName.innerText;
+    document.getElementById("poiType").value = cardPOIType.innerText.slice(6);
+    document.getElementById('poiLatitude').value = latitude.slice(17);
+    document.getElementById('poiLongitude').value = longitude;
+
+    if (cardPOIDescription) {
+        document.getElementById('poiDescription').value = cardPOIDescription.innerText.slice(13);
+    } else {
+        document.getElementById('poiDescription').value = '';
+    }
+    
+    const errorMessage = document.getElementById('poiErrorMessage');
+    errorMessage.style.display = 'none';
+
+    cardToEdit = card;
+
+    openPoiModal();
+}
+
+function deletePointOfInterest(button) {
+    // Get the parent card element and remove it
+    const card = button.closest('.pointOfInterest');
+    card.remove();
+}
+
+// image functions
+function previewImage(inputId, previewId) {
+    const input = document.getElementById(inputId);
+    const preview = document.getElementById(previewId);
+
+    // Check if input and preview element are present
+    if (input && preview) {
+        // Add EventListener for the event that the input changes
+        input.addEventListener("change", function () {
+            const [file] = input.files;
+
+            // Check if a file is present and check for its file type
+            if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
+                // Display the preview
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = "block";
+            } else {
+                input.classList.add("is-invalid");
+                preview.style.display = "none";
+            }
+        });
+    }
+}
+
+
+function handleCoverImage() {
+    const input = document.getElementById('coverImageInput');
+    const preview = document.getElementById('previewCoverImage');
+
+    input.addEventListener('change', function () {
+        const file = input.files[0];
+
+
+        if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const img = new Image();
+
+                img.onload = function () {
+                    // Resize the image (you can adjust width and height as needed)
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = 300; // set your desired width
+                    canvas.height = (300 * img.height) / img.width; // maintain aspect ratio
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                    // Compress the image (you can adjust quality as needed)
+                    const compressedDataURL = canvas.toDataURL('image/jpeg', 0.7);
+
+                    // Display the preview
+                    preview.src = compressedDataURL;
+                    preview.style.display = 'block';
+
+                    // Optionally, you can upload the compressed image to a server here.
+                    uploadImageToServer(compressedDataURL);
+                };
+                img.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+}

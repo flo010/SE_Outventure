@@ -4,7 +4,6 @@ package servlets;
 import hibernate.facade.FacadeJPA;
 import hibernate.model.Picture;
 import jakarta.servlet.annotation.*;
-import jakarta.servlet.http.*;
 import org.json.JSONObject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,7 +11,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -58,9 +56,6 @@ public class ImageServlet extends HttpServlet {
             System.out.println("Test picture");
             System.out.println(picture.getPictureID());
 
-//            request.setAttribute("pictureID", pictureID);
-
-            String pictureId = (String) request.getAttribute("pictureId");
 
             // Create a JSON object with the picture ID
             JSONObject jsonResponse = new JSONObject();
@@ -96,7 +91,7 @@ public class ImageServlet extends HttpServlet {
 
         Picture picture = new Picture();
         picture.setPicture(compressedImageData);
-        picture.setSet(true);
+        picture.setInUse(true);
         Picture savedPicture = (Picture) (facadeJPA.save(picture));
         System.out.println("Saving compressed image to the database. Image size: " + compressedImageData.length + " bytes");
         System.out.println(savedPicture.getPictureID());

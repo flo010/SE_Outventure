@@ -240,32 +240,35 @@
                             <!-- List of Points of Interest -->
                             <div id="poiContainer" class="row">
                                 <template id="poiTemplate">
-                                    <div class="col-lg-6">
+                                    <div class="pointOfInterest col-lg-6">
                                         <div class="card my-2">
                                             <div class="card-body">
-                                                <h4 id="poiTempName" class="card-title text-center"></h4>
-                                                <input type="hidden" id="poiNameInput" name="poiNameInput">
+                                                <h4 class="poiTempName card-title text-center"></h4>
+                                                <input type="hidden" class="poiNameInput" name="poiNameInput">
                                                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                                                     <div>
-                                                        <p id="poiTempCoordinates">
-                                                            <strong>GPS Coordinates: </strong>
+                                                        <p class="poiTempType">
+                                                            <strong>Type: </strong>
                                                         </p>
-                                                        <input type="hidden" id="poiLatitudeInput" name="poiLatitudeInput">
-                                                        <input type="hidden" id="poiLongitudeInput" name="poiLongitudeInput">
-                                                        <p id="poiTempDescription" class="text-break">
+                                                        <input type="hidden" class="poiTypeInput" name="poiTypeInput">
+                                                        <p class="poiTempDescription text-break">
                                                             <strong>Description: </strong>
                                                         </p>
-                                                        <input type="hidden" id="poiDescriptionInput" name="poiDescriptionInput">
+                                                        <input type="hidden" class="poiDescriptionInput" name="poiDescriptionInput">
+                                                        <p class="poiTempCoordinates">
+                                                            <strong>GPS Coordinates: </strong>
+                                                        </p>
+                                                        <input type="hidden" class="poiLatitudeInput" name="poiLatitudeInput">
+                                                        <input type="hidden" class="poiLongitudeInput" name="poiLongitudeInput">
                                                     </div>
                                                     <!-- Edit- und Delete-Buttons mit den gewünschten Symbolen -->
                                                     <div class="d-flex gap-2">
                                                         <!-- Edit-Button mit Stift-Icon -->
-                                                        <span class="input-group-text" id="editCoordinates" onclick="editPointOfInterest()">
+                                                        <span class="input-group-text pointer" id="editCoordinates" onclick="editPointOfInterest(this)">
                                                              <i class="fa fa-pencil"></i>
                                                         </span>
-
                                                         <!-- Delete-Button mit Mülleimer-Icon -->
-                                                        <span class="input-group-text" onclick="deletePointOfInterest(this)">
+                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this)">
                                                              <i class="fa fa-trash"></i>
                                                         </span>
                                                     </div>
@@ -273,7 +276,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="w-100"></div>
+                                    <div class="poiDivider w-100"></div>
                                 </template>
                             </div>
                             <!-- Add Points of Interest Button -->
@@ -366,6 +369,18 @@
                                     <small class="text-muted">* Required</small>
                                 </div>
                                 <div class="input-fields-group">
+                                    <label for="poiType" class="form-label">Type *</label>
+                                    <div class="dropdown">
+                                        <select id="poiType" name="poiType" class="form-select" aria-label="POI Type" required>
+                                            <option selected>Select type</option>
+                                            <option value="Hut">Hut</option>
+                                            <option value="Refreshment Point">Refreshment Point</option>
+                                            <option value="Viewpoint">Viewpoint</option>
+                                            <option value="Sight">Sight</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-fields-group">
                                     <div class="coordinates-container">
                                         <div class="coordinates-container">
                                             <div class="row">
@@ -436,23 +451,10 @@
             function openPoiModal() {
                 // JavaScript code to activate the modal
                 let pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
+
                 pointsOfInterestModal.show();
             }
 
-            // Funktion zum Bearbeiten der Koordinaten
-            function editPointOfInterest() {
-                // Hier rufst du die Funktion zum Öffnen des Modals auf
-                openPoiModal();
-
-                // Implementiere ggf. zusätzliche Logik, um die bestehenden Koordinaten im Modal zu laden
-                // Beispiel: document.getElementById('longitude').value = /* Wert aus deiner Datenbank */;
-                // Beispiel: document.getElementById('latitude').value = /* Wert aus deiner Datenbank */;
-            }
-            function deletePointOfInterest(button) {
-                // Get the parent card element and remove it
-                var card = button.closest('.card');
-                card.remove();
-            }
             function confirmCancel() {
                 let myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
                     keyboard: false
@@ -476,77 +478,8 @@
             rangeCount('experienceInput', 'rangeValue3');
             rangeCount('landscapeInput', 'rangeValue4');
 
-            // image functions
-            function previewImage(inputId, previewId) {
-                const input = document.getElementById(inputId);
-                const preview = document.getElementById(previewId);
-
-                // Check if input and preview element are present
-                if (input && preview) {
-                    // Add EventListener for the event that the input changes
-                    input.addEventListener("change", function () {
-                        const [file] = input.files;
-
-                        // Check if a file is present and check for its file type
-                        if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
-                            // Display the preview
-                            preview.src = URL.createObjectURL(file);
-                            preview.style.display = "block";
-                        } else {
-                            input.classList.add("is-invalid");
-                            preview.style.display = "none";
-                        }
-                    });
-                }
-            }
-
-
-            function handleCoverImage() {
-                const input = document.getElementById('coverImageInput');
-                const preview = document.getElementById('previewCoverImage');
-
-                input.addEventListener('change', function () {
-                    const file = input.files[0];
-
-
-                    if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
-                        const reader = new FileReader();
-
-                        reader.onload = function (e) {
-                            const img = new Image();
-
-                            img.onload = function () {
-                                // Resize the image (you can adjust width and height as needed)
-                                const canvas = document.createElement('canvas');
-                                const ctx = canvas.getContext('2d');
-                                canvas.width = 300; // set your desired width
-                                canvas.height = (300 * img.height) / img.width; // maintain aspect ratio
-                                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-                                // Compress the image (you can adjust quality as needed)
-                                const compressedDataURL = canvas.toDataURL('image/jpeg', 0.7);
-
-                                // Display the preview
-                                preview.src = compressedDataURL;
-                                preview.style.display = 'block';
-
-                                // Optionally, you can upload the compressed image to a server here.
-                                uploadImageToServer(compressedDataURL);
-                            };
-                            img.src = e.target.result;
-                        };
-
-                        reader.readAsDataURL(file);
-                    }
-                });
-            }
-
-
-
             // Setup for images
             previewImage('coverImageInput', 'previewCoverImage');
-            // previewImage('optionalImageInput1', 'previewOptionalImage1');
-            // previewImage('optionalImageInput2', 'previewOptionalImage2');
 
             //Checkboxes
             // Array of month names
@@ -572,6 +505,11 @@
                 label.className = "form-check-label";
                 label.setAttribute("for", "monthCheckbox" + i);
                 label.innerText = months[i];
+
+                checkboxInput.addEventListener("change", function () {
+                    // Update the value of the checkbox based on its checked state
+                    checkboxInput.value = checkboxInput.checked ? "true" : "false";
+                });
 
                 // Append the input and label to the month div
                 monthDiv.appendChild(checkboxInput);

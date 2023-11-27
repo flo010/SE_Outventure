@@ -47,6 +47,7 @@ public class HikeBroker extends BrokerBase<Hike> {
                 System.out.println("EntityManager is closed");
             }
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("entityManager is null");
         } finally {
             if (entityManager != null && entityManager.isOpen()) {

@@ -2,7 +2,6 @@ package servlets;
 
 import hibernate.facade.FacadeJPA;
 import hibernate.model.*;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -65,10 +64,9 @@ public class SaveDataServlet extends HttpServlet {
         String[] poiLatitudes = request.getParameterValues("poiLatitudeInput");
         String[] poiLongitudes = request.getParameterValues("poiLongitudeInput");
         String[] poiDescriptions = request.getParameterValues("poiDescriptionInput");
-
+        String[] poiTypes = request.getParameterValues("poiTypeInput");
 
         Hike hike = new Hike();
-        hike.setPreviewPicture(1);
 
         List<PointOfInterest> pointsOfInterest = new ArrayList<>();
 
@@ -79,6 +77,7 @@ public class SaveDataServlet extends HttpServlet {
                 pointOfInterest.setLatitude(Double.parseDouble(poiLatitudes[i]));
                 pointOfInterest.setLongitude(Double.parseDouble(poiLongitudes[i]));
                 pointOfInterest.setDescription(poiDescriptions[i]);
+                pointOfInterest.setType(poiTypes[i]);
                 pointOfInterest.setHikePOI(hike);
                 pointsOfInterest.add(pointOfInterest);
             }
@@ -122,12 +121,12 @@ public class SaveDataServlet extends HttpServlet {
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         try {
-            Thread.sleep(2 * 1000);
+            Thread.sleep(4 * 1000);
         } catch (InterruptedException ie) {
             Thread.currentThread().interrupt();
         }
         Picture picture = facadeJPA.getNewPicture();
-        picture.setSet(false);
+        picture.setInUse(false);
         hike.setPreviewPicture(picture.getPictureID());
         facadeJPA.save(picture);
         facadeJPA.save(hike);

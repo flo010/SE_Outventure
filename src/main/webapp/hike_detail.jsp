@@ -255,8 +255,17 @@
                                         <h4 class="card-title text-center"><%=pointOfInterest.getName()%></h4>
                                         <hr>
                                         <p>
-                                            <strong>Description: </strong>
-                                            <%=pointOfInterest.getDescription()%>
+                                            <strong> Type: </strong><%= pointOfInterest.getType() %>
+                                        </p>
+                                        <p>
+                                            <%
+                                                if (pointOfInterest.getDescription() != null) {
+                                            %>
+                                                    <strong>Description: </strong>
+                                                    <%=pointOfInterest.getDescription()%>
+                                            <%
+                                                }
+                                            %>
                                         </p>
                                         <p>
                                             <strong>GPS Coordinates: </strong>
