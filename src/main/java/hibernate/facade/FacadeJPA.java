@@ -68,10 +68,10 @@ public class FacadeJPA implements Facade {
         List<Hike> hikes = null;
         try {
             hikes = hikeBroker.getAll();
+            System.out.println(hikes.get(0).getTitle());
         } catch (Exception e) {
             System.out.println("getAllHikes is null");
         }
-
 
         return hikes;
     }

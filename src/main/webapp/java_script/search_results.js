@@ -1,9 +1,9 @@
 // toast functions
-function createToast(headerMessage, bodyMessage) {
+function createToast(id, headerMessage, bodyMessage) {
     // Create a new toast element
-    var toast = document.createElement("div");
+    let toast = document.createElement("div");
     toast.className = "toast position-fixed top-0 start-50 translate-middle-x";
-    toast.setAttribute("id", "saveHikeToast")
+    toast.id = id;
     toast.setAttribute("role", "alert");
     toast.setAttribute("aria-live", "assertive");
     toast.setAttribute("aria-atomic", "true");
@@ -34,7 +34,7 @@ function createToast(headerMessage, bodyMessage) {
     document.body.appendChild(toast);
 }
 
-function showSaveHikeToast() {
-    var toast = new bootstrap.Toast(document.getElementById("saveHikeToast"));
+function showToast(id) {
+    let toast = new bootstrap.Toast(document.getElementById(id));
     toast.show();
 }

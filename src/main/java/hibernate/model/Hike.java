@@ -43,6 +43,7 @@ public class Hike {
     private LocalDate _date;
     private boolean _visible;
 
+
     public Hike() {
     }
 

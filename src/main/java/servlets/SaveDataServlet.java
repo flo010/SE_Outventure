@@ -118,6 +118,7 @@ public class SaveDataServlet extends HttpServlet {
         hike.setAuthor("Admin");
         hike.setDate(currentDate);
         hike.setVisible(true);
+
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         try {
             Thread.sleep(4 * 1000);
