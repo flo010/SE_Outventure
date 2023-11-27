@@ -45,18 +45,16 @@ public class FacadeJPA implements Facade {
     @Override
     public Hike getHikeByIDLazy(int hikeID) {
         HikeBroker hikeBroker = new HikeBroker();
-        Hike hike = hikeBroker.getLazy(hikeID);
 
-        return hike;
+        return hikeBroker.getLazy(hikeID);
     }
 
 
     @Override
     public Hike getHikeByIDEager(int hikeID) {
         HikeBroker hikeBroker = new HikeBroker();
-        Hike hike = hikeBroker.getEager(hikeID);
 
-        return hike;
+        return hikeBroker.getEager(hikeID);
     }
 
     @Override
@@ -91,16 +89,31 @@ public class FacadeJPA implements Facade {
     @Override
     public Picture getPictureByID(int pictureID) {
         PictureBroker pictureBroker = new PictureBroker();
-        Picture picture = pictureBroker.getLazy(pictureID);
 
-        return picture;
+        return pictureBroker.getLazy(pictureID);
     }
 
     @Override
     public List<Picture> getAllPictures() {
         PictureBroker pictureBroker = new PictureBroker();
-        List<Picture> pictures = pictureBroker.getAll();
 
-        return pictures;
+        return pictureBroker.getAll();
+    }
+
+    public List<Hike> search(String title,int durationLow,int durationHigh, int strengthLow,
+                             int strengthHigh, int staminaLow,int staminaHigh,
+                             int experienceLow, int experienceHigh, int landscapeLow,
+                             int landscapeHigh, int distanceLow, int distanceHigh,
+                             int altitudeLow, int altitudeHigh, boolean january,
+                             boolean february, boolean march, boolean april,
+                             boolean may, boolean june, boolean july,
+                             boolean august, boolean september,
+                             boolean october, boolean november, boolean december) {
+        HikeBroker hikeBroker = new HikeBroker();
+        return hikeBroker.search(title,durationLow,durationHigh,
+                strengthLow,strengthHigh,staminaLow,staminaHigh,experienceLow,
+                experienceHigh,landscapeLow,landscapeHigh,distanceLow,distanceHigh,
+                altitudeLow,altitudeHigh,january,february,march,april,may,june,july,
+                august,september,october,november,december);
     }
 }

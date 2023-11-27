@@ -14,10 +14,10 @@ public class SearchResultsServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
-        String query = request.getParameter("search");
+        String title = request.getParameter("search");
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
-        List<Hike> hikeList = facadeJPA.getHikesByTitleLazy(query);
+        List<Hike> hikeList = facadeJPA.getHikesByTitleLazy(title);
 
         request.setAttribute("hikeList", hikeList);
 
