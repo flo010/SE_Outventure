@@ -236,7 +236,7 @@ function editPointOfInterest(editButton) {
 
     cardToEdit = card;
 
-    openPoiModal();
+    pointsOfInterestModal.show();
 }
 
 function deletePointOfInterest(button) {
@@ -302,7 +302,7 @@ function handleCoverImage() {
                     // Optionally, you can upload the compressed image to a server here.
                     uploadImageToServer(compressedDataURL);
                 };
-                img.src = e.target.result;
+                img.src = e.target.result.toString();
             };
 
             reader.readAsDataURL(file);

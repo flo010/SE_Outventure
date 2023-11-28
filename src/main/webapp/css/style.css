@@ -40,14 +40,6 @@ td, th {
     color: #B6FC9D;
 }
 
-.form-group {
-    margin-bottom: 1em;
-}
-
-.form-group img {
-    margin-top: 1em;
-}
-
 .input-fields-group {
     margin-bottom: 1em;
 }
@@ -107,4 +99,18 @@ td, th {
 
 .pointer {
     cursor: pointer;
+}
+
+fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+legend {
+    padding: 0;
+}
+
+#previewCoverImage {
+    display: none;
 }

@@ -3,14 +3,13 @@ package servlets;
 
 import hibernate.facade.FacadeJPA;
 import hibernate.model.Picture;
-import jakarta.servlet.annotation.*;
-import org.json.JSONObject;
-import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -21,7 +20,7 @@ import java.io.OutputStream;
 @MultipartConfig
 public class ImageServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Assuming you have the byte[] representation of your image
         int id = -1;
         byte[] imageData = null;
