@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
+
+<!DOCTYPE html>
 <html>
     <head>
         <title>Create Hike Overview</title>
@@ -15,7 +18,7 @@
     </head>
     <body>
         <header>
-            <jsp:include page="../navbar/navbar.jsp"/>
+            <outventure:navbar/>
         </header>
 
 
