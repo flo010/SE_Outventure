@@ -114,7 +114,7 @@
                     <h3>Details</h3>
                     <table>
                         <tr>
-                            <td><b>Required Condition</b></td>
+                            <td><b>Required Stamina</b></td>
                             <td>
                                 <span class="fa fa-circle-o" id="colored-circle-1"></span>
                                 <span class="fa fa-circle-o" id="colored-circle-2"></span>
@@ -124,7 +124,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><b>Level of Difficulty</b></td>
+                            <td><b>Required Strength</b></td>
                             <td>
                                 <span class="fa fa-circle-o" id="colored-circle-6"></span>
                                 <span class="fa fa-circle-o" id="colored-circle-7"></span>
@@ -144,7 +144,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><b>Landscape Beauty</b></td>
+                            <td><b>Beauty of Landscape</b></td>
                             <td>
                                 <span class="fa fa-circle-o" id="colored-circle-16"></span>
                                 <span class="fa fa-circle-o" id="colored-circle-17"></span>
