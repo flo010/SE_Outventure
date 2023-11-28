@@ -200,19 +200,19 @@
                             <div class="invalid-feedback">
                                 Please enter a name for the starting point.
                             </div>
-                            <input type="text" class="form-control mt-3" id="latitudeStartCoordinateInput" name="latitudeStartCoordinateInput" placeholder="Latitude" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <input type="number" min="-90.000000" max="90.000000" step="0.000001" class="form-control mt-3 no-spinners" id="latitudeStartCoordinateInput" name="latitudeStartCoordinateInput" placeholder="Latitude" required maxlength="10" pattern="-?\d+(\.\d{1,7})?">
                             <small id="startLatitudeHelpText" class="form-text text-muted">
                                 The value must be in the format XX.XXXXXX (negative sign optional).
                             </small>
                             <div class="invalid-feedback">
-                                Please enter a valid latitude.
+                                Please enter a valid latitude between -90.000000 and 90.000000.
                             </div>
-                            <input type="text" class="form-control mt-3" id="longitudeStartCoordinateInput" name="longitudeStartCoordinateInput" placeholder="Longitude" aria-describedby="startLongitudeHelpText" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3 no-spinners" id="longitudeStartCoordinateInput" name="longitudeStartCoordinateInput" placeholder="Longitude" aria-describedby="startLongitudeHelpText" required maxlength="11" pattern="-?\d+(\.\d{1,7})?">
                             <small id="startLongitudeHelpText" class="form-text text-muted">
                                 The value must be in the format XX.XXXXXX (negative sign optional).
                             </small>
                             <div class="invalid-feedback">
-                                Please enter a valid longitude.
+                                Please enter a valid longitude between -180.000000 and 180.000000.
                             </div>
                         </div>
                         <div class="input-fields-group less-width">
@@ -221,19 +221,19 @@
                             <div class="invalid-feedback">
                                 Please enter a name for the destination point.
                             </div>
-                            <input type="text" class="form-control mt-3" id="latitudeDestinationCoordinateInput" name="latitudeDestinationCoordinateInput" placeholder="Latitude" aria-describedby="destinationLatitudeHelpText" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <input type="number" min="-90.000000" max="90.000000" step="0.000001" class="form-control mt-3 no-spinners" id="latitudeDestinationCoordinateInput" name="latitudeDestinationCoordinateInput" placeholder="Latitude" aria-describedby="destinationLatitudeHelpText" required maxlength="10" pattern="-?\d+(\.\d{1,7})?">
                             <small id="destinationLatitudeHelpText" class="form-text text-muted">
                                 The value must be in the format XX.XXXXXX (negative sign optional).
                             </small>
                             <div class="invalid-feedback">
-                                Please enter a valid latitude.
+                                Please enter a valid latitude between -90.000000 and 90.000000.
                             </div>
-                            <input type="text" class="form-control mt-3" id="longitudeDestinationCoordinateID" name="longitudeDestinationCoordinateInput" placeholder="Longitude" aria-describedby="destinationLongitudeHelpText" required maxlength="9" pattern="-?\d+(\.\d{1,7})?">
+                            <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3 no-spinners" id="longitudeDestinationCoordinateID" name="longitudeDestinationCoordinateInput" placeholder="Longitude" aria-describedby="destinationLongitudeHelpText" required maxlength="11" pattern="-?\d+(\.\d{1,7})?">
                             <small id="destinationLongitudeHelpText" class="form-text text-muted">
                                 The value must be in the format XX.XXXXXX (negative sign optional).
                             </small>
                             <div class="invalid-feedback">
-                                Please enter a valid longitude.
+                                Please enter a valid longitude between -180.000000 and 180.000000.
                             </div>
                         </div>
                         <div>
@@ -386,16 +386,22 @@
                                             <div class="row">
                                                 <label for="poiLongitude" class="form-label">Coordinates *</label>
                                                 <div class="col">
-                                                    <input type="text" class="form-control exclude-from-validation" id="poiLongitude" name="longitude" placeholder="Longitude" required maxlength="20" aria-describedby="POILongitudeHelpText" pattern="-?\d+(\.\d{1,7})?">
+                                                    <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control no-spinners" id="poiLongitude" name="longitude" placeholder="Longitude" required maxlength="20" aria-describedby="POILongitudeHelpText" pattern="-?\d+(\.\d{1,7})?">
                                                     <small id="POILongitudeHelpText" class="form-text text-muted">
                                                         The value must be in the format XX.XXXXXX (negative sign optional).
                                                     </small>
+                                                    <div class="invalid-feedback">
+                                                        Please enter a valid latitude between -180.000000 and 180.000000.
+                                                    </div>
                                                 </div>
                                                 <div class="col">
-                                                    <input type="text" class="form-control exclude-from-validation" id="poiLatitude" name="latitude" placeholder="Latitude" required maxlength="20" aria-describedby="POILatitudeHelpText" pattern="-?\d+(\.\d{1,7})?">
+                                                    <input type="number" min="-90.000000" max="90.000000" step="0.000001" class="form-control exclude-from-validation no-spinners" id="poiLatitude" name="latitude" placeholder="Latitude" required maxlength="20" aria-describedby="POILatitudeHelpText" pattern="-?\d+(\.\d{1,7})?">
                                                     <small id="POILatitudeHelpText" class="form-text text-muted">
                                                         The value must be in the format XX.XXXXXX (negative sign optional).
                                                     </small>
+                                                    <div class="invalid-feedback">
+                                                        Please enter a valid latitude between -90.000000 and 90.000000.
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
