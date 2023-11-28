@@ -107,15 +107,15 @@ function savePointOfInterest() {
     else {
         appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitude);
 
+        // Close the modal
+        pointsOfInterestModal.hide();
+
         // Clear the input fields in the modal
         document.getElementById('poiName').value = '';
         document.getElementById('poiLatitude').value = '';
         document.getElementById('poiLongitude').value = '';
         document.getElementById('poiDescription').value = '';
         document.getElementById('poiType').value = 'Select type';
-
-        // Close the modal
-        pointsOfInterestModal.hide();
     }
 }
 
