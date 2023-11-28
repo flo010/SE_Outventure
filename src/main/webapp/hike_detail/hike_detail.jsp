@@ -230,42 +230,13 @@
                         <h3 class="mb-3">Getting There</h3>
                         <div class="row justify-content-start">
                             <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center">Start</h4>
-                                        <hr>
-                                        <p class="card-text">
-                                            <strong>Name: </strong>
-                                            <%=hike.getStart().getName()%>
-                                        </p>
-                                        <p>
-                                            <strong>GPS Coordinates: </strong>
-                                            <%=hike.getStart().getLongitude()%> E, <%=hike.getStart().getLatitude()%> N
-                                        </p>
-                                        <p>
-                                            <a href="http://www.google.com/maps?saddr=My+Location&daddr=<%=hike.getStart().getLatitude()%>,
-                                            <%=hike.getStart().getLongitude()%>", target="_blank">Auf Google Maps anzeigen</a>
-                                        </p>
-                                        <p>
-                                            <%
-                                                String arrivalInformation = hike.getArrivalInformation();
-                                                if (arrivalInformation != null) {
-                                            %>
-                                                <strong>Arrival: </strong>
-                                                <%=arrivalInformation%>
-                                            <% } %>
-                                        </p>
-                                        <p>
-                                            <%
-                                                String parkingInformation = hike.getParkingInformation();
-                                                if (parkingInformation != null){
-                                            %>
-                                                <strong>Parking: </strong>
-                                                <%=parkingInformation%>
-                                            <% } %>
-                                        </p>
-                                    </div>
-                                </div>
+                                <outventure:card_start
+                                        startName="<%=hike.getStart().getName()%>"
+                                        startLatitude="<%=hike.getStart().getLatitude()%>"
+                                        startLongitude="<%=hike.getStart().getLongitude()%>"
+                                        arrivalInformation="<%=hike.getArrivalInformation()%>"
+                                        parkingInformation="<%=hike.getParkingInformation()%>">
+                                </outventure:card_start>
                             </div>
                         </div>
                     </div>
