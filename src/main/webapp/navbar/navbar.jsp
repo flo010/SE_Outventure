@@ -34,34 +34,6 @@
                                     <li>
                                         <a class="dropdown-item" href="#"><span class="fa-li pe-2"><i class="fas fa-search"></i></span>All</a>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#"><span class="fa-li pe-2"><i
-                                                class="fas fa-film"></i></span>Titles</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#"><span class="fa-li pe-2"><i class="fas fa-tv"></i></span>TV
-                                            Episodes</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#"><span class="fa-li pe-2"><i
-                                                class="fas fa-user-friends"></i></span>Celebs</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#"><span class="fa-li pe-2"><i
-                                                class="fas fa-building"></i></span>Companies</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#"><span class="fa-li pe-2"><i
-                                                class="fas fa-key"></i></span>Keywords</a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider" />
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#"><span class="fa-li pe-2"><i
-                                                class="fas fa-search-plus"></i></span>Advanced
-                                            search<i class="fas fa-chevron-right ps-2"></i></a>
-                                    </li>
                                 </ul>
                                 <input type="search" class="form-control" placeholder="Search" aria-label="Search" style="width:500px; max-width:500px "/>
                             </div>
@@ -72,9 +44,6 @@
                     </div>
                 </div>
             </div>
-
         </nav>
-
     </body>
-
 </html>

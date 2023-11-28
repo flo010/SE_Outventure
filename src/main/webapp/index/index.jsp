@@ -1,6 +1,7 @@
 <%@ page import="hibernate.facade.FacadeJPA" %>
 <%@ page import="hibernate.model.Hike" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,7 +11,7 @@
     </head>
     <body class="index-background">
         <header>
-            <jsp:include page="../navbar/navbar.jsp"/>
+            <outventure:navbar/>
         </header>
         <div class="d-flex justify-content-center align-items-end">
             <div style="height: 200px;"></div>
