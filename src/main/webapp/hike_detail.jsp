@@ -28,15 +28,9 @@
             double durationMinutes = (hike.getDuration() % 1) * 60;
 
             LocalDate localDate = hike.getDate(); // Retrieve the LocalDate object
-
-            // Define the desired date pattern
-            String pattern = "dd/MM/yyyy";
-
-            // Create a DateTimeFormatter using the specified pattern
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-
-            // Format the LocalDate into a String using the DateTimeFormatter
-            String formattedDate = localDate.format(formatter);
+            String pattern = "dd/MM/yyyy"; // Define the desired date pattern
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern); // Create a DateTimeFormatter using the specified pattern
+            String formattedDate = localDate.format(formatter); // Format the LocalDate into a String using the DateTimeFormatter
 
             List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
         %>
@@ -119,7 +113,7 @@
                     <h3>Details</h3>
                     <table>
                         <tr>
-                            <td><b>Required Condition</b></td>
+                            <td><b>Required Stamina</b></td>
                             <td>
                                 <span class="fa fa-circle-o" id="colored-circle-1"></span>
                                 <span class="fa fa-circle-o" id="colored-circle-2"></span>
@@ -129,7 +123,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><b>Level of Difficulty</b></td>
+                            <td><b>Required Strength</b></td>
                             <td>
                                 <span class="fa fa-circle-o" id="colored-circle-6"></span>
                                 <span class="fa fa-circle-o" id="colored-circle-7"></span>
@@ -149,7 +143,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><b>Landscape Beauty</b></td>
+                            <td><b>Beauty of Landscape</b></td>
                             <td>
                                 <span class="fa fa-circle-o" id="colored-circle-16"></span>
                                 <span class="fa fa-circle-o" id="colored-circle-17"></span>
