@@ -120,7 +120,7 @@
                             </div>
                         </div>
                         <div class="input-fields-group less-width">
-                            <label for="altitudeInput" class="form-label">Altitude *</label>
+                            <label for="altitudeInput" class="form-label">Altitude metres *</label>
                             <input type="text" class="form-control" id="altitudeInput" name="altitudeInput" placeholder="Altitude" required maxlength="10" aria-describedby="altitudeHelpText" pattern="\d{1,10}">
                             <small id="altitudeHelpText" class="form-text text-muted">
                                 The value must be specified in meters.
@@ -131,12 +131,12 @@
                         </div>
                         <div class="input-fields-group less-width">
                             <div>
-                                <label for="conditionInput" class="form-label">Required Condition *</label>
+                                <label for="conditionInput" class="form-label">Required Stamina *</label>
                                 <input type="range" class="custom-range" id="conditionInput" name="conditionInput" min="1" max="5" step="1" value="0">
                                 <label id="rangeValue1">1</label>
                             </div>
                             <div>
-                                <label for="difficultyInput" class="form-label">Level of Difficulty *</label>
+                                <label for="difficultyInput" class="form-label">Required Strength *</label>
                                 <input type="range" class="custom-range" id="difficultyInput" name="difficultyInput" min="1" max="5" step="1" value="0">
                                 <label id="rangeValue2">1</label>
                             </div>
