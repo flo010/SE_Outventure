@@ -112,25 +112,25 @@ public class HikeBroker extends BrokerBase<Hike> {
             if (entityManager != null && entityManager.isOpen()) {
                 Query query = entityManager.createQuery("" +
                                 "SELECT h FROM Hike h WHERE LOWER(h.title) LIKE LOWER(:title)" +
-                                "AND h.duration < (:durationLow) AND h.duration < (:durationHigh)" +
-                                "AND h.strength < (:strengthLow) AND h.strength < (:strengthHigh)" +
-                                "AND h.stamina < (:staminaLow) AND h.stamina < (:staminaHigh)" +
-                                "AND h.experience < (:experienceLow) AND h.strength < (:experienceHigh)" +
-                                "AND h.landscape < (:landscapeLow) AND h.landscape < (:landscapeHigh)" +
-                                "AND h.distance < (:distanceLow) AND h.distance < (:distanceHigh)" +
-                                "AND h.altitude < (:altitudeLow) AND h.altitude < (:altitudeHigh)" +
-                                "AND h.january < (:january)" +
-                                "AND h.february < (:february)" +
-                                "AND h.march < (:march)" +
-                                "AND h.april < (:april)" +
-                                "AND h.may < (:may)" +
-                                "AND h.june < (:june)" +
-                                "AND h.july < (:july)" +
-                                "AND h.august < (:august)" +
-                                "AND h.september < (:september)" +
-                                "AND h.october < (:october)" +
-                                "AND h.november < (:november)" +
-                                "AND h.december < (:december)");
+                                "AND h.duration > (:durationLow) AND h.duration < (:durationHigh)" +
+                                "AND h.strength > (:strengthLow) AND h.strength < (:strengthHigh)" +
+                                "AND h.stamina >(:staminaLow) AND h.stamina < (:staminaHigh)" +
+                                "AND h.experience > (:experienceLow) AND h.strength < (:experienceHigh)" +
+                                "AND h.landscape > (:landscapeLow) AND h.landscape < (:landscapeHigh)" +
+                                "AND h.distance > (:distanceLow) AND h.distance < (:distanceHigh)" +
+                                "AND h.altitude > (:altitudeLow) AND h.altitude < (:altitudeHigh)" +
+                                "AND h.january = (:january)" +
+                                "AND h.february = (:february)" +
+                                "AND h.march = (:march)" +
+                                "AND h.april = (:april)" +
+                                "AND h.may = (:may)" +
+                                "AND h.june = (:june)" +
+                                "AND h.july = (:july)" +
+                                "AND h.august = (:august)" +
+                                "AND h.september = (:september)" +
+                                "AND h.october = (:october)" +
+                                "AND h.november = (:november)" +
+                                "AND h.december = (:december)");
                 query.setParameter("title", "%" + title + "%");
                 query.setParameter("durationLow", durationLow);
                 query.setParameter("durationHigh", durationHigh);
