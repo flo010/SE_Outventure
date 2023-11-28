@@ -29,26 +29,11 @@
             double durationMinutes = (hike.getDuration() % 1) * 60;
 
             LocalDate localDate = hike.getDate(); // Retrieve the LocalDate object
-
-            // Define the desired date pattern
-            String pattern = "dd/MM/yyyy";
-
-            // Create a DateTimeFormatter using the specified pattern
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-
-            // Format the LocalDate into a String using the DateTimeFormatter
-            String formattedDate = localDate.format(formatter);
+            String pattern = "dd/MM/yyyy"; // Define the desired date pattern
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern); // Create a DateTimeFormatter using the specified pattern
+            String formattedDate = localDate.format(formatter); // Format the LocalDate into a String using the DateTimeFormatter
 
             List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
-            HashMap<Integer, String> demoImages = new HashMap<Integer, String>();
-            demoImages.put(101, "https://www.bergwelten.com/files/tour/images/niederkaiserkamm-14871-0.jpg?impolicy=gallerie_pictures");
-            demoImages.put(102, "https://vcdn.bergfex.at/images/resized/profiles/detail/986/1af6fc7b24cc5b2ff8a32e1953d53986.jpg?1283172909");
-            demoImages.put(103, "https://img.oastatic.com/img2/70761600/max/t.jpg?revbust=468c8c45");
-            demoImages.put(104, "https://www.steiermark.com/Alpstein/Images/67091283/1306941/image-thumb__1306941__lightbox/bad-mitterndorf-mit-grimming-25240459.jpg");
-            demoImages.put(105, "https://www.almenrausch.at/uploads/tx_webxhousingv2/trips/352/DSC_2340_9461.jpg");
-            demoImages.put(106, "https://www.bodensee.de/extension/portal-bodensee/var/storage/images/media/bibliothek/ausflugsziele/pfaenderbahn/pfaenderbahn-mit-ausblick/46348-1-ger-DE/pfaenderbahn-mit-ausblick_front_large.jpg");
-            demoImages.put(107, "https://vcdn.bergfex.at/images/resized/7c/fc07758d6a2af77c_20a169d014543ab0@2x.jpg");
-            demoImages.put(108, "https://d2exd72xrrp1s7.cloudfront.net/www/000/1k4/a8/a8mx6d7f7cpz17bjyys8lhlle3eto5gp1-uhi15367968/0?width=3072&height=2304&crop=false&q=70");
         %>
 
         <div class="container-sm mt-5 mb-5">
