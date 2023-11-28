@@ -52,7 +52,13 @@
         %>
 
         <div class="container-sm mt-5 mb-5">
-            <div class="d-flex flex-row-reverse bd-highlight">
+            <div class="d-flex bd-highlight mb-3">
+                <div class="me-auto p-2 bd-highlight">
+                    <button id="backToSearchButton" type="button" class="btn btn-outline-secondary" onclick="showLastSearchResults()">Return to the search results</button>
+                </div>
+                <div class="p-2 bd-highlight">
+                    Edit Button
+                </div>
                 <div class="p-2 bd-highlight">
                     <button id="deleteHikeButton" type="button" class="btn btn-outline-secondary" onclick="showDeleteHikeModal()">Delete</button>
                 </div>
