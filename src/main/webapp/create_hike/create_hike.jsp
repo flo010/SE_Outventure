@@ -389,14 +389,14 @@
                                             <div class="row">
                                                 <label for="poiLongitude" class="form-label">Coordinates *</label>
                                                 <div class="col">
-                                                    <input type="text" class="form-control exclude-from-validation" id="poiLongitude" name="longitude" placeholder="Longitude" required maxlength="20" aria-describedby="POILongitudeHelpText" pattern="-?\d+(\.\d{1,7})?">
-                                                    <small id="POILongitudeHelpText" class="form-text text-muted">
+                                                    <input type="text" class="form-control exclude-from-validation" id="poiLatitude" name="latitude" placeholder="Latitude" required maxlength="20" aria-describedby="POILatitudeHelpText" pattern="-?\d+(\.\d{1,7})?">
+                                                    <small id="POILatitudeHelpText" class="form-text text-muted">
                                                         The value must be in the format XX.XXXXXX (negative sign optional).
                                                     </small>
                                                 </div>
                                                 <div class="col">
-                                                    <input type="text" class="form-control exclude-from-validation" id="poiLatitude" name="latitude" placeholder="Latitude" required maxlength="20" aria-describedby="POILatitudeHelpText" pattern="-?\d+(\.\d{1,7})?">
-                                                    <small id="POILatitudeHelpText" class="form-text text-muted">
+                                                    <input type="text" class="form-control exclude-from-validation" id="poiLongitude" name="longitude" placeholder="Longitude" required maxlength="20" aria-describedby="POILongitudeHelpText" pattern="-?\d+(\.\d{1,7})?">
+                                                    <small id="POILongitudeHelpText" class="form-text text-muted">
                                                         The value must be in the format XX.XXXXXX (negative sign optional).
                                                     </small>
                                                 </div>
