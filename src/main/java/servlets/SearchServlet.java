@@ -1,6 +1,5 @@
 package servlets;
 
-import com.google.gson.Gson;
 import hibernate.facade.FacadeJPA;
 import hibernate.model.Hike;
 import jakarta.servlet.ServletException;
