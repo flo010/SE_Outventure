@@ -88,31 +88,70 @@ function rangeCount(id, labelId){
 const pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
 
 function savePointOfInterest() {
+    // Reset previous validation errors
+    resetValidationErrors();
+
     // Get values from the form
     const poiName = document.getElementById('poiName').value;
-    const poiLatitude = document.getElementById('poiLatitude').value;
-    const poiLongitude = document.getElementById('poiLongitude').value;
+    const poiLatitude = parseFloat(document.getElementById('poiLatitude').value);
+    const poiLongitude = parseFloat(document.getElementById('poiLongitude').value);
     const poiDescription = document.getElementById("poiDescription").value;
     const poiType = document.getElementById("poiType").value;
 
     // Check if required fields are empty
-    if (!poiName || !poiLatitude || !poiLongitude || poiType === "Select type") {
+    if (!poiName || isNaN(poiLatitude) || isNaN(poiLongitude) || poiType === "Select type") {
         const errorMessage = document.getElementById('poiErrorMessage');
         errorMessage.style.display = 'block';
+        return;
     }
-    else {
-        appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitude);
 
-        // Clear the input fields in the modal
-        document.getElementById('poiName').value = '';
-        document.getElementById('poiLatitude').value = '';
-        document.getElementById('poiLongitude').value = '';
-        document.getElementById('poiDescription').value = '';
-        document.getElementById('poiType').value = 'Select type';
-
-        // Close the modal
-        pointsOfInterestModal.hide();
+    // Validate longitude and latitude ranges
+    if (poiLongitude < -180.0 || poiLongitude > 180.0) {
+        displayValidationError('Please enter a valid longitude between -180.0 and 180.0.', 'poiLongitude');
+        return;
     }
+
+    if (poiLatitude < -90.0 || poiLatitude > 90.0) {
+        displayValidationError('Please enter a valid latitude between -90.0 and 90.0.', 'poiLatitude');
+        return;
+    }
+
+    // Continue with saving the point of interest if validation passes
+    appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitude);
+
+    // Clear the input fields in the modal
+    document.getElementById('poiName').value = '';
+    document.getElementById('poiLatitude').value = '';
+    document.getElementById('poiLongitude').value = '';
+    document.getElementById('poiDescription').value = '';
+    document.getElementById('poiType').value = 'Select type';
+
+    // Close the modal
+    pointsOfInterestModal.hide();
+}
+
+function displayValidationError(message, fieldId) {
+    // Display error message for the specified field
+    var field = document.getElementById(fieldId);
+    field.classList.add('is-invalid');
+    field.nextElementSibling.innerText = message;
+    field.nextElementSibling.style.color = 'red';
+    field.nextElementSibling.style.display = 'block';
+}
+
+function resetValidationErrors() {
+    // Reset all error messages and styling
+    var formElements = document.getElementById('poiForm').elements;
+    for (var i = 0; i < formElements.length; i++) {
+        var element = formElements[i];
+        if (element.type !== 'hidden') {
+            element.classList.remove('is-invalid');
+            if (element.nextElementSibling && element.nextElementSibling.className === 'invalid-feedback') {
+                element.nextElementSibling.style.display = 'none';
+            }
+        }
+    }
+    document.getElementById('poiErrorMessage').style.display = 'none';
 }
 
 function appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitude) {
