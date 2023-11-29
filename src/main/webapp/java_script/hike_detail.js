@@ -9,3 +9,4 @@ function showDeleteHikeModal() {
     });
     deleteHikeModal.show();
 }
+

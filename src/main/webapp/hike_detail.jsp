@@ -56,6 +56,9 @@
                 <div class="p-2 bd-highlight">
                     <button id="deleteHikeButton" type="button" class="btn btn-outline-secondary" onclick="showDeleteHikeModal()">Delete</button>
                 </div>
+                <div class="p-2 bd-highlight">
+                    <button id="editHikeButton" type="button" class="btn btn-outline-secondary" onclick="goToCreateHike()" >Edit</button>
+                </div>
             </div>
 
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
@@ -366,6 +369,10 @@
                 fillCircles(<%= hike.getExperience() %>, 10);
                 fillCircles(<%= hike.getLandscape() %>, 15);
             });
+
+            function goToCreateHike() {
+                window.location.href = "create/hike?hikeID=" + <%=hike.getHikeID()%>;
+            }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
