@@ -177,12 +177,12 @@
                             <small id="routeHelpText" class="form-text text-muted">
                                 Describe the route of your hike in detail. The maximum length is 1000 characters.
                             </small>
-                            <div class="me-auto p-2 bd-highlight">
-                                <button type="button" class="btn btn-outline-secondary">Import GPX</button>
-                            </div>
                             <div class="invalid-feedback">
                                 Please enter a route description.
                             </div>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-outline-secondary">Import GPX</button>
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
