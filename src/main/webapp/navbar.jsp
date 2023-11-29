@@ -69,10 +69,13 @@
                         </form>
                         <a class="nav-link" href="search_results">Search Hike</a>
                         <a class="nav-link" href="create_hike.jsp">Create Hike</a>
+                        </ul>
                     </div>
                 </div>
+                <div class="navbar-nav">
+                    <a class="nav-link" href="#">Profile</a>
+                </div>
             </div>
-
         </nav>
 
     </body>
