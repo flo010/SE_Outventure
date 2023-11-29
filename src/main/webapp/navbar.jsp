@@ -25,10 +25,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-
-
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <form id="search-input" action="/search_results" method="get" class="d-flex align-items-center form-search" style="padding-right:150px">
                             <div class="input-group">
@@ -69,7 +66,7 @@
                                             search<i class="fas fa-chevron-right ps-2"></i></a>
                                     </li>
                                 </ul>
-                                <input name="search" type="search" class="form-control" placeholder="Search" aria-label="Search" style="width:500px; max-width:500px "/>
+                                <input name="search" type="search" class="form-control" placeholder="All hikes" aria-label="Search" style="width:500px; max-width:500px "/>
                             </div>
                             <a href="#" class="text-white" onclick="commitSearch(event)"><i class="fas fa-search ps-3"></i></a>
                         </form>
@@ -82,7 +79,6 @@
         </nav>
 
     </body>
-<<<<<<< HEAD
     <script>
         function commitSearch(event) {
             event.preventDefault(); // Prevent the default action of the anchor tag
@@ -92,7 +88,4 @@
             document.getElementById("search-input").submit(); // Submit the form
         }
     </script>
-=======
-
->>>>>>> BacktoSearch
 </html>

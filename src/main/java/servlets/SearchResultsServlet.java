@@ -24,7 +24,7 @@ public class SearchResultsServlet extends HttpServlet {
         String title = request.getParameter("search");
         List<Hike> hikeList = null;
 
-        if (title != null && !title.isEmpty()) {
+        if ((title != null) && (!title.isEmpty())) {
             hikeList = facadeJPA.getHikesByTitleLazy(title);
         } else {
             hikeList = facadeJPA.getAllHikesLazy();
@@ -32,8 +32,6 @@ public class SearchResultsServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         session.setAttribute("hikeList", hikeList);
-
-        request.setAttribute("hikeList", hikeList);
 
         try {
             request.getRequestDispatcher("/search_results.jsp").forward(request, response);

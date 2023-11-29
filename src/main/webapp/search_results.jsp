@@ -31,7 +31,7 @@
                     demoImages.put(107, "https://vcdn.bergfex.at/images/resized/7c/fc07758d6a2af77c_20a169d014543ab0@2x.jpg");
                     demoImages.put(108, "https://d2exd72xrrp1s7.cloudfront.net/www/000/1k4/a8/a8mx6d7f7cpz17bjyys8lhlle3eto5gp1-uhi15367968/0?width=3072&height=2304&crop=false&q=70");
 
-                    List<Hike> hikeList = (List<Hike>) request.getAttribute("hikeList");
+                    List<Hike> hikeList = (List<Hike>) session.getAttribute("hikeList");
 
                     for (Hike hike : hikeList) {
                         if (hike.isVisible()){
