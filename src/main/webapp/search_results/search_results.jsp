@@ -1,10 +1,6 @@
 <%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="hibernate.model.Hike" %>
-<%@ page import="hibernate.facade.FacadeJPA" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="java.util.Optional" %>
-<%@ page import="java.util.Objects" %>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
 <!DOCTYPE html>

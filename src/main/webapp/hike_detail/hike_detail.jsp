@@ -1,5 +1,4 @@
 <%@ page import="hibernate.model.Hike" %>
-<%@ page import="java.util.HashMap" %>
 <%@ page import="hibernate.model.PointOfInterest" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
@@ -11,7 +10,7 @@
   Time: 15:46
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
 <!DOCTYPE html>

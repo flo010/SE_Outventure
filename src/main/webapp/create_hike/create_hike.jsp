@@ -264,13 +264,13 @@
                                                         <input type="hidden" class="poiLatitudeInput" name="poiLatitudeInput">
                                                         <input type="hidden" class="poiLongitudeInput" name="poiLongitudeInput">
                                                     </div>
-                                                    <!-- Edit- und Delete-Buttons mit den gewünschten Symbolen -->
+                                                    <!-- edit and delete buttons with icons -->
                                                     <div class="d-flex gap-2">
-                                                        <!-- Edit-Button mit Stift-Icon -->
+                                                        <!-- edit button with pencil icon -->
                                                         <span class="input-group-text pointer" id="editCoordinates" onclick="editPointOfInterest(this)">
                                                              <i class="fa fa-pencil"></i>
                                                         </span>
-                                                        <!-- Delete-Button mit Mülleimer-Icon -->
+                                                        <!-- delete button with bin icon -->
                                                         <span class="input-group-text pointer" onclick="deletePointOfInterest(this)">
                                                              <i class="fa fa-trash"></i>
                                                         </span>
@@ -310,7 +310,7 @@
                         </div>
                         <div class="input-fields-group">
                             <label for="parkingInput" class="form-label">Parking</label>
-                            <textarea class="form-control" id="parkingInput" name="parkingInput" rows="8" placeholder="Parking" aria-describedby="parkingHelpText"maxlength="1000"></textarea>
+                            <textarea class="form-control" id="parkingInput" name="parkingInput" rows="8" placeholder="Parking" aria-describedby="parkingHelpText" maxlength="1000"></textarea>
                             <small id="parkingHelpText" class="form-text text-muted">
                                 Provide information about the best parking options near the starting point of the hike. The maximum length is 1000 characters.
                             </small>

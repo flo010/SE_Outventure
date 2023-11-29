@@ -30,13 +30,13 @@ function createToast(id, headerMessage, bodyMessage) {
     toast.setAttribute("aria-atomic", "true");
 
     // Create toast header
-    var toastHeader = document.createElement("div");
+    let toastHeader = document.createElement("div");
     toastHeader.className = "toast-header";
 
-    var strongElement = document.createElement("strong");
+    let strongElement = document.createElement("strong");
     strongElement.className = "me-auto";
     strongElement.innerText = headerMessage;
-    var buttonElement = document.createElement("button");
+    let buttonElement = document.createElement("button");
     buttonElement.className = "btn-close";
     buttonElement.setAttribute("data-bs-dismiss", "toast");
     buttonElement.setAttribute("aria-label", "Close");
@@ -46,7 +46,7 @@ function createToast(id, headerMessage, bodyMessage) {
     toast.appendChild(toastHeader);
 
     // Create toast body
-    var toastBody = document.createElement("div");
+    let toastBody = document.createElement("div");
     toastBody.className = "toast-body";
     toastBody.innerText = bodyMessage;
     toast.appendChild(toastBody);

@@ -51,7 +51,7 @@ public class FacadeJPA implements Facade {
         HikeBroker hikeBroker = new HikeBroker();
         Hike hike = hikeBroker.getLazy(hikeID);
 
-        return hike;
+        return hikeBroker.getLazy(hikeID);
     }
 
     @Override
