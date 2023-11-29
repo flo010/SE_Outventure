@@ -108,3 +108,7 @@ td, th {
 .pointer {
     cursor: pointer;
 }
+
+.map {
+    height: 600px;
+}
