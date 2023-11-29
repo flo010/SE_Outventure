@@ -71,7 +71,8 @@
                                 </ul>
                                 <input name="search" type="search" class="form-control" placeholder="Search" aria-label="Search" style="width:500px; max-width:500px "/>
                             </div>
-                            <a href="#" class="text-white" onclick="commitSearch(event)"><i class="fas fa-search ps-3"></i></a>                        </form>
+                            <a href="#" class="text-white" onclick="commitSearch(event)"><i class="fas fa-search ps-3"></i></a>
+                        </form>
                         <a class="nav-link" href="search_results">Search Hike</a>
                         <a class="nav-link" href="create_hike_overview.jsp">Create Hike</a>
                     </div>
