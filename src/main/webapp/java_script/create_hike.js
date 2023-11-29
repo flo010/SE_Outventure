@@ -141,9 +141,9 @@ function displayValidationError(message, fieldId) {
 
 function resetValidationErrors() {
     // Reset all error messages and styling
-    var formElements = document.getElementById('poiForm').elements;
-    for (var i = 0; i < formElements.length; i++) {
-        var element = formElements[i];
+    let formElements = document.getElementById('poiForm').elements;
+    for (let i = 0; i < formElements.length; i++) {
+        let element = formElements[i];
         if (element.type !== 'hidden') {
             element.classList.remove('is-invalid');
             if (element.nextElementSibling && element.nextElementSibling.className === 'invalid-feedback') {

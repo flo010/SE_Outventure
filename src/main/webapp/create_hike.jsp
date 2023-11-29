@@ -203,14 +203,14 @@
                                 <div class="invalid-feedback">
                                     Please enter a name for the starting point.
                                 </div>
-                                <input type="number" min="-90.000000" max="90.000000" step="0.000001" class="form-control mt-3 no-spinners" id="latitudeStartCoordinateInput" name="latitudeStartCoordinateInput" placeholder="Latitude" required maxlength="10" aria-label="Start Latitude">
+                                <input type="number" min="-90.000000" max="90.000000" step="0.000001" class="form-control mt-3" id="latitudeStartCoordinateInput" name="latitudeStartCoordinateInput" placeholder="Latitude" required maxlength="10" aria-label="Start Latitude">
                                 <small id="startLatitudeHelpText" class="form-text text-muted">
                                     The value must be in the format XX.XXXXXX (negative sign optional).
                                 </small>
                                 <div class="invalid-feedback">
                                     Please enter a valid latitude between -90.000000 and 90.000000.
                                 </div>
-                                <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3 no-spinners" id="longitudeStartCoordinateInput" name="longitudeStartCoordinateInput" placeholder="Longitude" aria-describedby="startLongitudeHelpText" required maxlength="11" aria-label="Start Longitude">
+                                <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3" id="longitudeStartCoordinateInput" name="longitudeStartCoordinateInput" placeholder="Longitude" aria-describedby="startLongitudeHelpText" required maxlength="11" aria-label="Start Longitude">
                                 <small id="startLongitudeHelpText" class="form-text text-muted">
                                     The value must be in the format XX.XXXXXX (negative sign optional).
                                 </small>
@@ -226,14 +226,14 @@
                                 <div class="invalid-feedback">
                                     Please enter a name for the destination point.
                                 </div>
-                                <input type="number" min="-90.000000" max="90.000000" step="0.000001" class="form-control mt-3 no-spinners" id="latitudeDestinationCoordinateInput" name="latitudeDestinationCoordinateInput" placeholder="Latitude" aria-describedby="destinationLatitudeHelpText" required maxlength="10" aria-label="Destination Latitude">
+                                <input type="number" min="-90.000000" max="90.000000" step="0.000001" class="form-control mt-3" id="latitudeDestinationCoordinateInput" name="latitudeDestinationCoordinateInput" placeholder="Latitude" aria-describedby="destinationLatitudeHelpText" required maxlength="10" aria-label="Destination Latitude">
                                 <small id="destinationLatitudeHelpText" class="form-text text-muted">
                                     The value must be in the format XX.XXXXXX (negative sign optional).
                                 </small>
                                 <div class="invalid-feedback">
                                     Please enter a valid latitude between -90.000000 and 90.000000.
                                 </div>
-                                <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3 no-spinners" id="longitudeDestinationCoordinateID" name="longitudeDestinationCoordinateInput" placeholder="Longitude" aria-describedby="destinationLongitudeHelpText" required maxlength="11" aria-label="Destination Longitude">
+                                <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3" id="longitudeDestinationCoordinateID" name="longitudeDestinationCoordinateInput" placeholder="Longitude" aria-describedby="destinationLongitudeHelpText" required maxlength="11" aria-label="Destination Longitude">
                                 <small id="destinationLongitudeHelpText" class="form-text text-muted">
                                     The value must be in the format XX.XXXXXX (negative sign optional).
                                 </small>
@@ -393,7 +393,7 @@
                                                 <legend class="form-label">Coordinates *</legend>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control no-spinners" id="poiLongitude" name="longitude" placeholder="Longitude" required maxlength="20" aria-describedby="POILongitudeHelpText" aria-label="Point of Interest Longitude">
+                                                        <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control" id="poiLongitude" name="longitude" placeholder="Longitude" required maxlength="20" aria-describedby="POILongitudeHelpText" aria-label="Point of Interest Longitude">
                                                         <small id="POILongitudeHelpText" class="form-text text-muted">
                                                             The value must be in the format XX.XXXXXX (negative sign optional).
                                                         </small>
@@ -402,7 +402,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col">
-                                                        <input type="number" min="-90.000000" max="90.000000" step="0.000001" class="form-control exclude-from-validation no-spinners" id="poiLatitude" name="latitude" placeholder="Latitude" required maxlength="20" aria-describedby="POILatitudeHelpText" aria-label="Point of Interest Latitude">
+                                                        <input type="number" min="-90.000000" max="90.000000" step="0.000001" class="form-control exclude-from-validation" id="poiLatitude" name="latitude" placeholder="Latitude" required maxlength="20" aria-describedby="POILatitudeHelpText" aria-label="Point of Interest Latitude">
                                                         <small id="POILatitudeHelpText" class="form-text text-muted">
                                                             The value must be in the format XX.XXXXXX (negative sign optional).
                                                         </small>
