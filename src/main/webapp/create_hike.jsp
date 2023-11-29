@@ -182,7 +182,11 @@
                             </div>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-outline-secondary">Import GPX</button>
+                            <button type="button" onclick="importGpxButton()" class="btn btn-outline-secondary">Import GPX</button>
+                            <input type="file" onchange="handleGpxFile(this)" class="form-control" id="gpxInput" name="gpxInput" accept=".gpx" hidden>
+                            <div class="invalid-feedback alert alert-danger mt-2">
+                                Invalid file type. Please provide a .gpx.
+                            </div>
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">

@@ -309,3 +309,23 @@ function handleCoverImage() {
         }
     });
 }
+
+function importGpxButton() {
+    document.getElementById("gpxInput").click();
+}
+
+function handleGpxFile(input) {
+    if (input) {
+        const [file] = input.files;
+        const splitFileType = file.name.split(".");
+        const fileType = splitFileType[splitFileType.length - 1];
+
+        // Check if a file is present and check for its file type
+        if (!file || fileType !== "gpx") {
+            input.classList.add("is-invalid");
+            return;
+        }
+
+        input.classList.remove("is-invalid");
+    }
+}
