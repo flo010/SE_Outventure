@@ -1,13 +1,15 @@
 package servlets;
 
-import java.io.*;
-
 import hibernate.facade.FacadeJPA;
 import hibernate.model.Hike;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
+
+import java.io.IOException;
 
 @WebServlet(name = "hikeDetailServlet", value = "/hike_detail")
 public class HikeDetailServlet extends HttpServlet {
@@ -16,8 +18,12 @@ public class HikeDetailServlet extends HttpServlet {
         response.setContentType("text/html");
 
         int hikeID = Integer.parseInt(request.getParameter("id"));
+
+
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         Hike hike = facadeJPA.getHikeByIDEager(hikeID);
+     
+
         request.setAttribute("hike", hike);
         try {
             request.getRequestDispatcher("/hike_detail.jsp").forward(request, response);

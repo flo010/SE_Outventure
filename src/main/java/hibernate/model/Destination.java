@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotNull;
 public class Destination {
     private int _destinationID;
     private String _name;
-    private Hike _hikeDestination;
     private double _longitude;
     private double _latitude;
 
@@ -29,14 +28,6 @@ public class Destination {
     }
     public void setName(String name) {
         _name = name;
-    }
-
-    @OneToOne(mappedBy = "destination")
-    public Hike getHikeDestination() {
-        return _hikeDestination;
-    }
-    public void setHikeDestination(Hike hikeDestination) {
-        _hikeDestination = hikeDestination;
     }
 
     @NotNull

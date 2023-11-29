@@ -7,7 +7,11 @@ import java.util.List;
 
 public interface Facade {
     // INSERT + UPDATE
+<<<<<<< HEAD
     void save(Object object);
+=======
+    Object save(Object object);
+>>>>>>> BacktoSearch
 
     // DELETE
     void delete(Object object);

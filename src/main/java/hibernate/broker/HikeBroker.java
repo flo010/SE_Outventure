@@ -40,17 +40,17 @@ public class HikeBroker extends BrokerBase<Hike> {
         List<Hike> hikes = null;
 
         try {
-            if (entityManager.isOpen()) {
+            if (entityManager != null && entityManager.isOpen()) {
                 hikes = entityManager.createQuery("SELECT h FROM Hike h", Hike.class).getResultList();
             } else {
                 // Handle the situation when the EntityManager is closed
                 System.out.println("EntityManager is closed");
             }
         } catch (Exception e) {
-            System.out.println("entityManager is null");
             e.printStackTrace();
+            System.out.println("entityManager is null");
         } finally {
-            if (entityManager.isOpen()) {
+            if (entityManager != null && entityManager.isOpen()) {
                 entityManager.close();
             }
         }
