@@ -55,6 +55,7 @@
             <div class="d-flex bd-highlight mb-3">
                 <div class="me-auto p-2 bd-highlight">
                     <button id="backToSearchButton" type="button" class="btn btn-outline-secondary" onclick="showLastSearchResults()">Return to the search results</button>
+                    <input type="hidden" id="hikeList" value='<%= session.getAttribute("hikeList") %>'>
                 </div>
                 <div class="p-2 bd-highlight">
                     Edit Button

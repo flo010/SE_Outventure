@@ -23,6 +23,9 @@ public class SearchResultsServlet extends HttpServlet {
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         List<Hike> hikeList = facadeJPA.getAllHikesLazy();
 
+        HttpSession session = request.getSession();
+        session.setAttribute("hikeList", hikeList);
+
         request.setAttribute("hikeList", hikeList);
 
         try {
