@@ -6,16 +6,21 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    HttpSession userSession = request.getSession();
+    String loggedInUser =  (String) userSession.getAttribute("username");
+    String email = (String) userSession.getAttribute("email");
+%>
 <html>
     <head>
         <title>Profile</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link href="style.css" rel="stylesheet">
-        <link href="profile.css" rel="stylesheet">
+        <link href="" rel="stylesheet">
+        <link href="../css/profile.css" rel="stylesheet">
     </head>
     <body class="pale-background">
         <header>
-            <jsp:include page="navbar.jsp"/>
+            <outventure:navbar/>
         </header>
         <div class="container">
             <div class="login-container">
@@ -25,8 +30,8 @@
                 <div class="right-box">
                     <div class="right-box-header"></div>
                     <div class="right-box-body">
-                        <span class="bold">joeWalker07</span><br>
-                        Email: joeWalker@hotmail.com
+                        <span class="bold"><%=loggedInUser%></span><br>
+                        Email: <%=email%>
                     </div>
                     <div class="right-box-bottom"></div>
                 </div>
