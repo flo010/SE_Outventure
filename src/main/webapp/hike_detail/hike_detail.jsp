@@ -11,16 +11,19 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
+
+<!DOCTYPE html>
 <html>
     <head>
         <title>Hike Detail</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link href="css/style.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
     </head>
     <body>
         <header>
-            <jsp:include page="navbar.jsp"/>
+            <outventure:navbar/>
         </header>
 
         <%
@@ -190,79 +193,32 @@
                         <h3 class="mb-3">Points of Interest</h3>
                         <div class="row justify-content-start">
                             <div class="col mb-5">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center">Start</h4>
-                                        <hr>
-                                        <p class="card-text">
-                                            <strong>Name: </strong>
-                                            <%=hike.getStart().getName()%>
-                                        </p>
-                                        <p>
-                                            <strong>GPS Coordinates: </strong>
-                                            <%=hike.getStart().getLongitude()%> E, <%=hike.getStart().getLatitude()%> N
-                                        </p>
-                                        <p>
-                                            <a href="https://www.google.com/maps/place/<%=hike.getStart().getLatitude()%>,
-                                            <%=hike.getStart().getLongitude()%>" target="_blank">Auf Google Maps anzeigen</a>
-                                        </p>
-                                    </div>
-                                </div>
+                                <outventure:card_start
+                                        startName="<%=hike.getStart().getName()%>"
+                                        startLatitude="<%=hike.getStart().getLatitude()%>"
+                                        startLongitude="<%=hike.getStart().getLongitude()%>">
+                                </outventure:card_start>
                             </div>
                             <div class="col mb-5">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center">Destination</h4>
-                                        <hr>
-                                        <p>
-                                            <strong>Name: </strong>
-                                            <%=hike.getDestination().getName()%>
-                                        </p>
-                                        <p>
-                                            <strong>GPS Coordinates: </strong>
-                                            <%=hike.getDestination().getLongitude()%> E, <%=hike.getStart().getLatitude()%>
-                                            N
-                                        </p>
-                                        <p>
-                                            <a href="https://www.google.com/maps/place/<%=hike.getDestination().getLatitude()%>,
-                                            <%=hike.getDestination().getLongitude()%>" target="_blank">Auf Google Maps anzeigen</a>
-                                        </p>
-                                    </div>
-                                </div>
+                                <outventure:card_destination
+                                        destinationName="<%=hike.getDestination().getName()%>"
+                                        destinationLatitude="<%=hike.getStart().getLatitude()%>"
+                                        destinationLongitude="<%=hike.getDestination().getLongitude()%>">
+                                </outventure:card_destination>
                             </div>
 
                             <%
                                 for (PointOfInterest pointOfInterest: pointsOfInterest) {
                             %>
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center"><%=pointOfInterest.getName()%></h4>
-                                        <hr>
-                                        <p>
-                                            <strong> Type: </strong><%= pointOfInterest.getType() %>
-                                        </p>
-                                        <p>
-                                            <%
-                                                if (pointOfInterest.getDescription() != null) {
-                                            %>
-                                                    <strong>Description: </strong>
-                                                    <%=pointOfInterest.getDescription()%>
-                                            <%
-                                                }
-                                            %>
-                                        </p>
-                                        <p>
-                                            <strong>GPS Coordinates: </strong>
-                                            <%=pointOfInterest.getLongitude()%> E, <%=pointOfInterest.getLatitude()%> N
-                                        </p>
-                                        <p>
-                                            <a href="https://www.google.com/maps/place/<%=pointOfInterest.getLatitude()%>,
-                                            <%=pointOfInterest.getLongitude()%>" target="_blank">Auf Google Maps anzeigen</a>
-                                        </p>
+                                    <div class="col">
+                                        <outventure:card_poi
+                                                poiName="<%=pointOfInterest.getName()%>"
+                                                poiType="<%=pointOfInterest.getType()%>"
+                                                poiDescription="<%=pointOfInterest.getDescription()%>"
+                                                poiLatitude="<%=pointOfInterest.getLatitude()%>"
+                                                poiLongitude="<%=pointOfInterest.getLongitude()%>">
+                                        </outventure:card_poi>
                                     </div>
-                                </div>
-                            </div>
                             <%}%>
                         </div>
                     </div>
@@ -273,42 +229,13 @@
                         <h3 class="mb-3">Getting There</h3>
                         <div class="row justify-content-start">
                             <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center">Start</h4>
-                                        <hr>
-                                        <p class="card-text">
-                                            <strong>Name: </strong>
-                                            <%=hike.getStart().getName()%>
-                                        </p>
-                                        <p>
-                                            <strong>GPS Coordinates: </strong>
-                                            <%=hike.getStart().getLongitude()%> E, <%=hike.getStart().getLatitude()%> N
-                                        </p>
-                                        <p>
-                                            <a href="https://www.google.com/maps/place/<%=hike.getStart().getLatitude()%>,
-                                            <%=hike.getStart().getLongitude()%>" target="_blank">Auf Google Maps anzeigen</a>
-                                        </p>
-                                        <p>
-                                            <%
-                                                String arrivalInformation = hike.getArrivalInformation();
-                                                if (arrivalInformation != null) {
-                                            %>
-                                                <strong>Arrival: </strong>
-                                                <%=arrivalInformation%>
-                                            <% } %>
-                                        </p>
-                                        <p>
-                                            <%
-                                                String parkingInformation = hike.getParkingInformation();
-                                                if (parkingInformation != null){
-                                            %>
-                                                <strong>Parking: </strong>
-                                                <%=parkingInformation%>
-                                            <% } %>
-                                        </p>
-                                    </div>
-                                </div>
+                                <outventure:card_start
+                                        startName="<%=hike.getStart().getName()%>"
+                                        startLatitude="<%=hike.getStart().getLatitude()%>"
+                                        startLongitude="<%=hike.getStart().getLongitude()%>"
+                                        arrivalInformation="<%=hike.getArrivalInformation()%>"
+                                        parkingInformation="<%=hike.getParkingInformation()%>">
+                                </outventure:card_start>
                             </div>
                         </div>
                     </div>
@@ -334,24 +261,14 @@
             </div>
         </div>
 
-        <script src="java_script/hike_detail.js"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                let circles = document.querySelectorAll('.fa.fa-circle-o');
+        <div id="dataForCircles"
+             data-stamina="<%= hike.getStamina() %>"
+             data-strength="<%= hike.getStrength() %>"
+             data-experience="<%= hike.getExperience() %>"
+             data-landscape="<%= hike.getLandscape() %>">
+        </div>
 
-                function fillCircles(count, startIndex) {
-                    for (let i = startIndex; i < startIndex + count; i++) {
-                        circles[i].classList.replace('fa-circle-o', 'fa-circle');
-                        circles[i].style.color = "#B6FC9D";
-                    }
-                }
-
-                fillCircles(<%= hike.getStamina() %>, 0);
-                fillCircles(<%= hike.getStrength() %>, 5);
-                fillCircles(<%= hike.getExperience() %>, 10);
-                fillCircles(<%= hike.getLandscape() %>, 15);
-            });
-        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="/hike_detail/hike_detail.js"></script>
     </body>
 </html>
