@@ -22,7 +22,6 @@
         <header>
             <outventure:navbar/>
         </header>
-
         <%
             String loggedInUser = (String) userSession.getAttribute("username");
             if (loggedInUser != null) {
