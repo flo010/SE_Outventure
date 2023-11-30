@@ -350,6 +350,9 @@ function autoFillStartDestination(file) {
             const destinationNameElement = destinationPoint.querySelector("name");
             const destinationName = destinationNameElement ? destinationNameElement.textContent : "";
 
+            if (startName && startPoint.getAttribute("lat") && startPoint.getAttribute("lon") &&
+                destinationName && destinationPoint.getAttribute("lat") && destinationPoint.getAttribute("lon")) {
+
             document.getElementById("startNameInput").value = startName;
             document.getElementById("latitudeStartCoordinateInput").value = startPoint.getAttribute("lat");
             document.getElementById("longitudeStartCoordinateInput").value = startPoint.getAttribute("lon");
@@ -357,6 +360,10 @@ function autoFillStartDestination(file) {
             document.getElementById("destinationNameInput").value = destinationName;
             document.getElementById("latitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lat");
             document.getElementById("longitudeDestinationCoordinateID").value = destinationPoint.getAttribute("lon");
+
+            } else {
+            createToast("gpxImport","GPX Coordinates cannot be filled in","Please check your imported GPX File");
+            }
         }
     };
 
