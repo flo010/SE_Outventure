@@ -6,6 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%
+    HttpSession userSession = request.getSession(false);
+    boolean isLoggedIn = userSession != null && userSession.getAttribute("username") != null;
+%>
 <html>
     <head>
         <title>Title</title>
@@ -73,7 +77,14 @@
                     </div>
                 </div>
                 <div class="navbar-nav">
-                    <a class="nav-link" href="#">Profile</a>
+                    <%
+                        String loggedInUser =  (String) userSession.getAttribute("username");
+                        if (isLoggedIn) {
+                    %>
+                    <a class="nav-link" href="#"><%=loggedInUser%></a>
+                    <% } else { %>
+                    <a class="nav-link" href="#">Login</a>
+                    <% } %>
                 </div>
             </div>
         </nav>
@@ -81,3 +92,5 @@
     </body>
 
 </html>
+
+
