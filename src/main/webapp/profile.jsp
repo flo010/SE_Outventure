@@ -6,6 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    HttpSession userSession = request.getSession();
+    String loggedInUser =  (String) userSession.getAttribute("username");
+    String email = (String) userSession.getAttribute("email");
+%>
 <html>
     <head>
         <title>Profile</title>
@@ -23,8 +28,8 @@
                 <div class="right-box">
                     <div class="right-box-header"></div>
                     <div class="right-box-body">
-                        <span class="bold">joeWalker07</span><br>
-                        Email: joeWalker@hotmail.com
+                        <span class="bold"><%=loggedInUser%></span><br>
+                        Email: <%=email%>
                     </div>
                     <div class="right-box-bottom"></div>
                 </div>

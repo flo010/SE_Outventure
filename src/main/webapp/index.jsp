@@ -2,10 +2,12 @@
 <%
     // Simulate a user being already logged in
     String username = "TestUser";
+    String email = "test@hotmail.com";
 
     // Set the username attribute in the session
     HttpSession userSession = request.getSession();
-    session.setAttribute("username", username);
+    userSession.setAttribute("username", username);
+    userSession.setAttribute("email", email);
 %>
 <!DOCTYPE html>
 <html>
