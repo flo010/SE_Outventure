@@ -31,10 +31,7 @@
 }
 
 .right-box-header {
-    background-image: url(https://images-ext-2.discordapp.net/external/UWRt0WHHZy54pEdlIqTygMTM65xW8SmqjeHoKumSW3M/https/i.pinimg.com/originals/5c/33/76/5c337658742096493147ed99544534e4.jpg?width=1498&height=936);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+    background-color: beige;
     height:20%;
     width: 100%;
     position: relative;
@@ -57,10 +54,31 @@
 .bold {
     font-weight: bold;
     font-size:32px;
+    margin-left:250px;
+}
+.text {
+    font-size:20px;
+    margin-left:250px;
 }
 .right-box-bottom{
     height:40%;
     width: 100%;
     position: relative;
     border: 1px solid darkgrey;
+}
+
+.pale-background{
+    background-color: #F8F7EF;
+}
+
+.rounded-circle-profil-image{
+    width: 200px; /* Ändere die Breite des Bildes */
+    height: 200px; /* Ändere die Höhe des Bildes */
+    border: 2px solid #ccc; /* Füge eine Umrandung hinzu */
+    border-radius: 50%; /* Mache das Bild rund */
+    object-fit: cover; /* Behalte das Bildverhältnis bei */
+    position: absolute; /* Positioniere das Bild absolut */
+    top: -75px; /* Positioniere das Bild um die Hälfte der Höhe nach oben */
+    left: 20px; /* Positioniere das Bild vom linken Rand */
+    z-index: 1;
 }

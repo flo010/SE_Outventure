@@ -26,13 +26,13 @@
         <div class="container">
             <div class="login-container">
                 <div class="left-box">
-                    <!-- Hier kannst du den Inhalt der linken Box platzieren -->
                 </div>
                 <div class="right-box">
                     <div class="right-box-header"></div>
                     <div class="right-box-body">
                         <span class="bold"><%=loggedInUser%></span><br>
-                        Email: <%=email%>
+                        <span class="text">Email: <%=email%></span>
+                        <img src="https://static.vecteezy.com/ti/gratis-vektor/p1/27448973-benutzerbild-konto-symbol-standard-sozial-medien-profil-foto-vektor.jpg" alt="Profilbild" class="rounded-circle-profil-image">
                     </div>
                     <div class="right-box-bottom"></div>
                 </div>
