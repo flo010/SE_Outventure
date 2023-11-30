@@ -11,17 +11,17 @@ import jakarta.transaction.Transactional;
 
 import java.io.IOException;
 
-@WebServlet(name = "createHikeServlet", value = "/create_hike")
+@WebServlet(name = "createHikeServlet", value = "/create/hike")
 public class CreateHikeServlet extends HttpServlet {
     @Transactional
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
+        String hikeParameter = request.getParameter("hikeID");
 
 
+        if(hikeParameter != null) {
 
-        if(request.getParameter("hikeID") != null) {
-
-            int hikeID = Integer.parseInt(request.getParameter("hikeID"));
+            int hikeID = Integer.parseInt(hikeParameter);
 
 
             FacadeJPA facadeJPA = FacadeJPA.getInstance();
