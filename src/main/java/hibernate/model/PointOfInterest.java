@@ -2,7 +2,6 @@ package hibernate.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import org.checkerframework.checker.units.qual.C;
 
 @Entity
 @Table(name = "points_of_interest")

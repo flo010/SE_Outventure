@@ -1,5 +1,4 @@
 <%@ page import="hibernate.model.Hike" %>
-<%@ page import="java.util.HashMap" %>
 <%@ page import="hibernate.model.PointOfInterest" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
@@ -11,17 +10,20 @@
   Time: 15:46
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
+
+<!DOCTYPE html>
 <html>
     <head>
         <title>Hike Detail</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link href="css/style.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
     </head>
     <body>
         <header>
-            <jsp:include page="navbar.jsp"/>
+            <outventure:navbar/>
         </header>
 
         <%
@@ -29,26 +31,11 @@
             double durationMinutes = (hike.getDuration() % 1) * 60;
 
             LocalDate localDate = hike.getDate(); // Retrieve the LocalDate object
-
-            // Define the desired date pattern
-            String pattern = "dd/MM/yyyy";
-
-            // Create a DateTimeFormatter using the specified pattern
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-
-            // Format the LocalDate into a String using the DateTimeFormatter
-            String formattedDate = localDate.format(formatter);
+            String pattern = "dd/MM/yyyy"; // Define the desired date pattern
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern); // Create a DateTimeFormatter using the specified pattern
+            String formattedDate = localDate.format(formatter); // Format the LocalDate into a String using the DateTimeFormatter
 
             List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
-            HashMap<Integer, String> demoImages = new HashMap<Integer, String>();
-            demoImages.put(101, "https://www.bergwelten.com/files/tour/images/niederkaiserkamm-14871-0.jpg?impolicy=gallerie_pictures");
-            demoImages.put(102, "https://vcdn.bergfex.at/images/resized/profiles/detail/986/1af6fc7b24cc5b2ff8a32e1953d53986.jpg?1283172909");
-            demoImages.put(103, "https://img.oastatic.com/img2/70761600/max/t.jpg?revbust=468c8c45");
-            demoImages.put(104, "https://www.steiermark.com/Alpstein/Images/67091283/1306941/image-thumb__1306941__lightbox/bad-mitterndorf-mit-grimming-25240459.jpg");
-            demoImages.put(105, "https://www.almenrausch.at/uploads/tx_webxhousingv2/trips/352/DSC_2340_9461.jpg");
-            demoImages.put(106, "https://www.bodensee.de/extension/portal-bodensee/var/storage/images/media/bibliothek/ausflugsziele/pfaenderbahn/pfaenderbahn-mit-ausblick/46348-1-ger-DE/pfaenderbahn-mit-ausblick_front_large.jpg");
-            demoImages.put(107, "https://vcdn.bergfex.at/images/resized/7c/fc07758d6a2af77c_20a169d014543ab0@2x.jpg");
-            demoImages.put(108, "https://d2exd72xrrp1s7.cloudfront.net/www/000/1k4/a8/a8mx6d7f7cpz17bjyys8lhlle3eto5gp1-uhi15367968/0?width=3072&height=2304&crop=false&q=70");
         %>
 
         <div class="container-sm mt-5 mb-5">
@@ -129,7 +116,7 @@
                     <h3>Details</h3>
                     <table>
                         <tr>
-                            <td><b>Required Condition</b></td>
+                            <td><b>Required Stamina</b></td>
                             <td>
                                 <span class="fa fa-circle-o" id="colored-circle-1"></span>
                                 <span class="fa fa-circle-o" id="colored-circle-2"></span>
@@ -139,7 +126,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><b>Level of Difficulty</b></td>
+                            <td><b>Required Strength</b></td>
                             <td>
                                 <span class="fa fa-circle-o" id="colored-circle-6"></span>
                                 <span class="fa fa-circle-o" id="colored-circle-7"></span>
@@ -159,7 +146,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><b>Landscape Beauty</b></td>
+                            <td><b>Beauty of Landscape</b></td>
                             <td>
                                 <span class="fa fa-circle-o" id="colored-circle-16"></span>
                                 <span class="fa fa-circle-o" id="colored-circle-17"></span>
@@ -206,78 +193,32 @@
                         <h3 class="mb-3">Points of Interest</h3>
                         <div class="row justify-content-start">
                             <div class="col mb-5">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center">Start</h4>
-                                        <hr>
-                                        <p class="card-text">
-                                            <strong>Name: </strong>
-                                            <%=hike.getStart().getName()%>
-                                        </p>
-                                        <p>
-                                            <strong>GPS Coordinates: </strong>
-                                            <%=hike.getStart().getLongitude()%> E, <%=hike.getStart().getLatitude()%> N
-                                        </p>
-                                        <p>
-                                            <a href="http://www.google.com/maps/place/<%=hike.getStart().getLatitude()%>,
-                                            <%=hike.getStart().getLongitude()%>", target="_blank">Auf Google Maps anzeigen</a>
-                                        </p>
-                                    </div>
-                                </div>
+                                <outventure:card_start
+                                        startName="<%=hike.getStart().getName()%>"
+                                        startLatitude="<%=hike.getStart().getLatitude()%>"
+                                        startLongitude="<%=hike.getStart().getLongitude()%>">
+                                </outventure:card_start>
                             </div>
                             <div class="col mb-5">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center">Destination</h4>
-                                        <hr>
-                                        <p>
-                                            <strong>Name: </strong>
-                                            <%=hike.getDestination().getName()%>
-                                        </p>
-                                        <p>
-                                            <strong>GPS Coordinates: </strong>
-                                            <%=hike.getDestination().getLongitude()%> E, <%=hike.getStart().getLatitude()%> N
-                                        </p>
-                                        <p>
-                                            <a href="http://www.google.com/maps/place/<%=hike.getDestination().getLatitude()%>,
-                                            <%=hike.getDestination().getLongitude()%>", target="_blank">Auf Google Maps anzeigen</a>
-                                        </p>
-                                    </div>
-                                </div>
+                                <outventure:card_destination
+                                        destinationName="<%=hike.getDestination().getName()%>"
+                                        destinationLatitude="<%=hike.getStart().getLatitude()%>"
+                                        destinationLongitude="<%=hike.getDestination().getLongitude()%>">
+                                </outventure:card_destination>
                             </div>
 
                             <%
                                 for (PointOfInterest pointOfInterest: pointsOfInterest) {
                             %>
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center"><%=pointOfInterest.getName()%></h4>
-                                        <hr>
-                                        <p>
-                                            <strong> Type: </strong><%= pointOfInterest.getType() %>
-                                        </p>
-                                        <p>
-                                            <%
-                                                if (pointOfInterest.getDescription() != null) {
-                                            %>
-                                                    <strong>Description: </strong>
-                                                    <%=pointOfInterest.getDescription()%>
-                                            <%
-                                                }
-                                            %>
-                                        </p>
-                                        <p>
-                                            <strong>GPS Coordinates: </strong>
-                                            <%=pointOfInterest.getLongitude()%> E, <%=pointOfInterest.getLatitude()%> N
-                                        </p>
-                                        <p>
-                                            <a href="http://www.google.com/maps/place/<%=pointOfInterest.getLatitude()%>,
-                                            <%=pointOfInterest.getLongitude()%>", target="_blank">Auf Google Maps anzeigen</a>
-                                        </p>
+                                    <div class="col">
+                                        <outventure:card_poi
+                                                poiName="<%=pointOfInterest.getName()%>"
+                                                poiType="<%=pointOfInterest.getType()%>"
+                                                poiDescription="<%=pointOfInterest.getDescription()%>"
+                                                poiLatitude="<%=pointOfInterest.getLatitude()%>"
+                                                poiLongitude="<%=pointOfInterest.getLongitude()%>">
+                                        </outventure:card_poi>
                                     </div>
-                                </div>
-                            </div>
                             <%}%>
                         </div>
                     </div>
@@ -288,42 +229,13 @@
                         <h3 class="mb-3">Getting There</h3>
                         <div class="row justify-content-start">
                             <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center">Start</h4>
-                                        <hr>
-                                        <p class="card-text">
-                                            <strong>Name: </strong>
-                                            <%=hike.getStart().getName()%>
-                                        </p>
-                                        <p>
-                                            <strong>GPS Coordinates: </strong>
-                                            <%=hike.getStart().getLongitude()%> E, <%=hike.getStart().getLatitude()%> N
-                                        </p>
-                                        <p>
-                                            <a href="http://www.google.com/maps/place/<%=hike.getStart().getLatitude()%>,
-                                            <%=hike.getStart().getLongitude()%>", target="_blank">Auf Google Maps anzeigen</a>
-                                        </p>
-                                        <p>
-                                            <%
-                                                String arrivalInformation = hike.getArrivalInformation();
-                                                if (arrivalInformation != null) {
-                                            %>
-                                                <strong>Arrival: </strong>
-                                                <%=arrivalInformation%>
-                                            <% } %>
-                                        </p>
-                                        <p>
-                                            <%
-                                                String parkingInformation = hike.getParkingInformation();
-                                                if (parkingInformation != null){
-                                            %>
-                                                <strong>Parking: </strong>
-                                                <%=parkingInformation%>
-                                            <% } %>
-                                        </p>
-                                    </div>
-                                </div>
+                                <outventure:card_start
+                                        startName="<%=hike.getStart().getName()%>"
+                                        startLatitude="<%=hike.getStart().getLatitude()%>"
+                                        startLongitude="<%=hike.getStart().getLongitude()%>"
+                                        arrivalInformation="<%=hike.getArrivalInformation()%>"
+                                        parkingInformation="<%=hike.getParkingInformation()%>">
+                                </outventure:card_start>
                             </div>
                         </div>
                     </div>
@@ -349,24 +261,14 @@
             </div>
         </div>
 
-        <script src="java_script/hike_detail.js"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                let circles = document.querySelectorAll('.fa.fa-circle-o');
+        <div id="dataForCircles"
+             data-stamina="<%= hike.getStamina() %>"
+             data-strength="<%= hike.getStrength() %>"
+             data-experience="<%= hike.getExperience() %>"
+             data-landscape="<%= hike.getLandscape() %>">
+        </div>
 
-                function fillCircles(count, startIndex) {
-                    for (let i = startIndex; i < startIndex + count; i++) {
-                        circles[i].classList.replace('fa-circle-o', 'fa-circle');
-                        circles[i].style.color = "#B6FC9D";
-                    }
-                }
-
-                fillCircles(<%= hike.getStamina() %>, 0);
-                fillCircles(<%= hike.getStrength() %>, 5);
-                fillCircles(<%= hike.getExperience() %>, 10);
-                fillCircles(<%= hike.getLandscape() %>, 15);
-            });
-        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="/hike_detail/hike_detail.js"></script>
     </body>
 </html>
