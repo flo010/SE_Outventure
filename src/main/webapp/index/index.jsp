@@ -36,7 +36,7 @@
         %>
         <div class="d-flex justify-content-center align-items-end">
             <div style="height: 200px;"></div>
-            <h1 class="display-1"><strong>Nobody, welcome to Outventure!</strong></h1>
+            <h1 class="display-1"><strong>Welcome to Outventure!</strong></h1>
         </div>
         <%
             }
