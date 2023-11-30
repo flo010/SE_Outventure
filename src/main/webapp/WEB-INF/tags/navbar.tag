@@ -59,11 +59,12 @@
                     </div>
                     <a href="search_results" class="text-white"><i class="fas fa-search ps-3"></i></a>
                 </form>
-                <a class="nav-link" href="/search_results/search_results.jsp">Search Hike</a>
-                <a class="nav-link" href="/create_hike/create_hike.jsp">Create Hike</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/search_results/search_results.jsp">Search Hike</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/create_hike/create_hike.jsp">Create Hike</a>
             </div>
         </div>
         <%
+            assert userSession != null;
             String loggedInUser =  (String) userSession.getAttribute("username");
             if (isLoggedIn) {
         %>

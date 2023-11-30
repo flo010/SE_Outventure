@@ -28,7 +28,7 @@
         </p>
         <p>
             <a href="http://www.google.com/maps/place/${poiLatitude},
-                                            ${poiLongitude}", target="_blank">Auf Google Maps anzeigen</a>
+                                            ${poiLongitude}" , target="_blank">Auf Google Maps anzeigen</a>
         </p>
     </div>
 </div>
