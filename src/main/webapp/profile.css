@@ -27,6 +27,7 @@
     margin-top: 30px;
     margin-bottom: 30px;
     width: 70%;
+    position: relative;
 }
 
 .right-box-header {
@@ -38,12 +39,20 @@
     width: 100%;
     position: relative;
     border: 1px solid darkgrey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
+
+
 .right-box-body{
     height:40%;
     width: 100%;
     position: relative;
     border: 1px solid darkgrey;
+    position: relative;
+    z-index: 0;
 }
 .bold {
     font-weight: bold;

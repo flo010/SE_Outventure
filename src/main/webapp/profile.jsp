@@ -17,8 +17,10 @@
         <header>
             <jsp:include page="navbar.jsp"/>
         </header>
-        <div class="login-container">
+        <div class="container">
+            <div class="login-container">
                 <div class="left-box">
+                    <!-- Hier kannst du den Inhalt der linken Box platzieren -->
                 </div>
                 <div class="right-box">
                     <div class="right-box-header"></div>
@@ -28,6 +30,7 @@
                     </div>
                     <div class="right-box-bottom"></div>
                 </div>
+            </div>
         </div>
 
 
