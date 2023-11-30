@@ -81,7 +81,7 @@ td, th {
     width: 95%;
 }
 
-.search-results-background {
+.pale-background{
     background-color: #F8F7EF;
 }
 
@@ -124,5 +124,6 @@ legend {
 #previewCoverImage {
     display: none;
 }
+
 
 
