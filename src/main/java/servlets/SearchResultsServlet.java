@@ -34,7 +34,7 @@ public class SearchResultsServlet extends HttpServlet {
         session.setAttribute("hikeList", hikeList);
 
         try {
-            request.getRequestDispatcher("/search_results.jsp").forward(request, response);
+            request.getRequestDispatcher("/search_results/search_results.jsp").forward(request, response);
         } catch (ServletException e) {
             throw new RuntimeException(e);
         }

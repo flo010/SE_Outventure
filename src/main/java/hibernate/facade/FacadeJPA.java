@@ -122,8 +122,7 @@ public class FacadeJPA implements Facade {
 
     public Picture getNewPicture(){
         PictureBroker pictureBroker = new PictureBroker();
-        Picture picture = pictureBroker.getNewPicture();
 
-        return picture;
+        return pictureBroker.getNewPicture();
     }
 }
