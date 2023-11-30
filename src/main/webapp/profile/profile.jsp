@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 <%
     HttpSession userSession = request.getSession();
     String loggedInUser =  (String) userSession.getAttribute("username");
