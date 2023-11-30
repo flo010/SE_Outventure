@@ -1,4 +1,9 @@
-// functions for switching pills
+// Call the function when the DOM is ready
+document.addEventListener('DOMContentLoaded', function () {
+    initializePage();
+});
+
+// functions for switching tabs
 function nextTab() {
     shouldPromptBeforeUnload = false;
     let activeTab = document.querySelector(".nav-link.active");
@@ -83,36 +88,74 @@ function rangeCount(id, labelId){
     });
 }
 
-// POI modal functions
-
+// POI functions
 const pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
 
 function savePointOfInterest() {
+    // Reset previous validation errors
+    resetValidationErrors();
+
     // Get values from the form
     const poiName = document.getElementById('poiName').value;
-    const poiLatitude = document.getElementById('poiLatitude').value;
-    const poiLongitude = document.getElementById('poiLongitude').value;
+    const poiLatitude = parseFloat(document.getElementById('poiLatitude').value);
+    const poiLongitude = parseFloat(document.getElementById('poiLongitude').value);
     const poiDescription = document.getElementById("poiDescription").value;
     const poiType = document.getElementById("poiType").value;
 
     // Check if required fields are empty
-    if (!poiName || !poiLatitude || !poiLongitude || poiType === "Select type") {
+    if (!poiName || isNaN(poiLatitude) || isNaN(poiLongitude) || poiType === "Select type") {
         const errorMessage = document.getElementById('poiErrorMessage');
         errorMessage.style.display = 'block';
+        return;
     }
-    else {
-        appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitude);
 
-        // Clear the input fields in the modal
-        document.getElementById('poiName').value = '';
-        document.getElementById('poiLatitude').value = '';
-        document.getElementById('poiLongitude').value = '';
-        document.getElementById('poiDescription').value = '';
-        document.getElementById('poiType').value = 'Select type';
-
-        // Close the modal
-        pointsOfInterestModal.hide();
+    // Validate longitude and latitude ranges
+    if (poiLongitude < -180.0 || poiLongitude > 180.0) {
+        displayValidationError('Please enter a valid longitude between -180.0 and 180.0.', 'poiLongitude');
+        return;
     }
+
+    if (poiLatitude < -90.0 || poiLatitude > 90.0) {
+        displayValidationError('Please enter a valid latitude between -90.0 and 90.0.', 'poiLatitude');
+        return;
+    }
+
+    // Continue with saving the point of interest if validation passes
+    appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitude);
+
+    // Clear the input fields in the modal
+    document.getElementById('poiName').value = '';
+    document.getElementById('poiLatitude').value = '';
+    document.getElementById('poiLongitude').value = '';
+    document.getElementById('poiDescription').value = '';
+    document.getElementById('poiType').value = 'Select type';
+
+    // Close the modal
+    pointsOfInterestModal.hide();
+}
+
+function displayValidationError(message, fieldId) {
+    // Display error message for the specified field
+    var field = document.getElementById(fieldId);
+    field.classList.add('is-invalid');
+    field.nextElementSibling.innerText = message;
+    field.nextElementSibling.style.color = 'red';
+    field.nextElementSibling.style.display = 'block';
+}
+
+function resetValidationErrors() {
+    // Reset all error messages and styling
+    let formElements = document.getElementById('poiForm').elements;
+    for (let i = 0; i < formElements.length; i++) {
+        let element = formElements[i];
+        if (element.type !== 'hidden') {
+            element.classList.remove('is-invalid');
+            if (element.nextElementSibling && element.nextElementSibling.className === 'invalid-feedback') {
+                element.nextElementSibling.style.display = 'none';
+            }
+        }
+    }
+    document.getElementById('poiErrorMessage').style.display = 'none';
 }
 
 function appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitude) {
@@ -161,6 +204,51 @@ function appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitud
     cardToEdit = cardToEdit.remove();
 }
 
+function openPoiModal() {
+    // JavaScript code to activate the modal
+    let pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
+
+    pointsOfInterestModal.show();
+}
+
+let cardToEdit;
+
+function deletePointOfInterest(button) {
+    // Get the parent card element and remove it
+    const card = button.closest('.pointOfInterest');
+    card.remove();
+}
+
+function editPointOfInterest(editButton) {
+    const card = editButton.closest('.pointOfInterest');
+    const cardPOIName = card.querySelector(".poiTempName");
+    const cardPOIType = card.querySelector(".poiTempType");
+    const cardPOICoordinates = card.querySelector(".poiTempCoordinates");
+    const cardPOIDescription = card.querySelector(".poiTempDescription");
+
+    const latitude = cardPOICoordinates.innerText.split(", ")[0];
+    const longitude = cardPOICoordinates.innerText.split(", ")[1];
+
+    document.getElementById('poiName').value = cardPOIName.innerText;
+    document.getElementById("poiType").value = cardPOIType.innerText.slice(6);
+    document.getElementById('poiLatitude').value = latitude.slice(17);
+    document.getElementById('poiLongitude').value = longitude;
+
+    if (cardPOIDescription) {
+        document.getElementById('poiDescription').value = cardPOIDescription.innerText.slice(13);
+    } else {
+        document.getElementById('poiDescription').value = '';
+    }
+
+    const errorMessage = document.getElementById('poiErrorMessage');
+    errorMessage.style.display = 'none';
+
+    cardToEdit = card;
+
+    openPoiModal();
+}
+
+// functions to save form input
 function saveInput() {
     let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
     let allInputsFilled = true;
@@ -187,6 +275,7 @@ function saveInput() {
     }
 }
 
+// image functions
 function uploadImageToServer(file) {
     const formData = new FormData();
     formData.append('image', file);
@@ -208,44 +297,6 @@ function uploadImageToServer(file) {
         });
 }
 
-let cardToEdit;
-
-function editPointOfInterest(editButton) {
-    const card = editButton.closest('.pointOfInterest');
-    const cardPOIName = card.querySelector(".poiTempName");
-    const cardPOIType = card.querySelector(".poiTempType");
-    const cardPOICoordinates = card.querySelector(".poiTempCoordinates");
-    const cardPOIDescription = card.querySelector(".poiTempDescription");
-
-    const latitude = cardPOICoordinates.innerText.split(", ")[0];
-    const longitude = cardPOICoordinates.innerText.split(", ")[1];
-
-    document.getElementById('poiName').value = cardPOIName.innerText;
-    document.getElementById("poiType").value = cardPOIType.innerText.slice(6);
-    document.getElementById('poiLatitude').value = latitude.slice(17);
-    document.getElementById('poiLongitude').value = longitude;
-
-    if (cardPOIDescription) {
-        document.getElementById('poiDescription').value = cardPOIDescription.innerText.slice(13);
-    } else {
-        document.getElementById('poiDescription').value = '';
-    }
-    
-    const errorMessage = document.getElementById('poiErrorMessage');
-    errorMessage.style.display = 'none';
-
-    cardToEdit = card;
-
-    openPoiModal();
-}
-
-function deletePointOfInterest(button) {
-    // Get the parent card element and remove it
-    const card = button.closest('.pointOfInterest');
-    card.remove();
-}
-
-// image functions
 function previewImage(inputId, previewId) {
     const input = document.getElementById(inputId);
     const preview = document.getElementById(previewId);
@@ -268,7 +319,6 @@ function previewImage(inputId, previewId) {
         });
     }
 }
-
 
 function handleCoverImage() {
     const input = document.getElementById('coverImageInput');
@@ -302,10 +352,135 @@ function handleCoverImage() {
                     // Optionally, you can upload the compressed image to a server here.
                     uploadImageToServer(compressedDataURL);
                 };
-                img.src = e.target.result;
+                img.src = e.target.result.toString();
             };
 
             reader.readAsDataURL(file);
         }
     });
+}
+
+// prompt functions
+let shouldPromptBeforeUnload = true; // Variable to track whether to prompt before unload
+
+function cancelCancel(){
+}
+
+function confirmCancel() {
+    let myModal = new bootstrap.Modal(document.getElementById('cancelConfirmationModal'), {
+        keyboard: false
+    });
+    myModal.show();
+}
+
+function cancelProcess() {
+    shouldPromptBeforeUnload = false;
+    window.location.href = "/index/index.jsp";
+}
+
+// function to initialize the page
+function initializePage() {
+    'use strict';
+
+    // Setup for slider
+    rangeCount('conditionInput', 'rangeValue1');
+    rangeCount('difficultyInput', 'rangeValue2');
+    rangeCount('experienceInput', 'rangeValue3');
+    rangeCount('landscapeInput', 'rangeValue4');
+
+    // Setup for images
+    previewImage('coverImageInput', 'previewCoverImage');
+
+    //Checkboxes
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    let container = document.getElementById("monthContainer");
+
+    for (let i = 0; i < months.length; i++) {
+        // Create the month div
+        let monthDiv = document.createElement("div");
+        monthDiv.className = "form-check form-check-inline";
+
+        // Create the checkbox input
+        let checkboxInput = document.createElement("input");
+        checkboxInput.className = "form-check-input months";
+        checkboxInput.type = "checkbox";
+        checkboxInput.id = "optimalSeason" + months[i];
+        checkboxInput.value = "false";
+        checkboxInput.name = "monthCheckbox" + months[i]; // Added name attribute
+
+        // Create the label for the checkbox
+        let label = document.createElement("label");
+        label.className = "form-check-label";
+        label.setAttribute("for", "monthCheckbox" + i);
+        label.innerText = months[i];
+
+        checkboxInput.addEventListener("change", function () {
+            // Update the value of the checkbox based on its checked state
+            checkboxInput.value = checkboxInput.checked ? "true" : "false";
+        });
+
+        // Append the input and label to the month div
+        monthDiv.appendChild(checkboxInput);
+        monthDiv.appendChild(label);
+
+        // Append the month div to the container
+        container.appendChild(monthDiv);
+    }
+
+    // Input event listeners
+    document.getElementById('distanceInput').addEventListener('input', function () {
+        let value = this.value;
+        this.value = value.replace(/[^0-9.]/g, '');
+    });
+
+    document.getElementById('hoursInput').addEventListener('input', function () {
+        let value = this.value;
+        this.value = value.replace(/[^0-9]/g, '');
+    });
+
+    document.getElementById('minutesInput').addEventListener('input', function () {
+        let value = this.value;
+        this.value = value.replace(/[^0-9]/g, '');
+    });
+
+    document.getElementById('altitudeInput').addEventListener('input', function () {
+        let value = this.value;
+        this.value = value.replace(/[^0-9]/g, '');
+    });
+
+    document.getElementById('startID').addEventListener('input', function () {
+        let value = this.value;
+        this.value = value.replace(/[^\d.,-]/g, '');
+    });
+
+    document.getElementById('destinationID').addEventListener('input', function () {
+        let value = this.value;
+        this.value = value.replace(/[^\d.,-]/g, '');
+    });
+}
+
+// function for validation
+(function () {
+    window.addEventListener('load', function () {
+        let forms = document.getElementsByClassName('needs-validation');
+        Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    var toast = new bootstrap.Toast(document.getElementById("validationToast"));
+                    toast.show();
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+
+// function to prompt
+window.onbeforeunload = function () {
+    if (shouldPromptBeforeUnload) {
+        return 'Do you really want to leave this page?';
+    }
 }

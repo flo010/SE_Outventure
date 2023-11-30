@@ -49,17 +49,15 @@ public class FacadeJPA implements Facade {
     @Override
     public Hike getHikeByIDLazy(int hikeID) {
         HikeBroker hikeBroker = new HikeBroker();
-        Hike hike = hikeBroker.getLazy(hikeID);
 
-        return hike;
+        return hikeBroker.getLazy(hikeID);
     }
 
     @Override
     public Hike getHikeByIDEager(int hikeID) {
         HikeBroker hikeBroker = new HikeBroker();
-        Hike hike = hikeBroker.getEager(hikeID);
 
-        return hike;
+        return hikeBroker.getEager(hikeID);
     }
 
     @Override
@@ -79,23 +77,20 @@ public class FacadeJPA implements Facade {
     @Override
     public Picture getPictureByID(int pictureID) {
         PictureBroker pictureBroker = new PictureBroker();
-        Picture picture = pictureBroker.getLazy(pictureID);
 
-        return picture;
+        return pictureBroker.getLazy(pictureID);
     }
 
     @Override
     public List<Picture> getAllPictures() {
         PictureBroker pictureBroker = new PictureBroker();
-        List<Picture> pictures = pictureBroker.getAll();
 
-        return pictures;
+        return pictureBroker.getAll();
     }
 
     public Picture getNewPicture(){
         PictureBroker pictureBroker = new PictureBroker();
-        Picture picture = pictureBroker.getNewPicture();
 
-        return picture;
+        return pictureBroker.getNewPicture();
     }
 }

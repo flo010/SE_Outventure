@@ -35,7 +35,7 @@ public abstract class BrokerBase<T> {
         return value;
     }
 
-    public  void delete(T value) {
+    public void delete(T value) {
         EntityManager entityManager = getEntityManager();
         entityManager.getTransaction().begin();
         entityManager.remove(entityManager.contains(value) ? value : entityManager.merge(value));
