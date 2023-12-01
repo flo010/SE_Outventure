@@ -42,22 +42,29 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function (){
     let mapData = document.getElementById('mapData');
     let startName = mapData.getAttribute('start-name');
-    let startLatitude = mapData.getAttribute('start-latitude');
-    let startLongitude = mapData.getAttribute('start-longitude');
+    let startLatitude = parseFloat(mapData.getAttribute('start-latitude'));
+    let startLongitude = parseFloat(mapData.getAttribute('start-longitude'));
     let destinationName = mapData.getAttribute('destination-name');
-    let destinationLatitude = mapData.getAttribute('destination-latitude');
-    let destinationLongitude = mapData.getAttribute('destination-longitude');
+    let destinationLatitude = parseFloat(mapData.getAttribute('destination-latitude'));
+    let destinationLongitude = parseFloat(mapData.getAttribute('destination-longitude'));
 
-    let map = L.map('map').setView([startLatitude, startLongitude], 14);
+    // leaflet methods to initialize the map so that entire hike is always visible
+    let startBound = L.latLng(startLatitude, startLongitude);
+    let destinationBound = L.latLng(destinationLatitude, destinationLongitude);
+    let bounds = L.latLngBounds(startBound, destinationBound);
+
+    let map = L.map('map');
+    map.fitBounds(bounds);
+
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
     let destination = L.marker([destinationLatitude, destinationLongitude]).addTo(map);
-    destination.bindPopup("<b>Destination: </b>" + destinationName).openPopup();
+    destination.bindPopup("<b>Destination: </b>" + destinationName);
     let start = L.marker([startLatitude, startLongitude]).addTo(map);
-    start.bindPopup("<b>Start: </b>" + startName).openPopup();
+    start.bindPopup("<b>Start: </b>" + startName);
 
     let polyline = L.polyline([
         [startLatitude, startLongitude],
