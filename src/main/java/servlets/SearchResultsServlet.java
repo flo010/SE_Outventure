@@ -21,19 +21,20 @@ public class SearchResultsServlet extends HttpServlet {
         request.setAttribute("hikeDeleted", hikeDeleted);
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
-        String title = request.getParameter("search");
+        String searchString = request.getParameter("search");
+
         List<Hike> hikeList = null;
 
-        if ((title != null) && (!title.isEmpty())) {
-            hikeList = facadeJPA.getHikesByTitleLazy(title);
+        if ((searchString != null) && (!searchString.isEmpty())) {
+            hikeList = facadeJPA.getHikesByTitleLazy(searchString);
         } else {
             hikeList = facadeJPA.getAllHikesLazy();
         }
 
         HttpSession session = request.getSession();
-        if(hikeList !=null) {
-            session.setAttribute("hikeList", hikeList);
-        }
+        session.setAttribute("hikeList", hikeList);
+        session.setAttribute("searchString", searchString);
+
         try {
             request.getRequestDispatcher("/search_results/search_results.jsp").forward(request, response);
         } catch (ServletException e) {
