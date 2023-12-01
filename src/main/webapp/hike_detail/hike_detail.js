@@ -40,6 +40,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // map functions
 document.addEventListener("DOMContentLoaded", function (){
+    initialiseMap();
+})
+
+function initialiseMap() {
     let mapData = document.getElementById('mapData');
     let startName = mapData.getAttribute('start-name');
     let startLatitude = mapData.getAttribute('start-latitude');
@@ -48,7 +52,8 @@ document.addEventListener("DOMContentLoaded", function (){
     let destinationLatitude = mapData.getAttribute('destination-latitude');
     let destinationLongitude = mapData.getAttribute('destination-longitude');
 
-    let map = L.map('map').setView([startLatitude, startLongitude], 14);
+    let map = new L.Map('map', {fullscreenControl: true,}).setView([startLatitude, startLongitude], 14);
+    
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -63,4 +68,4 @@ document.addEventListener("DOMContentLoaded", function (){
         [startLatitude, startLongitude],
         [destinationLatitude, destinationLongitude]
     ]).addTo(map);
-})
+}
