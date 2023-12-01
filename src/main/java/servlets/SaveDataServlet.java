@@ -125,13 +125,10 @@ public class SaveDataServlet extends HttpServlet {
 
         // Check if the user is logged in
         if (loggedInUser != null) {
-
-            Hike author = new Hike();
             hike.setAuthor(loggedInUser);
         } else {
             System.out.println("User not logged in");
         }
-        //hike.setAuthor("Admin");
         hike.setDate(currentDate);
         hike.setVisible(true);
         hike.setRegion("Bregenzerwald");
