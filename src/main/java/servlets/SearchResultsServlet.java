@@ -41,4 +41,13 @@ public class SearchResultsServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String clearedSearchString = request.getParameter("clearedSearchString");
+
+        if (clearedSearchString != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("searchString", clearedSearchString);
+        }
+    }
 }
