@@ -449,15 +449,7 @@ function initializePage() {
         this.value = value.replace(/[^0-9]/g, '');
     });
 
-    document.getElementById('startID').addEventListener('input', function () {
-        let value = this.value;
-        this.value = value.replace(/[^\d.,-]/g, '');
-    });
-
-    document.getElementById('destinationID').addEventListener('input', function () {
-        let value = this.value;
-        this.value = value.replace(/[^\d.,-]/g, '');
-    });
+    initialiseMap();
 }
 
 // function for validation
@@ -483,4 +475,14 @@ window.onbeforeunload = function () {
     if (shouldPromptBeforeUnload) {
         return 'Do you really want to leave this page?';
     }
+}
+
+function initialiseMap() {
+    // leaflet methods to initialize the map so that entire hike is always visible
+    let map = new L.Map('map', {fullscreenControl: true,}).setView([47.4167, 9.7500], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
 }

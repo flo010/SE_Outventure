@@ -86,7 +86,7 @@ td, th {
 }
 
 .form-label {
-    font-size: 1.3em;
+    font-size: 1.25rem;
 }
 .paragraph-container {
     display: flex;
@@ -99,6 +99,10 @@ td, th {
 
 .pointer {
     cursor: pointer;
+}
+
+.map {
+    height: 450px;
 }
 
 /* Chrome, Safari, Edge, Opera */
