@@ -66,9 +66,11 @@ function initialiseMap() {
     }).addTo(map);
 
     let destination = L.marker([destinationLatitude, destinationLongitude]).addTo(map);
-    destination.bindPopup("<b>Destination: </b>" + destinationName);
+    destination.bindPopup("<strong>Destination: </strong>" + destinationName + "<br> <strong>Coordinates: </strong>" + destinationLatitude + " N, " + destinationLongitude + " E");
+    destination.bindTooltip("<strong>Destination: </strong>" + destinationName)
     let start = L.marker([startLatitude, startLongitude]).addTo(map);
-    start.bindPopup("<b>Start: </b>" + startName);
+    start.bindPopup("<strong>Destination: </strong>" + startName + "<br> <strong>Coordinates: </strong>" + startLatitude + " N, " + startLongitude + " E");
+    start.bindTooltip("<strong>Start: </strong>" + startName);
 
     let polyline = L.polyline([
         [startLatitude, startLongitude],
