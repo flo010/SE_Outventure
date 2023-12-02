@@ -506,46 +506,43 @@ function handleGpxFile(input) {
     }
 }
 
+function autoFillStartDestination(file) {
+    const reader = new FileReader();
 
-document.addEventListener("DOMContentLoaded", function () {
-    function showToast(message) {
-        const toast = document.createElement("div");
-        toast.className = "toast";
-        toast.textContent = message;
-        document.body.appendChild(toast);
+    reader.onload = function (e) {
+        const gpxData = e.target.result;
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(gpxData, "text/xml");
 
-        setTimeout(function () {
-            toast.remove();
-        }, 3000); // Adjust the timeout as needed
-    }
+        const trackPoints = xmlDoc.querySelectorAll("rtept").length === 0 ? xmlDoc.querySelectorAll("trkpt") : xmlDoc.querySelectorAll("rtept");
 
-    function autoFillStartDestination(file) {
-        const reader = new FileReader();
+        if (trackPoints.length <= 1) {
+            createToast("trackpointsMissingToast", "Trackpoints missing", "Please upload a GPX file that contains at least two trackpoints");
+            showToast("trackpointsMissingToast");
+        }
+        else {
+            const startPoint = trackPoints[0];
+            const startNameElement = startPoint.querySelector("name");
+            const startName = startNameElement ? startNameElement.textContent : "";
 
-        reader.onload = function (e) {
-            const gpxData = e.target.result;
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(gpxData, "text/xml");
+            const destinationPoint = trackPoints[trackPoints.length - 1];
+            const destinationNameElement = destinationPoint.querySelector("name");
+            const destinationName = destinationNameElement ? destinationNameElement.textContent : "";
 
-            const trackPoints = xmlDoc.querySelectorAll("rtept").length === 0 ? xmlDoc.querySelectorAll("trkpt") : xmlDoc.querySelectorAll("rtept");
+            const latitudeStart = startPoint.getAttribute("lat");
+            console.log("latStart" + latitudeStart);
+            const longitudeStart = startPoint.getAttribute("lon");
+            console.log("lonStart" + longitudeStart);
+            const latitudeDestination = destinationPoint.getAttribute("lat");
+            console.log("latDest" + latitudeDestination);
+            const longitudeDestination = destinationPoint.getAttribute("lon");
+            console.log("lonDest" + longitudeDestination);
 
-            if (trackPoints.length !== 0) {
-                const startPoint = trackPoints[0];
-                const startNameElement = startPoint.querySelector("name");
-                const startName = startNameElement ? startNameElement.textContent : "";
-
-                const destinationPoint = trackPoints[trackPoints.length - 1];
-                const destinationNameElement = destinationPoint.querySelector("name");
-                const destinationName = destinationNameElement ? destinationNameElement.textContent : "";
-
-                const latitudeStart = startPoint.getAttribute("lat");
-                const longitudeStart = startPoint.getAttribute("lon");
-                const latitudeDestination = destinationPoint.getAttribute("lat");
-                const longitudeDestination = destinationPoint.getAttribute("lon");
-
-                /*if (startName === "" || latitudeStart === null || longitudeStart === null || destinationName === "" || latitudeDestination === null || longitudeDestination === null) {
-                    showToast("Unable to fill in all input fields");
-                } else {*/
+            if (!latitudeStart || !longitudeStart || !latitudeDestination || !longitudeDestination) {
+                // Latitude or longitude is missing, show a toast
+                createToast("missingCoordinatesToast", "Coordinates cannot be filled in", "Please check your GPX file - Latitude or longitude is missing");
+                showToast("missingCoordinatesToast");
+            } else {
                 // Fill in the input fields
                 document.getElementById("startNameInput").value = startName;
                 document.getElementById("latitudeStartCoordinateInput").value = latitudeStart;
@@ -554,13 +551,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("destinationNameInput").value = destinationName;
                 document.getElementById("latitudeDestinationCoordinateInput").value = latitudeDestination;
                 document.getElementById("longitudeDestinationCoordinateID").value = longitudeDestination;
-                /* }
-             } else {*/
-                showToast("No track points found in the GPX file");
             }
-        };
+        }
+    };
+    reader.readAsText(file);
 
-        reader.readAsText(file);
-    }
-});
 
+}
