@@ -555,6 +555,4 @@ function autoFillStartDestination(file) {
         }
     };
     reader.readAsText(file);
-
-
 }
