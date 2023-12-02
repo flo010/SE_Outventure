@@ -20,7 +20,7 @@
         <div class="container py-3">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
                 <%
-                    List<Hike> hikeList = (List<Hike>) request.getAttribute("hikeList");
+                    List<Hike> hikeList = (List<Hike>) session.getAttribute("hikeList");
 
                     for (Hike hike : hikeList) {
                         if (hike.isVisible()){
