@@ -73,16 +73,6 @@ function updateProgressBar () {
     }
 }
 
-// slider functions
-function rangeCount(id, labelId){
-    let rangeInput = document.getElementById(id);
-    let rangeValue = document.getElementById(labelId);
-
-    rangeInput.addEventListener('input', function () {
-        rangeValue.textContent = rangeInput.value;
-    });
-}
-
 // POI modal functions
 
 const pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));

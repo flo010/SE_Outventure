@@ -180,22 +180,22 @@
                         <div class="input-fields-group less-width">
                             <div>
                                 <label for="conditionInput" class="form-label">Required Condition *</label>
-                                <input type="range" class="custom-range" id="conditionInput" name="conditionInput" min="1" max="5" step="1" value="<%=stamina%>">
+                                <input type="range" class="custom-range" id="conditionInput" name="conditionInput" min="1" max="5" step="1" value="<%=stamina%>" oninput="updateLabel('conditionInput', 'rangeValue1')">
                                 <label id="rangeValue1"><%=stamina%></label>
                             </div>
                             <div>
                                 <label for="difficultyInput" class="form-label">Level of Difficulty *</label>
-                                <input type="range" class="custom-range" id="difficultyInput" name="difficultyInput" min="1" max="5" step="1" value="<%=strength%>">
+                                <input type="range" class="custom-range" id="difficultyInput" name="difficultyInput" min="1" max="5" step="1" value="<%=strength%>" oninput="updateLabel('difficultyInput', 'rangeValue2')">
                                 <label id="rangeValue2"><%=strength%></label>
                             </div>
                             <div>
                                 <label for="experienceInput" class="form-label">Required Experience *</label>
-                                <input type="range" class="custom-range" id="experienceInput" name="experienceInput" min="1" max="5" step="1" value="<%=experience%>">
+                                <input type="range" class="custom-range" id="experienceInput" name="experienceInput" min="1" max="5" step="1" value="<%=experience%>" oninput="updateLabel('experienceInput', 'rangeValue3')">
                                 <label id="rangeValue3"><%=experience%></label>
                             </div>
                             <div>
                                 <label for="landscapeInput" class="form-label">Beauty of Landscape *</label>
-                                <input type="range" class="custom-range" id="landscapeInput" name="landscapeInput" min="1" max="5" step="1" value="<%=landscape%>">
+                                <input type="range" class="custom-range" id="landscapeInput" name="landscapeInput" min="1" max="5" step="1" value="<%=landscape%>" oninput="updateLabel('landscapeInput', 'rangeValue4')">
                                 <label id="rangeValue4"><%=landscape%></label>
                             </div>
                         </div>
@@ -513,6 +513,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="java_script/create_hike.js"></script>
         <script>
+
             // Example starter JavaScript for disabling form submissions if there are invalid fields
             (function() {
                 'use strict';
@@ -533,6 +534,13 @@
             })();
 
             let shouldPromptBeforeUnload = true; // Variable to track whether to prompt before unload
+
+            //function to change the range values dynamically with the sliders
+            function updateLabel(inputId, labelId) {
+                var inputValue = document.getElementById(inputId).value;
+                document.getElementById(labelId).innerText = inputValue;
+                console.log('Function called with inputId:', inputId, 'labelId:', labelId);
+            }
 
             // prompt functions
             function cancelCancel(){
@@ -562,11 +570,6 @@
                     return 'Do you really want to leave this page?';
                 }
             }
-
-            rangeCount('conditionInput', 'rangeValue1');
-            rangeCount('difficultyInput', 'rangeValue2');
-            rangeCount('experienceInput', 'rangeValue3');
-            rangeCount('landscapeInput', 'rangeValue4');
 
             // Setup for images
             previewImage('coverImageInput', 'previewCoverImage');
