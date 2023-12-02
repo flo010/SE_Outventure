@@ -533,7 +533,8 @@ function autoFillStartDestination(file) {
 
             if (!latitudeStart || !longitudeStart || !latitudeDestination || !longitudeDestination) {
                 // Latitude or longitude is missing, show a toast
-                showToast("gpxImport", "GPX Coordinates cannot be filled in", "Please check your imported GPX File");
+                createToast("gpxImport", "GPX Coordinates cannot be filled in", "Please check your imported GPX File");
+                showToast("gpxImport");
             } else {
                 // Fill in the input fields
                 document.getElementById("startNameInput").value = startName;
