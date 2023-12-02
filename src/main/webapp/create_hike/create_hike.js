@@ -477,12 +477,53 @@ window.onbeforeunload = function () {
     }
 }
 
+// map functions
 function initialiseMap() {
-    // leaflet methods to initialize the map so that entire hike is always visible
     let map = new L.Map('map', {fullscreenControl: true,}).setView([47.4167, 9.7500], 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
+
+    let startMarker, endMarker, polyline;
+
+    map.on('click', function(event) {
+        let clickedLatLng = event.latlng;
+
+        if (!startMarker) {
+            // Open the Bootstrap modal for entering a name for the start point
+            $('#nameModalLabel').text('Enter Name for Start Point').data('type', 'start');
+            $('#nameModal').modal('show');
+        } else if (!endMarker) {
+            // Open the Bootstrap modal for entering a name for the end point
+            $('#nameModalLabel').text('Enter Name for End Point').data('type', 'end');
+            $('#nameModal').modal('show');
+        }
+    });
+
+    // Event listener for the Save button in the modal
+    $('#saveName').on('click', function() {
+        let name = $('#nameInput').val();
+        if (name) {
+            let type = $('#nameModalLabel').data('type');
+            let marker;
+            if (type === 'start') {
+                marker = L.marker(startMarker.getLatLng(), { draggable: true }).addTo(map)
+                    .bindPopup(`Start Point: <strong>${name}</strong> - ${startMarker.getLatLng().toString()}`).openPopup();
+                startMarker.remove();
+                startMarker = marker;
+            } else if (type === 'end') {
+                marker = L.marker(endMarker.getLatLng(), { draggable: true }).addTo(map)
+                    .bindPopup(`End Point: <strong>${name}</strong> - ${endMarker.getLatLng().toString()}`).openPopup();
+                endMarker.remove();
+                endMarker = marker;
+
+                polyline = L.polyline([startMarker.getLatLng(), endMarker.getLatLng()], { color: 'red' }).addTo(map);
+            }
+            $('#nameModal').modal('hide');
+        } else {
+            alert('Please enter a name.');
+        }
+    });
 }
