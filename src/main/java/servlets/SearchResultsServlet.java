@@ -33,6 +33,7 @@ public class SearchResultsServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if(hikeList !=null) {
             session.setAttribute("hikeList", hikeList);
+            request.setAttribute("hikeList", hikeList);
         }
         try {
             request.getRequestDispatcher("/search_results/search_results.jsp").forward(request, response);
