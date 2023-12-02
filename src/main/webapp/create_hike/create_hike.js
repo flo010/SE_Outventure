@@ -516,7 +516,11 @@ function autoFillStartDestination(file) {
 
         const trackPoints = xmlDoc.querySelectorAll("rtept").length === 0 ? xmlDoc.querySelectorAll("trkpt") : xmlDoc.querySelectorAll("rtept");
 
-        if (trackPoints.length !== 0) {
+        if (trackPoints.length <= 1) {
+            createToast("trackpointsMissingToast", "Trackpoints missing", "Please upload a GPX file that contains at least two trackpoints");
+            showToast("trackpointsMissingToast");
+        }
+        else {
             const startPoint = trackPoints[0];
             const startNameElement = startPoint.querySelector("name");
             const startName = startNameElement ? startNameElement.textContent : "";
@@ -526,15 +530,18 @@ function autoFillStartDestination(file) {
             const destinationName = destinationNameElement ? destinationNameElement.textContent : "";
 
             const latitudeStart = startPoint.getAttribute("lat");
+            console.log("latStart" + latitudeStart);
             const longitudeStart = startPoint.getAttribute("lon");
+            console.log("lonStart" + longitudeStart);
             const latitudeDestination = destinationPoint.getAttribute("lat");
+            console.log("latDest" + latitudeDestination);
             const longitudeDestination = destinationPoint.getAttribute("lon");
-
+            console.log("lonDest" + longitudeDestination);
 
             if (!latitudeStart || !longitudeStart || !latitudeDestination || !longitudeDestination) {
                 // Latitude or longitude is missing, show a toast
-                createToast("gpxImport", "GPX Coordinates cannot be filled in", "Please check your imported GPX File");
-                showToast("gpxImport");
+                createToast("missingCoordinatesToast", "Coordinates cannot be filled in", "Please check your GPX file - Latitude or longitude is missing");
+                showToast("missingCoordinatesToast");
             } else {
                 // Fill in the input fields
                 document.getElementById("startNameInput").value = startName;
