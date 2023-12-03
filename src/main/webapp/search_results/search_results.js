@@ -59,3 +59,39 @@ function showToast(id) {
     let toast = new bootstrap.Toast(document.getElementById(id));
     toast.show();
 }
+
+const filters = {
+    months: 0,
+};
+const months = document.getElementsByClassName("clickable");
+function addsearchMonth(exponent) {
+    if (months[exponent].firstElementChild.style.backgroundColor == "") {
+        filters.months += Math.pow(2, exponent);
+        months[exponent].firstElementChild.style.backgroundColor = "#b6fc9d";
+        console.log(filters.months);
+    } else {
+        filters.months -= Math.pow(2, exponent);
+        months[exponent].firstElementChild.style.backgroundColor = "";
+        console.log(filters.months);
+    }
+}
+
+// Get references to the checkbox and the content div
+const toggleSwitch = document.getElementById("monthSwitch");
+const contentToHide = document.getElementById("months");
+const arrowDown = document.getElementById("MonthArrowDown");
+const arrowUp = document.getElementById("MonthArrowUp");
+
+// Add event listener to checkbox to toggle visibility of the content
+toggleSwitch.addEventListener("change", function () {
+    console.log("Test");
+    if (this.checked) {
+        contentToHide.style.display = "flex"; // Hide the content
+        arrowUp.style.display = "";
+        arrowDown.style.display = "none";
+    } else {
+        contentToHide.style.display = "none"; // Show the content
+        arrowUp.style.display = "none";
+        arrowDown.style.display = "";
+    }
+});
