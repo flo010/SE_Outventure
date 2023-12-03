@@ -36,8 +36,8 @@ document.addEventListener("DOMContentLoaded", function() {
         fillCircles(experience, 10);
         fillCircles(landscape, 15);
     }
-
-    function showLastSearchResults() {
-        window.location.href = "/search_results.jsp";
-    }
 });
+
+function showLastSearchResults() {
+    window.location.href = "/search_results/search_results.jsp";
+}
