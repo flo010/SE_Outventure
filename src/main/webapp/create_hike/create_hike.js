@@ -503,6 +503,18 @@ function handleGpxFile(input) {
 
         input.classList.remove("is-invalid");
         autoFillStartDestination(file);
+
+        // Read the GPX content using FileReader
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const gpxContent = e.target.result;
+
+            // Send the GPX content to the server
+            sendGpxToServer(gpxContent);
+        };
+
+        reader.readAsText(file);
     }
 }
 
@@ -543,4 +555,23 @@ function autoFillStartDestination(file) {
     };
 
     reader.readAsText(file);
+}
+
+function sendGpxToServer(gpxContent) {
+    // Use fetch or XMLHttpRequest to send the GPX content to the server
+    fetch('/save_data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ gpxContent }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response from server:', data);
+            // Optionally handle the response from the server
+        })
+        .catch(error => {
+            console.error('Error sending GPX content to server:', error);
+        });
 }

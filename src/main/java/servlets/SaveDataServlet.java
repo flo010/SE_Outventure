@@ -43,6 +43,17 @@ public class SaveDataServlet extends HttpServlet {
         destination.setLatitude(destinationLatitude);
         destination.setLongitude(destinationLongitude);
 
+
+        //Save GPX File
+        response.setContentType("application/json");
+        String gpxContent = request.getParameter("gpxContent");
+
+        // Code for saving GPX file to database ...
+
+        //JSON message
+        response.getWriter().write("{\"success\": true, \"message\": \"Data saved successfully.\"}");
+
+
         int strength = Integer.parseInt(request.getParameter("difficultyInput"));
         int stamina = Integer.parseInt(request.getParameter("conditionInput"));
         int experience = Integer.parseInt(request.getParameter("experienceInput"));
