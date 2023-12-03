@@ -31,7 +31,7 @@ public class CreateHikeServlet extends HttpServlet {
         }
 
         try {
-            request.getRequestDispatcher("/create_hike.jsp").forward(request, response);
+            request.getRequestDispatcher("/create_hike/create_hike.jsp").forward(request, response);
         } catch (ServletException e) {
             throw new RuntimeException(e);
         }
