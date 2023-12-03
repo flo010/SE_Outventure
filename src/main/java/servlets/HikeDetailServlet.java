@@ -17,14 +17,16 @@ public class HikeDetailServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
-        int hikeID = Integer.parseInt(request.getParameter("id"));
+        String hikeEdited = request.getParameter("hikeEdited");
+        request.setAttribute("hikeEdited", hikeEdited);
 
+        int hikeID = Integer.parseInt(request.getParameter("id"));
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         Hike hike = facadeJPA.getHikeByIDEager(hikeID);
-     
 
         request.setAttribute("hike", hike);
+
         try {
             request.getRequestDispatcher("/hike_detail/hike_detail.jsp").forward(request, response);
         } catch (ServletException e) {

@@ -15,10 +15,24 @@ import java.util.List;
 
 @WebServlet(name = "saveDataServlet", value = "/save_data")
 public class SaveDataServlet extends HttpServlet {
+
+    @Transactional
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html");
+        saveToDatabase(request);
+
+        int hikeID = Integer.parseInt(request.getParameter("hikeID"));
+        response.sendRedirect("hike_detail?id=" + hikeID + "&hikeEdited=true");
+    }
+
     @Transactional
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
+        saveToDatabase(request);
+        response.sendRedirect("search_results?hikeCreated=true");
+    }
 
+    private void saveToDatabase(HttpServletRequest request) {
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
         double distance = Double.parseDouble(request.getParameter("distanceInput"));
@@ -70,6 +84,12 @@ public class SaveDataServlet extends HttpServlet {
         String[] poiTypes = request.getParameterValues("poiTypeInput");
 
         Hike hike = new Hike();
+
+        String hikeID = request.getParameter("hikeID");
+
+        if (hikeID != null) {
+            hike.setHikeID(Integer.parseInt(hikeID));
+        }
 
         List<PointOfInterest> pointsOfInterest = new ArrayList<>();
 
@@ -134,7 +154,5 @@ public class SaveDataServlet extends HttpServlet {
         hike.setPreviewPicture(picture.getPictureID());
         facadeJPA.save(picture);
         facadeJPA.save(hike);
-
-        response.sendRedirect("search_results?hikeCreated=true");
     }
 }
