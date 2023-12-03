@@ -27,18 +27,21 @@ public class SaveDataServlet extends HttpServlet {
         double duration = hours + (minutes / 60.0);
         int altitude = Integer.parseInt(request.getParameter("altitudeInput"));
 
-
+        String startName = request.getParameter("startNameInput");
+        double startLatitude = Double.parseDouble(request.getParameter("latitudeStartCoordinateInput"));
+        double startLongitude = Double.parseDouble(request.getParameter("longitudeStartCoordinateInput"));
         Start start = new Start();
-        start.setStartID(1);
-        start.setName("Start Lea");
-        start.setLatitude(40.12);
-        start.setLongitude(10.2);
+        start.setName(startName);
+        start.setLatitude(startLatitude);
+        start.setLongitude(startLongitude);
 
+        String destinationName = request.getParameter("destinationNameInput");
+        double destinationLatitude = Double.parseDouble(request.getParameter("latitudeDestinationCoordinateInput"));
+        double destinationLongitude = Double.parseDouble(request.getParameter("longitudeDestinationCoordinateInput"));
         Destination destination = new Destination();
-        destination.setDestinationID(1);
-        destination.setName("Destination Lea");
-        destination.setLatitude(42.12);
-        destination.setLongitude(10.12);
+        destination.setName(destinationName);
+        destination.setLatitude(destinationLatitude);
+        destination.setLongitude(destinationLongitude);
 
         int strength = Integer.parseInt(request.getParameter("difficultyInput"));
         int stamina = Integer.parseInt(request.getParameter("conditionInput"));
@@ -118,6 +121,7 @@ public class SaveDataServlet extends HttpServlet {
         hike.setAuthor("Admin");
         hike.setDate(currentDate);
         hike.setVisible(true);
+        hike.setRegion("Bregenzerwald");
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         try {

@@ -26,7 +26,7 @@ public class HikeDetailServlet extends HttpServlet {
 
         request.setAttribute("hike", hike);
         try {
-            request.getRequestDispatcher("/hike_detail.jsp").forward(request, response);
+            request.getRequestDispatcher("/hike_detail/hike_detail.jsp").forward(request, response);
         } catch (ServletException e) {
             throw new RuntimeException(e);
         }
