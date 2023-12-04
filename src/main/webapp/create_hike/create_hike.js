@@ -1,8 +1,3 @@
-// Call the function when the DOM is ready
-document.addEventListener('DOMContentLoaded', function () {
-    initializePage();
-});
-
 // functions for switching tabs
 function nextTab() {
     shouldPromptBeforeUnload = false;
@@ -136,7 +131,7 @@ function savePointOfInterest() {
 
 function displayValidationError(message, fieldId) {
     // Display error message for the specified field
-    var field = document.getElementById(fieldId);
+    let field = document.getElementById(fieldId);
     field.classList.add('is-invalid');
     field.nextElementSibling.innerText = message;
     field.nextElementSibling.style.color = 'red';
@@ -448,8 +443,6 @@ function initializePage() {
         let value = this.value;
         this.value = value.replace(/[^0-9]/g, '');
     });
-
-    initialiseMap();
 }
 
 // function for validation
@@ -459,7 +452,7 @@ function initializePage() {
         Array.prototype.filter.call(forms, function (form) {
             form.addEventListener('submit', function (event) {
                 if (form.checkValidity() === false) {
-                    var toast = new bootstrap.Toast(document.getElementById("validationToast"));
+                    let toast = new bootstrap.Toast(document.getElementById("validationToast"));
                     toast.show();
                     event.preventDefault();
                     event.stopPropagation();
@@ -479,7 +472,7 @@ window.onbeforeunload = function () {
 
 // map functions
 function initialiseMap() {
-    let map = L.map('map').setView([47.4167, 9.7500], 13);
+    let map = new L.Map('map').setView([47.4167, 9.7500], 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -492,38 +485,35 @@ function initialiseMap() {
         let clickedLatLng = event.latlng;
 
         if (!startMarker) {
-            // Open the Bootstrap modal for entering a name for the start point
-            $('#nameModalLabel').text('Enter Name for Start Point').data('type', 'start');
-            $('#nameModal').modal('show');
-        } else if (!endMarker) {
-            // Open the Bootstrap modal for entering a name for the end point
-            $('#nameModalLabel').text('Enter Name for End Point').data('type', 'end');
-            $('#nameModal').modal('show');
-        }
-    });
+            // Prompt for entering a name for the start point
+            let startName = prompt('Enter a name for the start point:');
+            if (startName) {
+                startMarker = L.marker(clickedLatLng, { draggable: true }).addTo(map)
+                    .bindPopup(`Start Point: ${startName}`).openPopup();
 
-    // Event listener for the Save button in the modal
-    $('#saveName').on('click', function() {
-        let name = $('#nameInput').val();
-        if (name) {
-            let type = $('#nameModalLabel').data('type');
-            let marker;
-            if (type === 'start') {
-                marker = L.marker(startMarker.getLatLng(), { draggable: true }).addTo(map)
-                    .bindPopup(`Start Point: <strong>${name}</strong> - ${startMarker.getLatLng().toString()}`).openPopup();
-                startMarker.remove();
-                startMarker = marker;
-            } else if (type === 'end') {
-                marker = L.marker(endMarker.getLatLng(), { draggable: true }).addTo(map)
-                    .bindPopup(`End Point: <strong>${name}</strong> - ${endMarker.getLatLng().toString()}`).openPopup();
-                endMarker.remove();
-                endMarker = marker;
-
-                polyline = L.polyline([startMarker.getLatLng(), endMarker.getLatLng()], { color: 'red' }).addTo(map);
+                startMarker.on('dragend', function(event) {
+                    startMarker.getPopup().setContent(`Start Point: ${startName} - ${event.target.getLatLng().toString()}`);
+                });
             }
-            $('#nameModal').modal('hide');
-        } else {
-            alert('Please enter a name.');
+        } else if (!endMarker) {
+            // Prompt for entering a name for the end point
+            let endName = prompt('Enter a name for the end point:');
+            if (endName) {
+                endMarker = L.marker(clickedLatLng, { draggable: true }).addTo(map)
+                    .bindPopup(`End Point: ${endName}`).openPopup();
+
+                endMarker.on('dragend', function(event) {
+                    endMarker.getPopup().setContent(`End Point: ${endName} - ${event.target.getLatLng().toString()}`);
+                });
+
+                polyline = L.polyline([startMarker.getLatLng(), endMarker.getLatLng()]).addTo(map);
+            }
         }
     });
 }
+
+// Call the function when the DOM is ready
+document.addEventListener('DOMContentLoaded', function () {
+    initializePage();
+    setTimeout(initialiseMap, 1000);
+});
