@@ -508,8 +508,8 @@ function autoFillStartDestination(file) {
         const trackPoints = xmlDoc.querySelectorAll("rtept").length === 0 ? xmlDoc.querySelectorAll("trkpt") : xmlDoc.querySelectorAll("rtept");
 
         if (trackPoints.length <= 1) {
-            createToast("trackpointsMissingToast", "Trackpoints missing", "Please upload a GPX file that contains at least two trackpoints");
-            showToast("trackpointsMissingToast");
+            var toast = new bootstrap.Toast(document.getElementById("gpxToast1"));
+            toast.show();
         }
         else {
             const startPoint = trackPoints[0];
@@ -527,8 +527,8 @@ function autoFillStartDestination(file) {
 
             if (!latitudeStart || !longitudeStart || !latitudeDestination || !longitudeDestination) {
                 // Latitude or longitude is missing, show a toast
-                createToast("missingCoordinatesToast", "Coordinates cannot be filled in", "Please check your GPX file - Latitude or longitude is missing");
-                showToast("missingCoordinatesToast");
+                var toast = new bootstrap.Toast(document.getElementById("gpxToast2"));
+                toast.show();
             } else {
                 // Fill in the input fields
                 document.getElementById("startNameInput").value = startName;
