@@ -479,7 +479,7 @@ window.onbeforeunload = function () {
 
 // map functions
 function initialiseMap() {
-    let map = new L.Map('map', {fullscreenControl: true,}).setView([47.4167, 9.7500], 13);
+    let map = L.map('map').setView([47.4167, 9.7500], 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
