@@ -479,41 +479,57 @@ function initialiseMap() {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    let startMarker, endMarker, polyline;
+    let startMarker, destinationMarker, route;
 
     map.on('click', function(event) {
         let clickedLatLng = event.latlng;
+        let markerCount = 0;
 
-        if (!startMarker) {
+        if ((!startMarker) && (markerCount <= 2)) {
             // Prompt for entering a name for the start point
             let startName = prompt('Enter a name for the start point:');
             if (startName) {
-                startMarker = L.marker(clickedLatLng, { draggable: true }).addTo(map)
-                    .bindPopup(`Start Point: ${startName}`).openPopup();
+                markerCount += 1;
+                startMarker = L.marker(clickedLatLng, { draggable: true }).addTo(map);
+                startMarker.bindPopup(`<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E`).openPopup();
+                startMarker.bindTooltip("<strong>Start: </strong>" + startName);
 
                 startMarker.on('dragend', function(event) {
-                    startMarker.getPopup().setContent(`Start Point: ${startName} - ${event.target.getLatLng().toString()}`);
+                    startMarker.getPopup().setContent(`<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E`);
+                    route = updatePolyline(startMarker, destinationMarker, route);
                 });
             }
-        } else if (!endMarker) {
+        }
+        else if ((!destinationMarker) && (markerCount <= 2)) {
             // Prompt for entering a name for the end point
-            let endName = prompt('Enter a name for the end point:');
-            if (endName) {
-                endMarker = L.marker(clickedLatLng, { draggable: true }).addTo(map)
-                    .bindPopup(`End Point: ${endName}`).openPopup();
+            let destinationName = prompt('Enter a name for the end point:');
+            if (destinationName) {
+                markerCount += 1;
+                destinationMarker = L.marker(clickedLatLng, { draggable: true }).addTo(map);
+                destinationMarker.bindPopup(`<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E`).openPopup();
+                destinationMarker.bindTooltip("<strong>Destination: </strong>" + destinationName);
 
-                endMarker.on('dragend', function(event) {
-                    endMarker.getPopup().setContent(`End Point: ${endName} - ${event.target.getLatLng().toString()}`);
+                destinationMarker.on('dragend', function(event) {
+                    destinationMarker.getPopup().setContent(`<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E`);
+                    route = updatePolyline(startMarker, destinationMarker, route);
                 });
 
-                polyline = L.polyline([startMarker.getLatLng(), endMarker.getLatLng()]).addTo(map);
+                route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(map);
             }
         }
     });
 }
 
+function updatePolyline(startMarker, destinationMarker, route) {
+    if (startMarker && destinationMarker && route) {
+        // Update the polyline with the new coordinates
+        route.setLatLngs([startMarker.getLatLng(), destinationMarker.getLatLng()]);
+    }
+    return route;
+}
+
 // Call the function when the DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
     initializePage();
-    setTimeout(initialiseMap, 1000);
+    setTimeout(initialiseMap, 5000);
 });
