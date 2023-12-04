@@ -57,6 +57,39 @@ public class HikeBroker extends BrokerBase<Hike> {
 
         return hikes;
     }
+
+    public List<Hike> getByAuthor(String author) {
+        EntityManager entityManager = null;
+        try {
+            entityManager = getEntityManager();
+        } catch (Exception f){
+            System.out.println("no entityManager");
+        }
+
+        List<Hike> hikes = null;
+
+        try {
+            if (entityManager != null && entityManager.isOpen()) {
+                Query query = entityManager.createQuery("FROM Hike h WHERE h.author = :author");
+                query.setParameter("author", author);
+                hikes = query.getResultList();
+
+            } else {
+                // Handle the situation when the EntityManager is closed
+                System.out.println("EntityManager is closed");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("entityManager is null");
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+
+        return hikes;
+    }
+
 }
 
 

@@ -93,4 +93,17 @@ public class FacadeJPA implements Facade {
 
         return pictureBroker.getNewPicture();
     }
+
+    public List<Hike> getHikesByAuthorLazy(String author) {
+        HikeBroker hikeBroker = new HikeBroker();
+        List<Hike> hikes = null;
+        try {
+            hikes = hikeBroker.getByAuthor(author);
+        } catch (Exception e) {
+            System.out.println("getAllHikes is null");
+        }
+
+
+        return hikes;
+    }
 }

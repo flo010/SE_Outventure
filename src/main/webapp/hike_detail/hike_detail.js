@@ -1,3 +1,6 @@
+function goToCreateHike(id){
+    window.location.href = "create/hike?hikeID=" + id;
+}
 // delete hike functions
 function deleteHike(hikeID) {
     // Redirect to the DeleteHikeServlet
