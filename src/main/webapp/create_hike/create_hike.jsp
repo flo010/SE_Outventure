@@ -197,23 +197,6 @@
                             <div class="invalid-feedback alert alert-danger mt-2">
                                 Invalid file type. Please provide a .gpx.
                             </div>
-                            <div class="toast position-fixed bottom-0 end-0 align-items-center text-white bg-danger border-0" id="gpxToast1" role="alert" aria-live="assertive" aria-atomic="true">
-                                <div class="d-flex">
-                                    <div class="toast-body">
-                                        Please upload a GPX file that contains at least two trackpoints
-                                    </div>
-                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                                </div>
-                            </div>
-                            <div class="toast position-fixed bottom-0 end-0 align-items-center text-white bg-danger border-0" id="gpxToast2" role="alert" aria-live="assertive" aria-atomic="true">
-                                <div class="d-flex">
-                                    <div class="toast-body">
-                                        Please check your GPX file - Latitude or longitude is missing
-                                    </div>
-                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                                </div>
-                            </div>
-
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
@@ -359,14 +342,6 @@
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="cancelButtonGettingThere" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
-                            </div>
-                        </div>
-                        <div class="toast position-fixed bottom-0 end-0 align-items-center text-white bg-danger border-0" id="validationToast" role="alert" aria-live="assertive" aria-atomic="true">
-                            <div class="d-flex">
-                                <div class="toast-body">
-                                    Validation failed! Please check your input.
-                                </div>
-                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
                         </div>
                     </div>

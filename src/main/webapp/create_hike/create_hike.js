@@ -457,8 +457,8 @@ function initializePage() {
         Array.prototype.filter.call(forms, function (form) {
             form.addEventListener('submit', function (event) {
                 if (form.checkValidity() === false) {
-                    var toast = new bootstrap.Toast(document.getElementById("validationToast"));
-                    toast.show();
+                    createToast("validationToast", "Validation failed! Please check your input.");
+                    showToast("validationToast");
                     event.preventDefault();
                     event.stopPropagation();
                 }
@@ -508,8 +508,8 @@ function autoFillStartDestination(file) {
         const trackPoints = xmlDoc.querySelectorAll("rtept").length === 0 ? xmlDoc.querySelectorAll("trkpt") : xmlDoc.querySelectorAll("rtept");
 
         if (trackPoints.length <= 1) {
-            var toast = new bootstrap.Toast(document.getElementById("gpxToast1"));
-            toast.show();
+            createToast("gpxToast1", "Please upload a GPX file that contains at least two trackpoints.");
+            showToast("gpxToast1");
         }
         else {
             const startPoint = trackPoints[0];
@@ -527,8 +527,8 @@ function autoFillStartDestination(file) {
 
             if (!latitudeStart || !longitudeStart || !latitudeDestination || !longitudeDestination) {
                 // Latitude or longitude is missing, show a toast
-                var toast = new bootstrap.Toast(document.getElementById("gpxToast2"));
-                toast.show();
+                createToast("gpxToast2", "Please check your GPX file - Latitude or longitude is missing.");
+                showToast("gpxToast2");
             } else {
                 // Fill in the input fields
                 document.getElementById("startNameInput").value = startName;
@@ -542,4 +542,43 @@ function autoFillStartDestination(file) {
         }
     };
     reader.readAsText(file);
+}
+
+// toast functions
+function createToast(id, message) {
+    // Create the toast container
+    let toastContainer = document.createElement('div');
+    toastContainer.className = 'toast position-fixed bottom-0 end-0 align-items-center text-white bg-danger border-0';
+    toastContainer.id = id;
+    toastContainer.setAttribute('role', 'alert');
+    toastContainer.setAttribute('aria-live', 'assertive');
+    toastContainer.setAttribute('aria-atomic', 'true');
+
+    let flexContainer = document.createElement('div');
+    flexContainer.className = 'd-flex';
+
+    // Create the toast body
+    let toastBody = document.createElement('div');
+    toastBody.className = 'toast-body';
+    toastBody.textContent = message;
+
+    // Create the close button
+    let closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'btn-close btn-close-white me-2 m-auto';
+    closeButton.setAttribute('data-bs-dismiss', 'toast');
+    closeButton.setAttribute('aria-label', 'Close');
+
+    // Append elements to the toast container
+    toastContainer.appendChild(flexContainer);
+    flexContainer.appendChild(toastBody);
+    flexContainer.appendChild(closeButton);
+
+    // Append the toast container to the body
+    document.body.appendChild(toastContainer);
+}
+
+function showToast(id) {
+    let toast = new bootstrap.Toast(document.getElementById(id));
+    toast.show();
 }
