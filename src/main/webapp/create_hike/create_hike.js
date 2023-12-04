@@ -448,16 +448,6 @@ function initializePage() {
         let value = this.value;
         this.value = value.replace(/[^0-9]/g, '');
     });
-
-    document.getElementById('startID').addEventListener('input', function () {
-        let value = this.value;
-        this.value = value.replace(/[^\d.,-]/g, '');
-    });
-
-    document.getElementById('destinationID').addEventListener('input', function () {
-        let value = this.value;
-        this.value = value.replace(/[^\d.,-]/g, '');
-    });
 }
 
 // function for validation
@@ -485,6 +475,7 @@ window.onbeforeunload = function () {
     }
 }
 
+// gpx functions
 function importGpxButton() {
     document.getElementById("gpxInput").click();
 }
@@ -530,13 +521,9 @@ function autoFillStartDestination(file) {
             const destinationName = destinationNameElement ? destinationNameElement.textContent : "";
 
             const latitudeStart = startPoint.getAttribute("lat");
-            console.log("latStart" + latitudeStart);
             const longitudeStart = startPoint.getAttribute("lon");
-            console.log("lonStart" + longitudeStart);
             const latitudeDestination = destinationPoint.getAttribute("lat");
-            console.log("latDest" + latitudeDestination);
             const longitudeDestination = destinationPoint.getAttribute("lon");
-            console.log("lonDest" + longitudeDestination);
 
             if (!latitudeStart || !longitudeStart || !latitudeDestination || !longitudeDestination) {
                 // Latitude or longitude is missing, show a toast
