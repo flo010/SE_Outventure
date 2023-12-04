@@ -70,12 +70,11 @@ public class HikeBroker extends BrokerBase<Hike> {
 
         try {
             if (entityManager != null && entityManager.isOpen()) {
-                Query query = entityManager.createQuery("FROM Hike h WHERE h.author = :author");
+                Query query = entityManager.createQuery("SELECT h FROM Hike h WHERE h.author = :author");
                 query.setParameter("author", author);
                 hikes = query.getResultList();
 
             } else {
-                // Handle the situation when the EntityManager is closed
                 System.out.println("EntityManager is closed");
             }
         } catch (Exception e) {
@@ -86,7 +85,6 @@ public class HikeBroker extends BrokerBase<Hike> {
                 entityManager.close();
             }
         }
-
         return hikes;
     }
 

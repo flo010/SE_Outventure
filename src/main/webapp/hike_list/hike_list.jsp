@@ -13,8 +13,7 @@
     HttpSession userSession = request.getSession();
     String loggedInUser =  (String) userSession.getAttribute("username");
     String email = (String) userSession.getAttribute("email");
-    String testUser = "Jane Smith";
-    int deletedHikeID = 0;
+    String testUser = "John Doe";
     List<Hike> hikeList = FacadeJPA.getInstance().getHikesByAuthorLazy(testUser);
 %>
 
@@ -56,8 +55,7 @@
         <div class="right-box" style="background: beige">
             <div class="container mt-3">
                 <% for (Hike hike: hikeList) { %>
-                <% if (hike.isVisible()) {
-                    double durationMinutes = (hike.getDuration() % 1) * 60;%>
+                <%double durationMinutes = (hike.getDuration() % 1) * 60;%>
                 <a class="card text-decoration-none hike-card mt-3" style="width: 100%" href="../hike_detail?id=<%=hike.getHikeID()%>">
                     <div class="hike-content row">
                         <div class="col-md-3">
@@ -96,7 +94,6 @@
                     </div>
 
                 </a>
-                <% } %>
                 <% } %>
             </div>
         </div>
