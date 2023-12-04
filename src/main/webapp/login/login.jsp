@@ -22,10 +22,10 @@
               <h3 class="text-center">Login</h3>
             </div>
             <div class="card-body">
-              <form>
+              <form action="login" method="post">
                 <div class="mb-3 position-relative">
-                  <label for="username" class="form-label">Username</label>
-                  <input type="text" class="form-control bi-person-fill" id="username" placeholder="Enter username" required>
+                  <label for="email" class="form-label">E-Mail</label>
+                  <input type="email" class="form-control bi-person-fill" id="email" placeholder="Enter E-Mail" required>
                 </div>
                 <div class="mb-3 position-relative">
                   <label for="password" class="form-label">Password</label>

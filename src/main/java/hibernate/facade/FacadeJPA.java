@@ -1,8 +1,10 @@
 package hibernate.facade;
 
 import hibernate.broker.HikeBroker;
+import hibernate.broker.HikerBroker;
 import hibernate.broker.PictureBroker;
 import hibernate.model.Hike;
+import hibernate.model.Hiker;
 import hibernate.model.Picture;
 
 
@@ -86,6 +88,18 @@ public class FacadeJPA implements Facade {
         PictureBroker pictureBroker = new PictureBroker();
 
         return pictureBroker.getAll();
+    }
+
+    @Override
+    public Hiker getHikerEmail(String email) {
+        HikerBroker hikerBroker = new HikerBroker();
+
+        return hikerBroker.getHikerEmail(email);
+    }
+
+    @Override
+    public String getPasswordByEmail(String email) {
+        return null;
     }
 
     public Picture getNewPicture(){
