@@ -49,7 +49,7 @@
 
             <hr>
 
-            <form class="needs-validation" id="createHikeOverview" action="save_data" method="post" novalidate>
+            <form class="needs-validation" id="createHikeOverview" action="/save_data" method="post" novalidate>
                 <div class="tab-content mt-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                         <div class="input-fields-group">
