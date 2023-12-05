@@ -136,7 +136,7 @@ function savePointOfInterest() {
 
 function displayValidationError(message, fieldId) {
     // Display error message for the specified field
-    var field = document.getElementById(fieldId);
+    let field = document.getElementById(fieldId);
     field.classList.add('is-invalid');
     field.nextElementSibling.innerText = message;
     field.nextElementSibling.style.color = 'red';
@@ -563,7 +563,7 @@ function sendGpxToServer(gpxContent) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ gpxContent }),
+        body: JSON.stringify({gpxContent}),
     })
         .then(response => response.json())
         .then(data => {
@@ -573,6 +573,7 @@ function sendGpxToServer(gpxContent) {
         .catch(error => {
             console.error('Error sending GPX content to server:', error);
         });
+}
 
 // toast functions
 function createToast(id, message) {
@@ -611,4 +612,4 @@ function createToast(id, message) {
 function showToast(id) {
     let toast = new bootstrap.Toast(document.getElementById(id));
     toast.show();
-}}
+}
