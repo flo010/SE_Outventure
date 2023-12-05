@@ -4,11 +4,9 @@ let toastDataElements = document.getElementById('toastData');
 if (toastDataElements) {
     let hikeCreated = toastDataElements.getAttribute('data-hike-created');
     let hikeDeleted = toastDataElements.getAttribute('data-hike-deleted');
-    let gpxImportNotWorking = toastDataElements.getAttribute('gpx-import-notWorking');
 
     console.log(hikeCreated);
     console.log(hikeDeleted);
-    console.log(gpxImportNotWorking);
 
     if (hikeCreated === "true") {
         createToast("saveHikeToast", "Saving completed successfully", "Your hike was successfully saved!");
@@ -18,11 +16,6 @@ if (toastDataElements) {
     if (hikeDeleted === "true") {
         createToast("deleteHikeToast", "Deletion successfully completed", "Your hike was successfully deleted!");
         showToast("deleteHikeToast");
-    }
-
-    if(gpxImportNotWorking === "true"){
-        createToast("gpxImport","GPX Coordinates cannot be filled in","Please check your imported GPX File");
-        showToast("gpxImport");
     }
 }
 

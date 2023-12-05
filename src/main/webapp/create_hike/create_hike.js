@@ -448,16 +448,6 @@ function initializePage() {
         let value = this.value;
         this.value = value.replace(/[^0-9]/g, '');
     });
-
-    document.getElementById('startID').addEventListener('input', function () {
-        let value = this.value;
-        this.value = value.replace(/[^\d.,-]/g, '');
-    });
-
-    document.getElementById('destinationID').addEventListener('input', function () {
-        let value = this.value;
-        this.value = value.replace(/[^\d.,-]/g, '');
-    });
 }
 
 // function for validation
@@ -467,8 +457,8 @@ function initializePage() {
         Array.prototype.filter.call(forms, function (form) {
             form.addEventListener('submit', function (event) {
                 if (form.checkValidity() === false) {
-                    var toast = new bootstrap.Toast(document.getElementById("validationToast"));
-                    toast.show();
+                    createToast("validationToast", "Validation failed! Please check your input.");
+                    showToast("validationToast");
                     event.preventDefault();
                     event.stopPropagation();
                 }
@@ -485,6 +475,7 @@ window.onbeforeunload = function () {
     }
 }
 
+// gpx functions
 function importGpxButton() {
     document.getElementById("gpxInput").click();
 }
@@ -528,7 +519,11 @@ function autoFillStartDestination(file) {
 
         const trackPoints = xmlDoc.querySelectorAll("rtept").length === 0 ? xmlDoc.querySelectorAll("trkpt") : xmlDoc.querySelectorAll("rtept");
 
-        if (trackPoints.length !== 0) {
+        if (trackPoints.length <= 1) {
+            createToast("gpxToast1", "Please upload a GPX file that contains at least two trackpoints.");
+            showToast("gpxToast1");
+        }
+        else {
             const startPoint = trackPoints[0];
             const startNameElement = startPoint.querySelector("name");
             const startName = startNameElement ? startNameElement.textContent : "";
@@ -537,23 +532,27 @@ function autoFillStartDestination(file) {
             const destinationNameElement = destinationPoint.querySelector("name");
             const destinationName = destinationNameElement ? destinationNameElement.textContent : "";
 
-            if (startName && startPoint.getAttribute("lat") && startPoint.getAttribute("lon") &&
-                destinationName && destinationPoint.getAttribute("lat") && destinationPoint.getAttribute("lon")) {
+            const latitudeStart = startPoint.getAttribute("lat");
+            const longitudeStart = startPoint.getAttribute("lon");
+            const latitudeDestination = destinationPoint.getAttribute("lat");
+            const longitudeDestination = destinationPoint.getAttribute("lon");
 
-            document.getElementById("startNameInput").value = startName;
-            document.getElementById("latitudeStartCoordinateInput").value = startPoint.getAttribute("lat");
-            document.getElementById("longitudeStartCoordinateInput").value = startPoint.getAttribute("lon");
-
-            document.getElementById("destinationNameInput").value = destinationName;
-            document.getElementById("latitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lat");
-            document.getElementById("longitudeDestinationCoordinateID").value = destinationPoint.getAttribute("lon");
-
+            if (!latitudeStart || !longitudeStart || !latitudeDestination || !longitudeDestination) {
+                // Latitude or longitude is missing, show a toast
+                createToast("gpxToast2", "Please check your GPX file - Latitude or longitude is missing.");
+                showToast("gpxToast2");
             } else {
-            createToast("gpxImport","GPX Coordinates cannot be filled in","Please check your imported GPX File");
+                // Fill in the input fields
+                document.getElementById("startNameInput").value = startName;
+                document.getElementById("latitudeStartCoordinateInput").value = latitudeStart;
+                document.getElementById("longitudeStartCoordinateInput").value = longitudeStart;
+
+                document.getElementById("destinationNameInput").value = destinationName;
+                document.getElementById("latitudeDestinationCoordinateInput").value = latitudeDestination;
+                document.getElementById("longitudeDestinationCoordinateID").value = longitudeDestination;
             }
         }
     };
-
     reader.readAsText(file);
 }
 
@@ -574,4 +573,42 @@ function sendGpxToServer(gpxContent) {
         .catch(error => {
             console.error('Error sending GPX content to server:', error);
         });
+
+// toast functions
+function createToast(id, message) {
+    // Create the toast container
+    let toastContainer = document.createElement('div');
+    toastContainer.className = 'toast position-fixed bottom-0 end-0 align-items-center text-white bg-danger border-0';
+    toastContainer.id = id;
+    toastContainer.setAttribute('role', 'alert');
+    toastContainer.setAttribute('aria-live', 'assertive');
+    toastContainer.setAttribute('aria-atomic', 'true');
+
+    let flexContainer = document.createElement('div');
+    flexContainer.className = 'd-flex';
+
+    // Create the toast body
+    let toastBody = document.createElement('div');
+    toastBody.className = 'toast-body';
+    toastBody.textContent = message;
+
+    // Create the close button
+    let closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'btn-close btn-close-white me-2 m-auto';
+    closeButton.setAttribute('data-bs-dismiss', 'toast');
+    closeButton.setAttribute('aria-label', 'Close');
+
+    // Append elements to the toast container
+    toastContainer.appendChild(flexContainer);
+    flexContainer.appendChild(toastBody);
+    flexContainer.appendChild(closeButton);
+
+    // Append the toast container to the body
+    document.body.appendChild(toastContainer);
+}
+
+function showToast(id) {
+    let toast = new bootstrap.Toast(document.getElementById(id));
+    toast.show();
 }

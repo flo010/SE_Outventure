@@ -189,9 +189,10 @@
                         <div>
                             <button type="button" onclick="importGpxButton()" class="btn btn-outline-secondary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16" style="vertical-align: text-top;">
-                                    <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
+                                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+                                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
                                 </svg>
-                                Import GPX
+                                Export GPX
                             </button>
                             <input type="file" onchange="handleGpxFile(this)" class="form-control" id="gpxInput" name="gpxInput" accept=".gpx" hidden>
                             <div class="invalid-feedback alert alert-danger mt-2">
@@ -344,14 +345,6 @@
                                 <button type="button" id="cancelButtonGettingThere" class="btn btn-danger" onclick="confirmCancel()">Cancel</button>
                             </div>
                         </div>
-                        <div class="toast position-fixed bottom-0 end-0 align-items-center text-white bg-danger border-0" id="validationToast" role="alert" aria-live="assertive" aria-atomic="true">
-                            <div class="d-flex">
-                                <div class="toast-body">
-                                    Validation failed! Please check your input.
-                                </div>
-                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </form>
@@ -438,6 +431,7 @@
                 </div>
             </div>
         </div>
+
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="/create_hike/create_hike.js"></script>
