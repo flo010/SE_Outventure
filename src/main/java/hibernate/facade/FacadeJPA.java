@@ -107,17 +107,12 @@ public class FacadeJPA implements Facade {
                              int strengthHigh, int staminaLow,int staminaHigh,
                              int experienceLow, int experienceHigh, int landscapeLow,
                              int landscapeHigh, int distanceLow, int distanceHigh,
-                             int altitudeLow, int altitudeHigh, boolean january,
-                             boolean february, boolean march, boolean april,
-                             boolean may, boolean june, boolean july,
-                             boolean august, boolean september,
-                             boolean october, boolean november, boolean december) {
+                             int altitudeLow, int altitudeHigh,int month) {
         HikeBroker hikeBroker = new HikeBroker();
         return hikeBroker.search(title,durationLow,durationHigh,
                 strengthLow,strengthHigh,staminaLow,staminaHigh,experienceLow,
                 experienceHigh,landscapeLow,landscapeHigh,distanceLow,distanceHigh,
-                altitudeLow,altitudeHigh,january,february,march,april,may,june,july,
-                august,september,october,november,december);
+                altitudeLow,altitudeHigh,month);
     }
 
     public Picture getNewPicture(){
