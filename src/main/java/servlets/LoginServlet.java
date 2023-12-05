@@ -21,14 +21,15 @@ public class LoginServlet extends HttpServlet {
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
 
         boolean validHikerCredentials = facadeJPA.checkHikerCredentials(email, password);
-        if(validHikerCredentials){
+
+        if (validHikerCredentials) {
             HttpSession httpSession = request.getSession(true);
             httpSession.setAttribute("loggedInUser", email);
-            response.sendRedirect("index.jsp");
-            System.out.println("Valid email and password");
+            response.sendRedirect("index/index.jsp");
+            System.out.println("Login successful");
         } else {
-            response.sendRedirect("login.jsp?error=true");
-            System.out.println("Invalid email and password");
+            response.sendRedirect("login/login.jsp?error=true");
+            System.out.println("Login failed");
         }
     }
 }
