@@ -497,7 +497,10 @@ function initialiseMap() {
                 startMarker.on('dragend', function(event) {
                     startMarker.getPopup().setContent(`<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E`);
                     route = updatePolyline(startMarker, destinationMarker, route);
+                    updateStart(startName, startMarker);
                 });
+
+                updateStart(startName, startMarker);
             }
         }
         else if ((!destinationMarker) && (markerCount <= 2)) {
@@ -512,9 +515,12 @@ function initialiseMap() {
                 destinationMarker.on('dragend', function(event) {
                     destinationMarker.getPopup().setContent(`<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E`);
                     route = updatePolyline(startMarker, destinationMarker, route);
+                    updateDestination(destinationName, destinationMarker);
                 });
 
                 route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(map);
+
+                updateDestination(destinationName, destinationMarker);
             }
         }
     });
@@ -533,3 +539,31 @@ document.addEventListener('DOMContentLoaded', function () {
     initializePage();
     setTimeout(initialiseMap, 5000);
 });
+
+function updateStart(startName, startMarker) {
+    const startNameInput = document.getElementById("startNameInput");
+    const latitudeStartCoordinateInput = document.getElementById("latitudeStartCoordinateInput");
+    const longitudeStartCoordinateInput = document.getElementById("longitudeStartCoordinateInput");
+
+    startNameInput.value = startName;
+    latitudeStartCoordinateInput.value = startMarker.getLatLng().lat;
+    longitudeStartCoordinateInput.value = startMarker.getLatLng().lng;
+
+    startNameInput.setAttribute("disabled", "");
+    latitudeStartCoordinateInput.setAttribute("disabled", "");
+    longitudeStartCoordinateInput.setAttribute("disabled", "");
+}
+
+function updateDestination(destinationName, destinationMarker) {
+    const destinationNameInput = document.getElementById("destinationNameInput");
+    const latitudeDestinationCoordinateInput = document.getElementById("latitudeDestinationCoordinateInput");
+    const longitudeDestinationCoordinateInput = document.getElementById("longitudeDestinationCoordinateID");
+
+    destinationNameInput.value = destinationName;
+    latitudeDestinationCoordinateInput.value = destinationMarker.getLatLng().lat;
+    longitudeDestinationCoordinateInput.value = destinationMarker.getLatLng().lng;
+
+    destinationNameInput.setAttribute("disabled", "");
+    latitudeDestinationCoordinateInput.setAttribute("disabled", "");
+    longitudeDestinationCoordinateInput.setAttribute("disabled", "");
+}
