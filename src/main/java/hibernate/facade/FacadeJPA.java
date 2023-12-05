@@ -90,16 +90,10 @@ public class FacadeJPA implements Facade {
         return pictureBroker.getAll();
     }
 
-    @Override
-    public Hiker getHikerEmail(String email) {
+    public boolean checkHikerCredentials(String email, String password) {
         HikerBroker hikerBroker = new HikerBroker();
 
-        return hikerBroker.getHikerEmail(email);
-    }
-
-    @Override
-    public String getPasswordByEmail(String email) {
-        return null;
+        return hikerBroker.checkHikerLoginCredentials(email, password);
     }
 
     public Picture getNewPicture(){

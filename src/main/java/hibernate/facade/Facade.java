@@ -19,7 +19,4 @@ public interface Facade {
     List<Hike> getAllHikesLazy();
     Picture getPictureByID(int pictureID);
     List<Picture> getAllPictures();
-    Hiker getHikerEmail(String email);
-    String getPasswordByEmail(String email);
-
 }

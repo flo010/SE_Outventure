@@ -17,23 +17,25 @@ public class HikerBroker extends BrokerBase<Hiker>{
         return null;
     }
 
-    public Hiker getHikerEmail(String email) {
+    public boolean checkHikerLoginCredentials(String email, String password){
         EntityManager entityManager = null;
 
-        Hiker EMail = null;
         try {
-            entityManager = getEntityManager();
-            Query query = entityManager.createQuery("SELECT h FROM Hiker h WHERE h.email = :email", Hiker.class);
+        entityManager = getEntityManager();
+        Query query = entityManager.createQuery("SELECT COUNT(h) FROM Hiker h WHERE h.email = :email AND h.password = :password");
+        query.setParameter("email", email);
+        query.setParameter("password", password);
+        Long count = (Long) query.getSingleResult();
 
-            EMail = (Hiker) query.setParameter("email", email);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (entityManager != null) {
-                entityManager.close();
-            }
+        return count > 0;
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        if (entityManager != null) {
+            entityManager.close();
         }
-        return EMail;
     }
+      return false;
+    }
+
 }
