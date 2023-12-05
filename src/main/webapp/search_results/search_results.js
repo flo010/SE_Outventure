@@ -122,3 +122,7 @@ toggleSwitch.addEventListener("change", function () {
         arrowDown.style.display = "";
     }
 });
+
+function resetFilters() {
+    location.href = location.href.split("&")[0];
+}
