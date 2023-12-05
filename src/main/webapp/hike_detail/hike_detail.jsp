@@ -19,7 +19,14 @@
         <title>Hike Detail</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link href="../css/style.css" rel="stylesheet">
+        <%-- basic leaflet css and js --%>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <%-- fullscreen leaflet css and js --%>
+        <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+        <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+        <%-- custom css --%>
+        <link href="/css/style.css" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -110,6 +117,8 @@
                 <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                     <h3>Description</h3>
                     <p><%=hike.getDescription()%></p>
+                    <h3 class="mt-5">Map</h3>
+                    <div id="map" class="map"></div>
                 </div>
 
                 <div class="tab-pane fade" id="pills-details" role="tabpanel" aria-labelledby="pills-details-tab" tabindex="0">
@@ -259,6 +268,14 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div id="mapData"
+             start-latitude="<%= hike.getStart().getLatitude() %>"
+             start-longitude="<%= hike.getStart().getLongitude() %>"
+             start-name="<%= hike.getStart().getName() %>"
+             destination-latitude="<%= hike.getDestination().getLatitude() %>"
+             destination-longitude="<%= hike.getDestination().getLongitude() %>"
+             destination-name="<%= hike.getDestination().getName() %>">
         </div>
 
         <div id="dataForCircles"
