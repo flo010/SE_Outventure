@@ -518,6 +518,11 @@ function initializeMap() {
                         }
                     });
                 });
+
+                // create polyline with coordinates from markers if both they exist
+                if (startMarker && destinationMarker) {
+                    route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(map);
+                }
             });
         }
         else if ((!destinationMarker) && (markerCount <= 2)) {
@@ -539,7 +544,6 @@ function initializeMap() {
                     route = updatePolyline(startMarker, destinationMarker, route);
                     updateDestination(destinationName, destinationMarker);
                 });
-                route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(map);
 
                 updateDestination(destinationName, destinationMarker);
 
@@ -554,11 +558,12 @@ function initializeMap() {
                         }
                     });
                 });
+
+                // create polyline with coordinates from markers if both they exist
+                if (startMarker && destinationMarker) {
+                    route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(map);
+                }
             });
-        }
-        // create polyline with coordinates from markers
-        if (startMarker && destinationMarker) {
-            route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(map);
         }
     });
 }
