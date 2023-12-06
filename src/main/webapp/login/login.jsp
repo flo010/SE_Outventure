@@ -22,7 +22,7 @@
               <h3 class="text-center">Login</h3>
             </div>
             <div class="card-body">
-              <form action="login" method="post">
+              <form action="/login" method="post">
                 <div class="mb-3 position-relative">
                   <label for="email" class="form-label">E-Mail</label>
                   <input type="email" class="form-control bi-person-fill" id="email" placeholder="Enter E-Mail" required>
