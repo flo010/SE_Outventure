@@ -122,8 +122,9 @@
             <div
                     class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1"
             >
-                <div class="d-flex flex-row-reverse bd-highlight">
-                    <button id="filter" class="btn btn-success" onclick="getFiltered()" style="display: flex; justify-content: end">Save</button>
+                <div class="d-flex justify-content-between align-items-center px-1">
+                    <button type="button" class="btn btn-primary" onclick="resetFilters()">Reset</button>
+                    <button id="filter" class="btn btn-success" onclick="getFiltered()">Save</button>
                 </div>
             </div>
         </div>
