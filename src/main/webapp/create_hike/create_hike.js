@@ -490,17 +490,34 @@ function initializeMap() {
             let startName = prompt('Enter a name for the start point:');
             if (startName) {
                 markerCount += 1;
-                startMarker = L.marker(clickedLatLng, { draggable: true }).addTo(map);
-                startMarker.bindPopup(`<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E`).openPopup();
+                startMarker = L.marker(clickedLatLng, { draggable: true });
+
+                // create tooltip and pop up and open it
+                let popupContent = `<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E <br><br><button id="removeStartBtn" type="button" class="btn btn-danger btn-sm">Remove Start</button>`;
+                startMarker.bindPopup(popupContent).openPopup();
                 startMarker.bindTooltip("<strong>Start: </strong>" + startName);
 
-                startMarker.on('dragend', function(event) {
-                    startMarker.getPopup().setContent(`<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E`);
+                startMarker.addTo(map);
+
+                startMarker.on('dragend', function() {
+                    startMarker.getPopup().setContent(`<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E <br><br><button id="removeStartBtn" type="button" class="btn btn-danger btn-sm">Remove Start</button>`);
                     route = updatePolyline(startMarker, destinationMarker, route);
                     updateStart(startName, startMarker);
                 });
 
-                updateStart(startName, startMarker);
+              updateStart(startName, startMarker);
+
+                // Add click event to the "Remove Marker" button
+                startMarker.on('popupopen', function() {
+                    document.getElementById('removeStartBtn').addEventListener('click', function() {
+                        map.removeLayer(startMarker);
+                        startMarker = null; // Reset the marker
+                        if (route) {
+                            map.removeLayer(route);
+                            route = null; // Reset the route
+                        }
+                    });
+                });
             }
         }
         else if ((!destinationMarker) && (markerCount <= 2)) {
@@ -508,20 +525,40 @@ function initializeMap() {
             let destinationName = prompt('Enter a name for the end point:');
             if (destinationName) {
                 markerCount += 1;
-                destinationMarker = L.marker(clickedLatLng, { draggable: true }).addTo(map);
-                destinationMarker.bindPopup(`<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E`).openPopup();
+                destinationMarker = L.marker(clickedLatLng, { draggable: true });
+
+                // create tooltip and pop up and open it
+                let popupContent = `<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E <br><br><button id="removeDestBtn" type="button" class="btn btn-danger btn-sm">Remove Destination</button>`;
+                destinationMarker.bindPopup(popupContent).openPopup();
                 destinationMarker.bindTooltip("<strong>Destination: </strong>" + destinationName);
 
-                destinationMarker.on('dragend', function(event) {
-                    destinationMarker.getPopup().setContent(`<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E`);
+                destinationMarker.addTo(map);
+
+                destinationMarker.on('dragend', function() {
+                    destinationMarker.getPopup().setContent(`<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E <br><br><button id="removeDestBtn" type="button" class="btn btn-danger btn-sm">Remove Destination</button>`);
                     route = updatePolyline(startMarker, destinationMarker, route);
                     updateDestination(destinationName, destinationMarker);
                 });
-
                 route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(map);
 
                 updateDestination(destinationName, destinationMarker);
+
+                // Add click event to the "Remove Marker" button
+                destinationMarker.on('popupopen', function() {
+                    document.getElementById('removeDestBtn').addEventListener('click', function() {
+                        map.removeLayer(destinationMarker);
+                        destinationMarker = null; // Reset the marker
+                        if (route) {
+                            map.removeLayer(route);
+                            route = null; // Reset the route
+                        }
+                    });
+                });
             }
+        }
+        // create polyline with coordinates from markers
+        if (startMarker && destinationMarker) {
+            route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(map);
         }
     });
 }
