@@ -124,7 +124,7 @@
             >
                 <div class="d-flex justify-content-between align-items-center px-1">
                     <button type="button" class="btn btn-primary" onclick="resetFilters()">Reset</button>
-                    <button id="filter" class="btn btn-success" onclick="getFiltered()">Save</button>
+                    <button id="filter" class="btn btn-success" onclick="getFiltered()">Apply</button>
                 </div>
             </div>
         </div>
