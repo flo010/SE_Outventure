@@ -9,6 +9,8 @@
 <%@ attribute name="name" required="true" type="java.lang.String" %>
 <%@ attribute name="min" required="true" type="java.lang.Integer" %>
 <%@ attribute name="max" required="true" type="java.lang.Integer" %>
+<%@ attribute name="valueLow" required="true" type="java.lang.Integer" %>
+<%@ attribute name="valueHigh" required="true" type="java.lang.Integer" %>
 <link href="../../search_results/filter.css" rel="stylesheet">
 
 <div
@@ -43,8 +45,7 @@
                             class="bi bi-arrow-up"
                             viewBox="0 0 16 16"
                             style="display: none"
-                            id="${name}ArrowUp"
-                    >
+                            id="${name}ArrowUp">
                         <path
                                 fill-rule="evenodd"
                                 d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"
@@ -60,17 +61,17 @@
                     <span thumb style="left: 0%"></span>
                     <span thumb style="left: 100%"></span>
                     <div sign style="left: 0%">
-                        <span>${min}</span>
+                        <span>${valueLow}</span>
                     </div>
                     <div sign style="left: 100%">
-                        <span>${max}</span>
+                        <span>${valueHigh}</span>
                     </div>
                 </div>
                 <input
                         id="${name}Low"
                         type="range"
                         tabindex="0"
-                        value="${min}"
+                        value="${valueLow}"
                         max="${max}"
                         min="${min}"
                         step="1"
@@ -87,7 +88,7 @@
                         id="${name}High"
                         type="range"
                         tabindex="0"
-                        value="${max}"
+                        value="${valueHigh}"
                         max="${max}"
                         min="${min}"
                         step="1"

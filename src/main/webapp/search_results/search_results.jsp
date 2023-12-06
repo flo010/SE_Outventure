@@ -18,13 +18,13 @@
         </header>
         <div class="row">
         <div class="col-3">
-            <outventure:filter name="Duration" min="1" max="10000"></outventure:filter>
-            <outventure:filter name="Distance" min="1" max="10000"></outventure:filter>
-            <outventure:filter name="Altitude" min="1" max="10000"></outventure:filter>
-            <outventure:filter name="Stamina" min="1" max="5"></outventure:filter>
-            <outventure:filter name="Power" min="1" max="5"></outventure:filter>
-            <outventure:filter name="Experience" min="1" max="5"></outventure:filter>
-            <outventure:filter name="Landscape" min="1" max="5"></outventure:filter>
+            <outventure:filter name="Duration" min="1" max="10000" valueLow="1" valueHigh="10000"></outventure:filter>
+            <outventure:filter name="Distance" min="1" max="10000" valueLow="1" valueHigh="10000"></outventure:filter>
+            <outventure:filter name="Altitude" min="1" max="10000" valueLow="1" valueHigh="10000"></outventure:filter>
+            <outventure:filter name="Stamina" min="1" max="5" valueLow="1" valueHigh="5"></outventure:filter>
+            <outventure:filter name="Power" min="1" max="5" valueLow="1" valueHigh="5"></outventure:filter>
+            <outventure:filter name="Experience" min="1" max="5" valueLow="1" valueHigh="5"></outventure:filter>
+            <outventure:filter name="Landscape" min="1" max="5" valueLow="1" valueHigh="5"></outventure:filter>
 
             <div
                     class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1"
