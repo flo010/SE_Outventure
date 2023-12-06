@@ -471,7 +471,7 @@ window.onbeforeunload = function () {
 }
 
 // map functions
-function initialiseMap() {
+function initializeMap() {
     let map = new L.Map('map').setView([47.4167, 9.7500], 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -537,7 +537,7 @@ function updatePolyline(startMarker, destinationMarker, route) {
 // Call the function when the DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
     initializePage();
-    setTimeout(initialiseMap, 5000);
+    setTimeout(initializeMap, 10);
 });
 
 function updateStart(startName, startMarker) {
