@@ -19,7 +19,8 @@ public class HikerBroker extends BrokerBase<Hiker>{
 
     public boolean checkHikerLoginCredentials(String email, String password){
 
-        try (EntityManager entityManager = getEntityManager()) {
+        try {
+            EntityManager entityManager = getEntityManager();
             Query query = entityManager.createQuery("SELECT COUNT(h) FROM Hiker h WHERE h.email = :email AND h.password = :password");
             query.setParameter("email", email);
             query.setParameter("password", password);
