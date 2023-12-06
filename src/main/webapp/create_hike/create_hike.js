@@ -486,9 +486,9 @@ function initializeMap() {
         let markerCount = 0;
 
         if ((!startMarker) && (markerCount <= 2)) {
-            // Prompt for entering a name for the start point
-            let startName = prompt('Enter a name for the start point:');
-            if (startName) {
+            showMarkerModal("Enter a name for the start point", "Enter start name", () => {
+                let startName = document.getElementById("markerModalNameInput").value;
+
                 markerCount += 1;
                 startMarker = L.marker(clickedLatLng, { draggable: true }).addTo(map);
                 startMarker.bindPopup(`<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E`).openPopup();
@@ -501,12 +501,12 @@ function initializeMap() {
                 });
 
                 updateStart(startName, startMarker);
-            }
+            });
         }
         else if ((!destinationMarker) && (markerCount <= 2)) {
-            // Prompt for entering a name for the end point
-            let destinationName = prompt('Enter a name for the end point:');
-            if (destinationName) {
+            showMarkerModal("Enter a name for the destination point", "Enter destination name", () => {
+                let destinationName = document.getElementById("markerModalNameInput").value;
+
                 markerCount += 1;
                 destinationMarker = L.marker(clickedLatLng, { draggable: true }).addTo(map);
                 destinationMarker.bindPopup(`<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E`).openPopup();
@@ -521,7 +521,7 @@ function initializeMap() {
                 route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(map);
 
                 updateDestination(destinationName, destinationMarker);
-            }
+            });
         }
     });
 }
@@ -566,4 +566,29 @@ function updateDestination(destinationName, destinationMarker) {
     destinationNameInput.setAttribute("disabled", "");
     latitudeDestinationCoordinateInput.setAttribute("disabled", "");
     longitudeDestinationCoordinateInput.setAttribute("disabled", "");
+}
+
+function showMarkerModal(markerModalHeader, markerModalNameInput, onModalSave) {
+    const markerModal = new bootstrap.Modal(document.getElementById("markerModal"));
+
+    const modalHeader = document.getElementById("markerModalHeader");
+    const modalInput = document.getElementById("markerModalNameInput");
+    const markerModalSaveButton = document.getElementById("markerModalSaveButton");
+    const markerNameErrorMessage = document.getElementById("markerNameErrorMessage");
+
+    modalHeader.innerText = markerModalHeader;
+    modalInput.placeholder = markerModalNameInput;
+    markerModalSaveButton.onclick = () => {
+        if (modalInput.value) {
+            onModalSave();
+            modalInput.value = "";
+            markerNameErrorMessage.style.display = "none";
+            markerModal.hide();
+            return;
+        }
+
+        markerNameErrorMessage.style.display = "block";
+    };
+
+    markerModal.show();
 }
