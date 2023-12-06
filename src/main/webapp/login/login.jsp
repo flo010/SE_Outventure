@@ -36,6 +36,17 @@
                 </div>
               </form>
             </div>
+            <%-- Display error message if login fails --%>
+            <%
+              String errorParam = request.getParameter("error");
+              if ("true".equals(errorParam)) {
+            %>
+            <div class="alert alert-danger" role="alert">
+              Login failed. Please check your credentials.
+            </div>
+            <%
+              }
+            %>
             <div class="card-footer text-center">
               Don't have an account? <a href="#">Register</a>
             </div>

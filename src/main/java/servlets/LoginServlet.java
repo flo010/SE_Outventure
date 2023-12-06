@@ -20,10 +20,11 @@ public class LoginServlet extends HttpServlet {
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
 
         boolean validHikerCredentials = facadeJPA.checkHikerCredentials(email, password);
+        String hikerUsername = facadeJPA.getUsernameByEmailAndPassword(email,password);
 
         if (validHikerCredentials) {
             HttpSession httpSession = request.getSession(true);
-            httpSession.setAttribute("loggedInUser", email);
+            httpSession.setAttribute("loggedInUser", hikerUsername);
             response.sendRedirect("/index/index.jsp");
             System.out.println("Login successful");
         } else {
