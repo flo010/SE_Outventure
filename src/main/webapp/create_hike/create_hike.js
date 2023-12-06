@@ -471,7 +471,7 @@ window.onbeforeunload = function () {
 }
 
 // map functions
-function initialiseMap() {
+function initializeMap() {
     let map = new L.Map('map').setView([47.4167, 9.7500], 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -502,7 +502,10 @@ function initialiseMap() {
                 startMarker.on('dragend', function() {
                     startMarker.getPopup().setContent(`<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E <br><br><button id="removeStartBtn" type="button" class="btn btn-danger btn-sm">Remove Start</button>`);
                     route = updatePolyline(startMarker, destinationMarker, route);
+                    updateStart(startName, startMarker);
                 });
+
+              updateStart(startName, startMarker);
 
                 // Add click event to the "Remove Marker" button
                 startMarker.on('popupopen', function() {
@@ -534,7 +537,11 @@ function initialiseMap() {
                 destinationMarker.on('dragend', function() {
                     destinationMarker.getPopup().setContent(`<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E <br><br><button id="removeDestBtn" type="button" class="btn btn-danger btn-sm">Remove Destination</button>`);
                     route = updatePolyline(startMarker, destinationMarker, route);
+                    updateDestination(destinationName, destinationMarker);
                 });
+                route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(map);
+
+                updateDestination(destinationName, destinationMarker);
 
                 // Add click event to the "Remove Marker" button
                 destinationMarker.on('popupopen', function() {
@@ -567,5 +574,33 @@ function updatePolyline(startMarker, destinationMarker, route) {
 // Call the function when the DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
     initializePage();
-    setTimeout(initialiseMap, 5000);
+    setTimeout(initializeMap, 10);
 });
+
+function updateStart(startName, startMarker) {
+    const startNameInput = document.getElementById("startNameInput");
+    const latitudeStartCoordinateInput = document.getElementById("latitudeStartCoordinateInput");
+    const longitudeStartCoordinateInput = document.getElementById("longitudeStartCoordinateInput");
+
+    startNameInput.value = startName;
+    latitudeStartCoordinateInput.value = startMarker.getLatLng().lat;
+    longitudeStartCoordinateInput.value = startMarker.getLatLng().lng;
+
+    startNameInput.setAttribute("disabled", "");
+    latitudeStartCoordinateInput.setAttribute("disabled", "");
+    longitudeStartCoordinateInput.setAttribute("disabled", "");
+}
+
+function updateDestination(destinationName, destinationMarker) {
+    const destinationNameInput = document.getElementById("destinationNameInput");
+    const latitudeDestinationCoordinateInput = document.getElementById("latitudeDestinationCoordinateInput");
+    const longitudeDestinationCoordinateInput = document.getElementById("longitudeDestinationCoordinateID");
+
+    destinationNameInput.value = destinationName;
+    latitudeDestinationCoordinateInput.value = destinationMarker.getLatLng().lat;
+    longitudeDestinationCoordinateInput.value = destinationMarker.getLatLng().lng;
+
+    destinationNameInput.setAttribute("disabled", "");
+    latitudeDestinationCoordinateInput.setAttribute("disabled", "");
+    longitudeDestinationCoordinateInput.setAttribute("disabled", "");
+}

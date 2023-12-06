@@ -189,25 +189,37 @@
                                 Please enter a route description.
                             </div>
                         </div>
-                        <div class="read-only-group">
-                            <h4>Welcome to the Map Function!</h4>
-                            <p>With this feature, you can easily set start and destination points on the map. Here's how it works:</p>
-                            <ul>
-                                <li><strong>Place Markers:</strong> Click on the map to set the first marker (Start Point).</li>
-                                <li><strong>Set Second Marker (Destination Point):</strong> Place another marker by clicking on the map.</li>
-                                <li><strong>Edit Markers:</strong>
-                                    <ul>
-                                        <li><strong>Enter Names:</strong> Open the pop-up to assign names to each marker.</li>
-                                        <li><strong>Move Markers:</strong> Hold and drag the marker to reposition it.</li>
-                                        <li><strong>Delete Markers:</strong> Remove any marker if needed using the pop-up.</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Zooming:</strong> Use the "+" and "-" symbols on the right side of the map to zoom in or out.</li>
-                            </ul>
-                            <p>That's it! With these steps, you can set your route, mark start and destination points, and customize the map to suit your needs.</p>
-                        </div>
                         <div class="input-fields-group">
                             <p class="form-label">Map</p>
+                            <p>
+                                <a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" href="#collapseTutorial" role="button" aria-expanded="false" aria-controls="collapseTutorial">
+                                    Tutorial
+                                </a>
+                            </p>
+                            <div class="collapse mb-3" id="collapseTutorial">
+                                <div class="card card-body">
+                                    <p>With this feature, you can easily set start and destination points on the map. Here's how it works:</p>
+                                    <ul>
+                                        <li>
+                                            <strong>Set Markers:</strong>
+                                            <ul>
+                                                <li>Start Point: Click on the map to set the start point.</li>
+                                                <li>Destination Point: Click on the map again to set the destination point.</li>
+                                                <li>Enter Names: After clicking on the map to place a marker, a modal appears in which you have to enter the name of the point.</li>
+                                                <li>The route appears automatically when two markers are set.</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <strong>Edit Markers:</strong>
+                                            <ul>
+                                                <li>Move Markers: Hold and drag the marker to reposition it.</li>
+                                                <li>Delete Markers: Remove any marker if needed using the delete button in the pop-up.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <p>That's it! With these steps, you can set your route, mark start and destination points, and customize the map to suit your needs.</p>
+                                </div>
+                            </div>
                             <div id="map" class="map"></div>
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
