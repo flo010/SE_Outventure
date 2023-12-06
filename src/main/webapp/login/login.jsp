@@ -25,11 +25,11 @@
               <form action="login" method="post">
                 <div class="mb-3 position-relative">
                   <label for="email" class="form-label">E-Mail</label>
-                  <input type="email" class="form-control bi-person-fill" id="email" placeholder="Enter E-Mail" required>
+                  <input type="email" class="form-control bi-person-fill" id="email" placeholder="Enter E-Mail" name="email" required>
                 </div>
                 <div class="mb-3 position-relative">
                   <label for="password" class="form-label">Password</label>
-                  <input type="password" class="form-control bi-lock-fill" id="password" placeholder="Enter password" required>
+                  <input type="password" class="form-control bi-lock-fill" id="password" placeholder="Enter password" name="password" required>
                 </div>
                 <div class="d-grid gap-2">
                   <button type="submit" class="btn btn-primary">Login</button>
