@@ -483,6 +483,31 @@
             </div>
         </div>
 
+        <!-- Input Modal for Markernames -->
+        <div id="markerModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="markerModalHeader" class="modal-title">Enter a name for the start point</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-fields-group">
+                            <label for="markerModalNameInput" class="form-label">Name *</label>
+                            <input type="text" id="markerModalNameInput" name="markerModalNameInput" class="form-control exclude-from-validation" placeholder="Enter Start Name" maxlength="100" required>
+                        </div>
+                        <div id="markerNameErrorMessage" class="alert alert-danger mt-2" style="display: none">
+                            Please provide a valid name.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="markerModalSaveButton" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="/create_hike/create_hike.js"></script>
     </body>
