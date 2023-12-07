@@ -9,6 +9,8 @@
 <%@ attribute name="name" required="true" type="java.lang.String" %>
 <%@ attribute name="min" required="true" type="java.lang.Integer" %>
 <%@ attribute name="max" required="true" type="java.lang.Integer" %>
+<%@ attribute name="valueLow" required="true" type="java.lang.Integer" %>
+<%@ attribute name="valueHigh" required="true" type="java.lang.Integer" %>
 <link href="../../search_results/filter.css" rel="stylesheet">
 
 <div
@@ -43,8 +45,7 @@
                             class="bi bi-arrow-up"
                             viewBox="0 0 16 16"
                             style="display: none"
-                            id="${name}ArrowUp"
-                    >
+                            id="${name}ArrowUp">
                         <path
                                 fill-rule="evenodd"
                                 d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"
@@ -60,24 +61,24 @@
                     <span thumb style="left: 0%"></span>
                     <span thumb style="left: 100%"></span>
                     <div sign style="left: 0%">
-                        <span>${min}</span>
+                        <span>${valueLow}</span>
                     </div>
                     <div sign style="left: 100%">
-                        <span>${max}</span>
+                        <span>${valueHigh}</span>
                     </div>
                 </div>
                 <input
                         id="${name}Low"
                         type="range"
                         tabindex="0"
-                        value="1"
+                        value="${valueLow}"
                         max="${max}"
                         min="${min}"
                         step="1"
                         oninput="
                 this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
-                var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
-                var children = this.parentNode.childNodes[1].childNodes;
+                let value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+                let children = this.parentNode.childNodes[1].childNodes;
                 children[1].style.width=value+'%';
                 children[5].style.left=value+'%';
                 children[7].style.left=value+'%';children[11].style.left=value+'%';
@@ -87,14 +88,14 @@
                         id="${name}High"
                         type="range"
                         tabindex="0"
-                        value="5"
+                        value="${valueHigh}"
                         max="${max}"
                         min="${min}"
                         step="1"
                         oninput="
                 this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
-                var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
-                var children = this.parentNode.childNodes[1].childNodes;
+                let value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+                let  children = this.parentNode.childNodes[1].childNodes;
                 children[3].style.width=(100-value)+'%';
                 children[5].style.right=(100-value)+'%';
                 children[9].style.left=value+'%';children[13].style.left=value+'%';

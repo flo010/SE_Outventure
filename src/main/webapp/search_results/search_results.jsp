@@ -18,13 +18,13 @@
         </header>
         <div class="row">
         <div class="col-3">
-            <outventure:filter name="Duration" min="1" max="10000"></outventure:filter>
-            <outventure:filter name="Distance" min="1" max="10000"></outventure:filter>
-            <outventure:filter name="Alltitude" min="1" max="10000"></outventure:filter>
-            <outventure:filter name="Stamina" min="1" max="5"></outventure:filter>
-            <outventure:filter name="Power" min="1" max="5"></outventure:filter>
-            <outventure:filter name="Expierence" min="1" max="5"></outventure:filter>
-            <outventure:filter name="Landscape" min="1" max="5"></outventure:filter>
+            <outventure:filter name="Duration" min="1" max="10000" valueLow="1" valueHigh="10000"></outventure:filter>
+            <outventure:filter name="Distance" min="1" max="10000" valueLow="1" valueHigh="10000"></outventure:filter>
+            <outventure:filter name="Altitude" min="1" max="10000" valueLow="1" valueHigh="10000"></outventure:filter>
+            <outventure:filter name="Stamina" min="1" max="5" valueLow="1" valueHigh="5"></outventure:filter>
+            <outventure:filter name="Power" min="1" max="5" valueLow="1" valueHigh="5"></outventure:filter>
+            <outventure:filter name="Experience" min="1" max="5" valueLow="1" valueHigh="5"></outventure:filter>
+            <outventure:filter name="Landscape" min="1" max="5" valueLow="1" valueHigh="5"></outventure:filter>
 
             <div
                     class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1"
@@ -119,6 +119,14 @@
                 </div>
             </div>
         </div>
+            <div
+                    class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1"
+            >
+                <div class="d-flex justify-content-between align-items-center px-1">
+                    <button type="button" class="btn btn-primary" onclick="resetFilters()">Reset</button>
+                    <button id="filter" class="btn btn-success" onclick="getFiltered()">Apply</button>
+                </div>
+            </div>
         </div>
         <div class="col-9">
         <div class="container py-3">
