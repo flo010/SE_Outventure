@@ -46,6 +46,18 @@
         %>
 
         <div class="container-sm mt-5 mb-5">
+            <div class="d-flex bd-highlight mb-3">
+                <div class="me-auto p-2 bd-highlight">
+                    <button id="backToSearchButton" type="button" class="btn btn-outline-secondary" onclick="showLastSearchResults()">Return to the search results</button>
+                </div>
+                <div class="p-2 bd-highlight">
+                    Edit Button
+                </div>
+                <div class="p-2 bd-highlight">
+                    <button id="deleteHikeButton" type="button" class="btn btn-outline-secondary" onclick="showDeleteHikeModal()">Delete</button>
+                </div>
+            </div>
+
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
             <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
             <div class="paragraph-container mt-3" style="width: 50%">
@@ -263,5 +275,6 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="/hike_detail/hike_detail.js"></script>
+        <script src="/tagJavaScript/navbar.js"></script>
     </body>
 </html>

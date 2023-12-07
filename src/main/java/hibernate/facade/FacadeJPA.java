@@ -1,7 +1,6 @@
 package hibernate.facade;
 
 import hibernate.broker.HikeBroker;
-import hibernate.broker.HikerBroker;
 import hibernate.broker.PictureBroker;
 import hibernate.model.Hike;
 import hibernate.model.Hiker;
@@ -55,6 +54,7 @@ public class FacadeJPA implements Facade {
         return hikeBroker.getLazy(hikeID);
     }
 
+
     @Override
     public Hike getHikeByIDEager(int hikeID) {
         HikeBroker hikeBroker = new HikeBroker();
@@ -76,6 +76,20 @@ public class FacadeJPA implements Facade {
         return hikes;
     }
 
+
+    public List<Hike> getHikesByTitleLazy(String title) {
+        HikeBroker hikeBroker = new HikeBroker();
+        List<Hike> hikes = null;
+        try {
+            hikes = hikeBroker.getByTitle(title);
+        } catch (Exception e) {
+            System.out.println("getAllHikes is null");
+        }
+
+
+        return hikes;
+    }
+
     @Override
     public Picture getPictureByID(int pictureID) {
         PictureBroker pictureBroker = new PictureBroker();
@@ -90,16 +104,16 @@ public class FacadeJPA implements Facade {
         return pictureBroker.getAll();
     }
 
-    public boolean checkHikerCredentials(String email, String password) {
-        HikerBroker hikerBroker = new HikerBroker();
-
-        return hikerBroker.checkHikerLoginCredentials(email, password);
-    }
-
-    public String getUsernameByEmailAndPassword (String email, String password){
-        HikerBroker hikerBroker = new HikerBroker();
-
-        return hikerBroker.getUsernameByEmailAndPassword(email, password);
+    public List<Hike> search(String title,int durationLow,int durationHigh, int strengthLow,
+                             int strengthHigh, int staminaLow,int staminaHigh,
+                             int experienceLow, int experienceHigh, int landscapeLow,
+                             int landscapeHigh, int distanceLow, int distanceHigh,
+                             int altitudeLow, int altitudeHigh,int month) {
+        HikeBroker hikeBroker = new HikeBroker();
+        return hikeBroker.search(title,durationLow,durationHigh,
+                strengthLow,strengthHigh,staminaLow,staminaHigh,experienceLow,
+                experienceHigh,landscapeLow,landscapeHigh,distanceLow,distanceHigh,
+                altitudeLow,altitudeHigh,month);
     }
 
     public Picture getNewPicture(){
