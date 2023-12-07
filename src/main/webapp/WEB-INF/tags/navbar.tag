@@ -67,7 +67,12 @@
                         </ul>
                         <input id="searchBar" name="search" type="search" class="form-control" placeholder="All hikes" value="<%= searchString %>" aria-label="Search" style="width:500px; max-width:500px "/>
                     </div>
-                    <a href="#" class="text-white" onclick="commitSearch(event)"><i class="fas fa-search ps-3"></i></a>
+                    <a href="#" class="text-white mr-3" onclick="commitSearch(event)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </a>
+
                 </form>
                 <a class="nav-link" href="/search_results">Search Hike</a>
                 <%
@@ -90,12 +95,14 @@
 
                     <ul class="dropdown-menu">
                         <li><a class="nav-link" href="/profile/profile.jsp">
-                            <%=loggedInUser%>
+                            Profile
                         </a></li>
                         <li>
                             <!-- Form for logout with JavaScript to submit it -->
                             <form id="logoutForm" action="/logout" method="post">
-                                <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">Logout</a>
+                                <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">
+                                    Logout
+                                </a>
                             </form>
                         </li>
                     </ul>
