@@ -80,12 +80,27 @@
                 <%
                     if (loggedInUser != null) {
                 %>
-                    <a class="nav-link" href="/profile/profile.jsp">
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" id="loggedInUser" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" class="bi bi-person-fill" viewBox="0 0 16 16">
                             <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
                         </svg>
                         <%=loggedInUser%>
                     </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="/profile/profile.jsp">
+                            <%=loggedInUser%>
+                        </a></li>
+                        <li>
+                            <!-- Form for logout with JavaScript to submit it -->
+                            <form id="logoutForm" action="/logout" method="post">
+                                <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">Logout</a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+
                 <% } else { %>
                     <a class="nav-link" href="/login/login.jsp">Login</a>
                 <% } %>
@@ -93,3 +108,22 @@
         </div>
     </div>
 </nav>
+
+<%--<script>
+    // Get the element by ID
+    var loggedInUserElement = document.getElementById('loggedInUser');
+
+    // Check if the element exists
+    if (loggedInUserElement) {
+        // Get the text content of the element
+        var loggedInUserText = loggedInUserElement.textContent;
+
+        var truncatedText = loggedInUserText.substring(0, 6);
+        // Set the truncated text as the new content of the element
+        loggedInUserElement.textContent = truncatedText;
+
+        // Add a title attribute with the full text for tooltip
+        loggedInUserElement.setAttribute('title', loggedInUserText);
+    }
+</script>--%>
+
