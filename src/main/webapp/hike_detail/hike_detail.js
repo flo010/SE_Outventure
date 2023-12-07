@@ -1,3 +1,16 @@
+// delete hike functions
+function deleteHike(hikeID) {
+    // Redirect to the DeleteHikeServlet
+    window.location.href = '../delete_hike?hikeID=' + hikeID;
+}
+
+function showDeleteHikeModal() {
+    let deleteHikeModal = new bootstrap.Modal(document.getElementById('deleteHikeModal'), {
+        keyboard: false
+    });
+    deleteHikeModal.show();
+}
+
 // function to fill the circles
 document.addEventListener("DOMContentLoaded", function() {
     let circles = document.querySelectorAll('.fa.fa-circle-o');
@@ -25,6 +38,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+function showLastSearchResults() {
+    window.location.href = "/search_results/search_results.jsp";
+}
+
 // map functions
 document.addEventListener("DOMContentLoaded", function (){
     initialiseMap();
@@ -46,7 +63,7 @@ function initialiseMap() {
 
     let map = new L.Map('map', {fullscreenControl: true,});
     map.fitBounds(bounds);
-    
+
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
