@@ -1,23 +1,25 @@
 .login-background{
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: url(https://img3.oastatic.com/img2/75864834/max/wandern-in-norwegen-besseggen-jotunheimen.jpg);
+}
+
+.login-overall-background{
+    background: url(https://www.manigod.com/medias/images/prestataires/20734-escalade_4.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
 }
 
 .card {
-    background: transparent;
+    background: rgba(64, 64, 64, 0.7);
     border:2px solid rgba(255, 255, 255, .2);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(50px);
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     width: 50%;
     height:100%;
     margin: auto;
+    color:white;
+    padding:10px 10px 10px 10px;
 }
 
 .form-control {
@@ -38,7 +40,11 @@
     background-position: right 10px center;
 }
 
-.btn-primary{
-    width:40%;
+.btn-success{
+    width:30%;
     margin: auto;
+}
+
+.register-link{
+    color:#B6FC9D
 }
