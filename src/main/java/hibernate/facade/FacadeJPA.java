@@ -96,6 +96,12 @@ public class FacadeJPA implements Facade {
         return hikerBroker.checkHikerLoginCredentials(email, password);
     }
 
+    public String getUsernameByEmailAndPassword (String email, String password){
+        HikerBroker hikerBroker = new HikerBroker();
+
+        return hikerBroker.getUsernameByEmailAndPassword(email, password);
+    }
+
     public Picture getNewPicture(){
         PictureBroker pictureBroker = new PictureBroker();
 

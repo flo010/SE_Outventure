@@ -1,14 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%
-    // Simulate a user being already logged in
-    String username = "TestUser";
-    String email = "test@hotmail.com";
-
-    // Set the username attribute in the session
-    HttpSession userSession = request.getSession();
-    userSession.setAttribute("username", username);
-    userSession.setAttribute("email", email);
-%>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
 <!DOCTYPE html>
@@ -23,19 +13,19 @@
             <outventure:navbar/>
         </header>
         <%
-            String loggedInUser = (String) userSession.getAttribute("username");
+            String loggedInUser = (String) session.getAttribute("loggedInUser");
             if (loggedInUser != null) {
         %>
         <div class="d-flex justify-content-center align-items-end">
             <div style="height: 200px;"></div>
-            <h1 class="display-1"><strong> <%=loggedInUser%>, welcome to Outventure!</strong></h1>
+            <h2 class="display-1" style="font-size: 55px"><strong> <%=loggedInUser%>, welcome to Outventure!</strong></h2>
         </div>
         <%
             } else {
         %>
         <div class="d-flex justify-content-center align-items-end">
             <div style="height: 200px;"></div>
-            <h1 class="display-1"><strong>Welcome to Outventure!</strong></h1>
+            <h2 class="display-1"><strong>Welcome to Outventure!</strong></h2>
         </div>
         <%
             }

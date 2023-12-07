@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "hikers")
 public class Hiker {
     private int _hikerID;
     private String _username;
