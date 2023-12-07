@@ -27,6 +27,46 @@ public class SearchResultsServlet extends HttpServlet {
 
         if ((searchString != null) && (!searchString.isEmpty())) {
             hikeList = facadeJPA.getHikesByTitleLazy(searchString);
+        // Retrieve parameters from the URL
+        String durationLow = request.getParameter("durationLow");
+        String durationHigh = request.getParameter("durationHigh");
+        String distanceLow = request.getParameter("distanceLow");
+        String distanceHigh = request.getParameter("distanceHigh");
+        String altitudeLow = request.getParameter("altitudeLow");
+        String altitudeHigh = request.getParameter("altitudeHigh");
+        String staminaLow = request.getParameter("staminaLow");
+        String staminaHigh = request.getParameter("staminaHigh");
+        String powerLow = request.getParameter("powerLow");
+        String powerHigh = request.getParameter("powerHigh");
+        String experienceLow = request.getParameter("experienceLow");
+        String experienceHigh = request.getParameter("experienceHigh");
+        String landscapeLow = request.getParameter("landscapeLow");
+        String landscapeHigh = request.getParameter("landscapeHigh");
+        String month = request.getParameter("month");
+        List<Hike> hikeList;
+        System.out.println(month);
+        if(durationLow != null){
+            hikeList = facadeJPA.search(searchString,
+                    Integer.parseInt(durationLow),
+                    Integer.parseInt(durationHigh),
+                    // Parse the remaining parameters to integers similarly
+                    Integer.parseInt(powerLow),
+                    Integer.parseInt(powerHigh),
+                    Integer.parseInt(staminaLow),
+                    Integer.parseInt(staminaHigh),
+                    Integer.parseInt(experienceLow),
+                    Integer.parseInt(experienceHigh),
+                    Integer.parseInt(landscapeLow),
+                    Integer.parseInt(landscapeHigh),
+                    Integer.parseInt(distanceLow),
+                    Integer.parseInt(distanceHigh),
+                    Integer.parseInt(altitudeLow),
+                    Integer.parseInt(altitudeHigh),
+                    Integer.parseInt(month)
+            );
+        }
+        else if ((searchString != null) && (!searchString.isEmpty())) {
+            hikeList = facadeJPA.getHikesByTitleLazy(searchString);
         } else {
             hikeList = facadeJPA.getAllHikesLazy();
         }
