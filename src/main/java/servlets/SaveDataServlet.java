@@ -20,7 +20,7 @@ public class SaveDataServlet extends HttpServlet {
     @Transactional
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-        saveToDatabase(request);
+        saveToDatabase(request,response);
 
         int hikeID = Integer.parseInt(request.getParameter("hikeID"));
         response.sendRedirect("hike_detail?id=" + hikeID + "&hikeEdited=true");
@@ -29,11 +29,11 @@ public class SaveDataServlet extends HttpServlet {
     @Transactional
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-        saveToDatabase(request);
+        saveToDatabase(request, response);
         response.sendRedirect("search_results?hikeCreated=true");
     }
 
-    private void saveToDatabase(HttpServletRequest request) {
+    private void saveToDatabase(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
         double distance = Double.parseDouble(request.getParameter("distanceInput"));
