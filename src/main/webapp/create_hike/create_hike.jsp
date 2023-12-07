@@ -14,7 +14,7 @@
         <title>Create Hike Overview</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link href="../css/style.css" rel="stylesheet">
+        <link href="/css/style.css" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -49,7 +49,7 @@
 
             <hr>
 
-            <form class="needs-validation" id="createHikeOverview" action="save_data" method="post" novalidate>
+            <form class="needs-validation" id="createHikeOverview" action="/save_data" method="post" novalidate>
                 <div class="tab-content mt-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                         <div class="input-fields-group">
@@ -184,6 +184,18 @@
                             </small>
                             <div class="invalid-feedback">
                                 Please enter a route description.
+                            </div>
+                        </div>
+                        <div>
+                            <button type="button" onclick="importGpxButton()" class="btn btn-outline-secondary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16" style="vertical-align: text-top;">
+                                    <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
+                                </svg>
+                                Import GPX
+                            </button>
+                            <input type="file" onchange="handleGpxFile(this)" class="form-control" id="gpxInput" name="gpxInput" accept=".gpx" hidden>
+                            <div class="invalid-feedback alert alert-danger mt-2">
+                                Invalid file type. Please provide a .gpx.
                             </div>
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">

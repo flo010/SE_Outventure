@@ -1,11 +1,10 @@
 package hibernate.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "hikers")
 public class Hiker {
     private int _hikerID;
     private String _username;

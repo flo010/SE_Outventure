@@ -3,6 +3,7 @@ package hibernate.facade;
 import hibernate.broker.HikeBroker;
 import hibernate.broker.PictureBroker;
 import hibernate.model.Hike;
+import hibernate.model.Hiker;
 import hibernate.model.Picture;
 
 
@@ -119,5 +120,18 @@ public class FacadeJPA implements Facade {
         PictureBroker pictureBroker = new PictureBroker();
 
         return pictureBroker.getNewPicture();
+    }
+
+    public List<Hike> getHikesByAuthorLazy(String author) {
+        HikeBroker hikeBroker = new HikeBroker();
+        List<Hike> hikes = null;
+        try {
+            hikes = hikeBroker.getByAuthor(author);
+        } catch (Exception e) {
+            System.out.println("getAllHikes is null");
+        }
+
+
+        return hikes;
     }
 }
