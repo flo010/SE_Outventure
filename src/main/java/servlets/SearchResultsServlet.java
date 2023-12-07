@@ -43,7 +43,6 @@ public class SearchResultsServlet extends HttpServlet {
         String landscapeLow = request.getParameter("landscapeLow");
         String landscapeHigh = request.getParameter("landscapeHigh");
         String month = request.getParameter("month");
-        List<Hike> hikeList;
         System.out.println(month);
         if(durationLow != null){
             hikeList = facadeJPA.search(searchString,
@@ -72,7 +71,7 @@ public class SearchResultsServlet extends HttpServlet {
         }
 
         HttpSession session = request.getSession();
-        if(hikeList !=null) {
+        if (hikeList != null) {
             session.setAttribute("hikeList", hikeList);
             session.setAttribute("searchString", searchString);
         }
@@ -83,6 +82,7 @@ public class SearchResultsServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+}
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String clearedSearchString = request.getParameter("clearedSearchString");
