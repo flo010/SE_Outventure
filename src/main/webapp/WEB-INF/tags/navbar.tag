@@ -68,12 +68,23 @@
                 <%
                     if (loggedInUser != null) {
                 %>
-                    <a class="nav-link" href="/profile/profile.jsp">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" class="bi bi-person-fill" viewBox="0 0 16 16">
-                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
-                        </svg>
-                        <%=loggedInUser%>
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown link
                     </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="/profile/profile.jsp">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
+                            </svg>
+                            <%=loggedInUser%>
+                        </a></li>
+                        <li><a class="dropdown-item" href="/servlets/Logoutservlet">Logout</a></li>
+
+                    </ul>
+                </div>
+
                 <% } else { %>
                     <a class="nav-link" href="/login/login.jsp">Login</a>
                 <% } %>
