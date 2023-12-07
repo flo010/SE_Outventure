@@ -25,8 +25,6 @@ public class SearchResultsServlet extends HttpServlet {
 
         List<Hike> hikeList = null;
 
-        if ((searchString != null) && (!searchString.isEmpty())) {
-            hikeList = facadeJPA.getHikesByTitleLazy(searchString);
         // Retrieve parameters from the URL
         String durationLow = request.getParameter("durationLow");
         String durationHigh = request.getParameter("durationHigh");
@@ -45,10 +43,10 @@ public class SearchResultsServlet extends HttpServlet {
         String month = request.getParameter("month");
         System.out.println(month);
         if(durationLow != null){
-            hikeList = facadeJPA.search(searchString,
+            hikeList = facadeJPA.search(
+                    searchString,
                     Integer.parseInt(durationLow),
                     Integer.parseInt(durationHigh),
-                    // Parse the remaining parameters to integers similarly
                     Integer.parseInt(powerLow),
                     Integer.parseInt(powerHigh),
                     Integer.parseInt(staminaLow),
@@ -82,7 +80,7 @@ public class SearchResultsServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-}
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String clearedSearchString = request.getParameter("clearedSearchString");

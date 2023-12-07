@@ -1,6 +1,7 @@
 package hibernate.facade;
 
 import hibernate.broker.HikeBroker;
+import hibernate.broker.HikerBroker;
 import hibernate.broker.PictureBroker;
 import hibernate.model.Hike;
 import hibernate.model.Hiker;
@@ -133,5 +134,17 @@ public class FacadeJPA implements Facade {
 
 
         return hikes;
+    }
+
+    public String getUsernameByEmailAndPassword (String email, String password){
+        HikerBroker hikerBroker = new HikerBroker();
+
+        return hikerBroker.getUsernameByEmailAndPassword(email, password);
+    }
+
+    public boolean checkHikerCredentials(String email, String password) {
+        HikerBroker hikerBroker = new HikerBroker();
+
+        return hikerBroker.checkHikerLoginCredentials(email, password);
     }
 }
