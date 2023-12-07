@@ -101,11 +101,6 @@ td, th {
     cursor: pointer;
 }
 
-.map {
-    height: 450px;
-    width: 50%;
-}
-
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -131,4 +126,6 @@ legend {
 #previewCoverImage {
     display: none;
 }
+
+
 

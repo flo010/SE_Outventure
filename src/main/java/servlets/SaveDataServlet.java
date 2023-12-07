@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 
 import java.io.IOException;
@@ -129,7 +130,16 @@ public class SaveDataServlet extends HttpServlet {
         if (!parkingInformation.isEmpty()) {
             hike.setParkingInformation(parkingInformation);
         }
-        hike.setAuthor("Admin");
+
+        HttpSession session = request.getSession();
+        String loggedInUser = (String) session.getAttribute("username");
+
+        // Check if the user is logged in
+        if (loggedInUser != null) {
+            hike.setAuthor(loggedInUser);
+        } else {
+            System.out.println("User not logged in");
+        }
         hike.setDate(currentDate);
         hike.setVisible(true);
         hike.setRegion("Bregenzerwald");
