@@ -17,6 +17,9 @@
         <title>Create Hike Overview</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <%-- basic leaflet css and js --%>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
         <link href="/css/style.css" rel="stylesheet">
     </head>
     <body>
@@ -237,6 +240,39 @@
                             <div class="invalid-feedback">
                                 Please enter a route description.
                             </div>
+                        </div>
+                        <div class="input-fields-group">
+                            <p class="form-label">Map</p>
+                            <p>
+                                <a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" href="#collapseTutorial" role="button" aria-expanded="false" aria-controls="collapseTutorial">
+                                    Tutorial
+                                </a>
+                            </p>
+                            <div class="collapse mb-3" id="collapseTutorial">
+                                <div class="card card-body">
+                                    <p>With this feature, you can easily set start and destination points on the map. Here's how it works:</p>
+                                    <ul>
+                                        <li>
+                                            <strong>Set Markers:</strong>
+                                            <ul>
+                                                <li>Start Point: Click on the map to set the start point.</li>
+                                                <li>Destination Point: Click on the map again to set the destination point.</li>
+                                                <li>Enter Names: After clicking on the map to place a marker, a modal appears in which you have to enter the name of the point.</li>
+                                                <li>The route appears automatically when two markers are set.</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <strong>Edit Markers:</strong>
+                                            <ul>
+                                                <li>Move Markers: Hold and drag the marker to reposition it.</li>
+                                                <li>Delete Markers: Remove any marker if needed using the delete button in the pop-up.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <p>That's it! With these steps, you can set your route, mark start and destination points, and customize the map to suit your needs.</p>
+                                </div>
+                            </div>
+                            <div id="map" class="map"></div>
                         </div>
                         <div>
                             <button type="button" onclick="importGpxButton()" class="btn btn-outline-secondary">
@@ -518,6 +554,51 @@
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                             <button type="button" class="btn btn-success" onclick="savePointOfInterest()">Save</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal for entering names -->
+            <div class="modal fade" id="nameModal" tabindex="-1" role="dialog" aria-labelledby="nameModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="nameModalLabel">Enter Name</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="nameInput">Name:</label>
+                            <input type="text" class="form-control" id="nameInput">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="saveName">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Modal for Markernames -->
+        <div id="markerModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="markerModalHeader" class="modal-title">Enter a name for the start point</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-fields-group">
+                            <label for="markerModalNameInput" class="form-label">Name *</label>
+                            <input type="text" id="markerModalNameInput" name="markerModalNameInput" class="form-control exclude-from-validation" placeholder="Enter Start Name" maxlength="100" required>
+                        </div>
+                        <div id="markerNameErrorMessage" class="alert alert-danger mt-2" style="display: none">
+                            Please provide a valid name.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="markerModalSaveButton" class="btn btn-success">Save</button>
                     </div>
                 </div>
             </div>
