@@ -12,10 +12,8 @@
 
 <%
     HttpSession userSession = request.getSession();
-    String loggedInUser =  (String) userSession.getAttribute("username");
-    String email = (String) userSession.getAttribute("email");
-    String testUser = "Jane Smith";
-    List<Hike> hikeList = FacadeJPA.getInstance().getHikesByAuthorLazy(testUser);
+    String loggedInUser =  (String) userSession.getAttribute("loggedInUser");
+    List<Hike> hikeList = FacadeJPA.getInstance().getHikesByAuthorLazy(loggedInUser);
 %>
 
 
@@ -36,7 +34,8 @@
                 <outventure:profile_left_box currentPage="hike_list"/>
                 <div class="right-box" style="background: beige">
                     <div class="container mt-3">
-                        <% for (Hike hike: hikeList) { if(hike.isVisible()){ %>
+                        <% if(hikeList.isEmpty()) { %> Your Hike List is empty
+                        <% }else{ for (Hike hike: hikeList) { if(hike.isVisible()){ %>
                         <% double durationMinutes = (hike.getDuration() % 1) * 60; %>
                         <div class="card hike-card mt-3" style="width: 100%">
                             <div class="row">
@@ -81,7 +80,7 @@
                                 </div>
                             </div>
                         </div>
-                        <% }} %>
+                        <% }}} %>
                     </div>
                 </div>
 
