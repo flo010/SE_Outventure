@@ -56,6 +56,9 @@
                 <div class="p-2 bd-highlight">
                     <button id="deleteHikeButton" type="button" class="btn btn-outline-secondary" onclick="showDeleteHikeModal()">Delete</button>
                 </div>
+                <div class="p-2 bd-highlight">
+                    <button id="editHikeButton" type="button" class="btn btn-outline-secondary" onclick="goToCreateHike()" >Edit</button>
+                </div>
             </div>
 
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
@@ -256,6 +259,24 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal for Delete Hike -->
+            <div class="modal fade" id="deleteHikeModal" tabindex="-1" role="dialog" aria-labelledby="deleteHikeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered " role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteHikeModalLabel">Delete Hike</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete this hike?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-success" onclick="deleteHike(<%=hike.getHikeID()%>)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="mapData"
              start-latitude="<%= hike.getStart().getLatitude() %>"
@@ -265,7 +286,6 @@
              destination-longitude="<%= hike.getDestination().getLongitude() %>"
              destination-name="<%= hike.getDestination().getName() %>">
         </div>
-
         <div id="dataForCircles"
              data-stamina="<%= hike.getStamina() %>"
              data-strength="<%= hike.getStrength() %>"
@@ -276,5 +296,16 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="/hike_detail/hike_detail.js"></script>
         <script src="/tagJavaScript/navbar.js"></script>
+        <script src="/search_results/search_results.js"></script>
+        <script>
+            if (<%=request.getAttribute("hikeEdited")%>) {
+                createToast("editHikeToast", "Editing successfully completed", "Your hike was successfully edited!");
+                showToast("editHikeToast");
+            }
+
+            function goToCreateHike() {
+                window.location.href = "create/hike?hikeID=" + <%=hike.getHikeID()%>;
+            }
+        </script>
     </body>
 </html>

@@ -1,4 +1,7 @@
-<%--
+<%@ page import="hibernate.model.Hike" %>
+<%@ page import="hibernate.facade.FacadeJPA" %>
+<%@ page import="hibernate.model.Start" %>
+<%@ page import="hibernate.model.Destination" %><%--
   Created by IntelliJ IDEA.
   User: Lea Roncero
   Date: 13.11.2023
@@ -21,6 +24,30 @@
             <outventure:navbar/>
         </header>
 
+        <%
+
+            Hike hike = (Hike) request.getAttribute("hike");
+
+            int hours =0;
+            int minutes =0;
+            int strength = 1;
+            int stamina = 1;
+            int experience = 1;
+            int landscape = 1;
+
+            if (hike != null) {
+
+                double duration = hike.getDuration();
+                 hours = (int)duration;
+                 minutes = (int)((duration - hours)*60);
+
+                 strength = hike.getStrength();
+                 stamina = hike.getStamina();;
+                 experience = hike.getExperience();
+                 landscape = hike.getLandscape();
+            }
+
+        %>
 
         <div class="container-sm mt-5 mb-5">
             <div class="progress mb-5">
@@ -49,12 +76,20 @@
 
             <hr>
 
-            <form class="needs-validation" id="createHikeOverview" action="/save_data" method="post" novalidate>
+            <form class="needs-validation" id="createHikeOverview"
+                  <% if (hike == null) {%>action="/save_data" method="post"<% }
+                  else {%> action="/save_data?hikeID=<%=hike.getHikeID()%>" method="put" <% } %>novalidate>
                 <div class="tab-content mt-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                         <div class="input-fields-group">
                             <label for="titleInput" class="form-label">Title *</label>
-                            <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Title" required maxlength="100" aria-describedby="titleHelpText">
+                            <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Title"
+                                   <%
+                                if(hike != null){
+                                    %>
+                                    value="<%=hike.getTitle()%>"
+                                   <% } %>
+                                   required maxlength="100" aria-describedby="titleHelpText">
                             <small id="titleHelpText" class="form-text text-muted">
                                 The maximum length is 100 characters.
                             </small>
@@ -64,7 +99,10 @@
                         </div>
                         <div class="input-fields-group">
                             <label for="descriptionInput" class="form-label">Description *</label>
-                            <textarea class="form-control" id="descriptionInput" name="descriptionInput" rows="8" placeholder="Description" required maxlength="1000" aria-describedby="descriptionHelpText"></textarea>
+                            <textarea class="form-control" id="descriptionInput" name="descriptionInput" rows="8" placeholder="Description" required maxlength="1000" aria-describedby="descriptionHelpText"><%
+                                    if(hike != null){
+                                %><%=hike.getDescription()%><% } %>
+                            </textarea>
                             <small id="descriptionHelpText" class="form-text text-muted">
                                 Describe your hike in a few sentences to provide an overview of the route. The maximum length is 1000 characters.
                             </small>
@@ -94,7 +132,13 @@
                     <div class="tab-pane fade" id="pills-details" role="tabpanel" aria-labelledby="pills-details-tab" tabindex="0">
                         <div class="input-fields-group less-width">
                             <label for="distanceInput" class="form-label">Distance *</label>
-                            <input type="text" class="form-control" id="distanceInput" name="distanceInput" placeholder="Distance" required maxlength="7" aria-describedby="distanceHelpText" pattern="\d+(\.\d{1,2})">
+                            <input type="text" class="form-control" id="distanceInput" name="distanceInput"
+                                <%
+                                if(hike != null){
+                                    %>
+                                   value="<%=hike.getDistance()%>"
+                                <% } %>
+                                   placeholder="Distance" required maxlength="7" aria-describedby="distanceHelpText" pattern="\d+(\.\d{1,2})">
                             <small id="distanceHelpText" class="form-text text-muted">
                                 The value must be specified as a decimal number in kilometers.
                             </small>
@@ -107,13 +151,13 @@
                                 <legend class="form-label">Duration *</legend>
                                 <div class="row">
                                     <div class="col">
-                                        <input type="text" class="form-control" id="hoursInput" name="hoursInput" placeholder="Hours" required maxlength="2" pattern="[0-9]{1,2}" aria-label="Duration Hours">
+                                        <input type="text" class="form-control" id="hoursInput" name="hoursInput" value="<%=hours%>" placeholder="Hours" required maxlength="2" pattern="[0-9]{1,2}" aria-label="Duration Hours">
                                         <div class="invalid-feedback">
                                             Please enter a valid duration.
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <input type="text" min="0" max="59" class="form-control" id="minutesInput" name="minutesInput" placeholder="Minutes" required maxlength="2" aria-describedby="minutesHelpText" pattern="[0-5]?[0-9]" aria-label="Duration Minutes">
+                                        <input type="text" min="0" max="59" class="form-control" id="minutesInput" name="minutesInput" value="<%=minutes%>" placeholder="Minutes" required maxlength="2" aria-describedby="minutesHelpText" pattern="[0-5]?[0-9]" aria-label="Duration Minutes">
                                         <small id="minutesHelpText" class="form-text text-muted">
                                             The value must be between 0 and 59.
                                         </small>
@@ -126,7 +170,13 @@
                         </div>
                         <div class="input-fields-group less-width">
                             <label for="altitudeInput" class="form-label">Altitude metres *</label>
-                            <input type="text" class="form-control" id="altitudeInput" name="altitudeInput" placeholder="Altitude" required maxlength="10" aria-describedby="altitudeHelpText" pattern="\d{1,10}">
+                            <input type="text" class="form-control" id="altitudeInput" name="altitudeInput"
+                                <%
+                                if(hike != null){
+                                    %>
+                                   value="<%=hike.getAltitude()%>"
+                                <% } %>
+                                   placeholder="Altitude" required maxlength="10" aria-describedby="altitudeHelpText" pattern="\d{1,10}">
                             <small id="altitudeHelpText" class="form-text text-muted">
                                 The value must be specified in meters.
                             </small>
@@ -137,23 +187,23 @@
                         <div class="input-fields-group less-width">
                             <div>
                                 <label for="conditionInput" class="form-label">Required Stamina *</label>
-                                <input type="range" class="custom-range" id="conditionInput" name="conditionInput" min="1" max="5" step="1" value="0">
-                                <label id="rangeValue1">1</label>
+                                <input type="range" class="custom-range" id="conditionInput" name="conditionInput" min="1" max="5" step="1" value="<%=stamina%>" oninput="updateLabel('conditionInput', 'rangeValue1')">
+                                <label id="rangeValue1"><%=stamina%></label>
                             </div>
                             <div>
                                 <label for="difficultyInput" class="form-label">Required Strength *</label>
-                                <input type="range" class="custom-range" id="difficultyInput" name="difficultyInput" min="1" max="5" step="1" value="0">
-                                <label id="rangeValue2">1</label>
+                                <input type="range" class="custom-range" id="difficultyInput" name="difficultyInput" min="1" max="5" step="1" value="<%=strength%>" oninput="updateLabel('difficultyInput', 'rangeValue2')">
+                                <label id="rangeValue2"><%=strength%></label>
                             </div>
                             <div>
                                 <label for="experienceInput" class="form-label">Required Experience *</label>
-                                <input type="range" class="custom-range" id="experienceInput" name="experienceInput" min="1" max="5" step="1" value="0">
-                                <label id="rangeValue3">1</label>
+                                <input type="range" class="custom-range" id="experienceInput" name="experienceInput" min="1" max="5" step="1" value="<%=experience%>" oninput="updateLabel('experienceInput', 'rangeValue3')">
+                                <label id="rangeValue3"><%=experience%></label>
                             </div>
                             <div>
                                 <label for="landscapeInput" class="form-label">Beauty of Landscape *</label>
-                                <input type="range" class="custom-range" id="landscapeInput" name="landscapeInput" min="1" max="5" step="1" value="0">
-                                <label id="rangeValue4">1</label>
+                                <input type="range" class="custom-range" id="landscapeInput" name="landscapeInput" min="1" max="5" step="1" value="<%=landscape%>" oninput="updateLabel('landscapeInput', 'rangeValue4')">
+                                <label id="rangeValue4"><%=landscape%></label>
                             </div>
                         </div>
                         <%--for loop for months--%>
@@ -178,7 +228,9 @@
                     <div class="tab-pane fade" id="pills-route" role="tabpanel" aria-labelledby="pills-route-tab" tabindex="0">
                         <div class="input-fields-group">
                             <label for="routeDescriptionInput" class="form-label">Route Description *</label>
-                            <textarea class="form-control" id="routeDescriptionInput" name="routeDescriptionInput" rows="8" placeholder="Route Description" aria-describedby="routeHelpText" required maxlength="1000"></textarea>
+                            <textarea class="form-control" id="routeDescriptionInput" name="routeDescriptionInput" rows="8" placeholder="Route Description" aria-describedby="routeHelpText" required maxlength="1000"><%
+                                    if(hike != null){
+                                %><%=hike.getRouteDescription()%>"<%}%></textarea>
                             <small id="routeHelpText" class="form-text text-muted">
                                 Describe the route of your hike in detail. The maximum length is 1000 characters.
                             </small>
@@ -214,18 +266,30 @@
                         <div class="input-fields-group less-width">
                             <fieldset>
                                 <legend class="form-label">Start *</legend>
-                                <input type="text" class="form-control" id="startNameInput" name="startNameInput" placeholder="Name" aria-describedby="startLatitudeHelpText" required maxlength="100" aria-label="Start Name">
+                                <input type="text" class="form-control" id="startNameInput" name="startNameInput"
+                                    <% if(hike != null){ %>
+                                        value="<%=hike.getStart().getName()%>"
+                                    <% } %>
+                                    placeholder="Name" aria-describedby="startLatitudeHelpText" required maxlength="100" aria-label="Start Name">
                                 <div class="invalid-feedback">
                                     Please enter a name for the starting point.
                                 </div>
-                                <input type="number" min="-90.000000" max="90.000000" step="0.000001" class="form-control mt-3" id="latitudeStartCoordinateInput" name="latitudeStartCoordinateInput" placeholder="Latitude" required maxlength="10" aria-label="Start Latitude">
+                                <input type="number" min="-90.000000" max="90.000000" step="0.000001" class="form-control mt-3" id="latitudeStartCoordinateInput" name="latitudeStartCoordinateInput"
+                                    <% if(hike != null) { %>
+                                       value="<%=hike.getStart().getLatitude()%>"
+                                    <% } %>
+                                    placeholder="Latitude" required maxlength="10" aria-label="Start Latitude">
                                 <small id="startLatitudeHelpText" class="form-text text-muted">
                                     The value must be in the format XX.XXXXXX (negative sign optional).
                                 </small>
                                 <div class="invalid-feedback">
                                     Please enter a valid latitude between -90.000000 and 90.000000.
                                 </div>
-                                <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3" id="longitudeStartCoordinateInput" name="longitudeStartCoordinateInput" placeholder="Longitude" aria-describedby="startLongitudeHelpText" required maxlength="11" aria-label="Start Longitude">
+                                <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3" id="longitudeStartCoordinateInput" name="longitudeStartCoordinateInput"
+                                    <% if(hike != null){ %>
+                                       value="<%=hike.getStart().getLongitude()%>"
+                                    <% } %>
+                                    placeholder="Longitude" aria-describedby="startLongitudeHelpText" required maxlength="11" aria-label="Start Longitude">
                                 <small id="startLongitudeHelpText" class="form-text text-muted">
                                     The value must be in the format XX.XXXXXX (negative sign optional).
                                 </small>
@@ -237,18 +301,30 @@
                         <div class="input-fields-group less-width">
                             <fieldset>
                                 <legend class="form-label">Destination *</legend>
-                                <input type="text" class="form-control" id="destinationNameInput" name="destinationNameInput" placeholder="Name" required maxlength="100" aria-label="Destination Name">
+                                <input type="text" class="form-control" id="destinationNameInput" name="destinationNameInput"
+                                    <% if(hike != null) { %>
+                                       value="<%=hike.getDestination().getName()%>"
+                                    <% } %>
+                                    placeholder="Name" required maxlength="100" aria-label="Destination Name">
                                 <div class="invalid-feedback">
                                     Please enter a name for the destination point.
                                 </div>
-                                <input type="number" min="-90.000000" max="90.000000" step="0.000001" class="form-control mt-3" id="latitudeDestinationCoordinateInput" name="latitudeDestinationCoordinateInput" placeholder="Latitude" aria-describedby="destinationLatitudeHelpText" required maxlength="10" aria-label="Destination Latitude">
+                                <input type="number" min="-90.000000" max="90.000000" step="0.000001" class="form-control mt-3" id="latitudeDestinationCoordinateInput" name="latitudeDestinationCoordinateInput"
+                                    <% if(hike != null) { %>
+                                       value="<%=hike.getDestination().getLatitude()%>"
+                                    <% } %>
+                                    placeholder="Latitude" aria-describedby="destinationLatitudeHelpText" required maxlength="10" aria-label="Destination Latitude">
                                 <small id="destinationLatitudeHelpText" class="form-text text-muted">
                                     The value must be in the format XX.XXXXXX (negative sign optional).
                                 </small>
                                 <div class="invalid-feedback">
                                     Please enter a valid latitude between -90.000000 and 90.000000.
                                 </div>
-                                <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3" id="longitudeDestinationCoordinateID" name="longitudeDestinationCoordinateInput" placeholder="Longitude" aria-describedby="destinationLongitudeHelpText" required maxlength="11" aria-label="Destination Longitude">
+                                <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3" id="longitudeDestinationCoordinateID" name="longitudeDestinationCoordinateInput"
+                                    <% if(hike != null) { %>
+                                       value="<%=hike.getDestination().getLongitude()%>"
+                                    <% } %>
+                                    placeholder="Longitude" aria-describedby="destinationLongitudeHelpText" required maxlength="11" aria-label="Destination Longitude">
                                 <small id="destinationLongitudeHelpText" class="form-text text-muted">
                                     The value must be in the format XX.XXXXXX (negative sign optional).
                                 </small>
@@ -265,13 +341,13 @@
                                         <div class="card my-2">
                                             <div class="card-body">
                                                 <h4 class="poiTempName card-title text-center"></h4>
-                                                <input type="hidden" class="poiNameInput" name="poiNameInput">
+                                                <input type="hidden" class="poiNameInput" name="poiNameInput" value="">
                                                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                                                     <div>
                                                         <p class="poiTempType">
                                                             <strong>Type: </strong>
                                                         </p>
-                                                        <input type="hidden" class="poiTypeInput" name="poiTypeInput">
+                                                        <input type="hidden" class="poiTypeInput" name="poiTypeInput" value="">
                                                         <p class="poiTempDescription text-break">
                                                             <strong>Description: </strong>
                                                         </p>
@@ -279,8 +355,8 @@
                                                         <p class="poiTempCoordinates">
                                                             <strong>GPS Coordinates: </strong>
                                                         </p>
-                                                        <input type="hidden" class="poiLatitudeInput" name="poiLatitudeInput">
-                                                        <input type="hidden" class="poiLongitudeInput" name="poiLongitudeInput">
+                                                        <input type="hidden" class="poiLatitudeInput" name="poiLatitudeInput" value="">
+                                                        <input type="hidden" class="poiLongitudeInput" name="poiLongitudeInput" value="">
                                                     </div>
                                                     <!-- edit and delete buttons with icons -->
                                                     <div class="d-flex gap-2">
@@ -321,14 +397,22 @@
                     <div class="tab-pane fade" id="pills-getting-there" role="tabpanel" aria-labelledby="pills-getting-there-tab" tabindex="0">
                         <div class="input-fields-group">
                             <label for="gettingThereInput" class="form-label">Getting There</label>
-                            <textarea class="form-control" id="gettingThereInput" name="gettingThereInput" rows="8" placeholder="Getting There" aria-describedby="gettingThereHelpText" maxlength="1000"></textarea>
+                            <textarea class="form-control" id="gettingThereInput" name="gettingThereInput" rows="8" placeholder="Getting There" aria-describedby="gettingThereHelpText" maxlength="1000">
+                                <% if(hike != null) { %>
+                                    <%=hike.getArrivalInformation()%>
+                                <% } %>
+                            </textarea>
                             <small id="gettingThereHelpText" class="form-text text-muted">
                                 Provide information on the best way to get to the starting point of your hike. The maximum length is 1000 characters.
                             </small>
                         </div>
                         <div class="input-fields-group">
                             <label for="parkingInput" class="form-label">Parking</label>
-                            <textarea class="form-control" id="parkingInput" name="parkingInput" rows="8" placeholder="Parking" aria-describedby="parkingHelpText" maxlength="1000"></textarea>
+                            <textarea class="form-control" id="parkingInput" name="parkingInput" rows="8" placeholder="Parking" aria-describedby="parkingHelpText" maxlength="1000">
+                                <% if (hike != null) { %>
+                                    <%=hike.getParkingInformation()%>
+                                <% } %>
+                            </textarea>
                             <small id="parkingHelpText" class="form-text text-muted">
                                 Provide information about the best parking options near the starting point of the hike. The maximum length is 1000 characters.
                             </small>

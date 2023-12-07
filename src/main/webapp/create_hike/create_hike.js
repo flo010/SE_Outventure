@@ -88,6 +88,13 @@ function rangeCount(id, labelId){
     });
 }
 
+//function to change the range values dynamically with the sliders
+function updateLabel(inputId, labelId) {
+    const inputValue = document.getElementById(inputId).value;
+    document.getElementById(labelId).innerText = inputValue;
+    console.log('Function called with inputId:', inputId, 'labelId:', labelId);
+}
+
 // POI functions
 const pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
 

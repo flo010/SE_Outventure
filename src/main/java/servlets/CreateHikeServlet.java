@@ -11,24 +11,27 @@ import jakarta.transaction.Transactional;
 
 import java.io.IOException;
 
-@WebServlet(name = "hikeDetailServlet", value = "/hike_detail")
-public class HikeDetailServlet extends HttpServlet {
+@WebServlet(name = "createHikeServlet", value = "/create/hike")
+public class CreateHikeServlet extends HttpServlet {
     @Transactional
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
+        String hikeParameter = request.getParameter("hikeID");
 
-        String hikeEdited = request.getParameter("hikeEdited");
-        request.setAttribute("hikeEdited", hikeEdited);
 
-        int hikeID = Integer.parseInt(request.getParameter("id"));
+        if(hikeParameter != null) {
 
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
-        Hike hike = facadeJPA.getHikeByIDEager(hikeID);
+            int hikeID = Integer.parseInt(hikeParameter);
 
-        request.setAttribute("hike", hike);
+
+            FacadeJPA facadeJPA = FacadeJPA.getInstance();
+            Hike hike = facadeJPA.getHikeByIDEager(hikeID);
+
+            request.setAttribute("hike", hike);
+        }
 
         try {
-            request.getRequestDispatcher("/hike_detail/hike_detail.jsp").forward(request, response);
+            request.getRequestDispatcher("/create_hike/create_hike.jsp").forward(request, response);
         } catch (ServletException e) {
             throw new RuntimeException(e);
         }
