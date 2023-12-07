@@ -284,7 +284,9 @@
              start-name="<%= hike.getStart().getName() %>"
              destination-latitude="<%= hike.getDestination().getLatitude() %>"
              destination-longitude="<%= hike.getDestination().getLongitude() %>"
-             destination-name="<%= hike.getDestination().getName() %>">
+             destination-name="<%= hike.getDestination().getName() %>"
+             height="200px"
+        >
         </div>
         <div id="dataForCircles"
              data-stamina="<%= hike.getStamina() %>"
