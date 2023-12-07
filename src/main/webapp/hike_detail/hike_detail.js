@@ -45,7 +45,7 @@ function showLastSearchResults() {
 // map functions
 document.addEventListener("DOMContentLoaded", function (){
     initialiseMap();
-})
+});
 
 function initialiseMap() {
     let mapData = document.getElementById('mapData');

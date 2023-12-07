@@ -476,3 +476,168 @@ window.onbeforeunload = function () {
         return 'Do you really want to leave this page?';
     }
 }
+
+// map functions
+function initializeMap() {
+    let map = new L.Map('map').setView([47.4167, 9.7500], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    let startMarker, destinationMarker, route;
+
+    map.on('click', function(event) {
+        let clickedLatLng = event.latlng;
+        let markerCount = 0;
+
+        if ((!startMarker) && (markerCount <= 2)) {
+            showMarkerModal("Enter a name for the start point", "Enter start name", () => {
+                let startName = document.getElementById("markerModalNameInput").value;
+
+                markerCount += 1;
+                startMarker = L.marker(clickedLatLng, { draggable: true });
+
+                // create tooltip and pop up and open it
+                let popupContent = `<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E <br><br><button id="removeStartBtn" type="button" class="btn btn-danger btn-sm">Remove Start</button>`;
+                startMarker.bindPopup(popupContent).openPopup();
+                startMarker.bindTooltip("<strong>Start: </strong>" + startName);
+
+                startMarker.addTo(map);
+
+                startMarker.on('dragend', function() {
+                    startMarker.getPopup().setContent(`<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E <br><br><button id="removeStartBtn" type="button" class="btn btn-danger btn-sm">Remove Start</button>`);
+                    route = updatePolyline(startMarker, destinationMarker, route);
+                    updateStart(startName, startMarker);
+                });
+
+                updateStart(startName, startMarker);
+
+                // Add click event to the "Remove Marker" button
+                startMarker.on('popupopen', function() {
+                    document.getElementById('removeStartBtn').addEventListener('click', function() {
+                        map.removeLayer(startMarker);
+                        startMarker = null; // Reset the marker
+                        if (route) {
+                            map.removeLayer(route);
+                            route = null; // Reset the route
+                        }
+                    });
+                });
+
+                // create polyline with coordinates from markers if both they exist
+                if (startMarker && destinationMarker) {
+                    route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(map);
+                }
+            });
+        }
+        else if ((!destinationMarker) && (markerCount <= 2)) {
+            showMarkerModal("Enter a name for the destination point", "Enter destination name", () => {
+                let destinationName = document.getElementById("markerModalNameInput").value;
+
+                markerCount += 1;
+                destinationMarker = L.marker(clickedLatLng, { draggable: true });
+
+                // create tooltip and pop up and open it
+                let popupContent = `<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E <br><br><button id="removeDestBtn" type="button" class="btn btn-danger btn-sm">Remove Destination</button>`;
+                destinationMarker.bindPopup(popupContent).openPopup();
+                destinationMarker.bindTooltip("<strong>Destination: </strong>" + destinationName);
+
+                destinationMarker.addTo(map);
+
+                destinationMarker.on('dragend', function() {
+                    destinationMarker.getPopup().setContent(`<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E <br><br><button id="removeDestBtn" type="button" class="btn btn-danger btn-sm">Remove Destination</button>`);
+                    route = updatePolyline(startMarker, destinationMarker, route);
+                    updateDestination(destinationName, destinationMarker);
+                });
+
+                updateDestination(destinationName, destinationMarker);
+
+                // Add click event to the "Remove Marker" button
+                destinationMarker.on('popupopen', function() {
+                    document.getElementById('removeDestBtn').addEventListener('click', function() {
+                        map.removeLayer(destinationMarker);
+                        destinationMarker = null; // Reset the marker
+                        if (route) {
+                            map.removeLayer(route);
+                            route = null; // Reset the route
+                        }
+                    });
+                });
+
+                // create polyline with coordinates from markers if both they exist
+                if (startMarker && destinationMarker) {
+                    route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(map);
+                }
+            });
+        }
+    });
+}
+
+function updatePolyline(startMarker, destinationMarker, route) {
+    if (startMarker && destinationMarker && route) {
+        // Update the polyline with the new coordinates
+        route.setLatLngs([startMarker.getLatLng(), destinationMarker.getLatLng()]);
+    }
+    return route;
+}
+
+// Call the function when the DOM is ready
+document.addEventListener('DOMContentLoaded', function () {
+    initializePage();
+    setTimeout(initializeMap, 10);
+});
+
+function updateStart(startName, startMarker) {
+    const startNameInput = document.getElementById("startNameInput");
+    const latitudeStartCoordinateInput = document.getElementById("latitudeStartCoordinateInput");
+    const longitudeStartCoordinateInput = document.getElementById("longitudeStartCoordinateInput");
+
+    startNameInput.value = startName;
+    latitudeStartCoordinateInput.value = startMarker.getLatLng().lat;
+    longitudeStartCoordinateInput.value = startMarker.getLatLng().lng;
+
+    startNameInput.setAttribute("disabled", "");
+    latitudeStartCoordinateInput.setAttribute("disabled", "");
+    longitudeStartCoordinateInput.setAttribute("disabled", "");
+}
+
+function updateDestination(destinationName, destinationMarker) {
+    const destinationNameInput = document.getElementById("destinationNameInput");
+    const latitudeDestinationCoordinateInput = document.getElementById("latitudeDestinationCoordinateInput");
+    const longitudeDestinationCoordinateInput = document.getElementById("longitudeDestinationCoordinateID");
+
+    destinationNameInput.value = destinationName;
+    latitudeDestinationCoordinateInput.value = destinationMarker.getLatLng().lat;
+    longitudeDestinationCoordinateInput.value = destinationMarker.getLatLng().lng;
+
+    destinationNameInput.setAttribute("disabled", "");
+    latitudeDestinationCoordinateInput.setAttribute("disabled", "");
+    longitudeDestinationCoordinateInput.setAttribute("disabled", "");
+}
+
+function showMarkerModal(markerModalHeader, markerModalNameInput, onModalSave) {
+    const markerModal = new bootstrap.Modal(document.getElementById("markerModal"));
+
+    const modalHeader = document.getElementById("markerModalHeader");
+    const modalInput = document.getElementById("markerModalNameInput");
+    const markerModalSaveButton = document.getElementById("markerModalSaveButton");
+    const markerNameErrorMessage = document.getElementById("markerNameErrorMessage");
+
+    modalHeader.innerText = markerModalHeader;
+    modalInput.placeholder = markerModalNameInput;
+    markerModalSaveButton.onclick = () => {
+        if (modalInput.value) {
+            onModalSave();
+            modalInput.value = "";
+            markerNameErrorMessage.style.display = "none";
+            markerModal.hide();
+            return;
+        }
+
+        markerNameErrorMessage.style.display = "block";
+    };
+
+    markerModal.show();
+}

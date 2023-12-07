@@ -101,7 +101,12 @@ td, th {
     cursor: pointer;
 }
 
-.map {
+.map-hike-detail {
+    height: 450px;
+    width: 50%;
+}
+
+.map-create-hike {
     height: 450px;
 }
 

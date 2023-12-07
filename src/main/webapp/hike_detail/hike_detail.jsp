@@ -51,9 +51,6 @@
                     <button id="backToSearchButton" type="button" class="btn btn-outline-secondary" onclick="showLastSearchResults()">Return to the search results</button>
                 </div>
                 <div class="p-2 bd-highlight">
-                    Edit Button
-                </div>
-                <div class="p-2 bd-highlight">
                     <button id="deleteHikeButton" type="button" class="btn btn-outline-secondary" onclick="showDeleteHikeModal()">Delete</button>
                 </div>
                 <div class="p-2 bd-highlight">
@@ -127,7 +124,7 @@
                     <h3>Description</h3>
                     <p><%=hike.getDescription()%></p>
                     <h3 class="mt-5">Map</h3>
-                    <div id="map" class="map"></div>
+                    <div id="map" class="map-hike-detail"></div>
                 </div>
 
                 <div class="tab-pane fade" id="pills-details" role="tabpanel" aria-labelledby="pills-details-tab" tabindex="0">
@@ -285,7 +282,6 @@
              destination-latitude="<%= hike.getDestination().getLatitude() %>"
              destination-longitude="<%= hike.getDestination().getLongitude() %>"
              destination-name="<%= hike.getDestination().getName() %>"
-             height="200px"
         >
         </div>
         <div id="dataForCircles"
