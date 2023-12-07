@@ -3,6 +3,8 @@ package hibernate.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+
 @Entity
 @Table(name = "hikers")
 public class Hiker {
@@ -10,6 +12,7 @@ public class Hiker {
     private String _username;
     private String _email;
     private String _password;
+    private List<Hike> _completedHikes;
 
     @Id
     @NotNull
@@ -48,4 +51,14 @@ public class Hiker {
     public void setPassword(String password) {
         _password = password;
     }
+
+    @ManyToMany
+    @JoinTable(name = "hiked", joinColumns = @JoinColumn(name="hiker_id"), inverseJoinColumns = @JoinColumn(name = "hike_id"))
+    public List<Hike> getCompletedHikes() {
+        return _completedHikes;
+    }
+    public void setCompletedHikes(List<Hike> completedHikes) {
+        _completedHikes = completedHikes;
+    }
 }
+
