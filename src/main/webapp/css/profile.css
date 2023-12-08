@@ -115,3 +115,11 @@
 .empty-list-message {
     font-size: 1.2rem;
 }
+.hike-button {
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+}
+.hike-button:hover {
+    background-color: #e0e0e0;
+}
