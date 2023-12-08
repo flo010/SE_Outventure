@@ -23,53 +23,50 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav me-auto mb-2 mb-lg-0">
+            <div class="flex-grow-1 d-flex">
                 <form id="search-input" action="/search_results" method="get" class="form-search">
                     <div class="input-group">
-                        <button class="btn btn-light dropdown-toggle shadow-0" type="button" data-mdb-toggle="dropdown"
-                                aria-expanded="false" style="padding-bottom: 0.4rem;">
-                            All
-                        </button>
-                        <input id="searchBar" name="search" type="search" class="form-control" placeholder="All hikes" value="<%= searchString %>" aria-label="Search" style="width:500px; max-width:500px "/>
-                        <a href="#" class="text-white mr-3" onclick="commitSearch(event)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"></path>
-                            </svg>
-                        </a>
+                        <div class="flex-grow-1 d-flex">
+                            <input id="searchBar" name="search" type="search" class="form-control" placeholder="All hikes" value="<%= searchString %>" aria-label="Search"/>
+                            <button class="btn btn-outline-success" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                </svg>
+                                Search
+                            </button>
+                        </div>
                     </div>
                 </form>
+            </div>
+            <div class="navbar-nav ml-auto">
                 <%
                     if (loggedInUser != null) {
                 %>
-                <div class="navbar-nav ml-auto">
-                    <div class="dropdown">
-                        <a class="btn btn-secondary dropdown-toggle" id="loggedInUser" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" class="bi bi-person-fill" viewBox="0 0 16 16">
-                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
-                            </svg>
-                            <%=loggedInUser%>
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="nav-link" href="/profile/profile.jsp">
-                                    Profile
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" id="loggedInUser" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
+                        </svg>
+                        <%=loggedInUser%>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="nav-link" href="/profile/profile.jsp">
+                                Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="/create_hike/create_hike.jsp">Create Hike</a>
+                        </li>
+                        <li>
+                            <!-- Form for logout with JavaScript to submit it -->
+                            <form id="logoutForm" action="/logout" method="post">
+                                <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">
+                                    Logout
                                 </a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="/create_hike/create_hike.jsp">Create Hike</a>
-                            </li>
-                            <li>
-                                <!-- Form for logout with JavaScript to submit it -->
-                                <form id="logoutForm" action="/logout" method="post">
-                                    <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">
-                                        Logout
-                                    </a>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-
+                            </form>
+                        </li>
+                    </ul>
                     <% } else { %>
                     <a class="nav-link" href="/login/login.jsp">Login</a>
                     <% } %>
