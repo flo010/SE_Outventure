@@ -30,7 +30,7 @@ public class SaveDataServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         saveToDatabase(request, response);
-        response.sendRedirect("search_results?hikeCreated=true");
+        response.sendRedirect("/search_results?hikeCreated=true");
     }
 
     private void saveToDatabase(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -58,16 +58,14 @@ public class SaveDataServlet extends HttpServlet {
         destination.setLatitude(destinationLatitude);
         destination.setLongitude(destinationLongitude);
 
-
-        //Save GPX File
-        response.setContentType("application/json");
-        String gpxContent = request.getParameter("gpxContent");
-
-        // Code for saving GPX file to database ...
-
-        //JSON message
-        response.getWriter().write("{\"success\": true, \"message\": \"Data saved successfully.\"}");
-
+//        //Save GPX File
+//        response.setContentType("application/json");
+//        String gpxContent = request.getParameter("gpxContent");
+//
+//        // Code for saving GPX file to database ...
+//
+//        //JSON message
+//        response.getWriter().write("{\"success\": true, \"message\": \"Data saved successfully.\"}");
 
         int strength = Integer.parseInt(request.getParameter("difficultyInput"));
         int stamina = Integer.parseInt(request.getParameter("conditionInput"));
@@ -152,7 +150,7 @@ public class SaveDataServlet extends HttpServlet {
         }
 
         HttpSession session = request.getSession();
-        String loggedInUser = (String) session.getAttribute("username");
+        String loggedInUser = (String) session.getAttribute("loggedInUser");
 
         // Check if the user is logged in
         if (loggedInUser != null) {

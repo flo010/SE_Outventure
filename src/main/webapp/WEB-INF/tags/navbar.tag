@@ -10,7 +10,7 @@
         searchString = "";
     }
 
-    String loggedInUser = (String) session.getAttribute("loggedInUser");
+    String hikerUsername = (String) session.getAttribute("hikerUsername");
 %>
 
 <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
@@ -38,14 +38,14 @@
             </div>
             <div class="navbar-nav ml-auto">
                 <%
-                    if (loggedInUser != null) {
+                    if (hikerUsername != null) {
                 %>
                 <div class="dropdown">
                     <a class="btn btn-secondary dropdown-toggle" id="loggedInUser" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" class="bi bi-person-fill" viewBox="0 0 16 16">
                             <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
                         </svg>
-                        <%=loggedInUser%>
+                        <%=hikerUsername%>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
@@ -73,22 +73,4 @@
         </div>
     </div>
 </nav>
-
-<%--<script>
-    // Get the element by ID
-    var loggedInUserElement = document.getElementById('loggedInUser');
-
-    // Check if the element exists
-    if (loggedInUserElement) {
-        // Get the text content of the element
-        var loggedInUserText = loggedInUserElement.textContent;
-
-        var truncatedText = loggedInUserText.substring(0, 6);
-        // Set the truncated text as the new content of the element
-        loggedInUserElement.textContent = truncatedText;
-
-        // Add a title attribute with the full text for tooltip
-        loggedInUserElement.setAttribute('title', loggedInUserText);
-    }
-</script>--%>
 
