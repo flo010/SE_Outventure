@@ -23,7 +23,9 @@
         <div class="login-container">
             <outventure:profile_left_box currentPage="favorite_hike"/>
             <div class="right-box">
-                <div class="right-box-header"></div>
+                <div class="right-box-header">
+                    <h3>Your Favorite Hikes</h3>
+                </div>
                 <div class="right-box-body"></div>
                 <div class="right-box-bottom"></div>
             </div>
