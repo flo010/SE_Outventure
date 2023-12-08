@@ -28,28 +28,29 @@
         </header>
 
         <%
-
             Hike hike = (Hike) request.getAttribute("hike");
 
-            int hours =0;
-            int minutes =0;
+            String hoursString = "";
+            String minutesString = "";
+
             int strength = 1;
             int stamina = 1;
             int experience = 1;
             int landscape = 1;
 
             if (hike != null) {
-
                 double duration = hike.getDuration();
-                 hours = (int)duration;
-                 minutes = (int)((duration - hours)*60);
+                int hours = (int)duration;
+                int minutes = (int)((duration - hours)*60);
 
-                 strength = hike.getStrength();
-                 stamina = hike.getStamina();;
-                 experience = hike.getExperience();
-                 landscape = hike.getLandscape();
+                hoursString = Integer.toString(hours);
+                minutesString = Integer.toString(minutes);
+
+                strength = hike.getStrength();
+                stamina = hike.getStamina();;
+                experience = hike.getExperience();
+                landscape = hike.getLandscape();
             }
-
         %>
 
         <div class="container-sm mt-5 mb-5">
@@ -102,10 +103,13 @@
                         </div>
                         <div class="input-fields-group">
                             <label for="descriptionInput" class="form-label">Description *</label>
-                            <textarea class="form-control" id="descriptionInput" name="descriptionInput" rows="8" placeholder="Description" required maxlength="1000" aria-describedby="descriptionHelpText"><%
-                                    if(hike != null){
-                                %><%=hike.getDescription()%><% } %>
-                            </textarea>
+                            <textarea class="form-control" id="descriptionInput" name="descriptionInput" rows="8"
+                                      placeholder="Description" required maxlength="1000"
+                                      aria-describedby="descriptionHelpText"><%
+                                if (hike != null) {
+                                    %><%=hike.getDescription()%><%
+                                }
+                            %></textarea>
                             <small id="descriptionHelpText" class="form-text text-muted">
                                 Describe your hike in a few sentences to provide an overview of the route. The maximum length is 1000 characters.
                             </small>
@@ -136,9 +140,7 @@
                         <div class="input-fields-group less-width">
                             <label for="distanceInput" class="form-label">Distance *</label>
                             <input type="text" class="form-control" id="distanceInput" name="distanceInput"
-                                <%
-                                if(hike != null){
-                                    %>
+                                <% if (hike != null) { %>
                                    value="<%=hike.getDistance()%>"
                                 <% } %>
                                    placeholder="Distance" required maxlength="7" aria-describedby="distanceHelpText" pattern="\d+(\.\d{1,2})">
@@ -154,13 +156,13 @@
                                 <legend class="form-label">Duration *</legend>
                                 <div class="row">
                                     <div class="col">
-                                        <input type="text" class="form-control" id="hoursInput" name="hoursInput" value="<%=hours%>" placeholder="Hours" required maxlength="2" pattern="[0-9]{1,2}" aria-label="Duration Hours">
+                                        <input type="text" class="form-control" id="hoursInput" name="hoursInput" value="<%=hoursString%>" placeholder="Hours" required maxlength="2" pattern="[0-9]{1,2}" aria-label="Duration Hours">
                                         <div class="invalid-feedback">
                                             Please enter a valid duration.
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <input type="text" min="0" max="59" class="form-control" id="minutesInput" name="minutesInput" value="<%=minutes%>" placeholder="Minutes" required maxlength="2" aria-describedby="minutesHelpText" pattern="[0-5]?[0-9]" aria-label="Duration Minutes">
+                                        <input type="text" min="0" max="59" class="form-control" id="minutesInput" name="minutesInput" value="<%=minutesString%>" placeholder="Minutes" required maxlength="2" aria-describedby="minutesHelpText" pattern="[0-5]?[0-9]" aria-label="Duration Minutes">
                                         <small id="minutesHelpText" class="form-text text-muted">
                                             The value must be between 0 and 59.
                                         </small>
@@ -231,9 +233,13 @@
                     <div class="tab-pane fade" id="pills-route" role="tabpanel" aria-labelledby="pills-route-tab" tabindex="0">
                         <div class="input-fields-group">
                             <label for="routeDescriptionInput" class="form-label">Route Description *</label>
-                            <textarea class="form-control" id="routeDescriptionInput" name="routeDescriptionInput" rows="8" placeholder="Route Description" aria-describedby="routeHelpText" required maxlength="1000"><%
-                                    if(hike != null){
-                                %><%=hike.getRouteDescription()%>"<%}%></textarea>
+                            <textarea class="form-control" id="routeDescriptionInput" name="routeDescriptionInput" rows="8"
+                                      placeholder="Route Description" aria-describedby="routeHelpText"
+                                      required maxlength="1000"><%
+                                if(hike != null){
+                                    %><%=hike.getRouteDescription()%><%
+                                }
+                            %></textarea>
                             <small id="routeHelpText" class="form-text text-muted">
                                 Describe the route of your hike in detail. The maximum length is 1000 characters.
                             </small>
@@ -433,34 +439,28 @@
                     <div class="tab-pane fade" id="pills-getting-there" role="tabpanel" aria-labelledby="pills-getting-there-tab" tabindex="0">
                         <div class="input-fields-group">
                             <label for="gettingThereInput" class="form-label">Getting There</label>
-                            <%
-                                String textAreaArrivalInformation = "";
-
-                                if(hike != null) {
-                                    String hikeArrivalInformation = hike.getArrivalInformation();
-                                    textAreaArrivalInformation = hikeArrivalInformation != null ? hikeArrivalInformation : "";
-                                }
-                            %>
                             <textarea class="form-control" id="gettingThereInput" name="gettingThereInput" rows="8"
                                       placeholder="Getting There" aria-describedby="gettingThereHelpText"
-                                      maxlength="1000"><%=textAreaArrivalInformation%></textarea>
+                                      maxlength="1000"><%
+                                if (hike != null) {
+                                    String hikeArrivalInformation = hike.getArrivalInformation();
+                                    %><%=hikeArrivalInformation != null ? hikeArrivalInformation : ""%><%
+                                }
+                            %></textarea>
                             <small id="gettingThereHelpText" class="form-text text-muted">
                                 Provide information on the best way to get to the starting point of your hike. The maximum length is 1000 characters.
                             </small>
                         </div>
                         <div class="input-fields-group">
                             <label for="parkingInput" class="form-label">Parking</label>
-                            <%
-                                String textAreaParkingInformation = "";
-
-                                if(hike != null) {
-                                    String hikeParkingInformation = hike.getParkingInformation();
-                                    textAreaParkingInformation = hikeParkingInformation != null ? hikeParkingInformation : "";
-                                }
-                            %>
                             <textarea class="form-control" id="parkingInput" name="parkingInput" rows="8"
                                       placeholder="Parking" aria-describedby="parkingHelpText"
-                                      maxlength="1000"><%=textAreaParkingInformation%></textarea>
+                                      maxlength="1000"><%
+                                if (hike != null) {
+                                    String hikeParkingInformation = hike.getParkingInformation();
+                                    %><%=hikeParkingInformation != null ? hikeParkingInformation : ""%><%
+                                }
+                            %></textarea>
                             <small id="parkingHelpText" class="form-text text-muted">
                                 Provide information about the best parking options near the starting point of the hike. The maximum length is 1000 characters.
                             </small>
@@ -554,7 +554,9 @@
                                 </div>
                                 <div class="input-fields-group">
                                     <label for="poiDescription" class="form-label">Description</label>
-                                    <textarea class="form-control exclude-from-validation" id="poiDescription" name="poiDescription" placeholder="Enter Point of Interest Description" maxlength="255"></textarea>
+                                    <textarea class="form-control exclude-from-validation" id="poiDescription"
+                                              name="poiDescription" placeholder="Enter Point of Interest Description"
+                                              maxlength="255"></textarea>
                                 </div>
                                 <!-- Error message for required fields -->
                                 <div id="poiErrorMessage" class="alert alert-danger mt-2" style="display: none">
