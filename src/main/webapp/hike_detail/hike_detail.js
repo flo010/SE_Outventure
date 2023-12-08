@@ -44,10 +44,10 @@ function showLastSearchResults() {
 
 // map functions
 document.addEventListener("DOMContentLoaded", function (){
-    initialiseMap();
+    initializeMap();
 });
 
-function initialiseMap() {
+function initializeMap() {
     let mapData = document.getElementById('mapData');
     let startName = mapData.getAttribute('start-name');
     let startLatitude = parseFloat(mapData.getAttribute('start-latitude'));
