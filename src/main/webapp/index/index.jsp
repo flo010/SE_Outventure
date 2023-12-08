@@ -13,7 +13,7 @@
             <outventure:navbar/>
         </header>
         <%
-            String loggedInUser = (String) session.getAttribute("loggedInUser");
+            String loggedInUser = (String) session.getAttribute("hikerUsername");
             if (loggedInUser != null) {
         %>
         <div class="d-flex justify-content-center align-items-end">
