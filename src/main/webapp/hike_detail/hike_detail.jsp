@@ -39,18 +39,16 @@
             Hike hike = (Hike) request.getAttribute("hike");
             double durationMinutes = (hike.getDuration() % 1) * 60;
 
-            LocalDate localDate = hike.getDate(); // Retrieve the LocalDate object
-            String pattern = "dd/MM/yyyy"; // Define the desired date pattern
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern); // Create a DateTimeFormatter using the specified pattern
-            String formattedDate = localDate.format(formatter); // Format the LocalDate into a String using the DateTimeFormatter
+            LocalDate localDate = hike.getDate();
+            String pattern = "dd/MM/yyyy";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+            String formattedDate = localDate.format(formatter);
 
             List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
 
-            String hikerUsername = (String) session.getAttribute("hikerUsername");
-
             FacadeJPA facadeJPA = FacadeJPA.getInstance();
-            int hikerID = Integer.parseInt(session.getAttribute("hikerID").toString());
-            boolean isFavorite = facadeJPA.isFavoriteHikeExists(hikerID, hike.getHikeID());
+            int hikerID = (session.getAttribute("hikerID") != null) ? Integer.parseInt(session.getAttribute("hikerID").toString()) : -1;
+            boolean isFavorite = hikerID != -1 && facadeJPA.isFavoriteHikeExists(hikerID, hike.getHikeID());
         %>
 
         <div class="container-sm mt-5 mb-5">
@@ -59,7 +57,7 @@
                     <button id="backToSearchButton" type="button" class="btn btn-outline-secondary" onclick="showLastSearchResults()">Return to the search results</button>
                 </div>
                 <%
-                    if (hikerUsername != null) {
+                    if (hikerID != -1) {
                 %>
                 <div class="me-auto p-2 bd-highlight">
                     <% if (!isFavorite) { %>
