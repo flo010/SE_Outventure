@@ -50,11 +50,12 @@
                 <div class="me-auto p-2 bd-highlight">
                     <button id="backToSearchButton" type="button" class="btn btn-outline-secondary" onclick="showLastSearchResults()">Return to the search results</button>
                 </div>
-                <div class="p-2 bd-highlight">
-                    <button id="deleteHikeButton" type="button" class="btn btn-outline-secondary" onclick="showDeleteHikeModal()">Delete</button>
-                </div>
-                <div class="p-2 bd-highlight">
-                    <button id="editHikeButton" type="button" class="btn btn-outline-secondary" onclick="goToCreateHike()" >Edit</button>
+                <div class="me-auto p-2 bd-highlight">
+                    <a class="heart-button text-decoration-none" id="heart-button" aria-controls="heart" aria-selected="false" onclick="updateFavorites(<%=hike.getHikeID()%>, <%=session.getAttribute("hikerID")%>)">
+                        <svg class="heart-icon bi bi-heart" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                            <path class="heart-path" d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
 
@@ -100,7 +101,7 @@
                 </div>
             </div>
 
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"> <!-- insert nav-fill in class, when adding all tabs-->
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="pills-overview-tab" data-bs-toggle="pill" data-bs-target="#pills-overview" type="button" role="tab" aria-controls="pills-overview" aria-selected="true">Overview</button>
                 </li>
@@ -115,13 +116,6 @@
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-getting-there-tab" data-bs-toggle="pill" data-bs-target="#pills-getting-there" type="button" role="tab" aria-controls="pills-getting-there" aria-selected="false">Getting There</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="heart-tab" type="button" role="tab" aria-controls="heart" aria-selected="false">
-                        <svg class="heart-icon bi bi-heart" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
-                            <path class="heart-path" d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                        </svg>
-                    </button>
                 </li>
             </ul>
 
