@@ -47,7 +47,7 @@
         </div>
         <div class="col-md-3 d-flex justify-content-center align-items-center">
             <button id="editHikeButton" type="button" class="fa fa-edit hike-button"></button>
-            <button id="deleteHikeButton" type="button" class="fa fa-trash-o hike-button" style="color: red" onclick="showDeleteHikeModal()"></button>
+            <button id="deleteHikeButton" type="button" class="fa fa-trash-o hike-button" style="color: red" onclick="prepareDeleteHike(${hikeID})"></button>
         </div>
     </div>
 </div>

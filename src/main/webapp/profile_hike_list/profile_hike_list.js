@@ -10,3 +10,9 @@ function showDeleteHikeModal() {
     });
     deleteHikeModal.show();
 }
+var selectedHikeID
+
+function prepareDeleteHike(hikeId) {
+    selectedHikeID = hikeId;
+    showDeleteHikeModal();
+}

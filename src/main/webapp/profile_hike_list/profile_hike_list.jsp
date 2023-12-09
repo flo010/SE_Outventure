@@ -36,7 +36,12 @@
                         <h3>Your Created Hikes</h3>
                     </div>
                     <div class="container mt-3">
-                        <% if(hikeList.isEmpty()) { %>
+                        <% boolean is_visible = false;
+                            for (Hike hike: hikeList) {
+                            if(hike.isVisible() == true){
+                                is_visible = true;
+                            }
+                        }if(is_visible == false){ %>
                             <div class="empty-list-message mt-5 text-center">
                                 <p>Your list is empty.</p>
                                 <p>Click <a href="/create_hike/create_hike.jsp">here</a> to create your first hike.</p>
@@ -81,16 +86,6 @@
             </div>
         </div>
 
-        <style>
-            .hike-button {
-                background-color: transparent;
-                border: none;
-                font-size: 30px;
-            }
-            .hike-button:hover {
-                background-color: #e0e0e0;
-            }
-        </style>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="/profile_hike_list/profile_hike_list.js"></script>
