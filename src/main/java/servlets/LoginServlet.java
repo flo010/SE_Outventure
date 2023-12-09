@@ -27,6 +27,7 @@ public class LoginServlet extends HttpServlet {
             httpSession.setAttribute("hikerID", hiker.getHikerID());
             httpSession.setAttribute("hikerEmail", hiker.getEmail());
             httpSession.setAttribute("hikerUsername", hiker.getUsername());
+
             response.sendRedirect("/index/index.jsp");
             System.out.println("Login successful");
         } else {

@@ -127,8 +127,6 @@ public class FacadeJPA implements Facade {
         } catch (Exception e) {
             System.out.println("getAllHikes is null");
         }
-
-
         return hikes;
     }
 

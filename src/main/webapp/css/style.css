@@ -145,9 +145,6 @@ legend {
     fill:red;
 }
 
-
-
-
-
-
-
+body {
+    font-family: 'Cabin', sans-serif;
+}

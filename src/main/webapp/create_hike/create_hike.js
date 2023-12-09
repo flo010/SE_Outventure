@@ -1,3 +1,99 @@
+// Call the function when the DOM is ready
+document.addEventListener('DOMContentLoaded', function () {
+    initializePage();
+    initializeMap();
+});
+
+// function to initialize the page
+function initializePage() {
+    'use strict';
+
+    // Setup for slider
+    rangeCount('conditionInput', 'rangeValue1');
+    rangeCount('difficultyInput', 'rangeValue2');
+    rangeCount('experienceInput', 'rangeValue3');
+    rangeCount('landscapeInput', 'rangeValue4');
+
+    // Setup for images
+    previewImage('coverImageInput', 'previewCoverImage');
+
+    //Checkboxes
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    let container = document.getElementById("monthContainer");
+
+    for (let i = 0; i < months.length; i++) {
+        // Create the month div
+        let monthDiv = document.createElement("div");
+        monthDiv.className = "form-check form-check-inline";
+
+        // Create the checkbox input
+        let checkboxInput = document.createElement("input");
+        checkboxInput.className = "form-check-input months";
+        checkboxInput.type = "checkbox";
+        checkboxInput.id = "optimalSeason" + months[i];
+        checkboxInput.value = "false";
+        checkboxInput.name = "monthCheckbox" + months[i]; // Added name attribute
+
+        // Create the label for the checkbox
+        let label = document.createElement("label");
+        label.className = "form-check-label";
+        label.setAttribute("for", "monthCheckbox" + i);
+        label.innerText = months[i];
+
+        checkboxInput.addEventListener("change", function () {
+            // Update the value of the checkbox based on its checked state
+            checkboxInput.value = checkboxInput.checked ? "true" : "false";
+        });
+
+        // Append the input and label to the month div
+        monthDiv.appendChild(checkboxInput);
+        monthDiv.appendChild(label);
+
+        // Append the month div to the container
+        container.appendChild(monthDiv);
+    }
+
+    // Input event listeners
+    document.getElementById('distanceInput').addEventListener('input', function () {
+        let value = this.value;
+        this.value = value.replace(/[^0-9.]/g, '');
+    });
+
+    document.getElementById('hoursInput').addEventListener('input', function () {
+        let value = this.value;
+        this.value = value.replace(/[^0-9]/g, '');
+    });
+
+    document.getElementById('minutesInput').addEventListener('input', function () {
+        let value = this.value;
+        this.value = value.replace(/[^0-9]/g, '');
+    });
+
+    document.getElementById('altitudeInput').addEventListener('input', function () {
+        let value = this.value;
+        this.value = value.replace(/[^0-9]/g, '');
+    });
+}
+
+// function for validation
+(function () {
+    window.addEventListener('load', function () {
+        let forms = document.getElementsByClassName('needs-validation');
+        Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    createToast("validationToast", "Validation failed! Please check your input.");
+                    showToast("validationToast");
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+
 // functions for switching tabs
 function nextTab() {
     shouldPromptBeforeUnload = false;
@@ -85,8 +181,7 @@ function rangeCount(id, labelId){
 
 //function to change the range values dynamically with the sliders
 function updateLabel(inputId, labelId) {
-    const inputValue = document.getElementById(inputId).value;
-    document.getElementById(labelId).innerText = inputValue;
+    document.getElementById(labelId).innerText = document.getElementById(inputId).value;
     console.log('Function called with inputId:', inputId, 'labelId:', labelId);
 }
 
@@ -380,96 +475,6 @@ function cancelProcess() {
     window.location.href = "/index/index.jsp";
 }
 
-// function to initialize the page
-function initializePage() {
-    'use strict';
-
-    // Setup for slider
-    rangeCount('conditionInput', 'rangeValue1');
-    rangeCount('difficultyInput', 'rangeValue2');
-    rangeCount('experienceInput', 'rangeValue3');
-    rangeCount('landscapeInput', 'rangeValue4');
-
-    // Setup for images
-    previewImage('coverImageInput', 'previewCoverImage');
-
-    //Checkboxes
-    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-    let container = document.getElementById("monthContainer");
-
-    for (let i = 0; i < months.length; i++) {
-        // Create the month div
-        let monthDiv = document.createElement("div");
-        monthDiv.className = "form-check form-check-inline";
-
-        // Create the checkbox input
-        let checkboxInput = document.createElement("input");
-        checkboxInput.className = "form-check-input months";
-        checkboxInput.type = "checkbox";
-        checkboxInput.id = "optimalSeason" + months[i];
-        checkboxInput.value = "false";
-        checkboxInput.name = "monthCheckbox" + months[i]; // Added name attribute
-
-        // Create the label for the checkbox
-        let label = document.createElement("label");
-        label.className = "form-check-label";
-        label.setAttribute("for", "monthCheckbox" + i);
-        label.innerText = months[i];
-
-        checkboxInput.addEventListener("change", function () {
-            // Update the value of the checkbox based on its checked state
-            checkboxInput.value = checkboxInput.checked ? "true" : "false";
-        });
-
-        // Append the input and label to the month div
-        monthDiv.appendChild(checkboxInput);
-        monthDiv.appendChild(label);
-
-        // Append the month div to the container
-        container.appendChild(monthDiv);
-    }
-
-    // Input event listeners
-    document.getElementById('distanceInput').addEventListener('input', function () {
-        let value = this.value;
-        this.value = value.replace(/[^0-9.]/g, '');
-    });
-
-    document.getElementById('hoursInput').addEventListener('input', function () {
-        let value = this.value;
-        this.value = value.replace(/[^0-9]/g, '');
-    });
-
-    document.getElementById('minutesInput').addEventListener('input', function () {
-        let value = this.value;
-        this.value = value.replace(/[^0-9]/g, '');
-    });
-
-    document.getElementById('altitudeInput').addEventListener('input', function () {
-        let value = this.value;
-        this.value = value.replace(/[^0-9]/g, '');
-    });
-}
-
-// function for validation
-(function () {
-    window.addEventListener('load', function () {
-        let forms = document.getElementsByClassName('needs-validation');
-        Array.prototype.filter.call(forms, function (form) {
-            form.addEventListener('submit', function (event) {
-                if (form.checkValidity() === false) {
-                    createToast("validationToast", "Validation failed! Please check your input.");
-                    showToast("validationToast");
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    }, false);
-})();
-
 // function to prompt
 window.onbeforeunload = function () {
     if (shouldPromptBeforeUnload) {
@@ -479,7 +484,7 @@ window.onbeforeunload = function () {
 
 // map functions
 function initializeMap() {
-    let map = new L.Map('map').setView([47.4167, 9.7500], 13);
+    let map = new L.Map('map').setView([47.4167, 9.7500], 11);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -582,12 +587,6 @@ function updatePolyline(startMarker, destinationMarker, route) {
     }
     return route;
 }
-
-// Call the function when the DOM is ready
-document.addEventListener('DOMContentLoaded', function () {
-    initializePage();
-    setTimeout(initializeMap, 10);
-});
 
 function updateStart(startName, startMarker) {
     const startNameInput = document.getElementById("startNameInput");
