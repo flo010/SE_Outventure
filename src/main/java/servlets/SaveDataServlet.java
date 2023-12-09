@@ -150,11 +150,11 @@ public class SaveDataServlet extends HttpServlet {
         }
 
         HttpSession session = request.getSession();
-        String loggedInUser = (String) session.getAttribute("loggedInUser");
+        String hikerUsername = (String) session.getAttribute("hikerUsername");
 
         // Check if the user is logged in
-        if (loggedInUser != null) {
-            hike.setAuthor(loggedInUser);
+        if (hikerUsername != null) {
+            hike.setAuthor(hikerUsername);
         } else {
             System.out.println("User not logged in");
         }
