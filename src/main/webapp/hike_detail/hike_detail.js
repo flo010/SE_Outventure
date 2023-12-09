@@ -81,3 +81,20 @@ function initialiseMap() {
         [destinationLatitude, destinationLongitude]
     ]).addTo(map);
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const checkSquareIcon = document.querySelector('.bi-check-square');
+
+    checkSquareIcon.addEventListener('click', function() {
+        if (checkSquareIcon.style.fill === 'green') {
+            checkSquareIcon.style.fill = 'currentColor';
+        } else {
+            checkSquareIcon.style.fill = 'green';
+        }
+    });
+});
+
+
+
+
+
