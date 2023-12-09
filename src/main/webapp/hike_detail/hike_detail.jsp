@@ -270,15 +270,5 @@
         <script src="/hike_detail/hike_detail.js"></script>
         <script src="/tagJavaScript/navbar.js"></script>
         <script src="/search_results/search_results.js"></script>
-        <script>
-            if (<%=request.getAttribute("hikeEdited")%>) {
-                createToast("editHikeToast", "Editing successfully completed", "Your hike was successfully edited!");
-                showToast("editHikeToast");
-            }
-
-            function goToCreateHike() {
-                window.location.href = "create/hike?hikeID=" + <%=hike.getHikeID()%>;
-            }
-        </script>
     </body>
 </html>
