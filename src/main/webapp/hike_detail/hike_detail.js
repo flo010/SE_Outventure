@@ -91,3 +91,12 @@ document.addEventListener('DOMContentLoaded', function() {
 function updateFavorites(hikeID, hikerID) {
     window.location.href = '/favorite_hike?hikeID=' + hikeID + '&hikerID=' + hikerID + '&page=detail';
 }
+
+// completed hike modal functions
+function showHikeCompletedModal() {
+    const hikeCompletedModal = new bootstrap.Modal(document.getElementById('hikeCompletedModal'), {
+        keyboard: false
+    });
+    document.getElementById('completionDate').value = "";
+    hikeCompletedModal.show();
+}
