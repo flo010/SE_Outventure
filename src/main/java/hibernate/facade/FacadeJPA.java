@@ -136,10 +136,16 @@ public class FacadeJPA implements Facade {
         return hikerBroker.checkHikerLoginCredentials(email, password);
     }
 
-    public Hiker getByEmail(String email) {
+    public Hiker getHikerByEmail(String email) {
         HikerBroker hikerBroker = new HikerBroker();
 
         return hikerBroker.getByEmail(email);
+    }
+
+    public Hiker getHikerByID(int id) {
+        HikerBroker hikerBroker = new HikerBroker();
+
+        return hikerBroker.getByID(id);
     }
 
     public boolean isFavoriteHikeExists(int hikerId, int hikeId) {

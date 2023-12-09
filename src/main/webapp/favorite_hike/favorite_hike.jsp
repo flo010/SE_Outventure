@@ -1,4 +1,7 @@
-<%--
+<%@ page import="hibernate.facade.FacadeJPA" %>
+<%@ page import="hibernate.model.Hiker" %>
+<%@ page import="hibernate.model.Hike" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Betül Kulac
   Date: 07.12.23
@@ -8,12 +11,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
+<%
+    FacadeJPA facadeJPA = FacadeJPA.getInstance();
+    int hikerID = Integer.parseInt(session.getAttribute("hikerID").toString());
+    Hiker hiker = facadeJPA.getHikerByID(hikerID);
+    List<Hike> favoriteHikes =  hiker.getFavoriteHikes();
+%>
+
 <html>
 <head>
     <title>Favorite - Hike</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="../css/profile.css" rel="stylesheet">
+    <link href="/css/profile.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
 <body class="pale-background">
     <header>
@@ -26,11 +37,34 @@
                 <div class="right-box-header">
                     <h3>Your Favorite Hikes</h3>
                 </div>
-                <div class="right-box-body"></div>
-                <div class="right-box-bottom"></div>
+                <div class="container mt-3">
+                    <% if (favoriteHikes.isEmpty()) { %>
+                    <div class="empty-list-message mt-5 text-center">
+                        <p>Your list is empty.</p>
+                        <p>Click on the heart button in the hike detail page to add a hike to your favorite list.</p>
+                    </div>
+                    <%
+                    }
+                    else {
+                        for (Hike hike: favoriteHikes) {
+                            double durationMinutes = (hike.getDuration() % 1) * 60;
+                    %>
+                    <outventure:card_favorite_hike
+                            hikeID="<%=hike.getHikeID()%>"
+                            hikePicture="<%=hike.getPreviewPicture()%>"
+                            hikeTitle="<%=hike.getTitle()%>"
+                            hikeDistance="<%=hike.getDistance()%>"
+                            hikeDurationHours="<%=(int)hike.getDuration()%>"
+                            hikeDurationMinutes="<%=(int)durationMinutes%>"
+                            hikeAltitude="<%=hike.getAltitude()%>">
+                    </outventure:card_favorite_hike>
+                    <% }} %>
+                </div>
             </div>
         </div>
     </div>
 
+    <script src="/tagJavaScript/navbar.js"></script>
+    <script src="/favorite_hike/favorite_hike.js"></script>
 </body>
 </html>

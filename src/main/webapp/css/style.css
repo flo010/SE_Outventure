@@ -141,10 +141,6 @@ legend {
     padding: 5px 10px; /* Adjust the padding as needed */
 }
 
-.active-heart{
-    fill:red;
-}
-
 body {
     font-family: 'Cabin', sans-serif;
 }

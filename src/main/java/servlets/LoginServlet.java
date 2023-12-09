@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
 
         boolean validHikerCredentials = facadeJPA.checkHikerCredentials(email, password);
-        Hiker hiker = facadeJPA.getByEmail(email);
+        Hiker hiker = facadeJPA.getHikerByEmail(email);
 
         if (validHikerCredentials) {
             HttpSession httpSession = request.getSession(true);

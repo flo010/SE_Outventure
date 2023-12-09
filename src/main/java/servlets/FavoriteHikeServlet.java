@@ -12,16 +12,24 @@ import java.io.IOException;
 @WebServlet(name = "favoriteHikeServlet", value = "/favorite_hike")
 public class FavoriteHikeServlet extends HttpServlet {
     @Transactional
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
         int hikeID = Integer.parseInt(request.getParameter("hikeID"));
         int hikerID = Integer.parseInt(request.getParameter("hikerID"));
+        String page = request.getParameter("page").toString();
+
+        System.out.println(hikeID);
+        System.out.println(hikerID);
 
         updateFavorites(hikerID, hikeID);
 
-        // Redirect back to the hike details page or any other appropriate page
-        response.sendRedirect("hike_detail?id=" + hikeID);
+        if (page.equals("detail")) {
+            response.sendRedirect("hike_detail?id=" + hikeID);
+        }
+        else {
+            response.sendRedirect("/favorite_hike/favorite_hike.jsp");
+        }
     }
 
     private void updateFavorites(int hikerID, int hikeID) {
@@ -30,9 +38,11 @@ public class FavoriteHikeServlet extends HttpServlet {
 
         if (!isFavorite) {
             facadeJPA.addFavoriteHike(hikerID, hikeID);
+            System.out.println("addFavorite called");
         }
         else {
             facadeJPA.removeFavoriteHike(hikerID, hikeID);
+            System.out.println("removeFavorite called");
         }
     }
 }

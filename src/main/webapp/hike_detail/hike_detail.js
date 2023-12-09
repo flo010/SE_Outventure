@@ -76,15 +76,6 @@ function initializeMap() {
     ]).addTo(map);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const heartIcon = document.querySelector('.heart-icon');
-    const heartPath = document.querySelector('.heart-path');
-
-    heartIcon.addEventListener('click', function() {
-        heartPath.classList.toggle('active-heart');
-    });
-});
-
 function updateFavorites(hikeID, hikerID) {
-    window.location.href = '../favorite_hike?hikeID=' + hikeID + '?hikerID=' + hikerID;
+    window.location.href = '/favorite_hike?hikeID=' + hikeID + '&hikerID=' + hikerID + '&page=detail';
 }

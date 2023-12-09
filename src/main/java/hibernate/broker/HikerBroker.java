@@ -51,6 +51,23 @@ public class HikerBroker extends BrokerBase<Hiker>{
         }
     }
 
+    public Hiker getByID(int id) {
+        try {
+            EntityManager entityManager = getEntityManager();
+            Query query = entityManager.createQuery("SELECT h FROM Hiker h WHERE h.hikerID = :hikerID");
+            query.setParameter("hikerID", id);
+            Hiker hiker = (Hiker) query.getSingleResult();
+
+            return hiker;
+        } catch (NoResultException e) {
+            // Handle case when no result is found (user not found or incorrect credentials)
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public boolean isFavoriteHikeExists(int hikerId, int hikeId) {
         EntityManager entityManager = getEntityManager();
 
@@ -73,6 +90,7 @@ public class HikerBroker extends BrokerBase<Hiker>{
     public void addFavoriteHike(int hikerId, int hikeId) {
         EntityManager entityManager = getEntityManager();
         try {
+            entityManager.getTransaction().begin();
             Query query = entityManager.createNativeQuery("INSERT INTO favorite_hikes (hiker, hike) VALUES (?, ?)");
             query.setParameter(1, hikerId);
             query.setParameter(2, hikeId);
