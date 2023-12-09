@@ -1,9 +1,3 @@
-// delete hike functions
-function deleteHike(hikeID) {
-    // Redirect to the DeleteHikeServlet
-    window.location.href = '../delete_hike?hikeID=' + hikeID;
-}
-
 function showDeleteHikeModal() {
     let deleteHikeModal = new bootstrap.Modal(document.getElementById('deleteHikeModal'), {
         keyboard: false
@@ -44,10 +38,10 @@ function showLastSearchResults() {
 
 // map functions
 document.addEventListener("DOMContentLoaded", function (){
-    initialiseMap();
+    initializeMap();
 });
 
-function initialiseMap() {
+function initializeMap() {
     let mapData = document.getElementById('mapData');
     let startName = mapData.getAttribute('start-name');
     let startLatitude = parseFloat(mapData.getAttribute('start-latitude'));

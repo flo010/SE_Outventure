@@ -8,7 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 <%
-    String loggedInUser = (String) session.getAttribute("loggedInUser");
+    String hikerUsername = (String) session.getAttribute("hikerUsername");
+    String hikerEmail = (String) session.getAttribute("hikerEmail");
 %>
 
 <html>
@@ -29,8 +30,8 @@
                 <div class="right-box">
                     <div class="right-box-header"></div>
                     <div class="right-box-body">
-                        <span class="bold"><%=loggedInUser%></span><br>
-                        <span class="text">Email</span>
+                        <span class="bold"><%=hikerUsername%></span><br>
+                        <span class="text">E-Mail: <%=hikerEmail%></span>
                         <img src="https://static.vecteezy.com/ti/gratis-vektor/p1/27448973-benutzerbild-konto-symbol-standard-sozial-medien-profil-foto-vektor.jpg" alt="profile picture" class="rounded-circle-profile-image">
                     </div>
                     <div class="right-box-bottom">

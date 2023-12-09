@@ -141,17 +141,10 @@ legend {
     padding: 5px 10px; /* Adjust the padding as needed */
 }
 
-.heart-icon {
-    margin-left: 300px;
-}
-
 .active-heart{
     fill:red;
 }
 
-
-
-
-
-
-
+body {
+    font-family: 'Cabin', sans-serif;
+}
