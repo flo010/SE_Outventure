@@ -3,7 +3,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="hibernate.model.Hiker" %>
 <%@ page import="hibernate.facade.FacadeJPA" %>
 <%--
   Created by IntelliJ IDEA.
@@ -39,18 +38,16 @@
             Hike hike = (Hike) request.getAttribute("hike");
             double durationMinutes = (hike.getDuration() % 1) * 60;
 
-            LocalDate localDate = hike.getDate(); // Retrieve the LocalDate object
-            String pattern = "dd/MM/yyyy"; // Define the desired date pattern
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern); // Create a DateTimeFormatter using the specified pattern
-            String formattedDate = localDate.format(formatter); // Format the LocalDate into a String using the DateTimeFormatter
+            LocalDate localDate = hike.getDate();
+            String pattern = "dd/MM/yyyy";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+            String formattedDate = localDate.format(formatter);
 
             List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
 
-            String hikerUsername = (String) session.getAttribute("hikerUsername");
-
             FacadeJPA facadeJPA = FacadeJPA.getInstance();
-            int hikerID = Integer.parseInt(session.getAttribute("hikerID").toString());
-            boolean isFavorite = facadeJPA.isFavoriteHikeExists(hikerID, hike.getHikeID());
+            int hikerID = (session.getAttribute("hikerID") != null) ? Integer.parseInt(session.getAttribute("hikerID").toString()) : -1;
+            boolean isFavorite = hikerID != -1 && facadeJPA.isFavoriteHikeExists(hikerID, hike.getHikeID());
         %>
 
         <div class="container-sm mt-5 mb-5">
@@ -59,20 +56,20 @@
                     <button id="backToSearchButton" type="button" class="btn btn-outline-secondary" onclick="showLastSearchResults()">Return to the search results</button>
                 </div>
                 <%
-                    if (hikerUsername != null) {
+                    if (hikerID != -1) {
                 %>
                 <div class="me-auto p-2 bd-highlight">
                     <% if (!isFavorite) { %>
                     <button type="button" class="btn btn-outline-danger" id="removeFavoriteButton" onclick="updateFavorites(<%=hike.getHikeID()%>, <%=session.getAttribute("hikerID")%>)">
                         <svg class="heart-icon bi bi-heart" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
-                            <path class="heart-path" d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                            <path class="heart-path" d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"></path>
                         </svg>
                         Add to Favorites
                     </button>
                     <% } else { %>
                     <button type="button" class="btn btn-danger" id="removeFavoriteButton" onclick="updateFavorites(<%=hike.getHikeID()%>, <%=session.getAttribute("hikerID")%>)">
                         <svg class="heart-icon bi bi-heart" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
-                            <path class="heart-path" d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                            <path class="heart-path" d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"></path>
                         </svg>
                         Remove from Favorites
                     </button>
@@ -92,7 +89,7 @@
                         <div class="col-md-3">
                             <%-- icon distance --%>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows" viewBox="0 0 16 16">
-                                <path d="M1.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L2.707 7.5h10.586l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L13.293 8.5H2.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2Z"/>
+                                <path d="M1.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L2.707 7.5h10.586l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L13.293 8.5H2.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2Z"></path>
                             </svg>
                             <strong class="card-text"><%=hike.getDistance()%></strong>
                             km
@@ -100,8 +97,8 @@
                         <div class="col-md-3">
                             <%-- icon duration --%>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"></path>
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"></path>
                             </svg>
                             <strong class="card-text"><%=(int) hike.getDuration()%></strong>
                             h
@@ -113,7 +110,7 @@
                         <div class="col-md-3">
                             <%-- icon altitude --%>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+                                <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"></path>
                             </svg>
                             <strong class="card-text"><%=hike.getAltitude()%></strong>
                             m
@@ -141,8 +138,8 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="bookmark-tab" type="button" role="tab" aria-controls="bookmark" aria-selected="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-check-square" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/>
+                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"></path>
+                            <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"></path>
                         </svg>
                     </button>
                 </li>
