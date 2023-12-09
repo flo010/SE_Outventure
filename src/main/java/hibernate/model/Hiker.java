@@ -54,7 +54,7 @@ public class Hiker {
     }
 
     @ManyToMany
-    @JoinTable(name = "hiked", joinColumns = @JoinColumn(name="hiker"), inverseJoinColumns = @JoinColumn(name = "hike"))
+    @JoinTable(name = "completed_hikes", joinColumns = @JoinColumn(name="hiker"), inverseJoinColumns = @JoinColumn(name = "hike"))
     public List<Hike> getCompletedHikes() {
         return _completedHikes;
     }
@@ -63,7 +63,7 @@ public class Hiker {
     }
 
     @ManyToMany
-    @JoinTable(name = "hiked", joinColumns = @JoinColumn(name="hiker"), inverseJoinColumns = @JoinColumn(name = "hike"))
+    @JoinTable(name = "favorite_hikes", joinColumns = @JoinColumn(name="hiker"), inverseJoinColumns = @JoinColumn(name = "hike"))
     public List<Hike> getFavoriteHikes() {
         return _favoriteHikes;
     }

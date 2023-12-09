@@ -141,9 +141,6 @@ legend {
     padding: 5px 10px; /* Adjust the padding as needed */
 }
 
-
-
-
-
-
-
+body {
+    font-family: 'Cabin', sans-serif;
+}

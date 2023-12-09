@@ -3,6 +3,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="hibernate.model.Hiker" %>
+<%@ page import="hibernate.facade.FacadeJPA" %>
 <%--
   Created by IntelliJ IDEA.
   User: learo
@@ -43,6 +45,12 @@
             String formattedDate = localDate.format(formatter); // Format the LocalDate into a String using the DateTimeFormatter
 
             List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
+
+            String hikerUsername = (String) session.getAttribute("hikerUsername");
+
+            FacadeJPA facadeJPA = FacadeJPA.getInstance();
+            int hikerID = Integer.parseInt(session.getAttribute("hikerID").toString());
+            boolean isFavorite = facadeJPA.isFavoriteHikeExists(hikerID, hike.getHikeID());
         %>
 
         <div class="container-sm mt-5 mb-5">
@@ -50,14 +58,28 @@
                 <div class="me-auto p-2 bd-highlight">
                     <button id="backToSearchButton" type="button" class="btn btn-outline-secondary" onclick="showLastSearchResults()">Return to the search results</button>
                 </div>
-                <div class="p-2 bd-highlight">
-                    <button id="deleteHikeButton" type="button" class="btn btn-outline-secondary" onclick="showDeleteHikeModal()">Delete</button>
+                <%
+                    if (hikerUsername != null) {
+                %>
+                <div class="me-auto p-2 bd-highlight">
+                    <% if (!isFavorite) { %>
+                    <button type="button" class="btn btn-outline-danger" id="removeFavoriteButton" onclick="updateFavorites(<%=hike.getHikeID()%>, <%=session.getAttribute("hikerID")%>)">
+                        <svg class="heart-icon bi bi-heart" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                            <path class="heart-path" d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                        </svg>
+                        Add to Favorites
+                    </button>
+                    <% } else { %>
+                    <button type="button" class="btn btn-danger" id="removeFavoriteButton" onclick="updateFavorites(<%=hike.getHikeID()%>, <%=session.getAttribute("hikerID")%>)">
+                        <svg class="heart-icon bi bi-heart" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                            <path class="heart-path" d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                        </svg>
+                        Remove from Favorites
+                    </button>
+                    <% } %>
                 </div>
-                <div class="p-2 bd-highlight">
-                    <button id="editHikeButton" type="button" class="btn btn-outline-secondary" onclick="goToCreateHike()" >Edit</button>
-                </div>
+                <%}%>
             </div>
-
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
             <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
             <div class="paragraph-container mt-3" style="width: 50%">
@@ -100,7 +122,7 @@
                 </div>
             </div>
 
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"> <!-- insert nav-fill in class, when adding all tabs-->
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="pills-overview-tab" data-bs-toggle="pill" data-bs-target="#pills-overview" type="button" role="tab" aria-controls="pills-overview" aria-selected="true">Overview</button>
                 </li>
@@ -260,24 +282,6 @@
                                         parkingInformation="<%=hike.getParkingInformation()%>">
                                 </outventure:card_start>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal for Delete Hike -->
-            <div class="modal fade" id="deleteHikeModal" tabindex="-1" role="dialog" aria-labelledby="deleteHikeModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered " role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteHikeModalLabel">Delete Hike</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to delete this hike?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-success" onclick="deleteHike(<%=hike.getHikeID()%>)">Delete</button>
                         </div>
                     </div>
                 </div>

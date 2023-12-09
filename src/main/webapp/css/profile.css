@@ -43,16 +43,19 @@
     border: 1px solid darkgrey;
     z-index: 0;
 }
+
 .bold {
     font-weight: bold;
     font-size: 32px;
     margin-left: 250px;
 }
+
 .text {
     font-size: 20px;
     margin-left: 250px;
 }
-.right-box-bottom{
+
+.right-box-bottom {
     height: 40%;
     width: 100%;
     position: relative;
@@ -109,3 +112,14 @@
     margin-right: 7px;
 }
 
+.empty-list-message {
+    font-size: 1.2rem;
+}
+.hike-button {
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+}
+.hike-button:hover {
+    background-color: #e0e0e0;
+}

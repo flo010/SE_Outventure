@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface Facade {
     // INSERT + UPDATE
-
     Object save(Object object);
 
     // DELETE
@@ -17,6 +16,7 @@ public interface Facade {
     Hike getHikeByIDLazy(int hikeID);
     Hike getHikeByIDEager(int hikeID);
     List<Hike> getAllHikesLazy();
+
     Picture getPictureByID(int pictureID);
     List<Picture> getAllPictures();
 
