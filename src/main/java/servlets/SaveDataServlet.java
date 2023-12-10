@@ -20,10 +20,9 @@ public class SaveDataServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         boolean isEdit = Boolean.parseBoolean(request.getParameter("edit"));
-        int pictureID = Integer.parseInt(request.getParameter("pictureID"));
 
         if (isEdit) {
-            System.out.println("edit is called");
+            int pictureID = Integer.parseInt(request.getParameter("pictureID"));
             saveToDatabase(request,response, pictureID);
 
             int hikeID = Integer.parseInt(request.getParameter("hikeID"));

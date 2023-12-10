@@ -594,8 +594,8 @@ function updateStart(startName, startMarker) {
     const longitudeStartCoordinateInput = document.getElementById("longitudeStartCoordinateInput");
 
     startNameInput.value = startName;
-    latitudeStartCoordinateInput.value = startMarker.getLatLng().lat;
-    longitudeStartCoordinateInput.value = startMarker.getLatLng().lng;
+    latitudeStartCoordinateInput.value = parseFloat(startMarker.getLatLng().lat).toFixed(6);
+    longitudeStartCoordinateInput.value = parseFloat(startMarker.getLatLng().lng).toFixed(6);
 
     startNameInput.setAttribute("disabled", "");
     latitudeStartCoordinateInput.setAttribute("disabled", "");
@@ -609,7 +609,9 @@ function updateDestination(destinationName, destinationMarker) {
 
     destinationNameInput.value = destinationName;
     latitudeDestinationCoordinateInput.value = destinationMarker.getLatLng().lat;
+    console.log("latitudeDestinationCoordinateInput.value " + latitudeDestinationCoordinateInput.value)
     longitudeDestinationCoordinateInput.value = destinationMarker.getLatLng().lng;
+    console.log("longitudeDestinationCoordinateInput.value " + longitudeDestinationCoordinateInput.value)
 
     destinationNameInput.setAttribute("disabled", "");
     latitudeDestinationCoordinateInput.setAttribute("disabled", "");
@@ -642,39 +644,37 @@ function showMarkerModal(markerModalHeader, markerModalNameInput, onModalSave) {
 }
 
 // toast functions
-function createToast(id, headerMessage, bodyMessage) {
-    // Create a new toast element
-    let toast = document.createElement("div");
-    toast.className = "toast position-fixed top-0 start-50 translate-middle-x";
-    toast.id = id;
-    toast.setAttribute("role", "alert");
-    toast.setAttribute("aria-live", "assertive");
-    toast.setAttribute("aria-atomic", "true");
+function createToast(id, message) {
+    // Create the toast container
+    let toastContainer = document.createElement('div');
+    toastContainer.className = 'toast position-fixed bottom-0 end-0 align-items-center text-white bg-danger border-0';
+    toastContainer.id = id;
+    toastContainer.setAttribute('role', 'alert');
+    toastContainer.setAttribute('aria-live', 'assertive');
+    toastContainer.setAttribute('aria-atomic', 'true');
 
-    // Create toast header
-    let toastHeader = document.createElement("div");
-    toastHeader.className = "toast-header";
+    let flexContainer = document.createElement('div');
+    flexContainer.className = 'd-flex';
 
-    let strongElement = document.createElement("strong");
-    strongElement.className = "me-auto";
-    strongElement.innerText = headerMessage;
-    let buttonElement = document.createElement("button");
-    buttonElement.className = "btn-close";
-    buttonElement.setAttribute("data-bs-dismiss", "toast");
-    buttonElement.setAttribute("aria-label", "Close");
+    // Create the toast body
+    let toastBody = document.createElement('div');
+    toastBody.className = 'toast-body';
+    toastBody.textContent = message;
 
-    toastHeader.appendChild(strongElement);
-    toastHeader.appendChild(buttonElement);
-    toast.appendChild(toastHeader);
+    // Create the close button
+    let closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'btn-close btn-close-white me-2 m-auto';
+    closeButton.setAttribute('data-bs-dismiss', 'toast');
+    closeButton.setAttribute('aria-label', 'Close');
 
-    // Create toast body
-    let toastBody = document.createElement("div");
-    toastBody.className = "toast-body";
-    toastBody.innerText = bodyMessage;
-    toast.appendChild(toastBody);
+    // Append elements to the toast container
+    toastContainer.appendChild(flexContainer);
+    flexContainer.appendChild(toastBody);
+    flexContainer.appendChild(closeButton);
 
-    // Append the toast to the body
-    document.body.appendChild(toast);
+    // Append the toast container to the body
+    document.body.appendChild(toastContainer);
 }
 
 function showToast(id) {
