@@ -1,9 +1,3 @@
-function commitSearch(event) {
-    event.preventDefault(); // Prevent the default action of the anchor tag
-
-    document.getElementById("search-input").submit(); // Submit the form
-}
-
 function clearSearchString() {
     let searchBar = document.getElementById("searchBar");
     searchBar.value = "";
