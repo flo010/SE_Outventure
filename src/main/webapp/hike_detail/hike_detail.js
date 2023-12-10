@@ -75,3 +75,7 @@ function initializeMap() {
         [destinationLatitude, destinationLongitude]
     ]).addTo(map);
 }
+
+function updateFavorites(hikeID, hikerID) {
+    window.location.href = '/favorite_hike?hikeID=' + hikeID + '&hikerID=' + hikerID + '&page=detail';
+}
