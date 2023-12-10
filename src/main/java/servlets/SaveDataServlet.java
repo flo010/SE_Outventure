@@ -16,24 +16,26 @@ import java.util.List;
 
 @WebServlet(name = "saveDataServlet", value = "/save_data")
 public class SaveDataServlet extends HttpServlet {
-
-    @Transactional
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-        saveToDatabase(request,response);
-
-        int hikeID = Integer.parseInt(request.getParameter("hikeID"));
-        response.sendRedirect("hike_detail?id=" + hikeID + "&hikeEdited=true");
-    }
-
     @Transactional
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-        saveToDatabase(request, response);
-        response.sendRedirect("/search_results?hikeCreated=true");
+        boolean isEdit = Boolean.parseBoolean(request.getParameter("edit"));
+        int pictureID = Integer.parseInt(request.getParameter("pictureID"));
+
+        if (isEdit) {
+            System.out.println("edit is called");
+            saveToDatabase(request,response, pictureID);
+
+            int hikeID = Integer.parseInt(request.getParameter("hikeID"));
+            response.sendRedirect("hike_detail?id=" + hikeID + "&hikeEdited=true");
+        }
+        else {
+            saveToDatabase(request, response, -1);
+            response.sendRedirect("/search_results?hikeCreated=true");
+        }
     }
 
-    private void saveToDatabase(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void saveToDatabase(HttpServletRequest request, HttpServletResponse response, int pictureID) throws IOException {
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
         double distance = Double.parseDouble(request.getParameter("distanceInput"));
@@ -163,15 +165,21 @@ public class SaveDataServlet extends HttpServlet {
         hike.setRegion("Bregenzerwald");
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
-        try {
-            Thread.sleep(4 * 1000);
-        } catch (InterruptedException ie) {
-            Thread.currentThread().interrupt();
+        if (pictureID == -1) {
+            try {
+                Thread.sleep(4 * 1000);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+            Picture picture = facadeJPA.getNewPicture();
+            facadeJPA.save(picture);
+            picture.setInUse(false);
+            hike.setPreviewPicture(picture.getPictureID());
         }
-        Picture picture = facadeJPA.getNewPicture();
-        picture.setInUse(false);
-        hike.setPreviewPicture(picture.getPictureID());
-        facadeJPA.save(picture);
+        else {
+            Picture picture = facadeJPA.getPictureByID(pictureID);
+            hike.setPreviewPicture(picture.getPictureID());
+        }
         facadeJPA.save(hike);
     }
 }

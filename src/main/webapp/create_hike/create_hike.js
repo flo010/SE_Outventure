@@ -347,6 +347,7 @@ function editPointOfInterest(editButton) {
 
 // functions to save form input
 function saveInput() {
+    shouldPromptBeforeUnload = false;
     let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
     let allInputsFilled = true;
 
@@ -362,7 +363,6 @@ function saveInput() {
 
         if (file) {
             uploadImageToServer(file);
-            shouldPromptBeforeUnload = false;
             document.getElementById("createHikeOverview").submit();
         } else {
             // Handle case when no file is selected
@@ -639,4 +639,45 @@ function showMarkerModal(markerModalHeader, markerModalNameInput, onModalSave) {
     };
 
     markerModal.show();
+}
+
+// toast functions
+function createToast(id, headerMessage, bodyMessage) {
+    // Create a new toast element
+    let toast = document.createElement("div");
+    toast.className = "toast position-fixed top-0 start-50 translate-middle-x";
+    toast.id = id;
+    toast.setAttribute("role", "alert");
+    toast.setAttribute("aria-live", "assertive");
+    toast.setAttribute("aria-atomic", "true");
+
+    // Create toast header
+    let toastHeader = document.createElement("div");
+    toastHeader.className = "toast-header";
+
+    let strongElement = document.createElement("strong");
+    strongElement.className = "me-auto";
+    strongElement.innerText = headerMessage;
+    let buttonElement = document.createElement("button");
+    buttonElement.className = "btn-close";
+    buttonElement.setAttribute("data-bs-dismiss", "toast");
+    buttonElement.setAttribute("aria-label", "Close");
+
+    toastHeader.appendChild(strongElement);
+    toastHeader.appendChild(buttonElement);
+    toast.appendChild(toastHeader);
+
+    // Create toast body
+    let toastBody = document.createElement("div");
+    toastBody.className = "toast-body";
+    toastBody.innerText = bodyMessage;
+    toast.appendChild(toastBody);
+
+    // Append the toast to the body
+    document.body.appendChild(toast);
+}
+
+function showToast(id) {
+    let toast = new bootstrap.Toast(document.getElementById(id));
+    toast.show();
 }

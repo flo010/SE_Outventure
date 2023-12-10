@@ -80,9 +80,12 @@
 
             <hr>
 
-            <form class="needs-validation" id="createHikeOverview"
-                  <% if (hike == null) {%>action="/save_data" method="post"<% }
-                  else {%> action="/save_data?hikeID=<%=hike.getHikeID()%>" method="put" <% } %>novalidate>
+            <form class="needs-validation" id="createHikeOverview" action="/save_data" method="post" novalidate>
+                <% if (hike != null) { %>
+                <input type="hidden" name="edit" value="true">
+                <input type="hidden" name="hikeID" value="<%= hike.getHikeID() %>">
+                <input type="hidden" name="pictureID" value="<%= hike.getPreviewPicture() %>">
+                <% } %>
                 <div class="tab-content mt-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                         <div class="input-fields-group">
@@ -467,7 +470,7 @@
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
-                                <button type="submit" id="saveButtonGettingThere" class="btn btn-success" onclick="saveInput()">Save</button>
+                                <button type="submit" id="saveButtonNewHike" class="btn btn-success" onclick="saveInput()">Save</button>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonGettingThere" class="btn btn-secondary" onclick="prevTab()">Previous</button>
