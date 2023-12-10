@@ -13,6 +13,7 @@ public class Hiker {
     private String _email;
     private String _password;
     private List<Hike> _completedHikes;
+    private List<Hike> _favoriteHikes;
 
     @Id
     @NotNull
@@ -53,12 +54,21 @@ public class Hiker {
     }
 
     @ManyToMany
-    @JoinTable(name = "hiked", joinColumns = @JoinColumn(name="hiker_id"), inverseJoinColumns = @JoinColumn(name = "hike_id"))
+    @JoinTable(name = "completed_hikes", joinColumns = @JoinColumn(name="hiker"), inverseJoinColumns = @JoinColumn(name = "hike"))
     public List<Hike> getCompletedHikes() {
         return _completedHikes;
     }
     public void setCompletedHikes(List<Hike> completedHikes) {
         _completedHikes = completedHikes;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "favorite_hikes", joinColumns = @JoinColumn(name="hiker"), inverseJoinColumns = @JoinColumn(name = "hike"))
+    public List<Hike> getFavoriteHikes() {
+        return _favoriteHikes;
+    }
+    public void setFavoriteHikes(List<Hike> favoriteHikes) {
+        _favoriteHikes = favoriteHikes;
     }
 }
 
