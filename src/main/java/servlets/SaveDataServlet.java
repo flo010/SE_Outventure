@@ -35,6 +35,8 @@ public class SaveDataServlet extends HttpServlet {
     }
 
     private void saveToDatabase(HttpServletRequest request, HttpServletResponse response, int pictureID) throws IOException {
+        System.out.println("latDest " + Double.parseDouble(request.getParameter("latitudeDestinationCoordinateInput")));
+
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
         double distance = Double.parseDouble(request.getParameter("distanceInput"));

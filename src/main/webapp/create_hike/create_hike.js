@@ -614,10 +614,8 @@ function updateDestination(destinationName, destinationMarker) {
     const longitudeDestinationCoordinateInput = document.getElementById("longitudeDestinationCoordinateID");
 
     destinationNameInput.value = destinationName;
-    latitudeDestinationCoordinateInput.value = destinationMarker.getLatLng().lat;
-    console.log("latitudeDestinationCoordinateInput.value " + latitudeDestinationCoordinateInput.value)
-    longitudeDestinationCoordinateInput.value = destinationMarker.getLatLng().lng;
-    console.log("longitudeDestinationCoordinateInput.value " + longitudeDestinationCoordinateInput.value)
+    latitudeDestinationCoordinateInput.value = parseFloat(destinationMarker.getLatLng().lat).toFixed(6);
+    longitudeDestinationCoordinateInput.value = parseFloat(destinationMarker.getLatLng().lng).toFixed(6);
 
     destinationNameInput.setAttribute("disabled", "");
     latitudeDestinationCoordinateInput.setAttribute("disabled", "");
