@@ -469,9 +469,19 @@
                             </small>
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
+                            <%
+                                if (hike == null) {
+                            %>
                             <div class="p-2 bd-highlight">
-                                <button type="submit" id="saveButtonNewHike" class="btn btn-success" onclick="saveInput()">Save</button>
+                                <button type="submit" id="saveButtonNewHike" class="btn btn-success" onclick="saveInput(false)">Save</button>
                             </div>
+                            <%
+                                } else {
+                            %>
+                            <div class="p-2 bd-highlight">
+                                <button type="submit" id="saveButtonEditHike" class="btn btn-success" onclick="saveInput(true)">Save</button>
+                            </div>
+                            <% } %>
                             <div class="p-2 bd-highlight">
                                 <button type="button" id="previousButtonGettingThere" class="btn btn-secondary" onclick="prevTab()">Previous</button>
                             </div>

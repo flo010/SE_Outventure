@@ -346,29 +346,35 @@ function editPointOfInterest(editButton) {
 }
 
 // functions to save form input
-function saveInput() {
+function saveInput(isEdit) {
     shouldPromptBeforeUnload = false;
-    let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
-    let allInputsFilled = true;
+    if (!isEdit) {
+        let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
+        let allInputsFilled = true;
 
-    for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
-        if (!requiredInputs[i].value.trim()) {
-            allInputsFilled = false;
+        for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
+            if (!requiredInputs[i].value.trim()) {
+                allInputsFilled = false;
+            }
+        }
+
+        if (allInputsFilled) {
+            const fileInput = document.getElementById('coverImageInput');
+            const file = fileInput.files[0];
+
+            if (file) {
+                uploadImageToServer(file);
+                document.getElementById("createHikeOverview").submit();
+            } else {
+                // Handle case when no file is selected
+                console.error('No file selected');
+                alert('Please select a file.');
+            }
         }
     }
-
-    if (allInputsFilled) {
-        const fileInput = document.getElementById('coverImageInput');
-        const file = fileInput.files[0];
-
-        if (file) {
-            uploadImageToServer(file);
-            document.getElementById("createHikeOverview").submit();
-        } else {
-            // Handle case when no file is selected
-            console.error('No file selected');
-            alert('Please select a file.');
-        }
+    else {
+        document.getElementById("coverImageInput").required = false;
+        console.log(document.getElementById("coverImageInput").required);
     }
 }
 
