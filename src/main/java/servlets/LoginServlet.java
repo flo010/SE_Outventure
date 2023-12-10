@@ -1,6 +1,7 @@
 package servlets;
 
 import hibernate.facade.FacadeJPA;
+import hibernate.model.Hiker;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,19 +14,20 @@ import java.io.IOException;
 @WebServlet(name = "loginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
 
         boolean validHikerCredentials = facadeJPA.checkHikerCredentials(email, password);
-        String hikerUsername = facadeJPA.getUsernameByEmailAndPassword(email,password);
+        Hiker hiker = facadeJPA.getHikerByEmail(email);
 
         if (validHikerCredentials) {
             HttpSession httpSession = request.getSession(true);
-            httpSession.setAttribute("hikerUsername", hikerUsername);
-            httpSession.setAttribute("hikerEmail", email);
+            httpSession.setAttribute("hikerID", hiker.getHikerID());
+            httpSession.setAttribute("hikerEmail", hiker.getEmail());
+            httpSession.setAttribute("hikerUsername", hiker.getUsername());
+
             response.sendRedirect("/index/index.jsp");
             System.out.println("Login successful");
         } else {

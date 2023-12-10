@@ -7,7 +7,6 @@ import hibernate.model.Hike;
 import hibernate.model.Hiker;
 import hibernate.model.Picture;
 
-
 import java.util.List;
 
 public class FacadeJPA implements Facade {
@@ -55,7 +54,6 @@ public class FacadeJPA implements Facade {
         return hikeBroker.getLazy(hikeID);
     }
 
-
     @Override
     public Hike getHikeByIDEager(int hikeID) {
         HikeBroker hikeBroker = new HikeBroker();
@@ -77,7 +75,6 @@ public class FacadeJPA implements Facade {
         return hikes;
     }
 
-
     public List<Hike> getHikesByTitleLazy(String title) {
         HikeBroker hikeBroker = new HikeBroker();
         List<Hike> hikes = null;
@@ -86,7 +83,6 @@ public class FacadeJPA implements Facade {
         } catch (Exception e) {
             System.out.println("getAllHikes is null");
         }
-
 
         return hikes;
     }
@@ -134,15 +130,36 @@ public class FacadeJPA implements Facade {
         return hikes;
     }
 
-    public String getUsernameByEmailAndPassword (String email, String password){
-        HikerBroker hikerBroker = new HikerBroker();
-
-        return hikerBroker.getUsernameByEmailAndPassword(email, password);
-    }
-
     public boolean checkHikerCredentials(String email, String password) {
         HikerBroker hikerBroker = new HikerBroker();
 
         return hikerBroker.checkHikerLoginCredentials(email, password);
+    }
+
+    public Hiker getHikerByEmail(String email) {
+        HikerBroker hikerBroker = new HikerBroker();
+
+        return hikerBroker.getByEmail(email);
+    }
+
+    public Hiker getHikerByID(int id) {
+        HikerBroker hikerBroker = new HikerBroker();
+
+        return hikerBroker.getByID(id);
+    }
+
+    public boolean isFavoriteHikeExists(int hikerId, int hikeId) {
+        HikerBroker hikerBroker = new HikerBroker();
+        return hikerBroker.isFavoriteHikeExists(hikerId, hikeId);
+    }
+
+    public void addFavoriteHike(int hikerId, int hikeId) {
+        HikerBroker hikerBroker = new HikerBroker();
+        hikerBroker.addFavoriteHike(hikerId, hikeId);
+    }
+
+    public void removeFavoriteHike(int hikerId, int hikeId) {
+        HikerBroker hikerBroker = new HikerBroker();
+        hikerBroker.removeFavoriteHike(hikerId, hikeId);
     }
 }
