@@ -48,9 +48,15 @@
         <div class="container-sm mt-5 mb-5">
             <div class="d-flex bd-highlight mb-3">
                 <div class="me-auto p-2 bd-highlight">
-                    <button id="backToSearchButton" type="button" class="btn btn-outline-secondary" onclick="showLastSearchResults()">Return to the search results</button>
+                    <button id="backToSearchButton" type="button" class="btn btn-outline-secondary" onclick="showLastSearchResults()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 18 18">
+                            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                        </svg>
+                        Return to the search results
+                    </button>
                 </div>
             </div>
+
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
             <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
             <div class="paragraph-container mt-3" style="width: 50%">
