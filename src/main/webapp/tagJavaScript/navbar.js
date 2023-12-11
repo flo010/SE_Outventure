@@ -13,3 +13,7 @@ function clearSearchString() {
     };
     xhr.send("clearedSearchString=");
 }
+
+function logout() {
+    document.getElementById('logoutForm').submit();
+}

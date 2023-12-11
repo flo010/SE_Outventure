@@ -59,7 +59,7 @@
                         <li>
                             <!-- Form for logout with JavaScript to submit it -->
                             <form id="logoutForm" action="/logout" method="post">
-                                <a class="dropdown-item" href="#" onclick="document.getElementById('logoutForm').submit();">
+                                <a class="dropdown-item" href="#" onclick="logout()">
                                     Logout
                                 </a>
                             </form>

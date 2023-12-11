@@ -16,3 +16,7 @@ function prepareDeleteHike(hikeId) {
     selectedHikeID = hikeId;
     showDeleteHikeModal();
 }
+
+function goToCreateHike(hikeID) {
+    window.location.href = "/create/hike?hikeID=" + hikeID;
+}

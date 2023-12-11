@@ -36,7 +36,7 @@
                     </div>
                     <div class="right-box-bottom">
                         <span class="text"><strong>Created Hikes:</strong></span><br>
-                        <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='/profile_hike_list/profile_hike_list.jsp'">View my created hikes</button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="goToProfileHikeList()">View my created hikes</button>
                     </div>
                 </div>
              </div>
@@ -44,5 +44,6 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="/tagJavaScript/navbar.js"></script>
+        <script src="profile.js"></script>
     </body>
 </html>
