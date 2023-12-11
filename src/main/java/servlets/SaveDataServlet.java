@@ -1,5 +1,7 @@
 package servlets;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hibernate.facade.FacadeJPA;
 import hibernate.model.*;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -61,14 +64,30 @@ public class SaveDataServlet extends HttpServlet {
         destination.setLatitude(destinationLatitude);
         destination.setLongitude(destinationLongitude);
 
-//        //Save GPX File
-//        response.setContentType("application/json");
-//        String gpxContent = request.getParameter("gpxContent");
-//
-//        // Code for saving GPX file to database ...
-//
-//        //JSON message
-//        response.getWriter().write("{\"success\": true, \"message\": \"Data saved successfully.\"}");
+
+        //Save GPX File
+        response.setContentType("application/json");
+        // Read JSON data from the request body
+        StringBuilder requestBody = new StringBuilder();
+        try (BufferedReader reader = request.getReader()) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                requestBody.append(line);
+            }
+        }
+        // Parse JSON data using Jackson ObjectMapper
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(requestBody.toString());
+
+        // Retrieve values from JSON
+        String fileName = jsonNode.has("fileName") ? jsonNode.get("fileName").asText() : null;
+        String gpxContent = jsonNode.has("gpxContent") ? jsonNode.get("gpxContent").asText() : null;
+
+        FacadeJPA facadeJPA = FacadeJPA.getInstance();
+        facadeJPA.addGpxFile(fileName,gpxContent);
+        //JSON message
+        response.getWriter().write("{\"success\": true, \"message\": \"Data saved successfully.\"}");
+
 
         int strength = Integer.parseInt(request.getParameter("difficultyInput"));
         int stamina = Integer.parseInt(request.getParameter("conditionInput"));
@@ -165,7 +184,6 @@ public class SaveDataServlet extends HttpServlet {
         hike.setVisible(true);
         hike.setRegion("Bregenzerwald");
 
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
         if (pictureID == -1) {
             try {
                 Thread.sleep(4 * 1000);

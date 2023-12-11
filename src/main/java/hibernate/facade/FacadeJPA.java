@@ -3,6 +3,7 @@ package hibernate.facade;
 import hibernate.broker.HikeBroker;
 import hibernate.broker.HikerBroker;
 import hibernate.broker.PictureBroker;
+import hibernate.broker.gpxDataBroker;
 import hibernate.model.Hike;
 import hibernate.model.Hiker;
 import hibernate.model.Picture;
@@ -161,5 +162,10 @@ public class FacadeJPA implements Facade {
     public void removeFavoriteHike(int hikerId, int hikeId) {
         HikerBroker hikerBroker = new HikerBroker();
         hikerBroker.removeFavoriteHike(hikerId, hikeId);
+    }
+
+    public void addGpxFile(String fileName, String gpxContent){
+        gpxDataBroker gpxDataBroker = new gpxDataBroker();
+        gpxDataBroker.addGpxFile(fileName,gpxContent);
     }
 }
