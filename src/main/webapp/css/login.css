@@ -22,7 +22,7 @@
     padding:10px 10px 10px 10px;
 }
 
-.form-control {
+.card .card-body .form-control {
     border-radius: 20px;
     padding-right: 30px;
 }
@@ -48,3 +48,8 @@
 .register-link{
     color:#B6FC9D
 }
+
+#search-input {
+    margin-top: 17px;
+}
+
