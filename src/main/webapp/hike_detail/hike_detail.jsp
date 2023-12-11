@@ -294,7 +294,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="dateForm" action="/completed_hike?hikeID=<%=hike.getHikeID()%>" method="post">
+                        <form id="dateForm" action="/completed_hike?hikeID=<%=hike.getHikeID()%>&hikerID=<%=session.getAttribute("hikerID")%>&page=detail" method="post">
                             <div class="mb-3">
                                 <label for="completionDate" class="form-label">Completion Date (DD.MM.YYYY)</label>
                                 <input type="date" class="form-control" id="completionDate" name="completionDate" placeholder="Completion Date" required>
@@ -302,7 +302,7 @@
                             </div>
                             <div class="d-flex justify-content-end">
                                 <button type="button" class="btn btn-danger me-2" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-success" onclick="updateCompleted(<%=hike.getHikeID()%>, <%=session.getAttribute("hikerID")%>)">Mark as completed</button>
+                                <button type="submit" class="btn btn-success">Mark as completed</button>
                                 <p><%=hike.getHikeID()%> , <%=session.getAttribute("hikerID")%> </p>
                             </div>
                         </form>

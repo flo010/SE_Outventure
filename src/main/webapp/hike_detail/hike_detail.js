@@ -101,6 +101,3 @@ function showHikeCompletedModal() {
     hikeCompletedModal.show();
 }
 
-function updateCompleted(hikeID, hikerID) {
-    window.location.href = '/completed_hike?hikeID=' + hikeID + '&hikerID=' + hikerID + '&page=detail';
-}
