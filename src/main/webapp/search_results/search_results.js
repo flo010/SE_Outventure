@@ -31,7 +31,6 @@ function getFiltered() {
     const landscapeHigh = document.getElementById("LandscapeHigh").value;
     const month = filters.months; // Assuming 'filters' is defined elsewhere
 
-    // Get the current URL
     const currentUrl = window.location.href;
 
     // Construct the new URL with updated parameters
@@ -41,13 +40,11 @@ function getFiltered() {
 }
 
 
-// Get references to the checkbox and the content div
 const toggleSwitch = document.getElementById("monthSwitch");
 const contentToHide = document.getElementById("months");
 const arrowDown = document.getElementById("MonthArrowDown");
 const arrowUp = document.getElementById("MonthArrowUp");
 
-// Add event listener to checkbox to toggle visibility of the content
 toggleSwitch.addEventListener("change", function () {
     console.log("Test");
     if (this.checked) {
