@@ -600,12 +600,11 @@ function updateStart(startName, startMarker) {
     const longitudeStartCoordinateInput = document.getElementById("longitudeStartCoordinateInput");
 
     startNameInput.value = startName;
-    latitudeStartCoordinateInput.value = parseFloat(startMarker.getLatLng().lat).toFixed(6);
-    longitudeStartCoordinateInput.value = parseFloat(startMarker.getLatLng().lng).toFixed(6);
+    latitudeStartCoordinateInput.value = parseFloat(startMarker.getLatLng().lat).toFixed(6).replace(',', '.');
+    longitudeStartCoordinateInput.value = parseFloat(startMarker.getLatLng().lng).toFixed(6).replace(',', '.');
 
-    startNameInput.setAttribute("disabled", "");
-    latitudeStartCoordinateInput.setAttribute("disabled", "");
-    longitudeStartCoordinateInput.setAttribute("disabled", "");
+    latitudeStartCoordinateInput.setAttribute("readonly", "");
+    longitudeStartCoordinateInput.setAttribute("readonly", "");
 }
 
 function updateDestination(destinationName, destinationMarker) {
@@ -614,12 +613,11 @@ function updateDestination(destinationName, destinationMarker) {
     const longitudeDestinationCoordinateInput = document.getElementById("longitudeDestinationCoordinateID");
 
     destinationNameInput.value = destinationName;
-    latitudeDestinationCoordinateInput.value = parseFloat(destinationMarker.getLatLng().lat).toFixed(6);
-    longitudeDestinationCoordinateInput.value = parseFloat(destinationMarker.getLatLng().lng).toFixed(6);
+    latitudeDestinationCoordinateInput.value = parseFloat(destinationMarker.getLatLng().lat).toFixed(6).replace(',', '.');
+    longitudeDestinationCoordinateInput.value = parseFloat(destinationMarker.getLatLng().lng).toFixed(6).replace(',', '.');
 
-    destinationNameInput.setAttribute("disabled", "");
-    latitudeDestinationCoordinateInput.setAttribute("disabled", "");
-    longitudeDestinationCoordinateInput.setAttribute("disabled", "");
+    latitudeDestinationCoordinateInput.setAttribute("readonly", "");
+    longitudeDestinationCoordinateInput.setAttribute("readonly", "");
 }
 
 function showMarkerModal(markerModalHeader, markerModalNameInput, onModalSave) {
