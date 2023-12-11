@@ -127,4 +127,26 @@ public class HikerBroker extends BrokerBase<Hiker>{
             entityManager.close();
         }
     }
+
+    public void addCompletedHike(int hikerId, int hikeId, String timestamp) {
+        EntityManager entityManager = getEntityManager();
+        java.sql.Date sqlDate = java.sql.Date.valueOf(timestamp);
+        try {
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNativeQuery("INSERT INTO completed_hikes (hiker, hike, timestamp) VALUES (?, ?, ?)");
+            query.setParameter(1, hikerId);
+            query.setParameter(2, hikeId);
+            query.setParameter(3, sqlDate);
+            query.executeUpdate();
+
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
 }

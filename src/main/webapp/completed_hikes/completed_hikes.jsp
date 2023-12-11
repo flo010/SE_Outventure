@@ -1,6 +1,7 @@
 <%@ page import="hibernate.model.Hike" %>
 <%@ page import="hibernate.facade.FacadeJPA" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="hibernate.model.Hiker" %><%--
   Created by IntelliJ IDEA.
   User: Betül Kulac
   Date: 09.12.23
@@ -11,9 +12,10 @@
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
 <%
-  HttpSession userSession = request.getSession();
-  String loggedInUser =  (String) userSession.getAttribute("loggedInUser");
-  List<Hike> hikeList = FacadeJPA.getInstance().getHikesByAuthorLazy(loggedInUser);
+  FacadeJPA facadeJPA = FacadeJPA.getInstance();
+  int hikerID = Integer.parseInt(session.getAttribute("hikerID").toString());
+  Hiker hiker = facadeJPA.getHikerByID(hikerID);
+  List<Hike> completedHikes =  hiker.getCompletedHikes();
 %>
 <html>
   <head>
@@ -34,7 +36,29 @@
           <div class="right-box-header">
             <h3>Completed Hikes</h3>
           </div>
-          <div class="right-box-body"></div>
+          <div class="right-box-body">
+            <% if (completedHikes.isEmpty()) { %>
+            <div class="empty-list-message mt-5 text-center">
+              <p>Your list is empty.</p>
+              <p>Click on the heart button in the hike detail page to add a hike to your favorite list.</p>
+            </div>
+            <%
+            }
+            else {
+              for (Hike hike: completedHikes) {
+                double durationMinutes = (hike.getDuration() % 1) * 60;
+            %>
+            <outventure:card_favorite_hike
+                    hikeID="<%=hike.getHikeID()%>"
+                    hikePicture="<%=hike.getPreviewPicture()%>"
+                    hikeTitle="<%=hike.getTitle()%>"
+                    hikeDistance="<%=hike.getDistance()%>"
+                    hikeDurationHours="<%=(int)hike.getDuration()%>"
+                    hikeDurationMinutes="<%=(int)durationMinutes%>"
+                    hikeAltitude="<%=hike.getAltitude()%>">
+            </outventure:card_favorite_hike>
+            <% }} %>
+          </div>
           <div class="right-box-bottom"></div>
         </div>
       </div>
