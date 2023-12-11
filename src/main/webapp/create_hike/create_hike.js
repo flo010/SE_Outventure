@@ -23,19 +23,19 @@ function initializePage() {
     let container = document.getElementById("monthContainer");
 
     for (let i = 0; i < months.length; i++) {
-        // Create the month div
+
         let monthDiv = document.createElement("div");
         monthDiv.className = "form-check form-check-inline";
 
-        // Create the checkbox input
+
         let checkboxInput = document.createElement("input");
         checkboxInput.className = "form-check-input months";
         checkboxInput.type = "checkbox";
         checkboxInput.id = "optimalSeason" + months[i];
         checkboxInput.value = "false";
-        checkboxInput.name = "monthCheckbox" + months[i]; // Added name attribute
+        checkboxInput.name = "monthCheckbox" + months[i];
 
-        // Create the label for the checkbox
+
         let label = document.createElement("label");
         label.className = "form-check-label";
         label.setAttribute("for", "monthCheckbox" + i);
@@ -46,11 +46,11 @@ function initializePage() {
             checkboxInput.value = checkboxInput.checked ? "true" : "false";
         });
 
-        // Append the input and label to the month div
+
         monthDiv.appendChild(checkboxInput);
         monthDiv.appendChild(label);
 
-        // Append the month div to the container
+
         container.appendChild(monthDiv);
     }
 
@@ -189,24 +189,21 @@ function updateLabel(inputId, labelId) {
 const pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
 
 function savePointOfInterest() {
-    // Reset previous validation errors
+
     resetValidationErrors();
 
-    // Get values from the form
     const poiName = document.getElementById('poiName').value;
     const poiLatitude = parseFloat(document.getElementById('poiLatitude').value);
     const poiLongitude = parseFloat(document.getElementById('poiLongitude').value);
     const poiDescription = document.getElementById("poiDescription").value;
     const poiType = document.getElementById("poiType").value;
 
-    // Check if required fields are empty
     if (!poiName || isNaN(poiLatitude) || isNaN(poiLongitude) || poiType === "Select type") {
         const errorMessage = document.getElementById('poiErrorMessage');
         errorMessage.style.display = 'block';
         return;
     }
 
-    // Validate longitude and latitude ranges
     if (poiLongitude < -180.0 || poiLongitude > 180.0) {
         displayValidationError('Please enter a valid longitude between -180.0 and 180.0.', 'poiLongitude');
         return;
@@ -227,7 +224,6 @@ function savePointOfInterest() {
     document.getElementById('poiDescription').value = '';
     document.getElementById('poiType').value = 'Select type';
 
-    // Close the modal
     pointsOfInterestModal.hide();
 }
 
@@ -390,7 +386,7 @@ function uploadImageToServer(file) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data); // Log the server response
+            console.log(data);
             const hiddenInput = document.getElementById('hiddenImageId');
             hiddenInput.value = 1;
         })
@@ -404,15 +400,11 @@ function previewImage(inputId, previewId) {
     const input = document.getElementById(inputId);
     const preview = document.getElementById(previewId);
 
-    // Check if input and preview element are present
     if (input && preview) {
-        // Add EventListener for the event that the input changes
         input.addEventListener("change", function () {
             const [file] = input.files;
 
-            // Check if a file is present and check for its file type
             if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
-                // Display the preview
                 preview.src = URL.createObjectURL(file);
                 preview.style.display = "block";
             } else {
@@ -438,21 +430,18 @@ function handleCoverImage() {
                 const img = new Image();
 
                 img.onload = function () {
-                    // Resize the image (you can adjust width and height as needed)
+                    // Resize the image
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
-                    canvas.width = 300; // set your desired width
-                    canvas.height = (300 * img.height) / img.width; // maintain aspect ratio
+                    canvas.width = 300;
+                    canvas.height = (300 * img.height) / img.width
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                    // Compress the image (you can adjust quality as needed)
                     const compressedDataURL = canvas.toDataURL('image/jpeg', 0.7);
 
-                    // Display the preview
                     preview.src = compressedDataURL;
                     preview.style.display = 'block';
 
-                    // Optionally, you can upload the compressed image to a server here.
                     uploadImageToServer(compressedDataURL);
                 };
                 img.src = e.target.result.toString();
@@ -647,7 +636,6 @@ function showMarkerModal(markerModalHeader, markerModalNameInput, onModalSave) {
 
 // toast functions
 function createToast(id, message) {
-    // Create the toast container
     let toastContainer = document.createElement('div');
     toastContainer.className = 'toast position-fixed bottom-0 end-0 align-items-center text-white bg-danger border-0';
     toastContainer.id = id;
@@ -658,24 +646,20 @@ function createToast(id, message) {
     let flexContainer = document.createElement('div');
     flexContainer.className = 'd-flex';
 
-    // Create the toast body
     let toastBody = document.createElement('div');
     toastBody.className = 'toast-body';
     toastBody.textContent = message;
 
-    // Create the close button
     let closeButton = document.createElement('button');
     closeButton.type = 'button';
     closeButton.className = 'btn-close btn-close-white me-2 m-auto';
     closeButton.setAttribute('data-bs-dismiss', 'toast');
     closeButton.setAttribute('aria-label', 'Close');
 
-    // Append elements to the toast container
     toastContainer.appendChild(flexContainer);
     flexContainer.appendChild(toastBody);
     flexContainer.appendChild(closeButton);
 
-    // Append the toast container to the body
     document.body.appendChild(toastContainer);
 }
 
@@ -684,7 +668,7 @@ function showToast(id) {
     toast.show();
 }
 
-// gpx functions
+// GPX functions
 function importGpxButton() {
     document.getElementById("gpxInput").click();
 }
@@ -695,7 +679,6 @@ function handleGpxFile(input) {
         const splitFileType = file.name.split(".");
         const fileType = splitFileType[splitFileType.length - 1];
 
-        // Check if a file is present and check for its file type
         if (!file || fileType !== "gpx") {
             input.classList.add("is-invalid");
             return;
@@ -704,13 +687,11 @@ function handleGpxFile(input) {
         input.classList.remove("is-invalid");
         autoFillStartDestination(file);
 
-        // Read the GPX content using FileReader
         const reader = new FileReader();
 
         reader.onload = function (e) {
             const gpxContent = e.target.result;
 
-            // Send the GPX content to the server
             sendGpxToServer(gpxContent);
         };
 
