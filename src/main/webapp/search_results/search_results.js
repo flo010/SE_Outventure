@@ -21,7 +21,6 @@ if (toastDataElements) {
 
 // toast functions
 function createToast(id, headerMessage, bodyMessage) {
-    // Create a new toast element
     let toast = document.createElement("div");
     toast.className = "toast position-fixed top-0 start-50 translate-middle-x";
     toast.id = id;
@@ -29,7 +28,6 @@ function createToast(id, headerMessage, bodyMessage) {
     toast.setAttribute("aria-live", "assertive");
     toast.setAttribute("aria-atomic", "true");
 
-    // Create toast header
     let toastHeader = document.createElement("div");
     toastHeader.className = "toast-header";
 
@@ -45,13 +43,11 @@ function createToast(id, headerMessage, bodyMessage) {
     toastHeader.appendChild(buttonElement);
     toast.appendChild(toastHeader);
 
-    // Create toast body
     let toastBody = document.createElement("div");
     toastBody.className = "toast-body";
     toastBody.innerText = bodyMessage;
     toast.appendChild(toastBody);
 
-    // Append the toast to the body
     document.body.appendChild(toast);
 }
 
@@ -93,7 +89,6 @@ function getFiltered() {
     const landscapeHigh = document.getElementById("LandscapeHigh").value;
     const month = filters.months; // Assuming 'filters' is defined elsewhere
 
-    // Get the current URL
     const currentUrl = window.location.href;
 
     // Construct the new URL with updated parameters
@@ -103,13 +98,11 @@ function getFiltered() {
 }
 
 
-// Get references to the checkbox and the content div
 const toggleSwitch = document.getElementById("monthSwitch");
 const contentToHide = document.getElementById("months");
 const arrowDown = document.getElementById("MonthArrowDown");
 const arrowUp = document.getElementById("MonthArrowUp");
 
-// Add event listener to checkbox to toggle visibility of the content
 toggleSwitch.addEventListener("change", function () {
     console.log("Test");
     if (this.checked) {
