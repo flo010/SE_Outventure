@@ -698,3 +698,54 @@ function handleGpxFile(input) {
         reader.readAsText(file);
     }
 }
+
+function autoFillStartDestination(file) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        const gpxData = e.target.result;
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(gpxData, "text/xml");
+
+        const trackPoints = xmlDoc.querySelectorAll("rtept").length === 0 ? xmlDoc.querySelectorAll("trkpt") : xmlDoc.querySelectorAll("rtept");
+
+        if (trackPoints.length !== 0) {
+            const startPoint = trackPoints[0];
+            const startNameElement = startPoint.querySelector("name");
+            const startName = startNameElement ? startNameElement.textContent : "";
+
+            const destinationPoint = trackPoints[trackPoints.length - 1];
+            const destinationNameElement = destinationPoint.querySelector("name");
+            const destinationName = destinationNameElement ? destinationNameElement.textContent : "";
+
+            document.getElementById("startNameInput").value = startName;
+            document.getElementById("latitudeStartCoordinateInput").value = startPoint.getAttribute("lat");
+            document.getElementById("longitudeStartCoordinateInput").value = startPoint.getAttribute("lon");
+
+            document.getElementById("destinationNameInput").value = destinationName;
+            document.getElementById("latitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lat");
+            document.getElementById("longitudeDestinationCoordinateID").value = destinationPoint.getAttribute("lon");
+        }
+    };
+
+    reader.readAsText(file);
+}
+
+function sendGpxToServer(gpxContent) {
+    // Use fetch or XMLHttpRequest to send the GPX content to the server
+    fetch('/save_data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({gpxContent}),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response from server:', data);
+            // Optionally handle the response from the server
+        })
+        .catch(error => {
+            console.error('Error sending GPX content to server:', error);
+        });
+}
