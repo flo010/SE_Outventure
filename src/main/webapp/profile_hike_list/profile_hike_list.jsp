@@ -38,10 +38,10 @@
                     <div class="container mt-3">
                         <% boolean is_visible = false;
                             for (Hike hike: hikeList) {
-                            if(hike.isVisible() == true){
+                            if(hike.isVisible()){
                                 is_visible = true;
                             }
-                        }if(is_visible == false){ %>
+                        }if(!is_visible){ %>
                             <div class="empty-list-message mt-5 text-center">
                                 <p>Your list is empty.</p>
                                 <p>Click <a href="/create_hike/create_hike.jsp">here</a> to create your first hike.</p>
