@@ -503,7 +503,7 @@ function initializeMap() {
         let clickedLatLng = event.latlng;
         let markerCount = 0;
 
-        if ((!startMarker) && (markerCount <= 2)) {
+        if ((!startMarker) && (markerCount < 2)) {
             showMarkerModal("Enter a name for the start point", "Enter start name", () => {
                 let startName = document.getElementById("markerModalNameInput").value;
 
@@ -529,6 +529,7 @@ function initializeMap() {
                 startMarker.on('popupopen', function() {
                     document.getElementById('removeStartBtn').addEventListener('click', function() {
                         map.removeLayer(startMarker);
+                        markerCount -= 1;
                         startMarker = null; // Reset the marker
                         if (route) {
                             map.removeLayer(route);
@@ -543,7 +544,7 @@ function initializeMap() {
                 }
             });
         }
-        else if ((!destinationMarker) && (markerCount <= 2)) {
+        else if ((!destinationMarker) && (markerCount < 2)) {
             showMarkerModal("Enter a name for the destination point", "Enter destination name", () => {
                 let destinationName = document.getElementById("markerModalNameInput").value;
 
@@ -569,6 +570,7 @@ function initializeMap() {
                 destinationMarker.on('popupopen', function() {
                     document.getElementById('removeDestBtn').addEventListener('click', function() {
                         map.removeLayer(destinationMarker);
+                        markerCount -= 1;
                         destinationMarker = null; // Reset the marker
                         if (route) {
                             map.removeLayer(route);
