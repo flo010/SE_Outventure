@@ -13,6 +13,7 @@ public class Destination {
 
     @Id
     @NotNull
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "destination_id")
     public int getDestinationID() {
         return _destinationID;
