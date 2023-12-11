@@ -1,4 +1,3 @@
-// functions to check whether flags are true
 let toastDataElements = document.getElementById('toastData');
 
 if (toastDataElements) {
@@ -26,9 +25,7 @@ if (toastDataElements) {
     }
 }
 
-// toast functions
 function createToast(id, headerMessage, bodyMessage) {
-    // Create a new toast element
     let toast = document.createElement("div");
     toast.className = "toast position-fixed top-0 start-50 translate-middle-x";
     toast.id = id;
@@ -36,7 +33,6 @@ function createToast(id, headerMessage, bodyMessage) {
     toast.setAttribute("aria-live", "assertive");
     toast.setAttribute("aria-atomic", "true");
 
-    // Create toast header
     let toastHeader = document.createElement("div");
     toastHeader.className = "toast-header";
 
@@ -52,13 +48,11 @@ function createToast(id, headerMessage, bodyMessage) {
     toastHeader.appendChild(buttonElement);
     toast.appendChild(toastHeader);
 
-    // Create toast body
     let toastBody = document.createElement("div");
     toastBody.className = "toast-body";
     toastBody.innerText = bodyMessage;
     toast.appendChild(toastBody);
 
-    // Append the toast to the body
     document.body.appendChild(toast);
 }
 
