@@ -150,6 +150,7 @@
                         }
                     }
                 %>
+                <div class="w-100 text-center fs-2 pt-5" style="display: <%= hikeList.isEmpty() ? "block" : "none" %>"><strong>No results found!</strong></div>
             </div>
         </div>
         </div>
