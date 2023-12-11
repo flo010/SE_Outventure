@@ -83,7 +83,7 @@ function initializePage() {
         Array.prototype.filter.call(forms, function (form) {
             form.addEventListener('submit', function (event) {
                 if (form.checkValidity() === false) {
-                    createToast("validationToast", "Validation failed! Please check your input.");
+                    createValidationToast("validationToast", "Validation failed! Please check your input.");
                     showToast("validationToast");
                     event.preventDefault();
                     event.stopPropagation();
@@ -634,40 +634,6 @@ function showMarkerModal(markerModalHeader, markerModalNameInput, onModalSave) {
     };
 
     markerModal.show();
-}
-
-// toast functions
-function createToast(id, message) {
-    let toastContainer = document.createElement('div');
-    toastContainer.className = 'toast position-fixed bottom-0 end-0 align-items-center text-white bg-danger border-0';
-    toastContainer.id = id;
-    toastContainer.setAttribute('role', 'alert');
-    toastContainer.setAttribute('aria-live', 'assertive');
-    toastContainer.setAttribute('aria-atomic', 'true');
-
-    let flexContainer = document.createElement('div');
-    flexContainer.className = 'd-flex';
-
-    let toastBody = document.createElement('div');
-    toastBody.className = 'toast-body';
-    toastBody.textContent = message;
-
-    let closeButton = document.createElement('button');
-    closeButton.type = 'button';
-    closeButton.className = 'btn-close btn-close-white me-2 m-auto';
-    closeButton.setAttribute('data-bs-dismiss', 'toast');
-    closeButton.setAttribute('aria-label', 'Close');
-
-    toastContainer.appendChild(flexContainer);
-    flexContainer.appendChild(toastBody);
-    flexContainer.appendChild(closeButton);
-
-    document.body.appendChild(toastContainer);
-}
-
-function showToast(id) {
-    let toast = new bootstrap.Toast(document.getElementById(id));
-    toast.show();
 }
 
 // GPX functions
