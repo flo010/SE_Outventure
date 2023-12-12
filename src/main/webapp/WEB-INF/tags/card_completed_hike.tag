@@ -1,11 +1,14 @@
 <%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="hikeID" required="true" type="java.lang.Integer" %>
+<%@ attribute name="hikerID" required="true" type="java.lang.Integer" %>
 <%@ attribute name="hikePicture" required="true" type="java.lang.Integer" %>
 <%@ attribute name="hikeTitle" required="true" type="java.lang.String" %>
 <%@ attribute name="hikeDistance" required="true" type="java.lang.Double" %>
 <%@ attribute name="hikeDurationHours" required="true" type="java.lang.Integer" %>
 <%@ attribute name="hikeDurationMinutes" required="true" type="java.lang.Integer" %>
 <%@ attribute name="hikeAltitude" required="true" type="java.lang.Integer" %>
+<%@ attribute name="timestamp" required="true" type="java.lang.String" %>
+
 
 <div class="card hike-card mt-3" style="width: 100%">
     <div class="row">
@@ -45,14 +48,14 @@
                 </div>
             </a>
         </div>
-        <div class="col-md-3 d-flex justify-content-center align-items-center">
-            <button type="button" class="btn btn-sm btn-danger" id="removeFavoriteButton" onclick="updateFavorites(<%=hikeID%>, <%=session.getAttribute("hikerID")%>)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-square" viewBox="0 0 16 16">
-                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                    <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/>
-                </svg>
-                Remove from completed
-            </button>
+        <div class="col-md-3 d-flex flex-column justify-content-center align-items-center">
+            <form  id="removeForm" action="/completed_hike?hikeID=${hikeID}&hikerID=${hikerID}&page=profile" method="post">
+                <p style="text-align: right" name="timestamp">${timestamp}</p>
+                <button type="submit" class="btn btn-outline-success" id="removeCompletedButton">
+                    <i class="fa fa-times"></i>
+                    Remove
+                </button>
+            </form>
         </div>
     </div>
 </div>

@@ -303,7 +303,6 @@
                             <div class="d-flex justify-content-end">
                                 <button type="button" class="btn btn-danger me-2" data-bs-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn btn-success">Mark as completed</button>
-                                <p><%=hike.getHikeID()%> , <%=session.getAttribute("hikerID")%> </p>
                             </div>
                         </form>
                     </div>

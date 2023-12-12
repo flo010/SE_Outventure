@@ -1,7 +1,9 @@
 <%@ page import="hibernate.model.Hike" %>
 <%@ page import="hibernate.facade.FacadeJPA" %>
 <%@ page import="java.util.List" %>
-<%@ page import="hibernate.model.Hiker" %><%--
+<%@ page import="hibernate.model.Hiker" %>
+<%@ page import="hibernate.broker.HikerBroker" %>
+<%@ page import="java.sql.Date" %><%--
   Created by IntelliJ IDEA.
   User: Betül Kulac
   Date: 09.12.23
@@ -16,6 +18,8 @@
   int hikerID = Integer.parseInt(session.getAttribute("hikerID").toString());
   Hiker hiker = facadeJPA.getHikerByID(hikerID);
   List<Hike> completedHikes =  hiker.getCompletedHikes();
+  List<Date> timestamps = new HikerBroker().getTimestamps(hikerID);
+  int n =0;
 %>
 <html>
   <head>
@@ -48,18 +52,9 @@
               for (Hike hike: completedHikes) {
                 double durationMinutes = (hike.getDuration() % 1) * 60;
             %>
-            <outventure:card_favorite_hike
-                    hikeID="<%=hike.getHikeID()%>"
-                    hikePicture="<%=hike.getPreviewPicture()%>"
-                    hikeTitle="<%=hike.getTitle()%>"
-                    hikeDistance="<%=hike.getDistance()%>"
-                    hikeDurationHours="<%=(int)hike.getDuration()%>"
-                    hikeDurationMinutes="<%=(int)durationMinutes%>"
-                    hikeAltitude="<%=hike.getAltitude()%>">
-            </outventure:card_favorite_hike>
-            <% }} %>
+            <outventure:card_completed_hike hikeID="<%=hike.getHikeID()%>" hikerID="<%=hikerID%>" hikePicture="<%=hike.getPreviewPicture()%>" hikeTitle="<%=hike.getTitle()%>" hikeDistance="<%=hike.getDistance()%>" hikeDurationHours="<%=(int)hike.getDuration()%>" hikeDurationMinutes="<%=(int)durationMinutes%>" hikeAltitude="<%=hike.getAltitude()%>" timestamp="<%=timestamps.get(n).toString()%>"></outventure:card_completed_hike>
+            <% n++;}} %>
           </div>
-          <div class="right-box-bottom"></div>
         </div>
       </div>
     </div>

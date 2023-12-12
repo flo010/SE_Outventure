@@ -61,6 +61,7 @@
                     }
                 %>
         </li>
+        <hr>
         <li>
             <a href="/favorite_hike/favorite_hike.jsp" class="active">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
