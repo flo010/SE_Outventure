@@ -67,26 +67,40 @@ public class SaveDataServlet extends HttpServlet {
 
         //Save GPX File
         response.setContentType("application/json");
-        // Read JSON data from the request body
         StringBuilder requestBody = new StringBuilder();
+
         try (BufferedReader reader = request.getReader()) {
             String line;
             while ((line = reader.readLine()) != null) {
                 requestBody.append(line);
             }
+        } catch (IOException e) {
+            e.printStackTrace(); // Log the exception
         }
-        // Parse JSON data using Jackson ObjectMapper
+
+        System.out.println("Request Body: " + requestBody.toString()); // Log the request body
+
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(requestBody.toString());
+        JsonNode jsonNode = null;
 
-        // Retrieve values from JSON
-        String fileName = jsonNode.has("fileName") ? jsonNode.get("fileName").asText() : null;
-        String gpxContent = jsonNode.has("gpxContent") ? jsonNode.get("gpxContent").asText() : null;
+        try {
+            jsonNode = objectMapper.readTree(requestBody.toString());
+        } catch (IOException e) {
+            e.printStackTrace(); // Log the exception
+        }
 
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
-        facadeJPA.addGpxFile(fileName,gpxContent);
+        if (jsonNode != null) {
+            String gpxContent = jsonNode.has("gpxContent") ? jsonNode.get("gpxContent").asText() : null;
+            System.out.println("Received gpxContent: " + gpxContent); // Log the received gpxContent
+
+            FacadeJPA facadeJPA = FacadeJPA.getInstance();
+            facadeJPA.addGpxFile(gpxContent);
+        } else {
+            System.err.println("Failed to parse JSON data.");
+        }
+
         //JSON message
-        response.getWriter().write("{\"success\": true, \"message\": \"Data saved successfully.\"}");
+        //response.getWriter().write("{\"success\": true, \"message\": \"Data saved successfully.\"}");
 
 
         int strength = Integer.parseInt(request.getParameter("difficultyInput"));
@@ -184,12 +198,14 @@ public class SaveDataServlet extends HttpServlet {
         hike.setVisible(true);
         hike.setRegion("Bregenzerwald");
 
+        FacadeJPA facadeJPA = FacadeJPA.getInstance();
         if (pictureID == -1) {
             try {
                 Thread.sleep(4 * 1000);
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             }
+
             Picture picture = facadeJPA.getNewPicture();
             facadeJPA.save(picture);
             picture.setInUse(false);

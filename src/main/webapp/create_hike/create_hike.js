@@ -678,7 +678,6 @@ function importGpxButton() {
 function handleGpxFile(input) {
     if (input) {
         const [file] = input.files;
-        const fileName = file.name.split(".")[0];
         const splitFileType = file.name.split(".");
         const fileType = splitFileType[splitFileType.length - 1];
 
@@ -694,8 +693,7 @@ function handleGpxFile(input) {
 
         reader.onload = function (e) {
             const gpxContent = e.target.result;
-
-            sendGpxToServer(fileName,gpxContent);
+            sendGpxToServer(gpxContent);
         };
 
         reader.readAsText(file);
@@ -741,7 +739,7 @@ function sendGpxToServer(fileName, gpxContent) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({fileName, gpxContent}),
+        body: JSON.stringify({gpxContent}),
     })
         .then(response => response.json())
         .then(data => {

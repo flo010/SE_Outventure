@@ -13,8 +13,8 @@ public class gpxData {
     @Column(name = "gpx_id")
     private Long gpxId;
 
-    @Column(name = "file_name", nullable = false)
-    private String fileName;
+    /*@Column(name = "file_name", nullable = false)
+    private String fileName;*/
 
     @Column(name = "upload_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
@@ -23,6 +23,11 @@ public class gpxData {
     @Column(name = "gpx_content", columnDefinition = "TEXT")
     private String gpxContent;
 
+
+
+    @OneToOne
+    @JoinColumn(name = "hike_id")
+    private Hike hike;
 
     public gpxData() {
     }
@@ -33,14 +38,6 @@ public class gpxData {
 
     public void setGpxId(Long gpxId) {
         this.gpxId = gpxId;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
     }
 
     public Date getUploadDate() {
@@ -57,5 +54,12 @@ public class gpxData {
 
     public void setGpxContent(String gpxContent) {
         this.gpxContent = gpxContent;
+    }
+    public Hike getHike() {
+        return hike;
+    }
+
+    public void setHike(Hike hike) {
+        this.hike = hike;
     }
 }
