@@ -1,7 +1,6 @@
 <%@ page import="hibernate.model.Hike" %>
-<%@ page import="hibernate.facade.FacadeJPA" %>
-<%@ page import="hibernate.model.Start" %>
-<%@ page import="hibernate.model.Destination" %><%--
+<%@ page import="hibernate.model.PointOfInterest" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Lea Roncero
   Date: 13.11.2023
@@ -38,6 +37,8 @@
             int experience = 1;
             int landscape = 1;
 
+            List<PointOfInterest> pointsOfInterest = null;
+
             if (hike != null) {
                 double duration = hike.getDuration();
                 int hours = (int)duration;
@@ -50,6 +51,8 @@
                 stamina = hike.getStamina();;
                 experience = hike.getExperience();
                 landscape = hike.getLandscape();
+
+                pointsOfInterest = hike.getPointsOfInterest();
             }
         %>
 
@@ -92,7 +95,7 @@
                             <label for="titleInput" class="form-label">Title *</label>
                             <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Title"
                                    <%
-                                if(hike != null){
+                                        if(hike != null){
                                     %>
                                     value="<%=hike.getTitle()%>"
                                    <% } %>
@@ -420,6 +423,20 @@
                                     </div>
                                     <div class="poiDivider w-100"></div>
                                 </template>
+                                <%
+                                    if ((!pointsOfInterest.isEmpty()) && (pointsOfInterest != null)) {
+                                    for (PointOfInterest poi: pointsOfInterest) {
+                                %>
+                                <input id="poiTitleEditHike" type="hidden" value="<%= poi.getName() %>">
+                                <input id="poiTypeEditHike" type="hidden" value="<%= poi.getType() %>">
+                                <%
+                                    if (poi.getDescription() != null) {
+                                %>
+                                <input id="poiDescriptionEditHike" type="hidden" value="<%= poi.getDescription() %>">
+                                <% } %>
+                                <input id="poiLatEditHike" type="hidden" value="<%= poi.getLatitude() %>">
+                                <input id="poiLongEditHike" type="hidden" value=" <%= poi.getLongitude() %> ">
+                                <% }} %>
                             </div>
                             <!-- Add Points of Interest Button -->
                             <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pointsOfInterestModal">
@@ -637,4 +654,3 @@
         <script src="/tagJavaScript/navbar.js"></script>
     </body>
 </html>
-

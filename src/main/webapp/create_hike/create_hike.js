@@ -74,6 +74,16 @@ function initializePage() {
         let value = this.value;
         this.value = value.replace(/[^0-9]/g, '');
     });
+
+    document.getElementById("poiTitleEditHike").addEventListener('change', function () {
+        console.log("called")
+        let poiName = document.getElementById("poiTitleEditHike").value;
+        let poiType = document.getElementById("poiTitleEditHike").value;
+        let poiDescription = document.getElementById("poiDescriptionEditHike").value;
+        let poiLatitude = document.getElementById("poiLatEditHike").value;
+        let poiLongitude = document.getElementById("poiLongEditHike").value;
+        appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitude);
+    })
 }
 
 // function for validation
