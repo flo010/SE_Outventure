@@ -21,11 +21,9 @@ public class CompletedHikeServlet extends HttpServlet {
         String timestamp;
         String page = request.getParameter("page").toString();
 
-        System.out.println(page);
-
         if (page.equals("detail")) {
             timestamp = request.getParameter("completionDate");
-            updateCompleted(hikerID, hikeID, timestamp);
+            addCompleted(hikerID, hikeID, timestamp);
             response.sendRedirect("hike_detail?id=" + hikeID);
         }
         else {
@@ -34,17 +32,13 @@ public class CompletedHikeServlet extends HttpServlet {
         }
     }
 
-    private void updateCompleted(int hikerID, int hikeID, String timestamp) {
+    private void addCompleted(int hikerID, int hikeID, String timestamp) {
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
-
-            facadeJPA.addCompletedHike(hikerID, hikeID, timestamp);
+        facadeJPA.addCompletedHike(hikerID, hikeID, timestamp);
     }
 
     private void removeCompleted(int hikeID, int hikerID) {
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
-
         facadeJPA.removeCompletedHike(hikeID, hikerID);
-
     }
-
 }

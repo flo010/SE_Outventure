@@ -19,7 +19,7 @@
   Hiker hiker = facadeJPA.getHikerByID(hikerID);
   List<Hike> completedHikes =  hiker.getCompletedHikes();
   List<Date> timestamps = new HikerBroker().getTimestamps(hikerID);
-  int n =0;
+  int n = 0;
 %>
 <html>
   <head>
