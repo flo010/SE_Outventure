@@ -332,4 +332,22 @@ public class Hike {
     public void setRegion(String region) {
         _region = region;
     }
+
+    public boolean[] monthsArray() {
+        boolean[] months = new boolean[12];
+        months[0] = _january;
+        months[1] = _february;
+        months[2] = _march;
+        months[3] = _april;
+        months[4] = _may;
+        months[5] = _june;
+        months[6] = _july;
+        months[7] = _august;
+        months[8] = _september;
+        months[9] = _october;
+        months[10] = _november;
+        months[11] = _december;
+
+        return months;
+    }
 }

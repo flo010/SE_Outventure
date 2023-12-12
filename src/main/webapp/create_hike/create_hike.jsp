@@ -1,7 +1,8 @@
 <%@ page import="hibernate.model.Hike" %>
 <%@ page import="hibernate.facade.FacadeJPA" %>
 <%@ page import="hibernate.model.Start" %>
-<%@ page import="hibernate.model.Destination" %><%--
+<%@ page import="hibernate.model.Destination" %>
+<%@ page import="java.util.Arrays" %><%--
   Created by IntelliJ IDEA.
   User: Lea Roncero
   Date: 13.11.2023
@@ -82,8 +83,9 @@
 
             <form class="needs-validation" id="createHikeOverview" action="/save_data" method="post" novalidate>
                 <% if (hike != null) { %>
-                <input type="hidden" name="edit" value="true">
+                <input type="hidden" id="hiddenEditInput" name="edit" value="true">
                 <input type="hidden" name="hikeID" value="<%= hike.getHikeID() %>">
+                <input type="hidden" id="hiddenMonthsInput" name="months" value=<%= Arrays.toString(hike.monthsArray()) %>>
                 <input type="hidden" name="pictureID" value="<%= hike.getPreviewPicture() %>">
                 <% } %>
                 <div class="tab-content mt-4" id="pills-tabContent">

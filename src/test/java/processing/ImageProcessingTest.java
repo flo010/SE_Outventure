@@ -45,7 +45,7 @@ class ImageProcessingTest {
             picture.setPicture(test);
             picture.setInUse(false);
             PictureBroker p = new PictureBroker();
-            p.save(picture);
+            Picture picture1 = (Picture) p.save(picture);
 
         }
     }
