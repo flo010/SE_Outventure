@@ -585,6 +585,7 @@ function updatePolyline(startMarker, destinationMarker, route) {
     return route;
 }
 
+
 function updateStart(startName, startMarker) {
     const startNameInput = document.getElementById("startNameInput");
     const latitudeStartCoordinateInput = document.getElementById("latitudeStartCoordinateInput");
