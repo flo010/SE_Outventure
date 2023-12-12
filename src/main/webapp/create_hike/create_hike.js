@@ -20,8 +20,11 @@ function initializePage() {
     //Checkboxes
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let isEdit = document.getElementById("hiddenEditInput");
-    let hikeMonthsString = document.getElementById("hiddenMonthsInput").value;
-    let hikeMonths = JSON.parse("[" + hikeMonthsString + "]");
+    let hikeMonths;
+    if (isEdit) {
+        let hikeMonthsString = document.getElementById("hiddenMonthsInput").value;
+        hikeMonths = JSON.parse(hikeMonthsString);
+    }
 
     let container = document.getElementById("monthContainer");
 
@@ -33,10 +36,10 @@ function initializePage() {
         checkboxInput.className = "form-check-input months";
         checkboxInput.type = "checkbox";
         checkboxInput.id = "optimalSeason" + months[i];
+        checkboxInput.name = "monthCheckbox" + months[i];
         checkboxInput.value = "false";
         if (isEdit && hikeMonths[i]) {
             checkboxInput.checked = true;
-            console.log("hikeMonths[i]: " + hikeMonths[i]);
         }
 
         let label = document.createElement("label");

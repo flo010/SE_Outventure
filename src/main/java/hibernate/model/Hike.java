@@ -333,7 +333,7 @@ public class Hike {
         _region = region;
     }
 
-    public boolean[] monthsArray() {
+    public boolean[] monthsAsArray() {
         boolean[] months = new boolean[12];
         months[0] = _january;
         months[1] = _february;
