@@ -680,6 +680,7 @@ function handleGpxFile(input) {
         const [file] = input.files;
         const splitFileType = file.name.split(".");
         const fileType = splitFileType[splitFileType.length - 1];
+        const fileName = file.name.split(".")[0];
 
         if (!file || fileType !== "gpx") {
             input.classList.add("is-invalid");
@@ -693,7 +694,7 @@ function handleGpxFile(input) {
 
         reader.onload = function (e) {
             const gpxContent = e.target.result;
-            sendGpxToServer(gpxContent);
+            sendGpxToServer(fileName, gpxContent);
         };
 
         reader.readAsText(file);
@@ -739,7 +740,7 @@ function sendGpxToServer(fileName, gpxContent) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({gpxContent}),
+        body: JSON.stringify({fileName, gpxContent}),
     })
         .then(response => response.json())
         .then(data => {
