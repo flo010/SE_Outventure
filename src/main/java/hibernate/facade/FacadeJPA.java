@@ -168,8 +168,8 @@ public class FacadeJPA implements Facade {
         hikerBroker.addCompletedHike(hikerId, hikeId, timestamp);
     }
 
-    public void removeCompletedHike(int hikeID, int hikerId) {
+    public void removeCompletedHike(int hikeID, int hikerId, String timestamp) {
         HikerBroker hikerBroker = new HikerBroker();
-        hikerBroker.removeCompletedHike(hikeID, hikerId);
+        hikerBroker.removeCompletedHike(hikeID, hikerId, timestamp);
     }
 }

@@ -172,14 +172,16 @@ public class HikerBroker extends BrokerBase<Hiker>{
         }
     }
 
-    public void removeCompletedHike(int hikeId, int hikerId) {
+    public void removeCompletedHike(int hikeId, int hikerId, String timestamp) {
         EntityManager entityManager = getEntityManager();
+        java.sql.Date sqlDate = java.sql.Date.valueOf(timestamp);
 
         try {
             entityManager.getTransaction().begin();
-            Query query = entityManager.createNativeQuery("DELETE FROM completed_hikes WHERE hike = ? AND hiker = ?");
+            Query query = entityManager.createNativeQuery("DELETE FROM completed_hikes WHERE hike = ? AND hiker = ? AND timestamp = ?");
             query.setParameter(1, hikeId);
             query.setParameter(2, hikerId);
+            query.setParameter(3, sqlDate);
             query.executeUpdate();
 
             entityManager.getTransaction().commit();

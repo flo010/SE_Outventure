@@ -18,16 +18,15 @@ public class CompletedHikeServlet extends HttpServlet {
 
         int hikeID = Integer.parseInt(request.getParameter("hikeID"));
         int hikerID = Integer.parseInt(request.getParameter("hikerID"));
-        String timestamp;
-        String page = request.getParameter("page").toString();
+        String timestamp = request.getParameter("completionDate");
+        String page = request.getParameter("page");
 
         if (page.equals("detail")) {
-            timestamp = request.getParameter("completionDate");
             addCompleted(hikerID, hikeID, timestamp);
             response.sendRedirect("hike_detail?id=" + hikeID);
         }
-        else {
-            removeCompleted(hikeID, hikerID);
+        else if (page.equals("profile")) {
+            removeCompleted(hikeID, hikerID, timestamp);
             response.sendRedirect("/completed_hikes/completed_hikes.jsp");
         }
     }
@@ -37,8 +36,8 @@ public class CompletedHikeServlet extends HttpServlet {
         facadeJPA.addCompletedHike(hikerID, hikeID, timestamp);
     }
 
-    private void removeCompleted(int hikeID, int hikerID) {
+    private void removeCompleted(int hikeID, int hikerID, String timestamp) {
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
-        facadeJPA.removeCompletedHike(hikeID, hikerID);
+        facadeJPA.removeCompletedHike(hikeID, hikerID, timestamp);
     }
 }
