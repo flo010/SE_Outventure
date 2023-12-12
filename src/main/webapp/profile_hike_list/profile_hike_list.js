@@ -1,9 +1,8 @@
 // delete hike functions
 function deleteHike(hikeID) {
     // Redirect to the DeleteHikeServlet
-    window.location.href = "/profile_hike_list/profile_hike_list.jsp?hikeID=" + hikeID;
+    window.location.href = '../delete_hike?hikeID=' + hikeID;
 }
-
 function showDeleteHikeModal() {
     let deleteHikeModal = new bootstrap.Modal(document.getElementById('deleteHikeModal'), {
         keyboard: false
