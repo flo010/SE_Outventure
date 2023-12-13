@@ -1,6 +1,7 @@
 <%@ page import="hibernate.model.Hike" %>
 <%@ page import="hibernate.model.PointOfInterest" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Arrays" %><%--
   Created by IntelliJ IDEA.
   User: Lea Roncero
   Date: 13.11.2023
@@ -85,10 +86,12 @@
 
             <form class="needs-validation" id="createHikeOverview" action="/save_data" method="post" novalidate>
                 <% if (hike != null) { %>
-                <input type="hidden" name="edit" value="true">
-                <input type="hidden" name="hikeID" value="<%= hike.getHikeID() %>">
-                <input type="hidden" name="pictureID" value="<%= hike.getPreviewPicture() %>">
-                <% } %>
+                <input type="hidden" id="hiddenEditInput" name="edit" value="true">
+                <input type="hidden" id="hiddenHikeIDInput" name="hikeID" value="<%= hike.getHikeID() %>">
+                <input type="hidden" id="hiddenPictureIDInput" name="pictureID" value="<%= hike.getPreviewPicture() %>">
+                <% if ((!pointsOfInterest.isEmpty()) && (pointsOfInterest != null)) { %>
+                <input type="hidden" id="hiddenPoiInput" name="poi" value="true">
+                <% }} %>
                 <div class="tab-content mt-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                         <div class="input-fields-group">
@@ -423,20 +426,29 @@
                                     </div>
                                     <div class="poiDivider w-100"></div>
                                 </template>
-                                <%
-                                    if ((!pointsOfInterest.isEmpty()) && (pointsOfInterest != null)) {
-                                    for (PointOfInterest poi: pointsOfInterest) {
-                                %>
-                                <input id="poiTitleEditHike" type="hidden" value="<%= poi.getName() %>">
-                                <input id="poiTypeEditHike" type="hidden" value="<%= poi.getType() %>">
-                                <%
-                                    if (poi.getDescription() != null) {
-                                %>
-                                <input id="poiDescriptionEditHike" type="hidden" value="<%= poi.getDescription() %>">
-                                <% } %>
-                                <input id="poiLatEditHike" type="hidden" value="<%= poi.getLatitude() %>">
-                                <input id="poiLongEditHike" type="hidden" value=" <%= poi.getLongitude() %> ">
-                                <% }} %>
+                                <div id="poiContainerHiddenInput">
+                                    <%
+                                        int index = 0;
+                                        if ((!pointsOfInterest.isEmpty()) && (pointsOfInterest != null)) {
+                                            for (PointOfInterest poi : pointsOfInterest) {
+                                    %>
+                                    <input id="poiIDEditHike_<%= index %>" type="hidden" value="<%= poi.getName() %>">
+                                    <input id="poiNameEditHike_<%= index %>" type="hidden" value="<%= poi.getName() %>">
+                                    <input id="poiTypeEditHike_<%= index %>" type="hidden" value="<%= poi.getType() %>">
+                                    <%
+                                        if (poi.getDescription() != null) {
+                                    %>
+                                    <input id="poiDescriptionEditHike_<%= index %>" type="hidden" value="<%= poi.getDescription() %>">
+                                    <% } %>
+                                    <input id="poiLatEditHike_<%= index %>" type="hidden" value="<%= poi.getLatitude() %>">
+                                    <input id="poiLongEditHike_<%= index %>" type="hidden" value="<%= poi.getLongitude() %>">
+                                    <%
+                                                index += 1;
+                                            }
+                                        }
+                                    %>
+                                    <input id="poiIndexEditHike" name="poiIndexEditHike" type="hidden" value="<%= index %>">
+                                </div>
                             </div>
                             <!-- Add Points of Interest Button -->
                             <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pointsOfInterestModal">

@@ -75,15 +75,25 @@ function initializePage() {
         this.value = value.replace(/[^0-9]/g, '');
     });
 
-    document.getElementById("poiTitleEditHike").addEventListener('change', function () {
-        console.log("called")
-        let poiName = document.getElementById("poiTitleEditHike").value;
-        let poiType = document.getElementById("poiTitleEditHike").value;
-        let poiDescription = document.getElementById("poiDescriptionEditHike").value;
-        let poiLatitude = document.getElementById("poiLatEditHike").value;
-        let poiLongitude = document.getElementById("poiLongEditHike").value;
-        appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitude);
-    })
+    const isEditing = document.getElementById("hiddenEditInput");
+    const hasPOI = document.getElementById("hiddenPoiInput");
+    if (isEditing && hasPOI) {
+
+        let index = 0;
+        let poiName, poiType, poiDescription, poiLatitude, poiLongitude;
+
+        while (document.getElementById(`poiNameEditHike_${index}`)) {
+            poiName = document.getElementById(`poiNameEditHike_${index}`).value;
+            poiType = document.getElementById(`poiTypeEditHike_${index}`).value;
+            poiDescription = document.getElementById(`poiDescriptionEditHike_${index}`).value;
+            poiLatitude = document.getElementById(`poiLatEditHike_${index}`).value;
+            poiLongitude = document.getElementById(`poiLongEditHike_${index}`).value;
+
+            appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitude);
+
+            index += 1;
+        }
+    }
 }
 
 // function for validation
