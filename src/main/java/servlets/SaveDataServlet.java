@@ -93,13 +93,12 @@ public class SaveDataServlet extends HttpServlet {
 
             System.out.println("Received JSON Node: " + jsonNode.toString());
 
-            String fileName = jsonNode.has("fileName") ? jsonNode.get("fileName").asText() : null;
+            String hike = request.getParameter("hikeID");
             String gpxContent = jsonNode.has("gpxContent") ? jsonNode.get("gpxContent").asText() : null;
-            System.out.println("Received fileName: " + fileName);
             System.out.println("Received gpxContent: " + gpxContent);
 
             FacadeJPA facadeJPA = FacadeJPA.getInstance();
-            facadeJPA.addGpxFile(fileName, gpxContent);
+            facadeJPA.addGpxFile(hike, gpxContent);
         } else {
             System.err.println("Failed to parse JSON data.");
         }

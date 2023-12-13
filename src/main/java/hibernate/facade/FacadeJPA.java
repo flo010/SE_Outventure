@@ -164,8 +164,8 @@ public class FacadeJPA implements Facade {
         hikerBroker.removeFavoriteHike(hikerId, hikeId);
     }
 
-    public void addGpxFile(String fileName, String gpxContent){
+    public void addGpxFile(String hike, String gpxContent){
         gpxDataBroker gpxDataBroker = new gpxDataBroker();
-        gpxDataBroker.addGpxFile(fileName, gpxContent);
+        gpxDataBroker.addGpxFile(hike,gpxContent);
     }
 }

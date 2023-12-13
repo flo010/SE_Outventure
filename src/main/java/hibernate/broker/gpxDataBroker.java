@@ -1,7 +1,9 @@
 package hibernate.broker;
 
+import hibernate.model.Hike;
 import hibernate.model.gpxData;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 import java.util.List;
 
@@ -16,29 +18,14 @@ public class gpxDataBroker extends BrokerBase<gpxData>{
         return null;
     }
 
-    public void addGpxFile(String fileName, String gpxContent) {
+    public void addGpxFile(String hike, String gpxContent) {
         EntityManager entityManager = getEntityManager();
         try {
             entityManager.getTransaction().begin();
-
-            gpxData gpxData = new gpxData();
-
-            try {
-                gpxData.setFileName(fileName);
-            } catch (Exception e){
-                e.printStackTrace();
-                throw new IllegalArgumentException("File name cannot be null");
-            }
-
-            try {
-                gpxData.setGpxContent(gpxContent);
-            } catch (Exception e){
-
-                e.printStackTrace();
-                throw new IllegalArgumentException("GPX content cannot be null");
-            }
-            // Persist the entity to the database
-            entityManager.persist(gpxData);
+            Query query = entityManager.createNativeQuery("INSERT INTO gpx_data (hike_id, gpx_content) VALUES (?, ?)");
+            query.setParameter(1, hike);
+            query.setParameter(2, gpxContent);
+            query.executeUpdate();
 
             entityManager.getTransaction().commit();
         } catch (Exception e) {
