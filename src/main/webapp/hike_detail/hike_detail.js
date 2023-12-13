@@ -76,6 +76,28 @@ function initializeMap() {
     ]).addTo(map);
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    const checkSquareIcon = document.querySelector('.bi-check-square');
+
+    checkSquareIcon.addEventListener('click', function() {
+        if (checkSquareIcon.style.fill === 'green') {
+            checkSquareIcon.style.fill = 'currentColor';
+        } else {
+            checkSquareIcon.style.fill = 'green';
+        }
+    });
+});
+
 function updateFavorites(hikeID, hikerID) {
     window.location.href = '/favorite_hike?hikeID=' + hikeID + '&hikerID=' + hikerID + '&page=detail';
 }
+
+// completed hike modal functions
+function showHikeCompletedModal() {
+    const hikeCompletedModal = new bootstrap.Modal(document.getElementById('hikeCompletedModal'), {
+        keyboard: false
+    });
+    document.getElementById('completionDate').value = "";
+    hikeCompletedModal.show();
+}
+
