@@ -326,10 +326,15 @@ function openPoiModal() {
 
 let cardToEdit;
 
-function deletePointOfInterest(button) {
+function deletePointOfInterest(button, isEdit, poiID) {
     // Get the parent card element and remove it
     const card = button.closest('.pointOfInterest');
     card.remove();
+
+    if (isEdit) {
+        const hikeID = document.getElementById("hiddenHikeIDInput").value;
+        window.location.href = '/delete_poi?poiID=' + poiID + '&hikeID=' + hikeID;
+    }
 }
 
 function editPointOfInterest(editButton) {

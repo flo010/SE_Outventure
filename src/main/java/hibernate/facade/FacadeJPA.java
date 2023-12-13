@@ -2,10 +2,12 @@ package hibernate.facade;
 
 import hibernate.broker.HikeBroker;
 import hibernate.broker.HikerBroker;
+import hibernate.broker.POIBroker;
 import hibernate.broker.PictureBroker;
 import hibernate.model.Hike;
 import hibernate.model.Hiker;
 import hibernate.model.Picture;
+import hibernate.model.PointOfInterest;
 
 import java.util.List;
 
@@ -44,7 +46,11 @@ public class FacadeJPA implements Facade {
         } else if (object instanceof Picture) {
             PictureBroker pictureBroker = new PictureBroker();
             pictureBroker.delete((Picture) object);
+        } else if (object instanceof PointOfInterest) {
+            POIBroker poiBroker = new POIBroker();
+            poiBroker.delete((PointOfInterest) object);
         }
+
     }
 
     @Override
@@ -99,6 +105,20 @@ public class FacadeJPA implements Facade {
         PictureBroker pictureBroker = new PictureBroker();
 
         return pictureBroker.getAll();
+    }
+
+    @Override
+    public PointOfInterest getPOIByID(int poiID) {
+        POIBroker poiBroker = new POIBroker();
+
+        return poiBroker.getLazy(poiID);
+    }
+
+    @Override
+    public List<PointOfInterest> getAllPOIs() {
+        POIBroker poiBroker = new POIBroker();
+
+        return poiBroker.getAll();
     }
 
     public List<Hike> search(String title,int durationLow,int durationHigh, int strengthLow,

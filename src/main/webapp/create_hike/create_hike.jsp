@@ -428,26 +428,49 @@
                                 </template>
                                 <div id="poiContainerHiddenInput">
                                     <%
-                                        int index = 0;
                                         if ((!pointsOfInterest.isEmpty()) && (pointsOfInterest != null)) {
                                             for (PointOfInterest poi : pointsOfInterest) {
                                     %>
-                                    <input id="poiIDEditHike_<%= index %>" type="hidden" value="<%= poi.getName() %>">
-                                    <input id="poiNameEditHike_<%= index %>" type="hidden" value="<%= poi.getName() %>">
-                                    <input id="poiTypeEditHike_<%= index %>" type="hidden" value="<%= poi.getType() %>">
-                                    <%
-                                        if (poi.getDescription() != null) {
-                                    %>
-                                    <input id="poiDescriptionEditHike_<%= index %>" type="hidden" value="<%= poi.getDescription() %>">
-                                    <% } %>
-                                    <input id="poiLatEditHike_<%= index %>" type="hidden" value="<%= poi.getLatitude() %>">
-                                    <input id="poiLongEditHike_<%= index %>" type="hidden" value="<%= poi.getLongitude() %>">
-                                    <%
-                                                index += 1;
-                                            }
-                                        }
-                                    %>
-                                    <input id="poiIndexEditHike" name="poiIndexEditHike" type="hidden" value="<%= index %>">
+
+                                    <div class="pointOfInterest col-lg-6">
+                                        <div class="card my-2">
+                                            <div class="card-body">
+                                                <h4 class="poiEditHikeName card-title text-center"><%= poi.getName() %></h4>
+                                                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                                    <div>
+                                                        <p class="poiEditHikeType">
+                                                            <strong>Type: </strong>
+                                                            <%= poi.getType() %>
+                                                        </p>
+                                                        <%
+                                                            if ((poi.getDescription() != null) && (!poi.getDescription().isEmpty())) {
+                                                        %>
+                                                        <p class="poiEditHikeDescription text-break">
+                                                            <strong>Description: </strong>
+                                                            <%= poi.getDescription() %>
+                                                        </p>
+                                                        <% } %>
+                                                        <p class="poiEditHikeCoordinates">
+                                                            <strong>GPS Coordinates: </strong>
+                                                            <%=poi.getLatitude()%> N, <%=poi.getLongitude()%> E
+                                                        </p>
+                                                    </div>
+                                                    <div class="d-flex gap-2">
+                                                        <% if (hike == null) { %>
+                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this, false, -1)">
+                                                             <i class="fa fa-trash"></i>
+                                                        </span>
+                                                        <% } else { %>
+                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this, true, <%=poi.getPoiID()%>)">
+                                                             <i class="fa fa-trash"></i>
+                                                        </span>
+                                                        <% } %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }} %>
                                 </div>
                             </div>
                             <!-- Add Points of Interest Button -->

@@ -2,6 +2,7 @@ package hibernate.facade;
 
 import hibernate.model.Hike;
 import hibernate.model.Picture;
+import hibernate.model.PointOfInterest;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface Facade {
     Picture getPictureByID(int pictureID);
     List<Picture> getAllPictures();
 
+    PointOfInterest getPOIByID(int poiID);
+    List<PointOfInterest> getAllPOIs();
 }
