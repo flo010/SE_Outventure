@@ -34,7 +34,7 @@ public class Hike {
     private boolean _december;
     private Start _start;
     private Destination _destination;
-    private List<PointOfInterest> _pointOfInterests;
+    private List<PointOfInterest> _pointsOfInterest;
     private String _routeDescription;
     private String _parkingInformation;
     private String _arrivalInformation;
@@ -274,12 +274,13 @@ public class Hike {
         _destination = destination;
     }
 
-    @OneToMany(mappedBy = "hikePOI",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(name = "poi_on_hike", joinColumns = @JoinColumn(name="hike"), inverseJoinColumns = @JoinColumn(name = "poi"))
     public List<PointOfInterest> getPointsOfInterest() {
-        return _pointOfInterests;
+        return _pointsOfInterest;
     }
     public void setPointsOfInterest(List<PointOfInterest> pointOfInterests) {
-        _pointOfInterests = pointOfInterests;
+        _pointsOfInterest = pointOfInterests;
     }
 
     @NotNull
