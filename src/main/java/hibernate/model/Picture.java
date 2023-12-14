@@ -3,24 +3,28 @@ package hibernate.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+
+import java.util.UUID;
+
 @Entity
 @Table(name = "pictures")
-public class Picture {
-    private int _pictureID;
+public class Picture{
+    private String _pictureID;
     private Hike _hikePicture;
     private byte[] _picture;
 
     private boolean _inUse;
+
     @Id
     @NotNull
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "picture_id")
-    public int getPictureID() {
+    public String getPictureID() {
         return _pictureID;
     }
-    public void setPictureID(int pictureId) {
-        _pictureID = pictureId;
+    public void setPictureID(String UUID) {
+        _pictureID = UUID;
     }
+
 
     @NotNull
     @Column(name = "picture")

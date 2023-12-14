@@ -233,7 +233,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="pills-route" role="tabpanel" aria-labelledby="pills-route-tab" tabindex="0">
+                    <div class="tab-pane fade" id="pills-route" role="tabpanel" aria-labelledby="pills-route-tab" tabindex="0" >
                         <div class="input-fields-group">
                             <label for="routeDescriptionInput" class="form-label">Route Description *</label>
                             <textarea class="form-control" id="routeDescriptionInput" name="routeDescriptionInput" rows="8"
@@ -281,7 +281,7 @@
                                     <p>That's it! With these steps, you can set your route, mark start and destination points, and customize the map to suit your needs.</p>
                                 </div>
                             </div>
-                            <div id="map" class="map-create-hike"></div>
+                            <div id="map" class="map-create-hike" onfocus="initializeMap()"></div>
                         </div>
                         <div>
                             <button type="button" onclick="importGpxButton()" class="btn btn-outline-secondary">

@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     initializePage();
     initializeMap();
+
 });
 
 // function to initialize the page
@@ -388,7 +389,7 @@ function uploadImageToServer(file) {
         .then(data => {
             console.log(data);
             const hiddenInput = document.getElementById('hiddenImageId');
-            hiddenInput.value = 1;
+            hiddenInput.value = data.pictureID;
         })
         .catch(error => {
             console.error('Error:', error);

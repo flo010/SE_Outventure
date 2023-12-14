@@ -5,12 +5,13 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "hikes")
 public class Hike {
     private int _hikeID;
-    private int _previewPicture;
+    private UUID _previewPicture;
     private String _title;
     private String _description;
     private double _duration;
@@ -57,10 +58,10 @@ public class Hike {
         _hikeID = hikeId;
     }
     @Column(name = "picture")
-    public int getPreviewPicture() {
+    public UUID getPreviewPicture() {
         return _previewPicture;
     }
-    public void setPreviewPicture(int previewPicture) {
+    public void setPreviewPicture(UUID previewPicture) {
         _previewPicture = previewPicture;
     }
 

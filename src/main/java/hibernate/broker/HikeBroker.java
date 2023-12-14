@@ -185,7 +185,7 @@ public class HikeBroker extends BrokerBase<Hike> {
                 System.out.println("Month value");
                 System.out.println(month);
                 if (month != 0) {
-                    for (int i = 0; i < 12; i++) { // Assuming 12 months in a year
+                    for (int i = 0; i < 12; i++) {
                         int mask = 1 << i;
                         if ((month & mask) != 0) {
                             String monthFieldName = months[i];
