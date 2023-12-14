@@ -1,13 +1,8 @@
 <%@ page import="hibernate.model.Hike" %>
 <%@ page import="hibernate.model.PointOfInterest" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Arrays" %><%--
-  Created by IntelliJ IDEA.
-  User: Lea Roncero
-  Date: 13.11.2023
-  Time: 13:20
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.Arrays" %>
+<%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
@@ -88,6 +83,7 @@
                 <% if (hike != null) { %>
                 <input type="hidden" id="hiddenEditInput" name="edit" value="true">
                 <input type="hidden" id="hiddenHikeIDInput" name="hikeID" value="<%= hike.getHikeID() %>">
+                <input type="hidden" id="hiddenMonthsInput" name="months" value="<%= Arrays.toString(hike.monthsAsArray()) %>">
                 <input type="hidden" id="hiddenPictureIDInput" name="pictureID" value="<%= hike.getPreviewPicture() %>">
                 <% } %>
                 <div class="tab-content mt-4" id="pills-tabContent">
@@ -369,7 +365,7 @@
                                 <div class="invalid-feedback">
                                     Please enter a valid latitude between -90.000000 and 90.000000.
                                 </div>
-                                <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3" id="longitudeDestinationCoordinateID" name="longitudeDestinationCoordinateInput"
+                                <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3" id="longitudeDestinationCoordinateInput" name="longitudeDestinationCoordinateInput"
                                     <% if(hike != null) { %>
                                        value="<%=hike.getDestination().getLongitude()%>"
                                     <% } %>
