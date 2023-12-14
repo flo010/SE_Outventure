@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @WebServlet(name = "saveDataServlet", value = "/save_data")
 public class SaveDataServlet extends HttpServlet {
@@ -95,7 +94,7 @@ public class SaveDataServlet extends HttpServlet {
         String[] poiLongitudes = request.getParameterValues("poiLongitudeInput");
         String[] poiDescriptions = request.getParameterValues("poiDescriptionInput");
         String[] poiTypes = request.getParameterValues("poiTypeInput");
-        UUID pictureID = UUID.fromString(request.getParameter(""));
+        String pictureID = (request.getParameter(""));
         Hike hike = new Hike();
         hike.setPreviewPicture(pictureID);
         String hikeID = request.getParameter("hikeID");
