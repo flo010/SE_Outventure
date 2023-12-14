@@ -90,23 +90,23 @@ function initializeMap() {
         switch(poiType) {
             case 'Hut':
                 let hutMarker = L.marker([poiLatitude, poiLongitude], {icon: hutIcon}).addTo(map);
-                hutMarker.bindPopup("<strong>POI Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
-                hutMarker.bindTooltip("<strong>POI Name: </strong>" + poiName);
+                hutMarker.bindPopup("<strong>Hut Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                hutMarker.bindTooltip("<strong>Hut Name: </strong>" + poiName);
                 break;
             case 'Refreshment Point':
                 let refreshmentPointMarker = L.marker([poiLatitude, poiLongitude], {icon: refreshmentPointIcon}).addTo(map);
-                refreshmentPointMarker.bindPopup("<strong>POI Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
-                refreshmentPointMarker.bindTooltip("<strong>POI Name: </strong>" + poiName);
+                refreshmentPointMarker.bindPopup("<strong>Refreshment Point Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                refreshmentPointMarker.bindTooltip("<strong>Refreshment Point Name: </strong>" + poiName);
                 break;
             case 'Viewpoint':
                 let viewpointMarker = L.marker([poiLatitude, poiLongitude], {icon: viewpointIcon}).addTo(map);
-                viewpointMarker.bindPopup("<strong>POI Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
-                viewpointMarker.bindTooltip("<strong>POI Name: </strong>" + poiName);
+                viewpointMarker.bindPopup("<strong>Viewpoint Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                viewpointMarker.bindTooltip("<strong>Viewpoint Name: </strong>" + poiName);
                 break;
             case 'Sight':
                 let sightMarker = L.marker([poiLatitude, poiLongitude], {icon: sightIcon}).addTo(map);
-                sightMarker.bindPopup("<strong>POI Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
-                sightMarker.bindTooltip("<strong>POI Name: </strong>" + poiName);
+                sightMarker.bindPopup("<strong>Sight Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                sightMarker.bindTooltip("<strong>Sight Name: </strong>" + poiName);
                 break;
         }
     });
