@@ -1,10 +1,3 @@
-function showDeleteHikeModal() {
-    let deleteHikeModal = new bootstrap.Modal(document.getElementById('deleteHikeModal'), {
-        keyboard: false
-    });
-    deleteHikeModal.show();
-}
-
 // function to fill the circles
 document.addEventListener("DOMContentLoaded", function() {
     let circles = document.querySelectorAll('.fa.fa-circle-o');
@@ -70,23 +63,59 @@ function initializeMap() {
     start.bindPopup("<strong>Start: </strong>" + startName + "<br> <strong>Coordinates: </strong>" + startLatitude + " N, " + startLongitude + " E");
     start.bindTooltip("<strong>Start: </strong>" + startName);
 
-    let polyline = L.polyline([
+    let poiDataListElement = document.getElementById('poiDataList');
+    let poiDataListJson = poiDataListElement.getAttribute('data-poi-data');
+
+    let poiDataList = JSON.parse(poiDataListJson);
+
+    let poiIcon = L.Icon.extend({
+        options: {
+            iconSize:     [38, 95],
+            iconAnchor:   [22, 94],
+            popupAnchor:  [-3, -76]
+        }
+    });
+
+    let hutIcon = new LeafIcon({iconUrl: '/marker_images/hut.png'}),
+        refreshmentPointIcon = new LeafIcon({iconUrl: '/marker_images/refreshment_point.png'}),
+        sightIcon = new LeafIcon({iconUrl: '/marker_images/sight.png'}),
+        viewpointIcon = new LeafIcon({iconUrl: '/marker_images/viewpoint.png'});
+
+    poiDataList.forEach(function (poiData) {
+        let poiName = poiData.poiName;
+        let poiType = poiData.poiType;
+        let poiLatitude = poiData.poiLatitude;
+        let poiLongitude = poiData.poiLongitude;
+
+        switch(poiType) {
+            case 'Hut':
+                let hutMarker = L.marker([poiLatitude, poiLongitude], {icon: hutIcon}).addTo(map);
+                hutMarker.bindPopup("<strong>POI Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                hutMarker.bindTooltip("<strong>POI Name: </strong>" + poiName);
+                break;
+            case 'Refreshment Point':
+                let refreshmentPointMarker = L.marker([poiLatitude, poiLongitude], {icon: refreshmentPointIcon}).addTo(map);
+                refreshmentPointMarker.bindPopup("<strong>POI Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                refreshmentPointMarker.bindTooltip("<strong>POI Name: </strong>" + poiName);
+                break;
+            case 'Viewpoint':
+                let viewpointMarker = L.marker([poiLatitude, poiLongitude], {icon: viewpointIcon}).addTo(map);
+                viewpointMarker.bindPopup("<strong>POI Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                viewpointMarker.bindTooltip("<strong>POI Name: </strong>" + poiName);
+                break;
+            case 'Sight':
+                let sightMarker = L.marker([poiLatitude, poiLongitude], {icon: sightIcon}).addTo(map);
+                sightMarker.bindPopup("<strong>POI Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                sightMarker.bindTooltip("<strong>POI Name: </strong>" + poiName);
+                break;
+        }
+    });
+
+    L.polyline([
         [startLatitude, startLongitude],
         [destinationLatitude, destinationLongitude]
     ]).addTo(map);
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    const checkSquareIcon = document.querySelector('.bi-check-square');
-
-    checkSquareIcon.addEventListener('click', function() {
-        if (checkSquareIcon.style.fill === 'green') {
-            checkSquareIcon.style.fill = 'currentColor';
-        } else {
-            checkSquareIcon.style.fill = 'green';
-        }
-    });
-});
 
 function updateFavorites(hikeID, hikerID) {
     window.location.href = '/favorite_hike?hikeID=' + hikeID + '&hikerID=' + hikerID + '&page=detail';

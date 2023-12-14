@@ -52,7 +52,7 @@ public class ImageServlet extends HttpServlet {
 
             InputStream is = filePart.getInputStream();
             byte[] compressedImageData = getBytesFromInputStream(is);
-            UUID id = saveToDatabase(compressedImageData);
+            String id = saveToDatabase(compressedImageData);
             System.out.println("Test picture");
 
 
@@ -83,7 +83,7 @@ public class ImageServlet extends HttpServlet {
         return buffer.toByteArray();
     }
 
-    private UUID saveToDatabase(byte[] compressedImageData) {
+    private String saveToDatabase(byte[] compressedImageData) {
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         UUID id = UUID.randomUUID();
         Picture picture = new Picture();
@@ -91,6 +91,6 @@ public class ImageServlet extends HttpServlet {
         picture.setPictureID(id.toString());
         facadeJPA.save(picture);
         System.out.println("Saving compressed image to the database. Image size: " + compressedImageData.length + " bytes");
-        return id;
+        return id.toString();
     }
 }

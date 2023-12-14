@@ -13,8 +13,6 @@ public class Picture{
     private Hike _hikePicture;
     private byte[] _picture;
 
-    private boolean _inUse;
-
     @Id
     @NotNull
     @Column(name = "picture_id")
@@ -44,11 +42,5 @@ public class Picture{
     public void setHikePicture(Hike hikePicture) {
         _hikePicture = hikePicture;
     }
-    @Column(name = "in_use")
-    public boolean isInUse() {
-        return _inUse;
-    }
-    public void setInUse(boolean inUse) {
-        _inUse = inUse;
-    }
+
 }
