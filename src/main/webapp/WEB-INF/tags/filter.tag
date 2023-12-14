@@ -113,6 +113,19 @@
     const ${name}arrowDown = document.getElementById("${name}ArrowDown");
     const ${name}arrowUp = document.getElementById("${name}ArrowUp");
 
+    const ${name}InputEvent = new Event('input');
+    const ${name}ValueLowInput = document.getElementById("${name}Low");
+    const ${name}ValueHighInput = document.getElementById("${name}High");
+
+    ${name}ValueLowInput.dispatchEvent(${name}InputEvent);
+    ${name}ValueHighInput.dispatchEvent(${name}InputEvent);
+
+    if (parseInt(${name}ValueLowInput.value) !== ${min} || parseInt(${name}ValueHighInput.value) !== ${max}) {
+        ${name}contentToHide.style.display = "";
+        ${name}arrowUp.style.display = "";
+        ${name}arrowDown.style.display = "none";
+    }
+
     // Add event listener to checkbox to toggle visibility of the content
     ${name}Switch.addEventListener("change", function () {
         if (this.checked) {
