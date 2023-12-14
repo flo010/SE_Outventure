@@ -7,15 +7,20 @@ import jakarta.persistence.Query;
 import java.util.List;
 
 public class PictureBroker extends BrokerBase<Picture> {
-    @Override
-    public Picture getLazy(int value) {
+
+    public Picture getLazy(String value) {
         EntityManager entityManager = getEntityManager();
-        Query query = entityManager.createQuery("SELECT p FROM Picture p WHERE p.pictureID =: pictureID");
+        Query query = entityManager.createQuery("SELECT p FROM Picture p WHERE cast(p.pictureID as string) = :pictureID");
         query.setParameter("pictureID", value);
         Picture picture = (Picture) query.getSingleResult();
         entityManager.close();
 
         return picture;
+    }
+
+    @Override
+    public Picture getLazy(int value) {
+        return null;
     }
 
     @Override

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.*;
+import java.util.UUID;
 
 import static processing.ImageProcessing.extractBytes;
 
@@ -15,6 +16,16 @@ class ImageProcessingTest {
 
     @Test
     void extractBytesTest() throws IOException {
+        UUID[] predefinedUUIDs = {
+                UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                UUID.fromString("00000000-0000-0000-0000-000000000002"),
+                UUID.fromString("00000000-0000-0000-0000-000000000003"),
+                UUID.fromString("00000000-0000-0000-0000-000000000004"),
+                UUID.fromString("00000000-0000-0000-0000-000000000005"),
+                UUID.fromString("00000000-0000-0000-0000-000000000006"),
+                UUID.fromString("00000000-0000-0000-0000-000000000007"),
+                UUID.fromString("00000000-0000-0000-0000-000000000008")
+        };
         String[] imagePaths =
                 {
                         "src/test/java/processing/2.jpg",
@@ -27,8 +38,8 @@ class ImageProcessingTest {
                         "src/test/java/processing/niederkaiserkamm-14871-0.jpg",
                 };
 
-        for (String imagePath : imagePaths) {
-            File file = new File(imagePath);
+        for (int i = 0; i < 8; i++) {
+            File file = new File(imagePaths[i]);
             FileInputStream fileInputStream = new FileInputStream(file);
 
             // Create a MockPart and set necessary attributes
@@ -43,10 +54,9 @@ class ImageProcessingTest {
             byte[] test = extractBytes(mockPart);
             Picture picture = new Picture();
             picture.setPicture(test);
-            picture.setInUse(false);
+            picture.setPictureID(predefinedUUIDs[i].toString());
             PictureBroker p = new PictureBroker();
             p.save(picture);
-
         }
     }
 

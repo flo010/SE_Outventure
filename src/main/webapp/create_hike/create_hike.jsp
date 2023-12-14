@@ -1,13 +1,5 @@
 <%@ page import="hibernate.model.Hike" %>
-<%@ page import="hibernate.facade.FacadeJPA" %>
-<%@ page import="hibernate.model.Start" %>
-<%@ page import="hibernate.model.Destination" %><%--
-  Created by IntelliJ IDEA.
-  User: Lea Roncero
-  Date: 13.11.2023
-  Time: 13:20
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
@@ -82,9 +74,10 @@
 
             <form class="needs-validation" id="createHikeOverview" action="/save_data" method="post" novalidate>
                 <% if (hike != null) { %>
-                <input type="hidden" name="edit" value="true">
-                <input type="hidden" name="hikeID" value="<%= hike.getHikeID() %>">
-                <input type="hidden" name="pictureID" value="<%= hike.getPreviewPicture() %>">
+                <input type="hidden" id="hiddenEditInput" name="edit" value="true">
+                <input type="hidden" id="hiddenHikeIDInput" name="hikeID" value="<%= hike.getHikeID() %>">
+                <input type="hidden" id="hiddenMonthsInput" name="months" value="<%= Arrays.toString(hike.monthsAsArray()) %>">
+                <input type="hidden" id="hiddenPictureIDInput" name="pictureID" value="<%= hike.getPreviewPicture() %>">
                 <% } %>
                 <div class="tab-content mt-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
@@ -233,7 +226,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="pills-route" role="tabpanel" aria-labelledby="pills-route-tab" tabindex="0">
+                    <div class="tab-pane fade" id="pills-route" role="tabpanel" aria-labelledby="pills-route-tab" tabindex="0" >
                         <div class="input-fields-group">
                             <label for="routeDescriptionInput" class="form-label">Route Description *</label>
                             <textarea class="form-control" id="routeDescriptionInput" name="routeDescriptionInput" rows="8"
@@ -281,7 +274,7 @@
                                     <p>That's it! With these steps, you can set your route, mark start and destination points, and customize the map to suit your needs.</p>
                                 </div>
                             </div>
-                            <div id="map" class="map-create-hike"></div>
+                            <div id="map" class="map-create-hike" onfocus="initializeMap()"></div>
                         </div>
                         <div>
                             <button type="button" onclick="importGpxButton()" class="btn btn-outline-secondary">
@@ -365,7 +358,7 @@
                                 <div class="invalid-feedback">
                                     Please enter a valid latitude between -90.000000 and 90.000000.
                                 </div>
-                                <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3" id="longitudeDestinationCoordinateID" name="longitudeDestinationCoordinateInput"
+                                <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3" id="longitudeDestinationCoordinateInput" name="longitudeDestinationCoordinateInput"
                                     <% if(hike != null) { %>
                                        value="<%=hike.getDestination().getLongitude()%>"
                                     <% } %>

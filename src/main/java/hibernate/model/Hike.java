@@ -5,12 +5,13 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "hikes")
 public class Hike {
     private int _hikeID;
-    private int _previewPicture;
+    private UUID _previewPicture;
     private String _title;
     private String _description;
     private double _duration;
@@ -57,10 +58,10 @@ public class Hike {
         _hikeID = hikeId;
     }
     @Column(name = "picture")
-    public int getPreviewPicture() {
+    public UUID getPreviewPicture() {
         return _previewPicture;
     }
-    public void setPreviewPicture(int previewPicture) {
+    public void setPreviewPicture(UUID previewPicture) {
         _previewPicture = previewPicture;
     }
 
@@ -332,5 +333,23 @@ public class Hike {
     }
     public void setRegion(String region) {
         _region = region;
+    }
+
+    public boolean[] monthsAsArray() {
+        boolean[] months = new boolean[12];
+        months[0] = _january;
+        months[1] = _february;
+        months[2] = _march;
+        months[3] = _april;
+        months[4] = _may;
+        months[5] = _june;
+        months[6] = _july;
+        months[7] = _august;
+        months[8] = _september;
+        months[9] = _october;
+        months[10] = _november;
+        months[11] = _december;
+
+        return months;
     }
 }

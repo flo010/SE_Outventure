@@ -17,7 +17,7 @@ public interface Facade {
     Hike getHikeByIDEager(int hikeID);
     List<Hike> getAllHikesLazy();
 
-    Picture getPictureByID(int pictureID);
-    List<Picture> getAllPictures();
+    Picture getPictureByID(String pictureID);
+
 
 }
