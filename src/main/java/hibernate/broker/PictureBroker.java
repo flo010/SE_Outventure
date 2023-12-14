@@ -5,14 +5,12 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
 import java.util.List;
-import java.util.UUID;
 
 public class PictureBroker extends BrokerBase<Picture> {
 
     public Picture getLazy(String value) {
-        value += "::uuid";
         EntityManager entityManager = getEntityManager();
-        Query query = entityManager.createQuery("SELECT p FROM Picture p WHERE p.pictureID = :pictureID");
+        Query query = entityManager.createQuery("SELECT p FROM Picture p WHERE cast(p.pictureID as string) = :pictureID");
         query.setParameter("pictureID", value);
         Picture picture = (Picture) query.getSingleResult();
         entityManager.close();
