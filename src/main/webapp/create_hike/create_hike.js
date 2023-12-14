@@ -19,22 +19,28 @@ function initializePage() {
 
     //Checkboxes
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let isEdit = document.getElementById("hiddenEditInput");
+    let hikeMonths;
+    if (isEdit) {
+        let hikeMonthsString = document.getElementById("hiddenMonthsInput").value;
+        hikeMonths = JSON.parse(hikeMonthsString);
+    }
 
     let container = document.getElementById("monthContainer");
 
     for (let i = 0; i < months.length; i++) {
-
         let monthDiv = document.createElement("div");
         monthDiv.className = "form-check form-check-inline";
-
 
         let checkboxInput = document.createElement("input");
         checkboxInput.className = "form-check-input months";
         checkboxInput.type = "checkbox";
         checkboxInput.id = "optimalSeason" + months[i];
-        checkboxInput.value = "false";
         checkboxInput.name = "monthCheckbox" + months[i];
-
+        checkboxInput.value = "false";
+        if (isEdit && hikeMonths[i]) {
+            checkboxInput.checked = true;
+        }
 
         let label = document.createElement("label");
         label.className = "form-check-label";
@@ -46,10 +52,8 @@ function initializePage() {
             checkboxInput.value = checkboxInput.checked ? "true" : "false";
         });
 
-
         monthDiv.appendChild(checkboxInput);
         monthDiv.appendChild(label);
-
 
         container.appendChild(monthDiv);
     }
