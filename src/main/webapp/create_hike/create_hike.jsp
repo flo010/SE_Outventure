@@ -358,7 +358,7 @@
                                 <div class="invalid-feedback">
                                     Please enter a valid latitude between -90.000000 and 90.000000.
                                 </div>
-                                <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3" id="longitudeDestinationCoordinateID" name="longitudeDestinationCoordinateInput"
+                                <input type="number" min="-180.000000" max="180.000000" step="0.000001" class="form-control mt-3" id="longitudeDestinationCoordinateInput" name="longitudeDestinationCoordinateInput"
                                     <% if(hike != null) { %>
                                        value="<%=hike.getDestination().getLongitude()%>"
                                     <% } %>
