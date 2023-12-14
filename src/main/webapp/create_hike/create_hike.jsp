@@ -296,7 +296,7 @@
                                     <option value="Spain">Spain</option>
                                     <option value="Sweden">Sweden</option>
                                     <option value="Switzerland">Switzerland</option>
-                                    <option value="Turkey">Turkey</option>
+                                    <option value="Türkiye">Türkiye</option>
                                     <option value="Ukraine">Ukraine</option>
                                     <option value="United Kingdom">United Kingdom</option>
                                     <option value="Vatican City">Vatican City</option>
