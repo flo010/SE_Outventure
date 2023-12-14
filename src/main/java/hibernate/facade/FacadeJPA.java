@@ -9,7 +9,7 @@ import hibernate.model.Picture;
 
 import java.util.List;
 
-public class FacadeJPA implements Facade {
+public class FacadeJPA {
     private static FacadeJPA _instance;
 
     private FacadeJPA() {}
@@ -21,7 +21,6 @@ public class FacadeJPA implements Facade {
         return _instance;
     }
 
-    @Override
     public Object save(Object object) {
         if (object instanceof Hike) {
             HikeBroker hikeBroker = new HikeBroker();
@@ -36,7 +35,6 @@ public class FacadeJPA implements Facade {
         return null;
     }
 
-    @Override
     public void delete(Object object) {
         if (object instanceof Hike) {
             HikeBroker hikeBroker = new HikeBroker();
@@ -47,21 +45,18 @@ public class FacadeJPA implements Facade {
         }
     }
 
-    @Override
     public Hike getHikeByIDLazy(int hikeID) {
         HikeBroker hikeBroker = new HikeBroker();
 
         return hikeBroker.getLazy(hikeID);
     }
 
-    @Override
     public Hike getHikeByIDEager(int hikeID) {
         HikeBroker hikeBroker = new HikeBroker();
 
         return hikeBroker.getEager(hikeID);
     }
 
-    @Override
     public List<Hike> getAllHikesLazy() {
         HikeBroker hikeBroker = new HikeBroker();
         List<Hike> hikes = null;
@@ -87,7 +82,6 @@ public class FacadeJPA implements Facade {
         return hikes;
     }
 
-    @Override
     public Picture getPictureByID(String pictureID) {
         PictureBroker pictureBroker = new PictureBroker();
 
