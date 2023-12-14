@@ -34,7 +34,7 @@ public class Hike {
     private boolean _december;
     private Start _start;
     private Destination _destination;
-    private List<PointOfInterest> _pointOfInterests;
+    private List<PointOfInterest> _pointsOfInterest;
     private String _routeDescription;
     private String _parkingInformation;
     private String _arrivalInformation;
@@ -274,12 +274,13 @@ public class Hike {
         _destination = destination;
     }
 
-    @OneToMany(mappedBy = "hikePOI",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(name = "poi_on_hike", joinColumns = @JoinColumn(name="hike"), inverseJoinColumns = @JoinColumn(name = "poi"))
     public List<PointOfInterest> getPointsOfInterest() {
-        return _pointOfInterests;
+        return _pointsOfInterest;
     }
     public void setPointsOfInterest(List<PointOfInterest> pointOfInterests) {
-        _pointOfInterests = pointOfInterests;
+        _pointsOfInterest = pointOfInterests;
     }
 
     @NotNull
@@ -331,5 +332,23 @@ public class Hike {
     }
     public void setRegion(String region) {
         _region = region;
+    }
+
+    public boolean[] monthsAsArray() {
+        boolean[] months = new boolean[12];
+        months[0] = _january;
+        months[1] = _february;
+        months[2] = _march;
+        months[3] = _april;
+        months[4] = _may;
+        months[5] = _june;
+        months[6] = _july;
+        months[7] = _august;
+        months[8] = _september;
+        months[9] = _october;
+        months[10] = _november;
+        months[11] = _december;
+
+        return months;
     }
 }

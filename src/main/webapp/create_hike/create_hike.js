@@ -25,21 +25,31 @@ function initializePage() {
 
     //Checkboxes
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let isEdit = document.getElementById("hiddenEditInput");
+    let hikeMonths;
+    if (isEdit) {
+        let hikeMonthsString = document.getElementById("hiddenMonthsInput").value;
+        hikeMonths = JSON.parse(hikeMonthsString);
+    }
 
     let container = document.getElementById("monthContainer");
 
     for (let i = 0; i < months.length; i++) {
-        // Create the month div
+
         let monthDiv = document.createElement("div");
         monthDiv.className = "form-check form-check-inline";
 
-        // Create the checkbox input
+
         let checkboxInput = document.createElement("input");
         checkboxInput.className = "form-check-input months";
         checkboxInput.type = "checkbox";
         checkboxInput.id = "optimalSeason" + months[i];
+
+        checkboxInput.name = "monthCheckbox" + months[i];
         checkboxInput.value = "false";
-        checkboxInput.name = "monthCheckbox" + months[i]; // Added name attribute
+        if (isEdit && hikeMonths[i]) {
+            checkboxInput.checked = true;
+        }
 
         // Create the label for the checkbox
         let label = document.createElement("label");
@@ -52,11 +62,9 @@ function initializePage() {
             checkboxInput.value = checkboxInput.checked ? "true" : "false";
         });
 
-        // Append the input and label to the month div
         monthDiv.appendChild(checkboxInput);
         monthDiv.appendChild(label);
-
-        // Append the month div to the container
+      
         container.appendChild(monthDiv);
     }
 
@@ -763,6 +771,7 @@ function updatePolyline(startMarker, destinationMarker, route) {
     }
     return route;
 }
+
 
 function updateStart(startName, startMarker) {
     const startNameInput = document.getElementById("startNameInput");

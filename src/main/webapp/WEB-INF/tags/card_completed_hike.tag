@@ -1,11 +1,14 @@
 <%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="hikeID" required="true" type="java.lang.Integer" %>
+<%@ attribute name="hikerID" required="true" type="java.lang.Integer" %>
 <%@ attribute name="hikePicture" required="true" type="java.lang.Integer" %>
 <%@ attribute name="hikeTitle" required="true" type="java.lang.String" %>
 <%@ attribute name="hikeDistance" required="true" type="java.lang.Double" %>
 <%@ attribute name="hikeDurationHours" required="true" type="java.lang.Integer" %>
 <%@ attribute name="hikeDurationMinutes" required="true" type="java.lang.Integer" %>
 <%@ attribute name="hikeAltitude" required="true" type="java.lang.Integer" %>
+<%@ attribute name="timestamp" required="true" type="java.lang.String" %>
+
 
 <div class="card hike-card mt-3" style="width: 100%">
     <div class="row">
@@ -45,11 +48,14 @@
                 </div>
             </a>
         </div>
-        <div class="col-md-3 d-flex justify-content-center align-items-center">
-            <button type="button" class="btn btn-outline-danger" id="removeFavoriteButton" onclick="updateFavorites(<%=hikeID%>, <%=session.getAttribute("hikerID")%>)">
-                <i class="fa fa-times"></i>
-                Remove
-            </button>
+        <div class="col-md-3 d-flex flex-column justify-content-center align-items-center">
+            <form  id="removeForm" action="/completed_hike?hikeID=${hikeID}&hikerID=${hikerID}&completionDate=${timestamp}&page=profile" method="post">
+                <p style="text-align: right" name="timestamp">${timestamp}</p>
+                <button type="submit" class="btn btn-outline-danger" id="removeCompletedButton">
+                    <i class="fa fa-times"></i>
+                    Remove
+                </button>
+            </form>
         </div>
     </div>
 </div>
