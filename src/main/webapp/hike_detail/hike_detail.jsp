@@ -64,6 +64,12 @@
                     if (hikerID != -1) {
                 %>
                 <div class="p-2 bd-highlight">
+                    <button type="button" class="btn btn-outline-warning">
+                        <i class="fa fa-comment-o"></i>
+                        Add Comment
+                    </button>
+                </div>
+                <div class="p-2 bd-highlight">
                     <button type="button" class="btn btn-outline-success" onclick="showHikeCompletedModal()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-check-square" viewBox="0 0 16 16">
                             <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"></path>
