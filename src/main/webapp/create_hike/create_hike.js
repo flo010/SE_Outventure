@@ -903,8 +903,101 @@ function handleGpxFile(input) {
 
             // Send the GPX content to the server
             sendGpxToServer(gpxContent);
+            displayGpxOnMap(gpxContent);
         };
 
         reader.readAsText(file);
+    }
+}
+
+function autoFillStartDestination(file) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        const gpxData = e.target.result;
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(gpxData, "text/xml");
+
+        const trackPoints = xmlDoc.querySelectorAll("rtept").length === 0 ? xmlDoc.querySelectorAll("trkpt") : xmlDoc.querySelectorAll("rtept");
+
+        if (trackPoints.length !== 0) {
+            const startPoint = trackPoints[0];
+            const startNameElement = startPoint.querySelector("name");
+            const startName = startNameElement ? startNameElement.textContent : "";
+
+            const destinationPoint = trackPoints[trackPoints.length - 1];
+            const destinationNameElement = destinationPoint.querySelector("name");
+            const destinationName = destinationNameElement ? destinationNameElement.textContent : "";
+
+            document.getElementById("startNameInput").value = startName;
+            document.getElementById("latitudeStartCoordinateInput").value = startPoint.getAttribute("lat");
+            document.getElementById("longitudeStartCoordinateInput").value = startPoint.getAttribute("lon");
+
+            document.getElementById("destinationNameInput").value = destinationName;
+            document.getElementById("latitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lat");
+            document.getElementById("longitudeDestinationCoordinateID").value = destinationPoint.getAttribute("lon");
+        }
+    };
+
+    reader.readAsText(file);
+}
+
+function sendGpxToServer(fileName, gpxContent) {
+    // Use fetch or XMLHttpRequest to send the GPX content to the server
+    fetch('/save_data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({fileName, gpxContent}),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response from server:', data);
+            // Optionally handle the response from the server
+        })
+        .catch(error => {
+            console.error('Error sending GPX content to server:', error);
+        });
+}
+
+function displayGpxOnMap(gpxContent) {
+
+    clearMarkersAndRoute();
+
+    const parser = new DOMParser();
+    const gpxDoc = parser.parseFromString(gpxContent, 'text/xml');
+
+    const trackPoints = $(gpxDoc).find('trkpt');
+
+    if (trackPoints.length > 0) {
+        // Extract the first and last track points
+        const startLat = parseFloat($(trackPoints[0]).attr('lat'));
+        const startLon = parseFloat($(trackPoints[0]).attr('lon'));
+
+        const endLat = parseFloat($(trackPoints[trackPoints.length - 1]).attr('lat'));
+        const endLon = parseFloat($(trackPoints[trackPoints.length - 1]).attr('lon'));
+
+        const startMarker = L.marker([startLat, startLon]).addTo(newMap);
+        const endMarker = L.marker([endLat, endLon]).addTo(newMap);
+
+        const route = L.polyline([[startLat, startLon], [endLat, endLon]]).addTo(newMap);
+    }
+}
+
+function clearMarkersAndRoute() {
+    if (startMarker) {
+        newMap.removeLayer(startMarker);
+        startMarker = null;
+    }
+
+    if (destinationMarker) {
+        newMap.removeLayer(destinationMarker);
+        destinationMarker = null;
+    }
+
+    if (route) {
+        newMap.removeLayer(route);
+        route = null;
     }
 }
