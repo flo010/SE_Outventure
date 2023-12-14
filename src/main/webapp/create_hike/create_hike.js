@@ -378,6 +378,16 @@ function saveInput(isEdit) {
         }
     }
 
+    if (isEdit) {
+        if (poiIDArray.length > 0) {
+            const poiIDString = poiIDArray.join(',');
+            const hikeID = document.getElementById("hiddenHikeIDInput").value;
+
+            window.location.href = '/delete_poi?poiIDString=' + poiIDString + '&hikeID=' + hikeID;
+        }
+        document.getElementById("coverImageInput").required = false;
+    }
+
     if (allInputsFilled) {
         const fileInput = document.getElementById('coverImageInput');
         const file = fileInput.files[0];
@@ -390,16 +400,6 @@ function saveInput(isEdit) {
             console.error('No file selected');
             alert('Please select a file.');
         }
-    }
-
-    if (isEdit) {
-        if (poiIDArray.length > 0) {
-            const poiIDString = poiIDArray.join(',');
-            const hikeID = document.getElementById("hiddenHikeIDInput").value;
-
-            window.location.href = '/delete_poi?poiIDString=' + poiIDString + '&hikeID=' + hikeID;
-        }
-        document.getElementById("coverImageInput").required = false;
     }
 }
 

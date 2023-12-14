@@ -95,7 +95,7 @@ public class SaveDataServlet extends HttpServlet {
         String[] poiLongitudes = request.getParameterValues("poiLongitudeInput");
         String[] poiDescriptions = request.getParameterValues("poiDescriptionInput");
         String[] poiTypes = request.getParameterValues("poiTypeInput");
-        UUID pictureID = UUID.fromString(request.getParameter(""));
+        String pictureID = request.getParameter("");
         Hike hike = new Hike();
         hike.setPreviewPicture(pictureID);
         String hikeID = request.getParameter("hikeID");
@@ -105,30 +105,6 @@ public class SaveDataServlet extends HttpServlet {
         }
 
         List<PointOfInterest> pointsOfInterest = new ArrayList<>();
-        int index = Integer.parseInt(request.getParameter("poiIndexEditHike"));
-        System.out.println(index);
-
-        if ((hikeID != null) && (index > 0)) {
-            for (int i = 0; i < index; i++) {
-                String poiID = request.getParameter("poiIDEditHike_" + i);
-                System.out.println(poiID);
-                String poiName = request.getParameter("poiNameEditHike_" + i);
-                System.out.println(poiName);
-                String poiType = request.getParameter("poiTypeEditHike_" + i);
-                String poiDescription = request.getParameter("poiDescriptionEditHike_" + i);
-                String poiLatitude = request.getParameter("poiLatEditHike_" + i);
-                String poiLongitude = request.getParameter("poiLongEditHike_" + i);
-
-                PointOfInterest pointOfInterest = new PointOfInterest();
-                pointOfInterest.setPoiID(Integer.parseInt(poiID));
-                pointOfInterest.setName(poiName);
-                pointOfInterest.setType(poiType);
-                pointOfInterest.setDescription(poiDescription);
-                pointOfInterest.setLatitude(Double.parseDouble(poiLatitude));
-                pointOfInterest.setLongitude(Double.parseDouble(poiLongitude));
-                facadeJPA.save(pointOfInterest);
-            }
-        }
 
         if(poiNames != null) {
             for (int i = 0; i < poiNames.length; i++) {
