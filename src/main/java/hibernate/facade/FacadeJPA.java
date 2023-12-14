@@ -50,7 +50,6 @@ public class FacadeJPA implements Facade {
             POIBroker poiBroker = new POIBroker();
             poiBroker.delete((PointOfInterest) object);
         }
-
     }
 
     @Override
@@ -119,6 +118,11 @@ public class FacadeJPA implements Facade {
         POIBroker poiBroker = new POIBroker();
 
         return poiBroker.getAll();
+    }
+
+    public void removePOIFromHike(int poiID, int hikeID) {
+        POIBroker poiBroker = new POIBroker();
+        poiBroker.removePOIFromHike(poiID, hikeID);
     }
 
     public List<Hike> search(String title,int durationLow,int durationHigh, int strengthLow,

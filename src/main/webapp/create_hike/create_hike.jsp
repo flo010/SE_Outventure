@@ -89,9 +89,7 @@
                 <input type="hidden" id="hiddenEditInput" name="edit" value="true">
                 <input type="hidden" id="hiddenHikeIDInput" name="hikeID" value="<%= hike.getHikeID() %>">
                 <input type="hidden" id="hiddenPictureIDInput" name="pictureID" value="<%= hike.getPreviewPicture() %>">
-                <% if ((!pointsOfInterest.isEmpty()) && (pointsOfInterest != null)) { %>
-                <input type="hidden" id="hiddenPoiInput" name="poi" value="true">
-                <% }} %>
+                <% } %>
                 <div class="tab-content mt-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                         <div class="input-fields-group">
@@ -416,7 +414,7 @@
                                                              <i class="fa fa-pencil"></i>
                                                         </span>
                                                         <!-- delete button with bin icon -->
-                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this)">
+                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this, false)">
                                                              <i class="fa fa-trash"></i>
                                                         </span>
                                                     </div>
@@ -426,15 +424,15 @@
                                     </div>
                                     <div class="poiDivider w-100"></div>
                                 </template>
-                                <div id="poiContainerHiddenInput">
+                                <div id="containerEditPOI">
                                     <%
                                         if ((!pointsOfInterest.isEmpty()) && (pointsOfInterest != null)) {
                                             for (PointOfInterest poi : pointsOfInterest) {
                                     %>
-
                                     <div class="pointOfInterest col-lg-6">
                                         <div class="card my-2">
                                             <div class="card-body">
+                                                <input type="hidden" id="hiddenPoiID" value="<%= poi.getPoiID() %>">
                                                 <h4 class="poiEditHikeName card-title text-center"><%= poi.getName() %></h4>
                                                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                                                     <div>
@@ -456,15 +454,9 @@
                                                         </p>
                                                     </div>
                                                     <div class="d-flex gap-2">
-                                                        <% if (hike == null) { %>
-                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this, false, -1)">
+                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this, true)">
                                                              <i class="fa fa-trash"></i>
                                                         </span>
-                                                        <% } else { %>
-                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this, true, <%=poi.getPoiID()%>)">
-                                                             <i class="fa fa-trash"></i>
-                                                        </span>
-                                                        <% } %>
                                                     </div>
                                                 </div>
                                             </div>

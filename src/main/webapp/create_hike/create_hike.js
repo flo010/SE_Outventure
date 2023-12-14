@@ -74,26 +74,6 @@ function initializePage() {
         let value = this.value;
         this.value = value.replace(/[^0-9]/g, '');
     });
-
-    const isEditing = document.getElementById("hiddenEditInput");
-    const hasPOI = document.getElementById("hiddenPoiInput");
-    if (isEditing && hasPOI) {
-
-        let index = 0;
-        let poiName, poiType, poiDescription, poiLatitude, poiLongitude;
-
-        while (document.getElementById(`poiNameEditHike_${index}`)) {
-            poiName = document.getElementById(`poiNameEditHike_${index}`).value;
-            poiType = document.getElementById(`poiTypeEditHike_${index}`).value;
-            poiDescription = document.getElementById(`poiDescriptionEditHike_${index}`).value;
-            poiLatitude = document.getElementById(`poiLatEditHike_${index}`).value;
-            poiLongitude = document.getElementById(`poiLongEditHike_${index}`).value;
-
-            appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitude);
-
-            index += 1;
-        }
-    }
 }
 
 // function for validation
@@ -325,16 +305,17 @@ function openPoiModal() {
 }
 
 let cardToEdit;
+let poiIDArray = [];
 
-function deletePointOfInterest(button, isEdit, poiID) {
+function deletePointOfInterest(button, isEdit) {
+    if (isEdit) {
+        const poiID = document.getElementById("hiddenPoiID").value;
+        poiIDArray.push(poiID);
+    }
+
     // Get the parent card element and remove it
     const card = button.closest('.pointOfInterest');
     card.remove();
-
-    if (isEdit) {
-        const hikeID = document.getElementById("hiddenHikeIDInput").value;
-        window.location.href = '/delete_poi?poiID=' + poiID + '&hikeID=' + hikeID;
-    }
 }
 
 function editPointOfInterest(editButton) {
@@ -369,33 +350,38 @@ function editPointOfInterest(editButton) {
 // functions to save form input
 function saveInput(isEdit) {
     shouldPromptBeforeUnload = false;
-    if (!isEdit) {
-        let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
-        let allInputsFilled = true;
 
-        for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
-            if (!requiredInputs[i].value.trim()) {
-                allInputsFilled = false;
-            }
-        }
+    let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
+    let allInputsFilled = true;
 
-        if (allInputsFilled) {
-            const fileInput = document.getElementById('coverImageInput');
-            const file = fileInput.files[0];
-
-            if (file) {
-                uploadImageToServer(file);
-                document.getElementById("createHikeOverview").submit();
-            } else {
-                // Handle case when no file is selected
-                console.error('No file selected');
-                alert('Please select a file.');
-            }
+    for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
+        if (!requiredInputs[i].value.trim()) {
+            allInputsFilled = false;
         }
     }
-    else {
+
+    if (allInputsFilled) {
+        const fileInput = document.getElementById('coverImageInput');
+        const file = fileInput.files[0];
+
+        if (file) {
+            uploadImageToServer(file);
+            document.getElementById("createHikeOverview").submit();
+        } else {
+            // Handle case when no file is selected
+            console.error('No file selected');
+            alert('Please select a file.');
+        }
+    }
+
+    if (isEdit) {
+        if (poiIDArray.length > 0) {
+            const poiIDString = poiIDArray.join(',');
+            const hikeID = document.getElementById("hiddenHikeIDInput").value;
+
+            window.location.href = '/delete_poi?poiIDString=' + poiIDString + '&hikeID=' + hikeID;
+        }
         document.getElementById("coverImageInput").required = false;
-        console.log(document.getElementById("coverImageInput").required);
     }
 }
 

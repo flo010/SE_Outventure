@@ -49,4 +49,24 @@ public class POIBroker extends BrokerBase<PointOfInterest> {
 
         return pointsOfInterest;
     }
+
+    public void removePOIFromHike(int poiID, int hikeID) {
+        EntityManager entityManager = getEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNativeQuery("DELETE FROM poi_on_hike WHERE poi = ? AND hike = ?");
+            query.setParameter(1, poiID);
+            query.setParameter(2, hikeID);
+            query.executeUpdate();
+
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
 }

@@ -18,12 +18,14 @@ public class DeletePOIServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
-        int poiID = Integer.parseInt(request.getParameter("poiID"));
+        String poiIDsString = request.getParameter("poiIDString");
+        String[] poiIDsArray = poiIDsString.split(",");
         int hikeID = Integer.parseInt(request.getParameter("hikeID"));
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
-        PointOfInterest pointOfInterest = facadeJPA.getPOIByID(poiID);
-        facadeJPA.delete(pointOfInterest);
 
-        response.sendRedirect("/create/hike?hikeID=" + hikeID);
+        FacadeJPA facadeJPA = FacadeJPA.getInstance();
+        for (String poiIDString: poiIDsArray) {
+            int poiID = Integer.parseInt(poiIDString);
+            facadeJPA.removePOIFromHike(poiID, hikeID);
+        }
     }
 }
