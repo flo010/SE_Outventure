@@ -93,18 +93,12 @@ public class FacadeJPA implements Facade {
     }
 
     @Override
-    public Picture getPictureByID(int pictureID) {
+    public Picture getPictureByID(String pictureID) {
         PictureBroker pictureBroker = new PictureBroker();
 
         return pictureBroker.getLazy(pictureID);
     }
 
-    @Override
-    public List<Picture> getAllPictures() {
-        PictureBroker pictureBroker = new PictureBroker();
-
-        return pictureBroker.getAll();
-    }
 
     @Override
     public PointOfInterest getPOIByID(int poiID) {

@@ -64,7 +64,7 @@ function initializePage() {
 
         monthDiv.appendChild(checkboxInput);
         monthDiv.appendChild(label);
-      
+
         container.appendChild(monthDiv);
     }
 
@@ -417,7 +417,7 @@ function uploadImageToServer(file) {
         .then(data => {
             console.log(data); // Log the server response
             const hiddenInput = document.getElementById('hiddenImageId');
-            hiddenInput.value = 1;
+            hiddenInput.value = data.pictureID;
         })
         .catch(error => {
             console.error('Error:', error);

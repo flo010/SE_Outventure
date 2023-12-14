@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @WebServlet(name = "saveDataServlet", value = "/save_data")
 public class SaveDataServlet extends HttpServlet {
@@ -22,19 +23,18 @@ public class SaveDataServlet extends HttpServlet {
         boolean isEdit = Boolean.parseBoolean(request.getParameter("edit"));
 
         if (isEdit) {
-            int pictureID = Integer.parseInt(request.getParameter("pictureID"));
-            saveToDatabase(request,response, pictureID);
+            saveToDatabase(request,response);
 
             int hikeID = Integer.parseInt(request.getParameter("hikeID"));
             response.sendRedirect("hike_detail?id=" + hikeID + "&hikeEdited=true");
         }
         else {
-            saveToDatabase(request, response, -1);
+            saveToDatabase(request, response);
             response.sendRedirect("/search_results?hikeCreated=true");
         }
     }
 
-    private void saveToDatabase(HttpServletRequest request, HttpServletResponse response, int pictureID) throws IOException {
+    private void saveToDatabase(HttpServletRequest request, HttpServletResponse response) throws IOException {
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
 
         String title = request.getParameter("titleInput");
@@ -95,9 +95,9 @@ public class SaveDataServlet extends HttpServlet {
         String[] poiLongitudes = request.getParameterValues("poiLongitudeInput");
         String[] poiDescriptions = request.getParameterValues("poiDescriptionInput");
         String[] poiTypes = request.getParameterValues("poiTypeInput");
-
+        UUID pictureID = UUID.fromString(request.getParameter(""));
         Hike hike = new Hike();
-
+        hike.setPreviewPicture(pictureID);
         String hikeID = request.getParameter("hikeID");
 
         if (hikeID != null) {
@@ -143,7 +143,6 @@ public class SaveDataServlet extends HttpServlet {
         }
 
         hike.setPointsOfInterest(pointsOfInterest);
-
         hike.setTitle(title);
         hike.setDescription(description);
         hike.setDuration(duration);
@@ -168,6 +167,7 @@ public class SaveDataServlet extends HttpServlet {
         hike.setNovember(november);
         hike.setDecember(december);
         hike.setRouteDescription(routeDescription);
+
         if (!arrivalInformation.isEmpty()) {
             hike.setArrivalInformation(arrivalInformation);
         }
@@ -188,21 +188,6 @@ public class SaveDataServlet extends HttpServlet {
         hike.setVisible(true);
         hike.setRegion("Bregenzerwald");
 
-        if (pictureID == -1) {
-            try {
-                Thread.sleep(4 * 1000);
-            } catch (InterruptedException ie) {
-                Thread.currentThread().interrupt();
-            }
-            Picture picture = facadeJPA.getNewPicture();
-            facadeJPA.save(picture);
-            picture.setInUse(false);
-            hike.setPreviewPicture(picture.getPictureID());
-        }
-        else {
-            Picture picture = facadeJPA.getPictureByID(pictureID);
-            hike.setPreviewPicture(picture.getPictureID());
-        }
         facadeJPA.save(hike);
     }
 }
