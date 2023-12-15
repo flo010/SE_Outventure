@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let isEditing = document.getElementById("hiddenEditInput");
     if (isEditing) {
-        initializeEditMap();
+        setTimeout(initializeEditMap, 800);
     } else {
-        initializeNewMap();
+        setTimeout(initializeNewMap, 800);
     }
 });
 
