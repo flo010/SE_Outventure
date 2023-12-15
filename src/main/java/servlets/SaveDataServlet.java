@@ -163,7 +163,7 @@ public class SaveDataServlet extends HttpServlet {
         }
         hike.setDate(currentDate);
         hike.setVisible(true);
-        hike.setRegion("Bregenzerwald");
+        hike.setRegion(1);
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
 
