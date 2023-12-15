@@ -321,6 +321,29 @@
                 </div>
             </div>
         </div>
+
+        <%-- add comment modal --%>
+        <div class="modal fade" id="addCommentModel" tabindex="-1" aria-labelledby="addCommentModell" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addCommentLabel">Add Comment</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                            <div class="mb-3">
+                                <label>Comment</label>
+                                <input placeholder="Comment" required>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-danger me-2" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-success">Add</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="mapData"
              start-latitude="<%= hike.getStart().getLatitude() %>"
              start-longitude="<%= hike.getStart().getLongitude() %>"

@@ -335,7 +335,7 @@ public class Hike {
         _region = region;
     }
 
-    @ManyToMany
+    @OneToMany
     @JoinTable(name = "comments", joinColumns = @JoinColumn(name="hike"))
 
     public List<Comment> get_comments() {
