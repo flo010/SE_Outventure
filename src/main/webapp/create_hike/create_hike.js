@@ -373,11 +373,13 @@ function saveInput(isEdit) {
         }
 
         if (allInputsFilled) {
+            console.log("Image Saving");
             const fileInput = document.getElementById('coverImageInput');
             const file = fileInput.files[0];
 
             if (file) {
                 uploadImageToServer(file);
+                console.log("Server Saving");
                 document.getElementById("createHikeOverview").submit();
             } else {
                 // Handle case when no file is selected
@@ -407,6 +409,7 @@ function uploadImageToServer(file) {
             console.log(data); // Log the server response
             const hiddenInput = document.getElementById('hiddenImageId');
             hiddenInput.value = data.pictureID;
+            alert(data.pictureID);
         })
         .catch(error => {
             console.error('Error:', error);

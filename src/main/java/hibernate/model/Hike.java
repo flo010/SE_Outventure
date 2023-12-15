@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "hikes")
@@ -61,7 +62,7 @@ public class Hike {
         return _previewPicture;
     }
     public void setPreviewPicture(String previewPicture) {
-        _previewPicture = previewPicture;
+        _previewPicture = (previewPicture);
     }
 
     @NotNull
