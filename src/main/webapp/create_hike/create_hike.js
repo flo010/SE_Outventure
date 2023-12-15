@@ -511,6 +511,7 @@ function initializeNewMap() {
     }).addTo(newMap);
 
     let startMarker, destinationMarker, route;
+    var waypoints = [];
 
     let markerCount = 0;
     newMap.on('click', function(event) {
@@ -528,6 +529,7 @@ function initializeNewMap() {
                 startMarker.bindTooltip("<strong>Start: </strong>" + startName);
 
                 startMarker.addTo(newMap);
+                waypoints.push(startMarker.getLatLng());
 
                 if (startMarker && destinationMarker) {
                     route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(newMap);
@@ -568,7 +570,7 @@ function initializeNewMap() {
                 destinationMarker.bindTooltip("<strong>Destination: </strong>" + destinationName);
 
                 destinationMarker.addTo(newMap);
-
+                waypoints.push(destinationMarker.getLatLng());
                 if (startMarker && destinationMarker) {
                     route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(newMap);
                 }
@@ -596,7 +598,56 @@ function initializeNewMap() {
             });
         }
     });
+
+    // Event listener to the button dynamically
+    document.getElementById('showRouteButton').addEventListener('click', function() {
+        sendWaypointsToAPI();
+    });
+
+    function sendWaypointsToAPI(){
+        var waypointData = waypoints.map(function (waypoint){
+            return [waypoint.lng, waypoint.lat];
+        });
+
+        var payload = {
+            type: "LineString",
+            coordinates: waypointData,
+            elevation: 'true',
+            extra_info: ['steepness', 'suitability', 'surface', 'green', 'noise']
+        };
+
+        fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/json', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png'
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(response => response.json())
+            .then(waypointData => {
+                // Handle the API response, e.g., draw the route on the map
+                drawRoute(waypointData);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+    function drawRoute(waypointData) {
+        // Implement your logic to draw the route on the map using Leaflet
+        // Example: assuming data.routes[0].geometry contains the route geometry
+        if (waypointData.routes[0].geometry && waypointData.routes[0].geometry.type === 'LineString') {
+        var route = L.geoJSON(waypointData.routes[0].geometry).addTo(map);
+        map.fitBounds(route.getBounds());
+    } else {
+            console.log(waypointData)
+            console.error(('Invalid GeoJSON geometry'))
+        }
+    }
 }
+
+
 
 function initializeEditMap() {
     let startName = document.getElementById("startNameInput").value;
