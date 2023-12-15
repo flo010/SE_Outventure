@@ -41,7 +41,7 @@ public class Hike {
     private String _author;
     private LocalDate _date;
     private boolean _visible;
-    private int _region;
+    private String _region;
 
     public Hike() {
     }
@@ -327,10 +327,10 @@ public class Hike {
 
     @NotNull
     @Column(name = "region")
-    public int getRegion() {
+    public String getRegion() {
         return _region;
     }
-    public void setRegion(int region) {
+    public void setRegion(String region) {
         _region = region;
     }
 
