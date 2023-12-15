@@ -120,7 +120,7 @@
                                 Invalid file type. Please provide a .png or.jpg.
                             </div>
                             <img src="" id="previewCoverImage" width="250" alt="Hike Preview Image">
-                            <input type="hidden" id="hiddenImageId" name="hiddenField">
+                            <input type="hidden" id="hiddenImageId" name="hiddenImageId">
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">

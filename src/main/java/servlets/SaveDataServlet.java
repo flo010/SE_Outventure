@@ -94,7 +94,7 @@ public class SaveDataServlet extends HttpServlet {
         String[] poiLongitudes = request.getParameterValues("poiLongitudeInput");
         String[] poiDescriptions = request.getParameterValues("poiDescriptionInput");
         String[] poiTypes = request.getParameterValues("poiTypeInput");
-        String pictureID = (request.getParameter("hiddenField"));
+        String pictureID = request.getParameter("hiddenImageId");
         System.out.println("pictureID");
         System.out.println(pictureID);
         Hike hike = new Hike();

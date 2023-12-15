@@ -376,16 +376,8 @@ function saveInput(isEdit) {
             console.log("Image Saving");
             const fileInput = document.getElementById('coverImageInput');
             const file = fileInput.files[0];
+            document.getElementById("createHikeOverview").submit();
 
-            if (file) {
-                uploadImageToServer(file);
-                console.log("Server Saving");
-                document.getElementById("createHikeOverview").submit();
-            } else {
-                // Handle case when no file is selected
-                console.error('No file selected');
-                alert('Please select a file.');
-            }
         }
     }
     else {
@@ -432,6 +424,7 @@ function previewImage(inputId, previewId) {
                 // Display the preview
                 preview.src = URL.createObjectURL(file);
                 preview.style.display = "block";
+                uploadImageToServer(file);
             } else {
                 input.classList.add("is-invalid");
                 preview.style.display = "none";
