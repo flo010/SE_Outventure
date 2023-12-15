@@ -244,9 +244,9 @@
                             </div>
                         </div>
                         <div class="input-fields-group" style="width: 250px">
-                            <label for="regionID" class="form-label">Region *</label>
+                            <label for="regionInput" class="form-label">Region *</label>
                             <div class="dropdown">
-                                <select id="regionID" name="poiType" class="form-select" aria-label="REGION ID" required>
+                                <select id="regionInput" name="regionInput" class="form-select" aria-label="region ID" required>
                                     <option selected>Select region</option>
                                     <option value="Albania">Albania</option>
                                     <option value="Andorra">Andorra</option>
