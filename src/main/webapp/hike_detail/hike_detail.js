@@ -70,16 +70,16 @@ function initializeMap() {
 
     let poiIcon = L.Icon.extend({
         options: {
-            iconSize:     [38, 95],
-            iconAnchor:   [22, 94],
-            popupAnchor:  [-3, -76]
+            iconSize:     [40, 40],
+            iconAnchor:   [20, 40],
+            popupAnchor:  [0, -48]
         }
     });
 
-    let hutIcon = new LeafIcon({iconUrl: '/marker_images/hut.png'}),
-        refreshmentPointIcon = new LeafIcon({iconUrl: '/marker_images/refreshment_point.png'}),
-        sightIcon = new LeafIcon({iconUrl: '/marker_images/sight.png'}),
-        viewpointIcon = new LeafIcon({iconUrl: '/marker_images/viewpoint.png'});
+    let hutIcon = new poiIcon({iconUrl: 'images/marker_images/hut.png'}),
+        refreshmentPointIcon = new poiIcon({iconUrl: 'images/marker_images/refreshment_point.png'}),
+        sightIcon = new poiIcon({iconUrl: 'images/marker_images/sight.jpg'}),
+        viewpointIcon = new poiIcon({iconUrl: 'images/marker_images/viewpoint.jpg'});
 
     poiDataList.forEach(function (poiData) {
         let poiName = poiData.poiName;
@@ -90,21 +90,25 @@ function initializeMap() {
         switch(poiType) {
             case 'Hut':
                 let hutMarker = L.marker([poiLatitude, poiLongitude], {icon: hutIcon}).addTo(map);
+                console.log("hutMarker: " + hutMarker);
                 hutMarker.bindPopup("<strong>Hut Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
                 hutMarker.bindTooltip("<strong>Hut Name: </strong>" + poiName);
                 break;
             case 'Refreshment Point':
                 let refreshmentPointMarker = L.marker([poiLatitude, poiLongitude], {icon: refreshmentPointIcon}).addTo(map);
+                console.log("RP marker: " + refreshmentPointMarker);
                 refreshmentPointMarker.bindPopup("<strong>Refreshment Point Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
                 refreshmentPointMarker.bindTooltip("<strong>Refreshment Point Name: </strong>" + poiName);
                 break;
             case 'Viewpoint':
                 let viewpointMarker = L.marker([poiLatitude, poiLongitude], {icon: viewpointIcon}).addTo(map);
+                console.log("vp marker: " + viewpointMarker);
                 viewpointMarker.bindPopup("<strong>Viewpoint Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
                 viewpointMarker.bindTooltip("<strong>Viewpoint Name: </strong>" + poiName);
                 break;
             case 'Sight':
                 let sightMarker = L.marker([poiLatitude, poiLongitude], {icon: sightIcon}).addTo(map);
+                console.log("sight marker: " + sightMarker);
                 sightMarker.bindPopup("<strong>Sight Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
                 sightMarker.bindTooltip("<strong>Sight Name: </strong>" + poiName);
                 break;
