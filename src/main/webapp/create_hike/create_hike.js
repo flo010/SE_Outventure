@@ -608,6 +608,7 @@ function initializeNewMap() {
         const waypointData = waypoints.map(function (waypoint) {
             return [waypoint.lng, waypoint.lat];
         });
+        console.log(waypointData)
 
         var payload = {
             "coordinates": waypointData,
@@ -628,13 +629,37 @@ function initializeNewMap() {
             .then(data => {
                 // Handle the API response, e.g., draw the route on the map
                 drawRoute(data,newMap);
+                console.log(data)
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     }
 
+
     function drawRoute(routeData, map) {
+
+        try {
+            if (routeData.length !== 6){
+                throw new Error("Invalid bounding box");
+        }
+        var routeCoordinates = [
+            [routeData[1], routeData[0]],
+            [routeData[1], routeData[3]],
+            [routeData[4], routeData[3]],
+            [routeData[4], routeData[0]],
+            [routeData[1], routeData[0]]  // Close the loop
+        ];
+        var routePolyline = L.polyline(routeCoordinates, { color: 'blue', weight: 3 }).addTo(map);
+
+            // Fit the map to the bounding box
+        map.fitBounds(routePolyline.getBounds());
+        } catch (error) {
+            console.error("Error: ", error.message);
+        }
+    }
+
+    /*function drawRoute(routeData, map) {
         // Extract coordinates from the routeData object
         if (routeData && routeData.coordinates) {
             var coordinates = routeData.coordinates;
@@ -645,9 +670,11 @@ function initializeNewMap() {
             // Fit the map to the bounds of the polyline
             map.fitBounds(polyline.getBounds());
         } else {
+            console.log(routeData)
+            console.log(waypoints)
             console.error('Invalid route data');
         }
-    }
+    }*/
 }
 
 
