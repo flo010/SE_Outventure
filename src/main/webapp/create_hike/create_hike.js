@@ -511,7 +511,7 @@ function initializeNewMap() {
     }).addTo(newMap);
 
     let startMarker, destinationMarker, route;
-    var waypoints = [];
+    const waypoints = [];
 
     let markerCount = 0;
     newMap.on('click', function(event) {
@@ -605,15 +605,14 @@ function initializeNewMap() {
     });
 
     function sendWaypointsToAPI(){
-        var waypointData = waypoints.map(function (waypoint){
+        const waypointData = waypoints.map(function (waypoint) {
             return [waypoint.lng, waypoint.lat];
         });
 
         var payload = {
-            type: "LineString",
-            coordinates: waypointData,
-            elevation: 'true',
-            extra_info: ['steepness', 'suitability', 'surface', 'green', 'noise']
+            "coordinates": waypointData,
+            "elevation": "true",
+            "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
         };
 
         fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/json', {
@@ -626,26 +625,34 @@ function initializeNewMap() {
             body: JSON.stringify(payload)
         })
             .then(response => response.json())
-            .then(waypointData => {
+            .then(data => {
                 // Handle the API response, e.g., draw the route on the map
-                drawRoute(waypointData);
+                drawRoute(data,newMap);
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     }
-    function drawRoute(waypointData) {
-        // Implement your logic to draw the route on the map using Leaflet
-        // Example: assuming data.routes[0].geometry contains the route geometry
-        if (waypointData.routes[0].geometry && waypointData.routes[0].geometry.type === 'LineString') {
-        var route = L.geoJSON(waypointData.routes[0].geometry).addTo(map);
-        map.fitBounds(route.getBounds());
-    } else {
-            console.log(waypointData)
-            console.error(('Invalid GeoJSON geometry'))
+
+    function drawRoute(routeData, map) {
+        // Extract coordinates from the routeData object
+        if (routeData && routeData.coordinates) {
+            var coordinates = routeData.coordinates;
+
+            // Create a polyline and add it to the existing map
+            var polyline = L.polyline(coordinates, { color: 'blue' }).addTo(map);
+
+            // Fit the map to the bounds of the polyline
+            map.fitBounds(polyline.getBounds());
+        } else {
+            console.error('Invalid route data');
         }
     }
 }
+
+
+
+
 
 
 
