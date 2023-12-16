@@ -157,8 +157,6 @@
                 <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                     <h3>Description</h3>
                     <p><%=hike.getDescription()%></p>
-                    <h3>Region</h3>
-                    <p><%=hike.getRegion()%></p>
                     <h3 class="mt-5">Map</h3>
                     <div id="map" class="map-hike-detail"></div>
                 </div>
