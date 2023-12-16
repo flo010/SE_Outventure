@@ -694,12 +694,17 @@ function handleGpxFile(input) {
 
         reader.onload = function (e) {
             const gpxContent = e.target.result;
-            sendGpxToServer(fileName, gpxContent);
+            sendGpxToServer(gpxContent);
+        };
+
+        reader.onerror = function (e) {
+            console.error('Error reading the file:', e.target.error);
         };
 
         reader.readAsText(file);
     }
 }
+
 
 function autoFillStartDestination(file) {
     const reader = new FileReader();
@@ -733,14 +738,14 @@ function autoFillStartDestination(file) {
     reader.readAsText(file);
 }
 
-function sendGpxToServer(fileName, gpxContent) {
+function sendGpxToServer(gpxContent) {
     // Use fetch or XMLHttpRequest to send the GPX content to the server
     fetch('/save_data', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({fileName, gpxContent}),
+        body: JSON.stringify({gpxContent}),
     })
         .then(response => response.json())
         .then(data => {
