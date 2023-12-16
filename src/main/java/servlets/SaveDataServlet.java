@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @WebServlet(name = "saveDataServlet", value = "/save_data")
 public class SaveDataServlet extends HttpServlet {
@@ -95,7 +94,8 @@ public class SaveDataServlet extends HttpServlet {
         String[] poiLongitudes = request.getParameterValues("poiLongitudeInput");
         String[] poiDescriptions = request.getParameterValues("poiDescriptionInput");
         String[] poiTypes = request.getParameterValues("poiTypeInput");
-        String pictureID = request.getParameter("");
+        String pictureID = request.getParameter("hiddenImageId");
+
         Hike hike = new Hike();
         hike.setPreviewPicture(pictureID);
         String hikeID = request.getParameter("hikeID");
@@ -162,7 +162,11 @@ public class SaveDataServlet extends HttpServlet {
         }
         hike.setDate(currentDate);
         hike.setVisible(true);
-        hike.setRegion("Bregenzerwald");
+
+        Region region = new Region();
+        region.setRegionID(1);
+        region.setRegion("Österreich - Vorarlberg");
+        hike.setRegion(region);
 
         facadeJPA.save(hike);
     }

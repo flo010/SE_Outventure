@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let isEditing = document.getElementById("hiddenEditInput");
     if (isEditing) {
-        initializeEditMap();
+        setTimeout(initializeEditMap, 1000);
     } else {
-        initializeNewMap();
+        setTimeout(initializeNewMap, 1000);
     }
 });
 
@@ -375,6 +375,12 @@ function saveInput(isEdit) {
     for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
         if (!requiredInputs[i].value.trim()) {
             allInputsFilled = false;
+
+        if (allInputsFilled) {
+            console.log("Image Saving");
+            const fileInput = document.getElementById('coverImageInput');
+            const file = fileInput.files[0];
+            document.getElementById("createHikeOverview").submit();
         }
     }
 
@@ -418,6 +424,7 @@ function uploadImageToServer(file) {
             console.log(data); // Log the server response
             const hiddenInput = document.getElementById('hiddenImageId');
             hiddenInput.value = data.pictureID;
+            alert(data.pictureID);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -440,6 +447,7 @@ function previewImage(inputId, previewId) {
                 // Display the preview
                 preview.src = URL.createObjectURL(file);
                 preview.style.display = "block";
+                uploadImageToServer(file);
             } else {
                 input.classList.add("is-invalid");
                 preview.style.display = "none";

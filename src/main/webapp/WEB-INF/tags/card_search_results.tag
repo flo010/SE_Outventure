@@ -1,6 +1,6 @@
 <%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="hikeID" required="true" type="java.lang.Integer" %>
-<%@ attribute name="hikePicture" required="true" type="java.util.UUID" %>
+<%@ attribute name="hikePicture" required="true" type="java.lang.String" %>
 <%@ attribute name="hikeTitle" required="true" type="java.lang.String" %>
 <%@ attribute name="hikeDistance" required="true" type="java.lang.Double" %>
 <%@ attribute name="hikeDurationHours" required="true" type="java.lang.Integer" %>
