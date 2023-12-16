@@ -24,13 +24,14 @@ public class Comment {
     public void setCommentID(int commentID){_commentID = commentID;}
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "hike")
-    public Hike get_hike(){return _hike;}
-    public void set_hike(Hike hike){_hike = hike;}
+    public Hike getHike(){return _hike;}
+    public void setHike(Hike hike){
+        _hike = hike;}
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "hiker")
     public Hiker getHiker(){return _hiker;}
     public void setHiker(Hiker hiker){_hiker = hiker;}
@@ -45,7 +46,4 @@ public class Comment {
     @Column(name = "timestamp")
     public LocalDate getTimestamp(){return _timeStamp;}
     public void setTimestamp(LocalDate timestamp){_timeStamp = timestamp;}
-
-
-
 }

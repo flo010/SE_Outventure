@@ -42,7 +42,7 @@ public class Hike {
     private String _author;
     private LocalDate _date;
     private boolean _visible;
-    private int _region;
+    private Region _region;
     private List<Comment> _comments;
 
     public Hike() {
@@ -328,20 +328,20 @@ public class Hike {
     }
 
     @NotNull
-    @Column(name = "region")
-    public int getRegion() {
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "region")
+    public Region getRegion() {
         return _region;
     }
-    public void setRegion(int region) {
+    public void setRegion(Region region) {
         _region = region;
     }
 
     @OneToMany(mappedBy = "hike")
-    public List<Comment> get_comments() {
+    public List<Comment> getComments() {
         return _comments;
     }
-
-    public void set_comments(List<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         _comments = comments;
     }
 
