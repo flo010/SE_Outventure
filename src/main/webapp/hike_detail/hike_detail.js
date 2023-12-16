@@ -101,3 +101,10 @@ function showHikeCompletedModal() {
     hikeCompletedModal.show();
 }
 
+function showAddCommentModel() {
+    const addCommentModel = new bootstrap.Modal(document.getElementById('addCommentModel'), {
+        keyboard: false
+    });
+
+    addCommentModel.show();
+}
