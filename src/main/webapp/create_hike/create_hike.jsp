@@ -119,7 +119,17 @@
                             <div class="invalid-feedback alert alert-danger mt-2">
                                 Invalid file type. Please provide a .png or.jpg.
                             </div>
+                            <%
+                                if (hike == null) {
+                            %>
                             <img src="" id="previewCoverImage" width="250" alt="Hike Preview Image">
+                            <%
+                                } else {
+                            %>
+                            <img src="/api/image/<%=hike.getPreviewPicture()%>" id="previewCoverImage" width="250" alt="Hike Preview Image" style="display: block">
+                            <%
+                                }
+                            %>
                             <input type="hidden" id="hiddenImageId" name="hiddenImageId">
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">

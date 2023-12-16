@@ -362,27 +362,25 @@ function editPointOfInterest(editButton) {
 // functions to save form input
 function saveInput(isEdit) {
     shouldPromptBeforeUnload = false;
-    if (!isEdit) {
-        let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
-        let allInputsFilled = true;
 
-        for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
-            if (!requiredInputs[i].value.trim()) {
-                allInputsFilled = false;
-            }
-        }
+    if (isEdit) {
+        document.getElementById("coverImageInput").required = false;
+    }
 
-        if (allInputsFilled) {
-            console.log("Image Saving");
-            const fileInput = document.getElementById('coverImageInput');
-            const file = fileInput.files[0];
-            document.getElementById("createHikeOverview").submit();
+    let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
+    let allInputsFilled = true;
 
+    for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
+        if (!requiredInputs[i].value.trim()) {
+            allInputsFilled = false;
         }
     }
-    else {
-        document.getElementById("coverImageInput").required = false;
-        console.log(document.getElementById("coverImageInput").required);
+
+    if (allInputsFilled && !isEdit) {
+        console.log("Image Saving");
+        const fileInput = document.getElementById('coverImageInput');
+        const file = fileInput.files[0];
+        document.getElementById("createHikeOverview").submit();
     }
 }
 
