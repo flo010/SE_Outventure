@@ -1,6 +1,6 @@
 <%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="hikeID" required="true" type="java.lang.Integer" %>
-<%@ attribute name="hikePicture" required="true" type="java.lang.Integer" %>
+<%@ attribute name="hikePicture" required="true" type="java.lang.String" %>
 <%@ attribute name="hikeTitle" required="true" type="java.lang.String" %>
 <%@ attribute name="hikeDistance" required="true" type="java.lang.Double" %>
 <%@ attribute name="hikeDurationHours" required="true" type="java.lang.Integer" %>
@@ -8,7 +8,7 @@
 <%@ attribute name="hikeAltitude" required="true" type="java.lang.Integer" %>
 
 <a class="card text-decoration-none" href="../hike_detail?id=${hikeID}">
-    <img class="card-image-top" src="/api/image/${hikePicture}" alt="hike picture">
+    <img class="card-image-top" src="/api/image/${hikePicture.toString()}" alt="hike picture">
     <div class="card-body">
         <h5 class="card-title text-truncate">${hikeTitle}</h5>
         <div class="col">

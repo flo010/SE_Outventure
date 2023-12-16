@@ -18,13 +18,22 @@
         </header>
         <div class="row">
         <div class="col-3">
-            <outventure:filter name="Duration" min="1" max="10000" valueLow="1" valueHigh="10000"></outventure:filter>
-            <outventure:filter name="Distance" min="1" max="10000" valueLow="1" valueHigh="10000"></outventure:filter>
-            <outventure:filter name="Altitude" min="1" max="10000" valueLow="1" valueHigh="10000"></outventure:filter>
-            <outventure:filter name="Stamina" min="1" max="5" valueLow="1" valueHigh="5"></outventure:filter>
-            <outventure:filter name="Power" min="1" max="5" valueLow="1" valueHigh="5"></outventure:filter>
-            <outventure:filter name="Experience" min="1" max="5" valueLow="1" valueHigh="5"></outventure:filter>
-            <outventure:filter name="Landscape" min="1" max="5" valueLow="1" valueHigh="5"></outventure:filter>
+            <%
+                String[] filterNames = {"duration", "distance", "altitude", "stamina", "power", "experience", "landscape"};
+                int[] filterMin = {1, 1, 1, 1, 1, 1, 1};
+                int[] filterMax = {10000, 10000, 10000, 5, 5, 5, 5};
+
+                for (int i = 0; i < filterNames.length; i++) {
+                    String valueLowString = request.getParameter(filterNames[i] + "Low");
+                    String valueHighString = request.getParameter(filterNames[i] + "High");
+
+                    int valueLow = valueLowString == null ? filterMin[0] : Integer.parseInt(valueLowString);
+                    int valueHigh = valueHighString == null ? filterMax[0] : Integer.parseInt(valueHighString);
+            %>
+                    <outventure:filter name="<%=filterNames[i]%>" min="<%=filterMin[i]%>" max="<%=filterMax[i]%>" valueLow="<%=valueLow%>" valueHigh="<%=valueHigh%>"/>
+            <%
+                }
+            %>
 
             <div
                     class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1"
@@ -150,6 +159,7 @@
                         }
                     }
                 %>
+                <div class="w-100 text-center fs-2 pt-5" style="display: <%= hikeList.isEmpty() ? "block" : "none" %>"><strong>No results found!</strong></div>
             </div>
         </div>
         </div>
@@ -157,6 +167,9 @@
         <div id="toastData"
              data-hike-created="<%= request.getAttribute("hikeCreated") %>"
              data-hike-deleted="<%= request.getAttribute("hikeDeleted") %>">
+        </div>
+        <div id="monthData"
+             data-months-value="<%= request.getParameter("month") %>">
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

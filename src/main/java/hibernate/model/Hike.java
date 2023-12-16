@@ -5,12 +5,13 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "hikes")
 public class Hike {
     private int _hikeID;
-    private int _previewPicture;
+    private String _previewPicture;
     private String _title;
     private String _description;
     private double _duration;
@@ -34,14 +35,15 @@ public class Hike {
     private boolean _december;
     private Start _start;
     private Destination _destination;
-    private List<PointOfInterest> _pointOfInterests;
+    private List<PointOfInterest> _pointsOfInterest;
     private String _routeDescription;
     private String _parkingInformation;
     private String _arrivalInformation;
     private String _author;
     private LocalDate _date;
     private boolean _visible;
-    private String _region;
+    private Region _region;
+    private List<Comment> _comments;
 
     public Hike() {
     }
@@ -57,11 +59,11 @@ public class Hike {
         _hikeID = hikeId;
     }
     @Column(name = "picture")
-    public int getPreviewPicture() {
+    public String getPreviewPicture() {
         return _previewPicture;
     }
-    public void setPreviewPicture(int previewPicture) {
-        _previewPicture = previewPicture;
+    public void setPreviewPicture(String previewPicture) {
+        _previewPicture = (previewPicture);
     }
 
     @NotNull
@@ -274,12 +276,13 @@ public class Hike {
         _destination = destination;
     }
 
-    @OneToMany(mappedBy = "hikePOI",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(name = "poi_on_hike", joinColumns = @JoinColumn(name="hike"), inverseJoinColumns = @JoinColumn(name = "poi"))
     public List<PointOfInterest> getPointsOfInterest() {
-        return _pointOfInterests;
+        return _pointsOfInterest;
     }
     public void setPointsOfInterest(List<PointOfInterest> pointOfInterests) {
-        _pointOfInterests = pointOfInterests;
+        _pointsOfInterest = pointOfInterests;
     }
 
     @NotNull
@@ -325,11 +328,38 @@ public class Hike {
     }
 
     @NotNull
-    @Column(name = "region")
-    public String getRegion() {
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "region")
+    public Region getRegion() {
         return _region;
     }
-    public void setRegion(String region) {
+    public void setRegion(Region region) {
         _region = region;
+    }
+
+    @OneToMany(mappedBy = "hike")
+    public List<Comment> getComments() {
+        return _comments;
+    }
+    public void setComments(List<Comment> comments) {
+        _comments = comments;
+    }
+
+    public boolean[] monthsAsArray() {
+        boolean[] months = new boolean[12];
+        months[0] = _january;
+        months[1] = _february;
+        months[2] = _march;
+        months[3] = _april;
+        months[4] = _may;
+        months[5] = _june;
+        months[6] = _july;
+        months[7] = _august;
+        months[8] = _september;
+        months[9] = _october;
+        months[10] = _november;
+        months[11] = _december;
+
+        return months;
     }
 }

@@ -9,7 +9,7 @@
     <div class="card-body">
         <h4 class="card-title text-center">Start</h4>
         <hr>
-        <p class="card-text">
+        <p id="startName" class="card-text">
             <strong>Name: </strong>
             ${startName}
         </p>
