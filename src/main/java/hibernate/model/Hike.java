@@ -43,6 +43,7 @@ public class Hike {
     private LocalDate _date;
     private boolean _visible;
     private int _region;
+    private List<Comment> _comments;
 
     public Hike() {
     }
@@ -333,6 +334,15 @@ public class Hike {
     }
     public void setRegion(int region) {
         _region = region;
+    }
+
+    @OneToMany(mappedBy = "hike")
+    public List<Comment> get_comments() {
+        return _comments;
+    }
+
+    public void set_comments(List<Comment> comments) {
+        _comments = comments;
     }
 
     public boolean[] monthsAsArray() {
