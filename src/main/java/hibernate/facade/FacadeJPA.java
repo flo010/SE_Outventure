@@ -93,15 +93,12 @@ public class FacadeJPA {
         return pictureBroker.getLazy(pictureID);
     }
 
-
-    @Override
     public PointOfInterest getPOIByID(int poiID) {
         POIBroker poiBroker = new POIBroker();
 
         return poiBroker.getLazy(poiID);
     }
 
-    @Override
     public List<PointOfInterest> getAllPOIs() {
         POIBroker poiBroker = new POIBroker();
 

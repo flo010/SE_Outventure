@@ -375,6 +375,7 @@ function saveInput(isEdit) {
     for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
         if (!requiredInputs[i].value.trim()) {
             allInputsFilled = false;
+            }
 
         if (allInputsFilled) {
             console.log("Image Saving");

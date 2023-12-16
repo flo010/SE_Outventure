@@ -22,18 +22,18 @@ public class SaveDataServlet extends HttpServlet {
         boolean isEdit = Boolean.parseBoolean(request.getParameter("edit"));
 
         if (isEdit) {
-            saveToDatabase(request,response);
+            saveToDatabase(request,response, true);
 
             int hikeID = Integer.parseInt(request.getParameter("hikeID"));
             response.sendRedirect("hike_detail?id=" + hikeID + "&hikeEdited=true");
         }
         else {
-            saveToDatabase(request, response);
+            saveToDatabase(request, response, false);
             response.sendRedirect("/search_results?hikeCreated=true");
         }
     }
 
-    private void saveToDatabase(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void saveToDatabase(HttpServletRequest request, HttpServletResponse response, boolean isEdit) throws IOException {
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
 
         String title = request.getParameter("titleInput");
@@ -97,14 +97,20 @@ public class SaveDataServlet extends HttpServlet {
         String pictureID = request.getParameter("hiddenImageId");
 
         Hike hike = new Hike();
-        hike.setPreviewPicture(pictureID);
-        String hikeID = request.getParameter("hikeID");
+        if (!isEdit) {
+            hike.setPreviewPicture(pictureID);
+        }
+        else {
+            hike.setPreviewPicture(request.getParameter("pictureID"));
+        }
 
-        if (hikeID != null) {
+        String hikeID = request.getParameter("hikeID");
+        if (!isEdit) {
             hike.setHikeID(Integer.parseInt(hikeID));
         }
 
         List<PointOfInterest> pointsOfInterest = new ArrayList<>();
+        List<PointOfInterest> managedPOIs = new ArrayList<>();
 
         if(poiNames != null) {
             for (int i = 0; i < poiNames.length; i++) {
@@ -114,11 +120,16 @@ public class SaveDataServlet extends HttpServlet {
                 pointOfInterest.setLongitude(Double.parseDouble(poiLongitudes[i]));
                 pointOfInterest.setDescription(poiDescriptions[i]);
                 pointOfInterest.setType(poiTypes[i]);
-                pointsOfInterest.add(pointOfInterest);
+
+                // Save the PointOfInterest to the database
+                facadeJPA.save(pointOfInterest);
+
+                // Add the managed PointOfInterest to the list
+                managedPOIs.add(pointOfInterest);
             }
         }
 
-        hike.setPointsOfInterest(pointsOfInterest);
+        hike.setPointsOfInterest(managedPOIs);
         hike.setTitle(title);
         hike.setDescription(description);
         hike.setDuration(duration);
