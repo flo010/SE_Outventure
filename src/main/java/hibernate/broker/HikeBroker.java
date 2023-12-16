@@ -26,7 +26,7 @@ public class HikeBroker extends BrokerBase<Hike> {
 
     public Hike getEager(int value) {
         EntityManager entityManager = getEntityManager();
-        Query query = entityManager.createQuery("SELECT h FROM Hike h LEFT JOIN FETCH h.pointsOfInterest WHERE h.hikeID = :hikeID");
+        Query query = entityManager.createQuery("SELECT DISTINCT h FROM Hike h LEFT JOIN FETCH h.pointsOfInterest WHERE h.hikeID = :hikeID");
         query.setParameter("hikeID", value);
         Hike hike = (Hike) query.getSingleResult();
         entityManager.close();
@@ -185,7 +185,7 @@ public class HikeBroker extends BrokerBase<Hike> {
                 System.out.println("Month value");
                 System.out.println(month);
                 if (month != 0) {
-                    for (int i = 0; i < 12; i++) { // Assuming 12 months in a year
+                    for (int i = 0; i < 12; i++) {
                         int mask = 1 << i;
                         if ((month & mask) != 0) {
                             String monthFieldName = months[i];

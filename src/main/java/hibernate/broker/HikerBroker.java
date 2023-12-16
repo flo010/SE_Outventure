@@ -1,10 +1,12 @@
 package hibernate.broker;
 
+import hibernate.model.Hike;
 import hibernate.model.Hiker;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 
+import java.sql.Date;
 import java.util.List;
 
 public class HikerBroker extends BrokerBase<Hiker>{
@@ -127,4 +129,70 @@ public class HikerBroker extends BrokerBase<Hiker>{
             entityManager.close();
         }
     }
+
+    public void addCompletedHike(int hikerId, int hikeId, String timestamp) {
+        EntityManager entityManager = getEntityManager();
+        java.sql.Date sqlDate = java.sql.Date.valueOf(timestamp);
+        try {
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNativeQuery("INSERT INTO completed_hikes (hiker, hike, timestamp) VALUES (?, ?, ?)");
+            query.setParameter(1, hikerId);
+            query.setParameter(2, hikeId);
+            query.setParameter(3, sqlDate);
+            query.executeUpdate();
+
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    public List<Date> getTimestamps(int hikerID) {
+        EntityManager entityManager = null;
+        try {
+            entityManager = getEntityManager();
+
+            String sql = "SELECT timestamp FROM completed_hikes WHERE hiker = :hikerID";
+            Query query = entityManager.createNativeQuery(sql);
+            query.setParameter("hikerID", hikerID);
+
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception appropriately
+            return null;
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
+
+    public void removeCompletedHike(int hikeId, int hikerId, String timestamp) {
+        EntityManager entityManager = getEntityManager();
+        java.sql.Date sqlDate = java.sql.Date.valueOf(timestamp);
+
+        try {
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNativeQuery("DELETE FROM completed_hikes WHERE hike = ? AND hiker = ? AND timestamp = ?");
+            query.setParameter(1, hikeId);
+            query.setParameter(2, hikerId);
+            query.setParameter(3, sqlDate);
+            query.executeUpdate();
+
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+
 }

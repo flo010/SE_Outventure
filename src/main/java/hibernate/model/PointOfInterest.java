@@ -3,11 +3,13 @@ package hibernate.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+
 @Entity
 @Table(name = "points_of_interest")
 public class PointOfInterest {
     private int _poiID;
-    private Hike _hikePOI;
+    private List<Hike> _hikes;
     private String _name;
     private String _description;
     private double _longitude;
@@ -23,16 +25,6 @@ public class PointOfInterest {
     }
     public void setPoiID(int poiID) {
         _poiID = poiID;
-    }
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "hike")
-    public Hike getHikePOI() {
-        return _hikePOI;
-    }
-    public void setHikePOI(Hike hikePOI) {
-        _hikePOI = hikePOI;
     }
 
     @NotNull
@@ -77,5 +69,13 @@ public class PointOfInterest {
     }
     public void setType(String type) {
         _type = type;
+    }
+
+    @ManyToMany(mappedBy = "pointsOfInterest")
+    public List<Hike> getHikes() {
+        return _hikes;
+    }
+    public void setHikes(List<Hike> hikes) {
+        _hikes = hikes;
     }
 }

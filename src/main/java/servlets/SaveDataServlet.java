@@ -32,12 +32,12 @@ public class SaveDataServlet extends HttpServlet {
             response.sendRedirect("hike_detail?id=" + hikeID + "&hikeEdited=true");
         }
         else {
-            saveToDatabase(request, response, -1);
+            saveToDatabase(request, response);
             response.sendRedirect("/search_results?hikeCreated=true");
         }
     }
 
-    private void saveToDatabase(HttpServletRequest request, HttpServletResponse response, int pictureID) throws IOException {
+    private void saveToDatabase(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("latDest " + Double.parseDouble(request.getParameter("latitudeDestinationCoordinateInput")));
 
         String title = request.getParameter("titleInput");
@@ -129,9 +129,11 @@ public class SaveDataServlet extends HttpServlet {
         String[] poiLongitudes = request.getParameterValues("poiLongitudeInput");
         String[] poiDescriptions = request.getParameterValues("poiDescriptionInput");
         String[] poiTypes = request.getParameterValues("poiTypeInput");
-
+        String pictureID = request.getParameter("hiddenImageId");
+        System.out.println("pictureID");
+        System.out.println(pictureID);
         Hike hike = new Hike();
-
+        hike.setPreviewPicture(pictureID);
         String hikeID = request.getParameter("hikeID");
 
         if (hikeID != null) {
@@ -148,13 +150,11 @@ public class SaveDataServlet extends HttpServlet {
                 pointOfInterest.setLongitude(Double.parseDouble(poiLongitudes[i]));
                 pointOfInterest.setDescription(poiDescriptions[i]);
                 pointOfInterest.setType(poiTypes[i]);
-                pointOfInterest.setHikePOI(hike);
                 pointsOfInterest.add(pointOfInterest);
             }
         }
 
         hike.setPointsOfInterest(pointsOfInterest);
-
         hike.setTitle(title);
         hike.setDescription(description);
         hike.setDuration(duration);
@@ -179,6 +179,7 @@ public class SaveDataServlet extends HttpServlet {
         hike.setNovember(november);
         hike.setDecember(december);
         hike.setRouteDescription(routeDescription);
+
         if (!arrivalInformation.isEmpty()) {
             hike.setArrivalInformation(arrivalInformation);
         }
@@ -197,25 +198,14 @@ public class SaveDataServlet extends HttpServlet {
         }
         hike.setDate(currentDate);
         hike.setVisible(true);
-        hike.setRegion("Bregenzerwald");
+
+        Region region = new Region();
+        region.setRegionID(1);
+        region.setRegion("Österreich - Vorarlberg");
+        hike.setRegion(region);
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
-        if (pictureID == -1) {
-            try {
-                Thread.sleep(4 * 1000);
-            } catch (InterruptedException ie) {
-                Thread.currentThread().interrupt();
-            }
 
-            Picture picture = facadeJPA.getNewPicture();
-            facadeJPA.save(picture);
-            picture.setInUse(false);
-            hike.setPreviewPicture(picture.getPictureID());
-        }
-        else {
-            Picture picture = facadeJPA.getPictureByID(pictureID);
-            hike.setPreviewPicture(picture.getPictureID());
-        }
         facadeJPA.save(hike);
     }
 }
