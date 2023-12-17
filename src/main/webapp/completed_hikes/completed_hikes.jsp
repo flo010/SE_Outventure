@@ -40,7 +40,7 @@
           <div class="right-box-header">
             <h3>Completed Hikes</h3>
           </div>
-          <div class="container mt-3">
+          <div class="mt-3">
             <% if (completedHikes.isEmpty()) { %>
             <div class="empty-list-message mt-5 text-center">
               <p>Your list is empty.</p>
