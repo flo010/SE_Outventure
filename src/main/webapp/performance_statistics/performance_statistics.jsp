@@ -1,4 +1,3 @@
-<%@ page import="hibernate.model.Hike" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
@@ -23,40 +22,63 @@
                     </div>
                     <div class="mt-3">
                         <form id="mt-5 performanceStatisticsForm" action="">
-                            <p class="form-label">Select your date range</p>
-                            <div class="input-fields-group">
-                                <label for="fromDate">From:</label>
-                                <input type="date" id="fromDate" name="fromDate">
-                                <label for="toDate" class="ms-3">To:</label>
-                                <input type="date" id="toDate" name="toDate">
-                            </div>
-                            <div class="d-flex flex-row bd-highlight mb-3">
-                                <button type="button" class="btn btn-secondary" onclick="clearFilters()">Clear</button>
-                                <button type="button" class="btn btn-primary ms-3">Apply</button>
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="form-label">Select your date range</p>
+                                    <div class="input-fields-group">
+                                        <label for="fromDate"><strong>From:</strong></label>
+                                        <input type="date" id="fromDate" name="fromDate">
+                                        <label for="toDate" class="ms-3"><strong>To:</strong></label>
+                                        <input type="date" id="toDate" name="toDate">
+                                    </div>
+                                    <div class="d-flex flex-row bd-highlight mb-3">
+                                        <div class="p-2 bd-highlight">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setCurrentMonth()">Current month</button>
+                                        </div>
+                                        <div class="p-2 bd-highlight">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setCurrentYear()">Current year</button>
+                                        </div>
+                                        <div class="p-2 bd-highlight">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setEntirePeriod()">Entire time period</button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex bd-highlight">
+                                        <div class="me-auto p-2 bd-highlight">
+                                            <p>
+                                                <a class="btn btn-secondary" data-bs-toggle="collapse" href="#collapseTutorial" role="button" aria-expanded="false" aria-controls="collapseTutorial">
+                                                    Tutorial
+                                                </a>
+                                            </p>
+                                        </div>
+                                        <div class="p-2 bd-highlight">
+                                            <button type="button" class="btn btn-primary" onclick="resetFilters()">Reset</button>
+                                        </div>
+                                        <div class="p-2 bd-highlight">
+                                            <button type="submit" class="btn btn-success">Apply</button>
+                                        </div>
+                                    </div>
+                                    <div class="collapse" id="collapseTutorial">
+                                        <div class="card card-body">
+                                            <ul>
+                                                <li>
+                                                    <strong>Step 1: Set Your Date Range</strong><br>
+                                                    Select a specific date range to tailor your stats. Whether it's a recent conquest or a
+                                                    trip down memory lane, customize it to fit your journey.
+                                                </li>
+                                                <li>
+                                                    <strong>Step 2: Click "Apply"</strong><br>
+                                                    Watch your personalized statistics unfold with a single click. See your completed
+                                                    hikes, kilometers covered, altitude conquered, and total duration at a glance.
+                                                </li>
+                                            </ul>
+                                            <p><i>Your Trail, Your Stats, Your Adventure!</i></p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </form>
-                        <p>
-                            <a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" href="#collapseTutorial" role="button" aria-expanded="false" aria-controls="collapseTutorial">
-                                Tutorial
-                            </a>
-                        </p>
-                        <div class="collapse mb-3" id="collapseTutorial">
-                            <div class="card card-body">
-                                <ul>
-                                    <li>
-                                        <strong>Step 1: Set Your Date Range</strong><br>
-                                        Select a specific date range to tailor your stats. Whether it's a recent conquest or a
-                                        trip down memory lane, customize it to fit your journey.
-                                    </li>
-                                    <li>
-                                        <strong>Step 2: Click "Apply"</strong><br>
-                                        Watch your personalized statistics unfold with a single click. See your completed
-                                        hikes, kilometers covered, altitude conquered, and total duration at a glance.
-                                    </li>
-                                    <i>Your Trail, Your Stats, Your Adventure!</i>
-                                </ul>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
