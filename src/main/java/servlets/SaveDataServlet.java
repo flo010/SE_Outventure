@@ -94,7 +94,9 @@ public class SaveDataServlet extends HttpServlet {
         String[] poiLongitudes = request.getParameterValues("poiLongitudeInput");
         String[] poiDescriptions = request.getParameterValues("poiDescriptionInput");
         String[] poiTypes = request.getParameterValues("poiTypeInput");
-        String pictureID = (request.getParameter(""));
+        String pictureID = request.getParameter("hiddenImageId");
+        System.out.println("pictureID");
+        System.out.println(pictureID);
         Hike hike = new Hike();
         hike.setPreviewPicture(pictureID);
         String hikeID = request.getParameter("hikeID");
@@ -161,7 +163,11 @@ public class SaveDataServlet extends HttpServlet {
         }
         hike.setDate(currentDate);
         hike.setVisible(true);
-        hike.setRegion("Bregenzerwald");
+
+        Region region = new Region();
+        region.setRegionID(1);
+        region.setRegion("Österreich - Vorarlberg");
+        hike.setRegion(region);
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
 

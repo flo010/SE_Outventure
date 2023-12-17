@@ -119,8 +119,18 @@
                             <div class="invalid-feedback alert alert-danger mt-2">
                                 Invalid file type. Please provide a .png or.jpg.
                             </div>
+                            <%
+                                if (hike == null) {
+                            %>
                             <img src="" id="previewCoverImage" width="250" alt="Hike Preview Image">
-                            <input type="hidden" id="hiddenImageId" name="hiddenField">
+                            <%
+                                } else {
+                            %>
+                            <img src="/api/image/<%=hike.getPreviewPicture()%>" id="previewCoverImage" width="250" alt="Hike Preview Image" style="display: block">
+                            <%
+                                }
+                            %>
+                            <input type="hidden" id="hiddenImageId" name="hiddenImageId">
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
@@ -334,7 +344,7 @@
                                     <p>That's it! With these steps, you can set your route, mark start and destination points, and customize the map to suit your needs.</p>
                                 </div>
                             </div>
-                            <div id="map" class="map-create-hike" onfocus="initializeMap()"></div>
+                            <div id="map" class="map-create-hike"></div>
                         </div>
                         <div>
                             <button type="button" onclick="importGpxButton()" class="btn btn-outline-secondary">

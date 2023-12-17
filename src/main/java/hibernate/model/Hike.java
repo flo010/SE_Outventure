@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "hikes")
@@ -41,7 +42,8 @@ public class Hike {
     private String _author;
     private LocalDate _date;
     private boolean _visible;
-    private String _region;
+    private Region _region;
+    private List<Comment> _comments;
 
     public Hike() {
     }
@@ -61,7 +63,7 @@ public class Hike {
         return _previewPicture;
     }
     public void setPreviewPicture(String previewPicture) {
-        _previewPicture = previewPicture;
+        _previewPicture = (previewPicture);
     }
 
     @NotNull
@@ -274,7 +276,7 @@ public class Hike {
         _destination = destination;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "poi_on_hike", joinColumns = @JoinColumn(name="hike"), inverseJoinColumns = @JoinColumn(name = "poi"))
     public List<PointOfInterest> getPointsOfInterest() {
         return _pointsOfInterest;
@@ -326,12 +328,21 @@ public class Hike {
     }
 
     @NotNull
-    @Column(name = "region")
-    public String getRegion() {
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "region")
+    public Region getRegion() {
         return _region;
     }
-    public void setRegion(String region) {
+    public void setRegion(Region region) {
         _region = region;
+    }
+
+    @OneToMany(mappedBy = "hike")
+    public List<Comment> getComments() {
+        return _comments;
+    }
+    public void setComments(List<Comment> comments) {
+        _comments = comments;
     }
 
     public boolean[] monthsAsArray() {
