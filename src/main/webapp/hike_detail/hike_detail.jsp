@@ -51,6 +51,8 @@
             FacadeJPA facadeJPA = FacadeJPA.getInstance();
             int hikerID = (session.getAttribute("hikerID") != null) ? Integer.parseInt(session.getAttribute("hikerID").toString()) : -1;
             boolean isFavorite = hikerID != -1 && facadeJPA.isFavoriteHikeExists(hikerID, hike.getHikeID());
+            Hike hikeWithComment = (Hike) request.getAttribute("hikeWithComment");
+            List<Comment> comments = hikeWithComment.getComments();
             %>
 
         <div class="container-sm mt-5 mb-5">
@@ -148,14 +150,14 @@
                 </div>
                 <div class="comment-container col-md-4 w-80">
                     <h3>Comments</h3>
-                    <% for (int i = 0; i<2; i++) {%>
+                    <% for (Comment comment : comments) {%>
                     <div class="comment-box">
-                        <div>
-                            <h5>User User</h5>
-                            <small style="margin-left: auto">20/12/2000</small>
+                        <div style="display: flex;justify-content: space-between">
+                            <b style="font-size: small">@<%=comment.getHiker().getUsername()%></b>
+                            <small ><%=comment.getTimestamp()%></small>
                         </div>
-                        <div>
-                            <p>khj khkgig iugi gii </p>
+                        <div class="mt-2">
+                            <p><%=comment.getCommentText()%></p>
                         </div>
                     </div>
                     <% } %>

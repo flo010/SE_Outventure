@@ -57,6 +57,11 @@ public class FacadeJPA {
 
         return hikeBroker.getEager(hikeID);
     }
+    public Hike getHikeCommentByIDEager(int hikeID) {
+        HikeBroker hikeBroker = new HikeBroker();
+
+        return hikeBroker.getEagerComment(hikeID);
+    }
 
     public List<Hike> getAllHikesLazy() {
         HikeBroker hikeBroker = new HikeBroker();

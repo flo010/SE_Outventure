@@ -35,6 +35,21 @@ public class HikeBroker extends BrokerBase<Hike> {
         return hike;
     }
 
+    public Hike getEagerComment(int hikeID) {
+        EntityManager entityManager = getEntityManager();
+        Query query = entityManager.createQuery(
+                "SELECT DISTINCT h FROM Hike h " +
+                        "LEFT JOIN FETCH h.comments c " +
+                        "LEFT JOIN FETCH c.hiker " +
+                        "WHERE h.hikeID = :hikeID"
+        );
+        query.setParameter("hikeID", hikeID);
+        Hike hike = (Hike) query.getSingleResult();
+        entityManager.close();
+        return hike;
+    }
+
+
     @Override
     public List<Hike> getAll() {
         EntityManager entityManager = null;
