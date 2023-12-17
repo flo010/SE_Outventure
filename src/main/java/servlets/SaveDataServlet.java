@@ -164,6 +164,7 @@ public class SaveDataServlet extends HttpServlet {
         hike.setDate(currentDate);
         hike.setVisible(true);
 
+        String regionString = request.getParameter("regionInput");
         Region region = new Region();
         region.setRegionID(1);
         region.setRegion("Österreich - Vorarlberg");

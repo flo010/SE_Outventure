@@ -158,7 +158,7 @@
                     <h3>Description</h3>
                     <p><%=hike.getDescription()%></p>
                     <h3 class="mt-5">Region</h3>
-                    <p><%=hike.getRegion()%></p>
+                    <p><%=hike.getRegion().getRegion()%></p>
                     <h3 class="mt-5">Map</h3>
                     <div id="map" class="map-hike-detail"></div>
                 </div>
