@@ -3,6 +3,7 @@ package hibernate.facade;
 import hibernate.broker.HikeBroker;
 import hibernate.broker.HikerBroker;
 import hibernate.broker.PictureBroker;
+import hibernate.model.Comment;
 import hibernate.model.Hike;
 import hibernate.model.Hiker;
 import hibernate.model.Picture;
@@ -159,5 +160,10 @@ public class FacadeJPA {
     public void removeCompletedHike(int hikeID, int hikerId, String timestamp) {
         HikerBroker hikerBroker = new HikerBroker();
         hikerBroker.removeCompletedHike(hikeID, hikerId, timestamp);
+    }
+
+    public void addComment(int hikeID, int hikerID, String comment){
+        HikeBroker hikeBroker = new HikeBroker();
+        hikeBroker.addComment(hikeID, hikerID, comment);
     }
 }

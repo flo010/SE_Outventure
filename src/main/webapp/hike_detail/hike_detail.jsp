@@ -4,6 +4,9 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="hibernate.facade.FacadeJPA" %>
+<%@ page import="hibernate.model.Comment" %>
+<%@ page import="hibernate.broker.HikerBroker" %>
+<%@ page import="hibernate.broker.HikeBroker" %>
 <%--
   Created by IntelliJ IDEA.
   User: learo
@@ -48,7 +51,7 @@
             FacadeJPA facadeJPA = FacadeJPA.getInstance();
             int hikerID = (session.getAttribute("hikerID") != null) ? Integer.parseInt(session.getAttribute("hikerID").toString()) : -1;
             boolean isFavorite = hikerID != -1 && facadeJPA.isFavoriteHikeExists(hikerID, hike.getHikeID());
-        %>
+            %>
 
         <div class="container-sm mt-5 mb-5">
             <div class="d-flex bd-highlight mb-3">
@@ -145,13 +148,14 @@
                 </div>
                 <div class="comment-container col-md-4 w-80">
                     <h3>Comments</h3>
-                    <% for(int i = 0; i<5; i++){%>
+                    <% for (int i = 0; i<2; i++) {%>
                     <div class="comment-box">
                         <div>
-                            <h5>User user</h5>
+                            <h5>User User</h5>
+                            <small style="margin-left: auto">20/12/2000</small>
                         </div>
                         <div>
-                            <p>sjkhkbfd shbfkdhbhbvhd bkdbvkabl a bvlkb vbvalsk vbaksl sbvbld ajbvk ldjld nvld nvldjfv</p>
+                            <p>khj khkgig iugi gii </p>
                         </div>
                     </div>
                     <% } %>
@@ -347,16 +351,18 @@
                         <h5 class="modal-title" id="addCommentLabel">Add Comment</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <textarea class="form-control" id="commentInput" name="commentInput" rows="4"
-                                      placeholder="Comment" maxlength="1000"></textarea>
+                    <form id="commentForm" action="/comment?hikeID=<%=hike.getHikeID()%>&hikerID=<%=session.getAttribute("hikerID")%>" method="post">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <textarea class="form-control" id="commentInput" name="commentInput" rows="4"
+                                          placeholder="Comment" maxlength="1000"></textarea>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-danger me-2" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-success">Add</button>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-danger me-2" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-success">Add</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
