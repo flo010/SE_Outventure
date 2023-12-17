@@ -276,7 +276,7 @@ public class Hike {
         _destination = destination;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "poi_on_hike", joinColumns = @JoinColumn(name="hike"), inverseJoinColumns = @JoinColumn(name = "poi"))
     public List<PointOfInterest> getPointsOfInterest() {
         return _pointsOfInterest;
