@@ -96,7 +96,6 @@ public class SaveDataServlet extends HttpServlet {
             String gpxContent = jsonNode.has("gpxContent") ? jsonNode.get("gpxContent").asText() : null;
             System.out.println("Received gpxContent: " + gpxContent);
 
-            FacadeJPA facadeJPA = FacadeJPA.getInstance();
             facadeJPA.addGpxFile(hike, gpxContent);
         } else {
             System.err.println("Failed to parse JSON data.");
