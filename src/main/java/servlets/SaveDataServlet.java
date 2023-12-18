@@ -26,6 +26,7 @@ public class SaveDataServlet extends HttpServlet {
 
         if (isEdit) {
             saveToDatabase(request,response, true);
+
             int hikeID = Integer.parseInt(request.getParameter("hikeID"));
             response.sendRedirect("hike_detail?id=" + hikeID + "&hikeEdited=true");
         }
@@ -36,6 +37,8 @@ public class SaveDataServlet extends HttpServlet {
     }
 
     private void saveToDatabase(HttpServletRequest request, HttpServletResponse response, boolean isEdit) throws IOException {
+        FacadeJPA facadeJPA = FacadeJPA.getInstance();
+
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
         double distance = Double.parseDouble(request.getParameter("distanceInput"));
@@ -143,6 +146,7 @@ public class SaveDataServlet extends HttpServlet {
         }
 
         List<PointOfInterest> pointsOfInterest = new ArrayList<>();
+        List<PointOfInterest> managedPOIs = new ArrayList<>();
 
         if(poiNames != null) {
             for (int i = 0; i < poiNames.length; i++) {
@@ -152,11 +156,16 @@ public class SaveDataServlet extends HttpServlet {
                 pointOfInterest.setLongitude(Double.parseDouble(poiLongitudes[i]));
                 pointOfInterest.setDescription(poiDescriptions[i]);
                 pointOfInterest.setType(poiTypes[i]);
-                pointsOfInterest.add(pointOfInterest);
+
+                // Save the PointOfInterest to the database
+                facadeJPA.save(pointOfInterest);
+
+                // Add the managed PointOfInterest to the list
+                managedPOIs.add(pointOfInterest);
             }
         }
 
-        hike.setPointsOfInterest(pointsOfInterest);
+        hike.setPointsOfInterest(managedPOIs);
         hike.setTitle(title);
         hike.setDescription(description);
         hike.setDuration(duration);
@@ -205,8 +214,6 @@ public class SaveDataServlet extends HttpServlet {
         region.setRegionID(1);
         region.setRegion("Österreich - Vorarlberg");
         hike.setRegion(region);
-
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
 
         facadeJPA.save(hike);
     }

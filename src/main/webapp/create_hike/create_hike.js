@@ -323,8 +323,14 @@ function openPoiModal() {
 }
 
 let cardToEdit;
+let poiIDArray = [];
 
-function deletePointOfInterest(button) {
+function deletePointOfInterest(button, isEdit) {
+    if (isEdit) {
+        const poiID = document.getElementById("hiddenPoiID").value;
+        poiIDArray.push(poiID);
+    }
+
     // Get the parent card element and remove it
     const card = button.closest('.pointOfInterest');
     card.remove();
@@ -377,7 +383,6 @@ function saveInput(isEdit) {
     }
 
     if (allInputsFilled && !isEdit) {
-        console.log("Image Saving");
         const fileInput = document.getElementById('coverImageInput');
         const file = fileInput.files[0];
         document.getElementById("createHikeOverview").submit();
