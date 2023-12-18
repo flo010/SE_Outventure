@@ -214,7 +214,7 @@ function savePointOfInterest() {
     const poiType = document.getElementById("poiType").value;
 
     // Check if required fields are empty
-    if (!poiName || isNaN(poiLatitude) || isNaN(poiLongitude) || poiType === "Select type") {
+    if (!poiName || isNaN(poiLatitude) || isNaN(poiLongitude) || !poiType) {
         const errorMessage = document.getElementById('poiErrorMessage');
         errorMessage.style.display = 'block';
         return;

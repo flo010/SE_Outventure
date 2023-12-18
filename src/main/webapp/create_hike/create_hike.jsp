@@ -257,7 +257,7 @@
                             <label for="regionInput" class="form-label">Region *</label>
                             <div class="dropdown">
                                 <select id="regionInput" name="regionInput" class="form-select" aria-label="region ID" required>
-                                    <option selected>Select region</option>
+                                    <option value="" selected>Select region</option>
                                     <option value="Albania">Albania</option>
                                     <option value="Andorra">Andorra</option>
                                     <option value="Austria-Vorarlberg">Austria-Vorarlberg</option>
@@ -601,7 +601,7 @@
                                     <label for="poiType" class="form-label">Type *</label>
                                     <div class="dropdown">
                                         <select id="poiType" name="poiType" class="form-select" aria-label="POI Type" required>
-                                            <option selected>Select type</option>
+                                            <option value="" selected>Select type</option>
                                             <option value="Hut">Hut</option>
                                             <option value="Refreshment Point">Refreshment Point</option>
                                             <option value="Viewpoint">Viewpoint</option>
