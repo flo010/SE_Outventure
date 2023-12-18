@@ -600,54 +600,70 @@ function initializeNewMap() {
 
     // Event listener to the button dynamically
     document.getElementById('showRouteButton').addEventListener('click', function () {
-        sendWaypointsToAPI();
+        const startCoords = waypoints[0];
+        const destCoords = waypoints[1];
+        sendWaypointsToAPI(startCoords, destCoords);
     });
 
-    function sendWaypointsToAPI() {
-        const waypointData = waypoints.map(function (waypoint) {
-            return [waypoint.lng, waypoint.lat];
-        });
-        console.log(waypointData)
+    function sendWaypointsToAPI(startCoords, destCoords) {
 
-        var payload = {
-            "coordinates": waypointData,
-            "elevation": "true",
-            "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
-        };
+        const apiKey = '5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c';
 
-        fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/json', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
-                'Content-Type': 'application/json',
-                'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png'
-            },
-            body: JSON.stringify(payload)
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('API Response:', data); // Log the entire response to the console
-                const polyline = require('@mapbox/polyline');
-                // Handle the API response, e.g., draw the route on the map
-                if (data.routes && data.routes.length > 0 && data.routes[0].geometry) {
-                    const routeCoordinates = polyline.decode(data.routes[0].geometry, 6);
 
-                    if (routeCoordinates.length > 0) {
-                        const route = L.polyline(routeCoordinates, { color: 'blue' }).addTo(newMap);
-                    } else {
-                        console.error('Route coordinates array is empty.');
-                    }
-                } else {
-                    console.error('Invalid or incomplete route data in the API response.');
-                }
+        axios.get('https://api.openrouteservice.org/v2/directions/foot-hiking?api_key=${apiKey}&start=${startCoords}&end=${destCoords}')
+            .then(response => {
+                const routeCoordinates = response.data.features[0].geometry.coordinates;
+                drawRoute(routeCoordinates, newMap);
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Error fetching route:', error);
             });
     }
 
+    function drawRoute(coordinates, map) {
+        const polyline = L.polyline(coordinates, {color: 'blue'}).addTo(map);
+        map.fitBounds(polyline.getBounds());
+    }
 
-    function drawRoute(routeData, map) {
+    /*var payload = {
+        "coordinates": waypointData,
+        "elevation": "true",
+        "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
+    };
+
+    fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/json', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png'
+        },
+        body: JSON.stringify(payload)
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('API Response:', data); // Log the entire response to the console
+            const polyline = require('@mapbox/polyline');
+            // Handle the API response, e.g., draw the route on the map
+            if (data.routes && data.routes.length > 0 && data.routes[0].geometry) {
+                const routeCoordinates = polyline.decode(data.routes[0].geometry, 6);
+
+                if (routeCoordinates.length > 0) {
+                    const route = L.polyline(routeCoordinates, { color: 'blue' }).addTo(newMap);
+                } else {
+                    console.error('Route coordinates array is empty.');
+                }
+            } else {
+                console.error('Invalid or incomplete route data in the API response.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}*/
+
+
+    /*function drawRoute(routeData, map) {
             // Extract coordinates from the routeData object
             if (routeData && routeData.coordinates) {
                 var coordinates = routeData.coordinates;
@@ -663,7 +679,7 @@ function initializeNewMap() {
                 console.error('Invalid route data');
             }
         }
-    }
+    }*/
 
 
     function initializeEditMap() {
@@ -971,4 +987,5 @@ function initializeNewMap() {
 
             reader.readAsText(file);
         }
+    }
 }
