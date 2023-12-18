@@ -879,6 +879,7 @@ function handleGpxFile(input) {
         const [file] = input.files;
         const splitFileType = file.name.split(".");
         const fileType = splitFileType[splitFileType.length - 1];
+        const fileName = file.name.split(".")[0];
 
         // Check if a file is present and check for its file type
         if (!file || fileType !== "gpx") {
@@ -953,6 +954,7 @@ function sendGpxToServer(fileName, gpxContent) {
         .catch(error => {
             console.error('Error sending GPX content to server:', error);
         });
+
 }
 
 function displayGpxOnMap(gpxContent) {
@@ -995,3 +997,4 @@ function clearMarkersAndRoute() {
         route = null;
     }
 }
+
