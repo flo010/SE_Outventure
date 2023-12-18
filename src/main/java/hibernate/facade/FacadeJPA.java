@@ -2,14 +2,17 @@ package hibernate.facade;
 
 import hibernate.broker.HikeBroker;
 import hibernate.broker.HikerBroker;
+import hibernate.broker.POIBroker;
 import hibernate.broker.PictureBroker;
+import hibernate.broker.gpxDataBroker;
 import hibernate.model.Hike;
 import hibernate.model.Hiker;
 import hibernate.model.Picture;
+import hibernate.model.PointOfInterest;
 
 import java.util.List;
 
-public class FacadeJPA implements Facade {
+public class FacadeJPA {
     private static FacadeJPA _instance;
 
     private FacadeJPA() {}
@@ -21,7 +24,6 @@ public class FacadeJPA implements Facade {
         return _instance;
     }
 
-    @Override
     public Object save(Object object) {
         if (object instanceof Hike) {
             HikeBroker hikeBroker = new HikeBroker();
@@ -36,7 +38,6 @@ public class FacadeJPA implements Facade {
         return null;
     }
 
-    @Override
     public void delete(Object object) {
         if (object instanceof Hike) {
             HikeBroker hikeBroker = new HikeBroker();
@@ -44,24 +45,24 @@ public class FacadeJPA implements Facade {
         } else if (object instanceof Picture) {
             PictureBroker pictureBroker = new PictureBroker();
             pictureBroker.delete((Picture) object);
+        } else if (object instanceof PointOfInterest) {
+            POIBroker poiBroker = new POIBroker();
+            poiBroker.delete((PointOfInterest) object);
         }
     }
 
-    @Override
     public Hike getHikeByIDLazy(int hikeID) {
         HikeBroker hikeBroker = new HikeBroker();
 
         return hikeBroker.getLazy(hikeID);
     }
 
-    @Override
     public Hike getHikeByIDEager(int hikeID) {
         HikeBroker hikeBroker = new HikeBroker();
 
         return hikeBroker.getEager(hikeID);
     }
 
-    @Override
     public List<Hike> getAllHikesLazy() {
         HikeBroker hikeBroker = new HikeBroker();
         List<Hike> hikes = null;
@@ -87,13 +88,28 @@ public class FacadeJPA implements Facade {
         return hikes;
     }
 
-    @Override
     public Picture getPictureByID(String pictureID) {
         PictureBroker pictureBroker = new PictureBroker();
 
         return pictureBroker.getLazy(pictureID);
     }
 
+    public PointOfInterest getPOIByID(int poiID) {
+        POIBroker poiBroker = new POIBroker();
+
+        return poiBroker.getLazy(poiID);
+    }
+
+    public List<PointOfInterest> getAllPOIs() {
+        POIBroker poiBroker = new POIBroker();
+
+        return poiBroker.getAll();
+    }
+
+    public void removePOIFromHike(int poiID, int hikeID) {
+        POIBroker poiBroker = new POIBroker();
+        poiBroker.removePOIFromHike(poiID, hikeID);
+    }
 
     public List<Hike> search(String title,int durationLow,int durationHigh, int strengthLow,
                              int strengthHigh, int staminaLow,int staminaHigh,
@@ -165,5 +181,10 @@ public class FacadeJPA implements Facade {
     public void removeCompletedHike(int hikeID, int hikerId, String timestamp) {
         HikerBroker hikerBroker = new HikerBroker();
         hikerBroker.removeCompletedHike(hikeID, hikerId, timestamp);
+    }
+
+    public void addGpxFile(String hike, String gpxContent){
+        gpxDataBroker gpxDataBroker = new gpxDataBroker();
+        gpxDataBroker.addGpxFile(hike,gpxContent);
     }
 }

@@ -5,10 +5,12 @@ import hibernate.model.Picture;
 import jakarta.servlet.http.Part;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import servlets.ImageServlet;
 
 import java.io.*;
 import java.util.UUID;
 
+import static org.hibernate.boot.archive.internal.ArchiveHelper.getBytesFromInputStream;
 import static processing.ImageProcessing.extractBytes;
 
 
@@ -50,7 +52,6 @@ class ImageProcessingTest {
             Mockito.when(mockPart.getHeader(Mockito.anyString())).thenReturn("image/jpeg"); // Change content type if needed
             Mockito.when(mockPart.getContentType()).thenReturn("image/jpeg"); // Change content type if needed
             Mockito.when(mockPart.getName()).thenReturn("file"); // Name of the input type for file upload
-
             byte[] test = extractBytes(mockPart);
             Picture picture = new Picture();
             picture.setPicture(test);
@@ -58,6 +59,53 @@ class ImageProcessingTest {
             PictureBroker p = new PictureBroker();
             p.save(picture);
         }
-    }
 
-}
+    }
+    @Test
+    void PictureInsert() throws IOException {
+        UUID predefinedUUIDs = UUID.randomUUID();
+        String imagePaths = "src/test/java/processing/2.jpg";
+
+
+
+            File file = new File(imagePaths);
+            FileInputStream fileInputStream = new FileInputStream(file);
+
+            // Create a MockPart and set necessary attributes
+            Part mockPart = Mockito.mock(Part.class);
+            Mockito.when(mockPart.getInputStream()).thenReturn(fileInputStream);
+            Mockito.when(mockPart.getSubmittedFileName()).thenReturn(file.getName());
+            Mockito.when(mockPart.getSize()).thenReturn(file.length());
+            Mockito.when(mockPart.getHeader(Mockito.anyString())).thenReturn("image/jpeg"); // Change content type if needed
+            Mockito.when(mockPart.getContentType()).thenReturn("image/jpeg"); // Change content type if needed
+            Mockito.when(mockPart.getName()).thenReturn("file"); // Name of the input type for file upload
+            byte[] test = extractBytes(mockPart);
+            System.out.println(test);
+            Picture picture = new Picture();
+            picture.setPicture(test);
+            picture.setPictureID(predefinedUUIDs.toString());
+            PictureBroker p = new PictureBroker();
+            p.save(picture);
+        }
+
+    @Test
+    void PictureInsertServletMethods() throws IOException {
+        UUID predefinedUUIDs = UUID.randomUUID();
+        String imagePaths = "src/test/java/processing/2.jpg";
+
+        File file = new File(imagePaths);
+        FileInputStream fileInputStream = new FileInputStream(file);
+
+        // Create a MockPart and set necessary attributes
+        Part mockPart = Mockito.mock(Part.class);
+        Mockito.when(mockPart.getInputStream()).thenReturn(fileInputStream);
+        Mockito.when(mockPart.getSubmittedFileName()).thenReturn(file.getName());
+        Mockito.when(mockPart.getSize()).thenReturn(file.length());
+        Mockito.when(mockPart.getHeader(Mockito.anyString())).thenReturn("image/jpeg"); // Change content type if needed
+        Mockito.when(mockPart.getContentType()).thenReturn("image/jpeg"); // Change content type if needed
+        Mockito.when(mockPart.getName()).thenReturn("file"); // Name of the input type for file upload
+        ImageServlet test1 = new ImageServlet();
+        byte[] test = test1.getBytesFromInputStream(fileInputStream);
+        test1.saveToDatabase(test);
+    }
+    }

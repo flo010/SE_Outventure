@@ -13,7 +13,7 @@
             <a class="text-decoration-none" style="color: black" href="../hike_detail?id=${hikeID}">
                 <div class="row">
                     <div class="col-md-3">
-                        <img class="cover-image" style="width: 180px; height: 100px" src="/api/image/${hikePicture}" alt="mountain picture">
+                        <img class="cover-image" style="width: 180px; height: 100px" src="/api/image/${hikePicture}" alt="hike picture">
                     </div>
                     <div class="col-md-9 d-flex flex-column align-items-center justify-content-center">
                         <h5 class="card-title text-truncate">${hikeTitle}</h5>
