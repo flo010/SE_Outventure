@@ -362,27 +362,25 @@ function editPointOfInterest(editButton) {
 // functions to save form input
 function saveInput(isEdit) {
     shouldPromptBeforeUnload = false;
-    if (!isEdit) {
-        let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
-        let allInputsFilled = true;
 
-        for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
-            if (!requiredInputs[i].value.trim()) {
-                allInputsFilled = false;
-            }
-        }
+    if (isEdit) {
+        document.getElementById("coverImageInput").required = false;
+    }
 
-        if (allInputsFilled) {
-            console.log("Image Saving");
-            const fileInput = document.getElementById('coverImageInput');
-            const file = fileInput.files[0];
-            document.getElementById("createHikeOverview").submit();
+    let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
+    let allInputsFilled = true;
 
+    for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
+        if (!requiredInputs[i].value.trim()) {
+            allInputsFilled = false;
         }
     }
-    else {
-        document.getElementById("coverImageInput").required = false;
-        console.log(document.getElementById("coverImageInput").required);
+
+    if (allInputsFilled && !isEdit) {
+        console.log("Image Saving");
+        const fileInput = document.getElementById('coverImageInput');
+        const file = fileInput.files[0];
+        document.getElementById("createHikeOverview").submit();
     }
 }
 
@@ -900,6 +898,7 @@ function handleGpxFile(input) {
 
             // Send the GPX content to the server
             sendGpxToServer(gpxContent);
+            displayGpxOnMap(gpxContent);
         };
 
         reader.readAsText(file);
@@ -955,4 +954,47 @@ function sendGpxToServer(fileName, gpxContent) {
         .catch(error => {
             console.error('Error sending GPX content to server:', error);
         });
+
 }
+
+function displayGpxOnMap(gpxContent) {
+
+    clearMarkersAndRoute();
+
+    const parser = new DOMParser();
+    const gpxDoc = parser.parseFromString(gpxContent, 'text/xml');
+
+    const trackPoints = $(gpxDoc).find('trkpt');
+
+    if (trackPoints.length > 0) {
+        // Extract the first and last track points
+        const startLat = parseFloat($(trackPoints[0]).attr('lat'));
+        const startLon = parseFloat($(trackPoints[0]).attr('lon'));
+
+        const endLat = parseFloat($(trackPoints[trackPoints.length - 1]).attr('lat'));
+        const endLon = parseFloat($(trackPoints[trackPoints.length - 1]).attr('lon'));
+
+        const startMarker = L.marker([startLat, startLon]).addTo(newMap);
+        const endMarker = L.marker([endLat, endLon]).addTo(newMap);
+
+        const route = L.polyline([[startLat, startLon], [endLat, endLon]]).addTo(newMap);
+    }
+}
+
+function clearMarkersAndRoute() {
+    if (startMarker) {
+        newMap.removeLayer(startMarker);
+        startMarker = null;
+    }
+
+    if (destinationMarker) {
+        newMap.removeLayer(destinationMarker);
+        destinationMarker = null;
+    }
+
+    if (route) {
+        newMap.removeLayer(route);
+        route = null;
+    }
+}
+
