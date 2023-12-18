@@ -311,6 +311,11 @@
                                     <option value="United Kingdom">United Kingdom</option>
                                     <option value="Vatican City">Vatican City</option>
                                 </select>
+                                <% if(hike != null){ %>
+                                <script>
+                                    document.getElementById('regionInput').value = '<%=hike.getRegion().getRegion()%>';
+                                </script>
+                                <% } %>
                             </div>
                         </div>
                         <div class="input-fields-group">
