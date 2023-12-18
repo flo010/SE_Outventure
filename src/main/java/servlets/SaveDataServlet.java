@@ -22,20 +22,18 @@ public class SaveDataServlet extends HttpServlet {
         boolean isEdit = Boolean.parseBoolean(request.getParameter("edit"));
 
         if (isEdit) {
-            saveToDatabase(request,response);
+            saveToDatabase(request,response, true);
 
             int hikeID = Integer.parseInt(request.getParameter("hikeID"));
             response.sendRedirect("hike_detail?id=" + hikeID + "&hikeEdited=true");
         }
         else {
-            saveToDatabase(request, response);
+            saveToDatabase(request, response, false);
             response.sendRedirect("/search_results?hikeCreated=true");
         }
     }
 
-    private void saveToDatabase(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println("latDest " + Double.parseDouble(request.getParameter("latitudeDestinationCoordinateInput")));
-
+    private void saveToDatabase(HttpServletRequest request, HttpServletResponse response, boolean isEdit) throws IOException {
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
         double distance = Double.parseDouble(request.getParameter("distanceInput"));
@@ -94,13 +92,19 @@ public class SaveDataServlet extends HttpServlet {
         String[] poiLongitudes = request.getParameterValues("poiLongitudeInput");
         String[] poiDescriptions = request.getParameterValues("poiDescriptionInput");
         String[] poiTypes = request.getParameterValues("poiTypeInput");
-        String pictureID = request.getParameter("hiddenImageId");
-        System.out.println("pictureID");
-        System.out.println(pictureID);
-        Hike hike = new Hike();
-        hike.setPreviewPicture(pictureID);
-        String hikeID = request.getParameter("hikeID");
 
+        Hike hike = new Hike();
+
+        if (isEdit) {
+            String pictureIDEdit = request.getParameter("pictureIDEdit");
+            hike.setPreviewPicture(pictureIDEdit);
+        }
+        else {
+            String pictureIDNew = request.getParameter("hiddenImageId");
+            hike.setPreviewPicture(pictureIDNew);
+        }
+
+        String hikeID = request.getParameter("hikeID");
         if (hikeID != null) {
             hike.setHikeID(Integer.parseInt(hikeID));
         }
