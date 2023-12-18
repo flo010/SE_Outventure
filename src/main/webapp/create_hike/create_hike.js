@@ -995,3 +995,7 @@ function clearMarkersAndRoute() {
         route = null;
     }
 }
+
+function clearStartDestInputs() {
+    document.getElementById('markerModalNameInput').value = '';
+}

@@ -687,7 +687,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="clearStartDestInputs()">Close</button>
                         <button type="button" id="markerModalSaveButton" class="btn btn-success">Save</button>
                     </div>
                 </div>
