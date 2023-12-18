@@ -4,6 +4,10 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="hibernate.facade.FacadeJPA" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="com.google.gson.Gson" %>
 <%--
   Created by IntelliJ IDEA.
   User: learo
@@ -257,7 +261,17 @@
                             </div>
 
                             <%
-                                for (PointOfInterest pointOfInterest: pointsOfInterest) {
+                                List<Map<String, Object>> poiDataList = new ArrayList<>();
+
+                                for (PointOfInterest pointOfInterest : pointsOfInterest) {
+                                    Map<String, Object> poiData = new HashMap<>();
+                                    poiData.put("poiName", pointOfInterest.getName());
+                                    poiData.put("poiType", pointOfInterest.getType());
+                                    poiData.put("poiDescription", pointOfInterest.getDescription());
+                                    poiData.put("poiLatitude", pointOfInterest.getLatitude());
+                                    poiData.put("poiLongitude", pointOfInterest.getLongitude());
+
+                                    poiDataList.add(poiData);
                             %>
                                     <div class="col">
                                         <outventure:card_poi
@@ -268,7 +282,13 @@
                                                 poiLongitude="<%=pointOfInterest.getLongitude()%>">
                                         </outventure:card_poi>
                                     </div>
-                            <%}%>
+                            <%
+                                }
+
+                                // Convert the poiDataList to JSON using Gson
+                                String poiDataListJson = new Gson().toJson(poiDataList);
+                            %>
+                            <div id="poiDataList" data-poi-data='<%= poiDataListJson %>'></div>
                         </div>
                     </div>
                 </div>

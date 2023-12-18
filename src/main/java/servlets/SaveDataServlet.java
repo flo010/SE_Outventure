@@ -128,7 +128,6 @@ public class SaveDataServlet extends HttpServlet {
         String[] poiLongitudes = request.getParameterValues("poiLongitudeInput");
         String[] poiDescriptions = request.getParameterValues("poiDescriptionInput");
         String[] poiTypes = request.getParameterValues("poiTypeInput");
-
         Hike hike = new Hike();
 
         if (isEdit) {

@@ -55,7 +55,7 @@ public class ImageServlet extends HttpServlet {
 
             InputStream is = filePart.getInputStream();
             byte[] compressedImageData = getBytesFromInputStream(is);
-            UUID id = saveToDatabase(compressedImageData);
+            String id = saveToDatabase(compressedImageData);
             System.out.println("Test picture");
 
 
