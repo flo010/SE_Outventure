@@ -315,13 +315,6 @@ function appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitud
     cardToEdit = cardToEdit.remove();
 }
 
-function openPoiModal() {
-    // JavaScript code to activate the modal
-    let pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
-
-    pointsOfInterestModal.show();
-}
-
 let cardToEdit;
 let poiIDArray = [];
 
@@ -362,7 +355,7 @@ function editPointOfInterest(editButton) {
 
     cardToEdit = card;
 
-    openPoiModal();
+    pointsOfInterestModal.show();
 }
 
 // functions to save form input
