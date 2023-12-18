@@ -26,7 +26,7 @@ public class SaveDataServlet extends HttpServlet {
 
         if (isEdit) {
             int pictureID = Integer.parseInt(request.getParameter("pictureID"));
-            saveToDatabase(request,response, pictureID);
+            saveToDatabase(request,response);
 
             int hikeID = Integer.parseInt(request.getParameter("hikeID"));
             response.sendRedirect("hike_detail?id=" + hikeID + "&hikeEdited=true");
