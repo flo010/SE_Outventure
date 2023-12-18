@@ -256,8 +256,13 @@
                         <div class="input-fields-group" style="width: 250px">
                             <label for="regionInput" class="form-label">Region *</label>
                             <div class="dropdown">
+                                <% if(hike != null){ %>
+                                <select id="regionInput" name="regionInput" class="form-select" aria-label="region ID" required>
+                                    <option value="selectedRegionEditHike" selected><%=hike.getRegion().getRegion()%></option>
+                                <% } else { %>
                                 <select id="regionInput" name="regionInput" class="form-select" aria-label="region ID" required>
                                     <option value="" selected>Select region</option>
+                                <% } %>
                                     <option value="Albania">Albania</option>
                                     <option value="Andorra">Andorra</option>
                                     <option value="Austria-Vorarlberg">Austria-Vorarlberg</option>
@@ -311,11 +316,6 @@
                                     <option value="United Kingdom">United Kingdom</option>
                                     <option value="Vatican City">Vatican City</option>
                                 </select>
-                                <% if(hike != null){ %>
-                                <script>
-                                    document.getElementById('regionInput').value = '<%=hike.getRegion().getRegion()%>';
-                                </script>
-                                <% } %>
                             </div>
                         </div>
                         <div class="input-fields-group">
