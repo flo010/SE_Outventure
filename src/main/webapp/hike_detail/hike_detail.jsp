@@ -69,12 +69,6 @@
                     if (hikerID != -1) {
                 %>
                 <div class="p-2 bd-highlight">
-                    <button type="button" class="btn btn-outline-warning" onclick="showAddCommentModel()">
-                        <i class="fa fa-comment-o"></i>
-                        Add Comment
-                    </button>
-                </div>
-                <div class="p-2 bd-highlight">
                     <button type="button" class="btn btn-outline-success" onclick="showHikeCompletedModal()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-check-square" viewBox="0 0 16 16">
                             <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"></path>
@@ -150,20 +144,34 @@
                 </div>
                 <div class="comment-container col-md-4 w-80">
                     <h3>Comments</h3>
-                    <% for (Comment comment : comments) {%>
-                    <div class="comment-box">
-                        <div style="display: flex;justify-content: space-between">
-                            <b style="font-size: small">@<%=comment.getHiker().getUsername()%></b>
-                            <small ><%=comment.getTimestamp()%></small>
+                    <div class="container-body">
+                        <%for (Comment comment : comments) {%>
+                        <div class="comment-box">
+                            <div style="display: flex;justify-content: space-between">
+                                <b style="font-size: small">@<%=comment.getHiker().getUsername()%></b>
+                                <small ><%=comment.getTimestamp()%></small>
+                            </div>
+                            <div class="mt-2">
+                                <p><%=comment.getCommentText()%></p>
+                            </div>
                         </div>
-                        <div class="mt-2">
-                            <p><%=comment.getCommentText()%></p>
-                        </div>
+                        <% } %>
                     </div>
+                    <%
+                        if (hikerID != -1) {
+                    %>
+                    <form id="commentForm" action="/comment?hikeID=<%=hike.getHikeID()%>&hikerID=<%=session.getAttribute("hikerID")%>" method="post">
+                        <div class="container-footer">
+                        <textarea class="text-form-control" id="commentInput" name="commentInput"
+                                  placeholder="Add Comment" maxlength="1000"></textarea>
+                            <button class="add-comment-button" type="submit">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </form>
                     <% } %>
                 </div>
             </div>
-
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="pills-overview-tab" data-bs-toggle="pill" data-bs-target="#pills-overview" type="button" role="tab" aria-controls="pills-overview" aria-selected="true">Overview</button>
@@ -342,29 +350,6 @@
                             </div>
                         </form>
                     </div>
-                </div>
-            </div>
-        </div>
-        <%-- add comment modal --%>
-        <div class="modal fade" id="addCommentModel" tabindex="-1" aria-labelledby="addCommentModell" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addCommentLabel">Add Comment</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form id="commentForm" action="/comment?hikeID=<%=hike.getHikeID()%>&hikerID=<%=session.getAttribute("hikerID")%>" method="post">
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <textarea class="form-control" id="commentInput" name="commentInput" rows="4"
-                                          placeholder="Comment" maxlength="1000"></textarea>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-danger me-2" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-success">Add</button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
