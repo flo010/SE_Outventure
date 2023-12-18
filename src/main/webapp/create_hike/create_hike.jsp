@@ -492,7 +492,8 @@
                                 </template>
                                 <div id="containerEditPOI">
                                     <%
-                                        if ((!pointsOfInterest.isEmpty()) && (pointsOfInterest != null)) {
+                                        if(pointsOfInterest != null) {
+                                            if(!pointsOfInterest.isEmpty()){
                                             for (PointOfInterest poi : pointsOfInterest) {
                                     %>
                                     <div class="pointOfInterest col-lg-6">
@@ -528,7 +529,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <% }} %>
+                                    <% }}} %>
                                 </div>
                             </div>
                             <!-- Add Points of Interest Button -->
