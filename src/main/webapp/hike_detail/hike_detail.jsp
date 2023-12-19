@@ -4,6 +4,7 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="hibernate.facade.FacadeJPA" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="hibernate.model.Comment" %>
 <%@ page import="hibernate.broker.HikerBroker" %>
 <%@ page import="hibernate.broker.HikeBroker" %>
@@ -197,8 +198,37 @@
                     <p><%=hike.getDescription()%></p>
                     <h3 class="mt-5">Map</h3>
                     <div id="map" class="map-hike-detail"></div>
-                </div>
+                    <h3 class="mt-5">Weather</h3>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row row-cols-4">
+                                        <%
+                                            ArrayList<ArrayList<String>> weatherList = (ArrayList<ArrayList<String>>) request.getAttribute("weatherList");
 
+                                            for (ArrayList<String> weatherInfo : weatherList) {
+                                                %>
+                                                    <div class="col">
+                                                        <div class="card">
+                                                            <div class="card-body d-flex flex-column align-items-center">
+                                                                <img src="<%= weatherInfo.get(1) %>" alt="weather icon">
+                                                                <div class="text-center">
+                                                                    <p class="m-0 fw-bold"><%= weatherInfo.get(0) %> °C</p>
+                                                                    <p class="m-0 form-text"><%= weatherInfo.get(2) %></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <%
+                                            }
+                                        %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="pills-details" role="tabpanel" aria-labelledby="pills-details-tab" tabindex="0">
                     <h3>Details</h3>
                     <table>
