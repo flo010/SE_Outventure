@@ -613,59 +613,114 @@ function initializeNewMap() {
         }
     });
 
-    // Event listener to the button dynamically
-    document.getElementById('showRouteButton').addEventListener('click', function () {
-        sendWaypointsToAPI();
-    });
+    newMap.on('contextmenu', function (event) {
+        // Get the coordinates of the right-clicked point
+        const clickedLatLng = event.latlng;
 
-    function sendWaypointsToAPI() {
-        const waypointData = waypoints.map(function (waypoint) {
-            return [waypoint.lng, waypoint.lat];
-        })
+        if (startMarker && destinationMarker) {
+            // Create a marker at the right-clicked point
+            const waypointMarker = L.marker(clickedLatLng, {draggable: true}).addTo(newMap);
 
-        const payload = {
-            "coordinates": waypointData,
-            "profile": "foot-hiking",
-            "format": "gpx",
-            "elevation": true,
-            "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
-        };
+            const destIndex = waypoints.findIndex(wp => wp === destinationMarker.getLatLng());
 
-        fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/gpx', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
-                'Content-Type': 'application/json',
-                'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png'
-            },
-            body: JSON.stringify(payload)
-        })
-            .then(response => response.text())
-            .then(gpxData => {
-                // Handle the GPX data, e.g., draw it on the map
-                drawRoute(gpxData, newMap);
-            })
-            .catch(error => {
-                console.error('Error:', error);
+            // Insert the waypoint marker before the destination marker in the waypoints array
+            waypoints.splice(destIndex, 0, waypointMarker.getLatLng());
+            updateRoute();
+
+            waypointMarker.on('dragend', function () {
+                updateWaypoint(waypointMarker);
             });
-    }
 
-    function drawRoute(gpxData, map) {
-        var gpxLayer = new L.GPX(gpxData, {async: true});
+            waypointMarker.on('click', function () {
+                removeWaypoint(waypointMarker);
 
-        gpxLayer.on('loaded', function (e) {
-            map.fitBounds(e.target.getBounds());
-        });
-        console.log(waypoints)
-        console.error('Invalid route data');
-        gpxLayer.addTo(map);
-        if (route) {
-            newMap.removeLayer(route);
-            route = null; // Reset the route
+                function removeWaypoint(waypointMarker) {
+                    // Remove the waypoint marker from the map
+                    newMap.removeLayer(waypointMarker);
+
+                    // Find the index of the waypoint marker in the waypoints array
+                    const index = waypoints.findIndex(wp => wp === waypointMarker.getLatLng());
+
+                    // Remove the waypoint from the waypoints array
+                    if (index !== -1) {
+                        waypoints.splice(index, 1);
+                    }
+                }
+
+            });
+
+            function updateWaypoint(waypointMarker) {
+                const index = waypoints.findIndex(wp => wp === waypointMarker.getLatLng());
+                if (index !== -1) {
+                    // Update the waypoint in the array with the new coordinates
+                    waypoints[index] = waypointMarker.getLatLng();
+
+                    // Update the route
+                    updateRoute();
+                }
+
+
+                }
+            }
+    function updateRoute() {
+        if (waypoints.length > 1) {
+            sendWaypointsToAPI(waypoints);
         }
     }
-}
+});
 
+        // Event listener to the button dynamically
+        document.getElementById('showRouteButton').addEventListener('click', function () {
+            sendWaypointsToAPI(waypoints);
+        });
+
+        function sendWaypointsToAPI(waypoints) {
+            const waypointData = waypoints.map(function (waypoint) {
+                return [waypoint.lng, waypoint.lat];
+            })
+
+            const payload = {
+                "coordinates": waypointData,
+                "profile": "foot-hiking",
+                "format": "gpx",
+                "elevation": true,
+                "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
+            };
+
+            fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/gpx', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png'
+                },
+                body: JSON.stringify(payload)
+            })
+                .then(response => response.text())
+                .then(gpxData => {
+                    // Handle the GPX data, e.g., draw it on the map
+                    drawRoute(gpxData, newMap);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function drawRoute(gpxData, map) {
+            var gpxLayer = new L.GPX(gpxData, {async: true});
+
+            gpxLayer.on('loaded', function (e) {
+                map.fitBounds(e.target.getBounds());
+            });
+            console.log(waypoints)
+            console.error('Invalid route data');
+            gpxLayer.addTo(map);
+            if (route) {
+                newMap.removeLayer(route);
+                route = null; // Reset the route
+            }
+        }
+    }
 
 
     function initializeEditMap() {
@@ -835,7 +890,7 @@ function initializeNewMap() {
 
     function updatePolyline(startMarker, destinationMarker, route) {
 
-    if (startMarker && destinationMarker && route) {
+        if (startMarker && destinationMarker && route) {
             // Update the polyline with the new coordinates
             route.setLatLngs([startMarker.getLatLng(), destinationMarker.getLatLng()]);
         }
@@ -974,4 +1029,4 @@ function initializeNewMap() {
 
             reader.readAsText(file);
         }
-}
+    }
