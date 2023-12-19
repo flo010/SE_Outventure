@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 @WebServlet(name = "hikeDetailServlet", value = "/hike_detail")
 public class HikeDetailServlet extends HttpServlet {
@@ -74,7 +75,7 @@ public class HikeDetailServlet extends HttpServlet {
             String iconPath = "https://openweathermap.org/img/wn/" + iconId + "@2x.png";
 
             Date date = new Date(listEntry.get("dt").getAsLong() * 1000L);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("E, MMM dd yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("E, MMM dd yyyy", Locale.ENGLISH);
             String formattedDate = dateFormat.format(date);
 
             ArrayList<String> weatherAttributes = new ArrayList<>();
