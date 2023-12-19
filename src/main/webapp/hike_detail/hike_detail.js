@@ -133,4 +133,3 @@ function showHikeCompletedModal() {
     document.getElementById('completionDate').value = "";
     hikeCompletedModal.show();
 }
-

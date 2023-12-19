@@ -5,6 +5,7 @@ import hibernate.broker.HikerBroker;
 import hibernate.broker.POIBroker;
 import hibernate.broker.PictureBroker;
 import hibernate.broker.gpxDataBroker;
+import hibernate.model.Comment;
 import hibernate.model.Hike;
 import hibernate.model.Hiker;
 import hibernate.model.Picture;
@@ -61,6 +62,11 @@ public class FacadeJPA {
         HikeBroker hikeBroker = new HikeBroker();
 
         return hikeBroker.getEager(hikeID);
+    }
+    public Hike getHikeCommentByIDEager(int hikeID) {
+        HikeBroker hikeBroker = new HikeBroker();
+
+        return hikeBroker.getEagerComment(hikeID);
     }
 
     public List<Hike> getAllHikesLazy() {
@@ -186,5 +192,10 @@ public class FacadeJPA {
     public void addGpxFile(String hike, String gpxContent){
         gpxDataBroker gpxDataBroker = new gpxDataBroker();
         gpxDataBroker.addGpxFile(hike,gpxContent);
+    }
+
+    public void addComment(int hikeID, int hikerID, String comment){
+        HikeBroker hikeBroker = new HikeBroker();
+        hikeBroker.addComment(hikeID, hikerID, comment);
     }
 }
