@@ -32,5 +32,4 @@ public class Picture {
     public void setPicture(byte[] picture) {
         _picture = picture;
     }
-
 }

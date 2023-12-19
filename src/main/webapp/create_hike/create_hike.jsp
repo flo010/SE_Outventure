@@ -1,4 +1,7 @@
 <%@ page import="hibernate.model.Hike" %>
+<%@ page import="hibernate.model.PointOfInterest" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
@@ -30,6 +33,8 @@
             int experience = 1;
             int landscape = 1;
 
+            List<PointOfInterest> pointsOfInterest = null;
+
             if (hike != null) {
                 double duration = hike.getDuration();
                 int hours = (int)duration;
@@ -42,6 +47,8 @@
                 stamina = hike.getStamina();;
                 experience = hike.getExperience();
                 landscape = hike.getLandscape();
+
+                pointsOfInterest = hike.getPointsOfInterest();
             }
         %>
 
@@ -77,7 +84,7 @@
                 <input type="hidden" id="hiddenEditInput" name="edit" value="true">
                 <input type="hidden" id="hiddenHikeIDInput" name="hikeID" value="<%= hike.getHikeID() %>">
                 <input type="hidden" id="hiddenMonthsInput" name="months" value="<%= Arrays.toString(hike.monthsAsArray()) %>">
-                <input type="hidden" id="hiddenPictureIDInput" name="pictureID" value="<%= hike.getPreviewPicture() %>">
+                <input type="hidden" id="hiddenPictureIDInput" name="pictureIDEdit" value="<%= hike.getPreviewPicture() %>">
                 <% } %>
                 <div class="tab-content mt-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
@@ -85,7 +92,7 @@
                             <label for="titleInput" class="form-label">Title *</label>
                             <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Title"
                                    <%
-                                if(hike != null){
+                                        if(hike != null){
                                     %>
                                     value="<%=hike.getTitle()%>"
                                    <% } %>
@@ -347,13 +354,13 @@
                             <div id="map" class="map-create-hike"></div>
                         </div>
                         <div>
-                            <button type="button" onclick="importGpxButton()" class="btn btn-outline-secondary">
+                            <button type="button" id="importGpxButton" class="btn btn-outline-secondary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16" style="vertical-align: text-top;">
                                     <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"></path>
                                 </svg>
                                 Import GPX
                             </button>
-                            <input type="file" onchange="handleGpxFile(this)" class="form-control" id="gpxInput" name="gpxInput" accept=".gpx" hidden>
+                            <input type="file" class="form-control" id="gpxInput" name="gpxInput" accept=".gpx" hidden>
                             <div class="invalid-feedback alert alert-danger mt-2">
                                 Invalid file type. Please provide a .gpx.
                             </div>
@@ -473,7 +480,7 @@
                                                              <i class="fa fa-pencil"></i>
                                                         </span>
                                                         <!-- delete button with bin icon -->
-                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this)">
+                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this, false)">
                                                              <i class="fa fa-trash"></i>
                                                         </span>
                                                     </div>
@@ -483,6 +490,47 @@
                                     </div>
                                     <div class="poiDivider w-100"></div>
                                 </template>
+                                <div id="containerEditPOI">
+                                    <%
+                                        if(pointsOfInterest != null) {
+                                            if(!pointsOfInterest.isEmpty()){
+                                            for (PointOfInterest poi : pointsOfInterest) {
+                                    %>
+                                    <div class="pointOfInterest col-lg-6">
+                                        <div class="card my-2">
+                                            <div class="card-body">
+                                                <input type="hidden" id="hiddenPoiID" value="<%= poi.getPoiID() %>">
+                                                <h4 class="poiEditHikeName card-title text-center"><%= poi.getName() %></h4>
+                                                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                                    <div>
+                                                        <p class="poiEditHikeType">
+                                                            <strong>Type: </strong>
+                                                            <%= poi.getType() %>
+                                                        </p>
+                                                        <%
+                                                            if ((poi.getDescription() != null) && (!poi.getDescription().isEmpty())) {
+                                                        %>
+                                                        <p class="poiEditHikeDescription text-break">
+                                                            <strong>Description: </strong>
+                                                            <%= poi.getDescription() %>
+                                                        </p>
+                                                        <% } %>
+                                                        <p class="poiEditHikeCoordinates">
+                                                            <strong>GPS Coordinates: </strong>
+                                                            <%=poi.getLatitude()%> N, <%=poi.getLongitude()%> E
+                                                        </p>
+                                                    </div>
+                                                    <div class="d-flex gap-2">
+                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this, true)">
+                                                             <i class="fa fa-trash"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }}} %>
+                                </div>
                             </div>
                             <!-- Add Points of Interest Button -->
                             <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pointsOfInterestModal">
@@ -700,4 +748,3 @@
         <script src="/tagJavaScript/navbar.js"></script>
     </body>
 </html>
-

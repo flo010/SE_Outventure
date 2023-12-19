@@ -1,10 +1,3 @@
-function showDeleteHikeModal() {
-    let deleteHikeModal = new bootstrap.Modal(document.getElementById('deleteHikeModal'), {
-        keyboard: false
-    });
-    deleteHikeModal.show();
-}
-
 // function to fill the circles
 document.addEventListener("DOMContentLoaded", function() {
     let circles = document.querySelectorAll('.fa.fa-circle-o');
@@ -70,23 +63,63 @@ function initializeMap() {
     start.bindPopup("<strong>Start: </strong>" + startName + "<br> <strong>Coordinates: </strong>" + startLatitude + " N, " + startLongitude + " E");
     start.bindTooltip("<strong>Start: </strong>" + startName);
 
-    let polyline = L.polyline([
+    let poiDataListElement = document.getElementById('poiDataList');
+    let poiDataListJson = poiDataListElement.getAttribute('data-poi-data');
+
+    let poiDataList = JSON.parse(poiDataListJson);
+
+    let poiIcon = L.Icon.extend({
+        options: {
+            iconSize:     [40, 40],
+            iconAnchor:   [20, 40],
+            popupAnchor:  [0, -48]
+        }
+    });
+
+    let hutIcon = new poiIcon({iconUrl: 'images/marker_images/hut.png'}),
+        refreshmentPointIcon = new poiIcon({iconUrl: 'images/marker_images/refreshment_point.png'}),
+        sightIcon = new poiIcon({iconUrl: 'images/marker_images/sight.jpg'}),
+        viewpointIcon = new poiIcon({iconUrl: 'images/marker_images/viewpoint.jpg'});
+
+    poiDataList.forEach(function (poiData) {
+        let poiName = poiData.poiName;
+        let poiType = poiData.poiType;
+        let poiLatitude = poiData.poiLatitude;
+        let poiLongitude = poiData.poiLongitude;
+
+        switch(poiType) {
+            case 'Hut':
+                let hutMarker = L.marker([poiLatitude, poiLongitude], {icon: hutIcon}).addTo(map);
+                console.log("hutMarker: " + hutMarker);
+                hutMarker.bindPopup("<strong>Hut Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                hutMarker.bindTooltip("<strong>Hut Name: </strong>" + poiName);
+                break;
+            case 'Refreshment Point':
+                let refreshmentPointMarker = L.marker([poiLatitude, poiLongitude], {icon: refreshmentPointIcon}).addTo(map);
+                console.log("RP marker: " + refreshmentPointMarker);
+                refreshmentPointMarker.bindPopup("<strong>Refreshment Point Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                refreshmentPointMarker.bindTooltip("<strong>Refreshment Point Name: </strong>" + poiName);
+                break;
+            case 'Viewpoint':
+                let viewpointMarker = L.marker([poiLatitude, poiLongitude], {icon: viewpointIcon}).addTo(map);
+                console.log("vp marker: " + viewpointMarker);
+                viewpointMarker.bindPopup("<strong>Viewpoint Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                viewpointMarker.bindTooltip("<strong>Viewpoint Name: </strong>" + poiName);
+                break;
+            case 'Sight':
+                let sightMarker = L.marker([poiLatitude, poiLongitude], {icon: sightIcon}).addTo(map);
+                console.log("sight marker: " + sightMarker);
+                sightMarker.bindPopup("<strong>Sight Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                sightMarker.bindTooltip("<strong>Sight Name: </strong>" + poiName);
+                break;
+        }
+    });
+
+    L.polyline([
         [startLatitude, startLongitude],
         [destinationLatitude, destinationLongitude]
     ]).addTo(map);
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    const checkSquareIcon = document.querySelector('.bi-check-square');
-
-    checkSquareIcon.addEventListener('click', function() {
-        if (checkSquareIcon.style.fill === 'green') {
-            checkSquareIcon.style.fill = 'currentColor';
-        } else {
-            checkSquareIcon.style.fill = 'green';
-        }
-    });
-});
 
 function updateFavorites(hikeID, hikerID) {
     window.location.href = '/favorite_hike?hikeID=' + hikeID + '&hikerID=' + hikerID + '&page=detail';
@@ -100,4 +133,3 @@ function showHikeCompletedModal() {
     document.getElementById('completionDate').value = "";
     hikeCompletedModal.show();
 }
-

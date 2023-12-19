@@ -63,7 +63,7 @@ public class Hike {
         return _previewPicture;
     }
     public void setPreviewPicture(String previewPicture) {
-        _previewPicture = (previewPicture);
+        _previewPicture = previewPicture;
     }
 
     @NotNull

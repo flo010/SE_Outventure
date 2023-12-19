@@ -1,5 +1,6 @@
 package hibernate.broker;
 
+import hibernate.model.Comment;
 import hibernate.model.Hike;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -34,6 +35,21 @@ public class HikeBroker extends BrokerBase<Hike> {
         return hike;
     }
 
+    public Hike getEagerComment(int hikeID) {
+        EntityManager entityManager = getEntityManager();
+        Query query = entityManager.createQuery(
+                "SELECT DISTINCT h FROM Hike h " +
+                        "LEFT JOIN FETCH h.comments c " +
+                        "LEFT JOIN FETCH c.hiker " +
+                        "WHERE h.hikeID = :hikeID"
+        );
+        query.setParameter("hikeID", hikeID);
+        Hike hike = (Hike) query.getSingleResult();
+        entityManager.close();
+        return hike;
+    }
+
+
     @Override
     public List<Hike> getAll() {
         EntityManager entityManager = null;
@@ -49,7 +65,6 @@ public class HikeBroker extends BrokerBase<Hike> {
             if (entityManager != null && entityManager.isOpen()) {
                 hikes = entityManager.createQuery("SELECT h FROM Hike h", Hike.class).getResultList();
             } else {
-                // Handle the situation when the EntityManager is closed
                 System.out.println("EntityManager is closed");
             }
         } catch (Exception e) {
@@ -266,6 +281,28 @@ public class HikeBroker extends BrokerBase<Hike> {
 
         return hikes;
     }
+
+    public void addComment(int hikeId, int hikerId, String comment) {
+        EntityManager entityManager = getEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNativeQuery("INSERT INTO comments (hike, hiker, comment_text) VALUES (?, ?, ?)");
+            query.setParameter(1, hikeId);
+            query.setParameter(2, hikerId);
+            query.setParameter(3,comment);
+            query.executeUpdate();
+
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+
 }
 
 

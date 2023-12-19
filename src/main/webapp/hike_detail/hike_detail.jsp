@@ -5,6 +5,9 @@
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="hibernate.facade.FacadeJPA" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="hibernate.model.Comment" %>
+<%@ page import="hibernate.broker.HikerBroker" %>
+<%@ page import="hibernate.broker.HikeBroker" %>
 <%--
   Created by IntelliJ IDEA.
   User: learo
@@ -49,7 +52,9 @@
             FacadeJPA facadeJPA = FacadeJPA.getInstance();
             int hikerID = (session.getAttribute("hikerID") != null) ? Integer.parseInt(session.getAttribute("hikerID").toString()) : -1;
             boolean isFavorite = hikerID != -1 && facadeJPA.isFavoriteHikeExists(hikerID, hike.getHikeID());
-        %>
+            Hike hikeWithComment = (Hike) request.getAttribute("hikeWithComment");
+            List<Comment> comments = hikeWithComment.getComments();
+            %>
 
         <div class="container-sm mt-5 mb-5">
             <div class="d-flex bd-highlight mb-3">
@@ -93,9 +98,12 @@
                 <%}%>
             </div>
 
+            <div class="row">
+
+                <div class="col-md-8">
             <h1 class="mb-3"><%=hike.getTitle()%></h1>
             <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
-            <div class="paragraph-container mt-3" style="width: 50%">
+            <div class="paragraph-container mt-3" style="width: 70%">
                 <span class="author">Author: <%= hike.getAuthor() %></span>
                 <span class="created-at">Created at: <%= formattedDate %></span>
             </div>
@@ -134,7 +142,37 @@
                     </div>
                 </div>
             </div>
-
+                </div>
+                <div class="comment-container col-md-4 w-80">
+                    <h3>Comments</h3>
+                    <div class="container-body">
+                        <%for (Comment comment : comments) {%>
+                        <div class="comment-box">
+                            <div style="display: flex;justify-content: space-between">
+                                <b style="font-size: small">@<%=comment.getHiker().getUsername()%></b>
+                                <small ><%=comment.getTimestamp()%></small>
+                            </div>
+                            <div class="mt-2">
+                                <p><%=comment.getCommentText()%></p>
+                            </div>
+                        </div>
+                        <% } %>
+                    </div>
+                    <%
+                        if (hikerID != -1) {
+                    %>
+                    <form id="commentForm" action="/comment?hikeID=<%=hike.getHikeID()%>&hikerID=<%=session.getAttribute("hikerID")%>" method="post">
+                        <div class="container-footer">
+                        <textarea class="text-form-control" id="commentInput" name="commentInput"
+                                  placeholder="Add Comment" maxlength="1000"></textarea>
+                            <button class="add-comment-button" type="submit">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <% } %>
+                </div>
+            </div>
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="pills-overview-tab" data-bs-toggle="pill" data-bs-target="#pills-overview" type="button" role="tab" aria-controls="pills-overview" aria-selected="true">Overview</button>
@@ -345,6 +383,7 @@
                 </div>
             </div>
         </div>
+
         <div id="mapData"
              start-latitude="<%= hike.getStart().getLatitude() %>"
              start-longitude="<%= hike.getStart().getLongitude() %>"

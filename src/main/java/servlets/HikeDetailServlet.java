@@ -35,12 +35,14 @@ public class HikeDetailServlet extends HttpServlet {
 
         FacadeJPA facadeJPA = FacadeJPA.getInstance();
         Hike hike = facadeJPA.getHikeByIDEager(hikeID);
+        Hike hikeWithComment = facadeJPA.getHikeCommentByIDEager(hikeID);
 
         request.setAttribute("hike", hike);
         request.setAttribute(
                 "weatherList",
                 getWeatherList(hike.getStart().getLatitude(), hike.getStart().getLongitude())
         );
+        request.setAttribute("hikeWithComment", hikeWithComment);
 
         try {
             request.getRequestDispatcher("/hike_detail/hike_detail.jsp").forward(request, response);
