@@ -606,7 +606,8 @@ function initializeNewMap() {
     function sendWaypointsToAPI(){
         const waypointData = waypoints.map(function (waypoint) {
             return [waypoint.lng, waypoint.lat];
-        });
+        })
+
         var payload = {
             "coordinates": waypointData,
             "elevation": "true",
@@ -633,24 +634,66 @@ function initializeNewMap() {
     }
 
     function drawRoute(routeData, map) {
+        console.log('API Response:', routeData);
+
         // Extract coordinates from the routeData object
-        if (routeData && routeData.coordinates) {
-            var coordinates = routeData.coordinates;
+        if (routeData && routeData.routes && routeData.routes.length > 0) {
+            var route = routeData.routes[0];
+            var coordinates = decodePolyline(route.geometry); // Decode the polyline
 
             // Create a polyline and add it to the existing map
             var polyline = L.polyline(coordinates, { color: 'blue' }).addTo(map);
 
             // Fit the map to the bounds of the polyline
             map.fitBounds(polyline.getBounds());
+
+            // Extract additional information if available
+            var extras = routeData.query.extra_info;
+            if (extras) {
+                console.log('Additional Information:', extras);
+                // You can customize how to display or use the additional information here
+                // For example, you can access steepness, suitability, surface, green, noise, etc.
+            }
         } else {
-            console.log(routeData)
             console.log(waypoints)
             console.error('Invalid route data');
         }
     }
 }
 
+// Function to decode the polyline string
+function decodePolyline(polyline) {
+    var coordinates = [];
+    var index = 0, len = polyline.length;
+    var lat = 0, lng = 0;
 
+    while (index < len) {
+        var shift = 0, result = 0;
+        do {
+            var byte = polyline.charCodeAt(index++) - 63;
+            result |= (byte & 0x1f) << shift;
+            shift += 5;
+        } while (byte >= 0x20);
+
+        var dlat = ((result & 1) ? ~(result >> 1) : (result >> 1));
+        lat += dlat;
+
+        shift = 0;
+        result = 0;
+        do {
+            var byte = polyline.charCodeAt(index++) - 63;
+            result |= (byte & 0x1f) << shift;
+            shift += 5;
+        } while (byte >= 0x20);
+
+        var dlng = ((result & 1) ? ~(result >> 1) : (result >> 1));
+        lng += dlng;
+
+        coordinates.push([lat / 1e5, lng / 1e5]);
+    }
+
+    return coordinates;
+}
 
     function initializeEditMap() {
         let startName = document.getElementById("startNameInput").value;
