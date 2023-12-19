@@ -5,6 +5,10 @@
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="hibernate.facade.FacadeJPA" %>
 <%@ page import="hibernate.model.Comment" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="com.google.gson.Gson" %>
 <%@ page import="hibernate.broker.HikerBroker" %>
 <%@ page import="hibernate.broker.HikeBroker" %>
 <%--
