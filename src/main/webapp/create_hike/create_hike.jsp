@@ -263,8 +263,13 @@
                         <div class="input-fields-group" style="width: 250px">
                             <label for="regionInput" class="form-label">Region *</label>
                             <div class="dropdown">
+                                <% if(hike != null){ %>
                                 <select id="regionInput" name="regionInput" class="form-select" aria-label="region ID" required>
-                                    <option selected>Select region</option>
+                                    <option value="selectedRegionEditHike" selected><%=hike.getRegion().getRegion()%></option>
+                                <% } else { %>
+                                <select id="regionInput" name="regionInput" class="form-select" aria-label="region ID" required>
+                                    <option value="" selected>Select region</option>
+                                <% } %>
                                     <option value="Albania">Albania</option>
                                     <option value="Andorra">Andorra</option>
                                     <option value="Austria-Vorarlberg">Austria-Vorarlberg</option>
@@ -649,7 +654,7 @@
                                     <label for="poiType" class="form-label">Type *</label>
                                     <div class="dropdown">
                                         <select id="poiType" name="poiType" class="form-select" aria-label="POI Type" required>
-                                            <option selected>Select type</option>
+                                            <option value="" selected>Select type</option>
                                             <option value="Hut">Hut</option>
                                             <option value="Refreshment Point">Refreshment Point</option>
                                             <option value="Viewpoint">Viewpoint</option>
@@ -735,7 +740,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="clearStartDestInputs()">Close</button>
                         <button type="button" id="markerModalSaveButton" class="btn btn-success">Save</button>
                     </div>
                 </div>

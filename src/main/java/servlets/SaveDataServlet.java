@@ -208,9 +208,8 @@ public class SaveDataServlet extends HttpServlet {
         hike.setDate(currentDate);
         hike.setVisible(true);
 
-        Region region = new Region();
-        region.setRegionID(1);
-        region.setRegion("Österreich - Vorarlberg");
+        String regionString = request.getParameter("regionInput");
+        Region region = facadeJPA.getRegionByName(regionString);
         hike.setRegion(region);
 
         facadeJPA.save(hike);

@@ -4,11 +4,13 @@ import hibernate.broker.HikeBroker;
 import hibernate.broker.HikerBroker;
 import hibernate.broker.POIBroker;
 import hibernate.broker.PictureBroker;
+import hibernate.broker.RegionBroker;
 import hibernate.broker.gpxDataBroker;
 import hibernate.model.Comment;
 import hibernate.model.Hike;
 import hibernate.model.Hiker;
 import hibernate.model.Picture;
+import hibernate.model.Region;
 import hibernate.model.PointOfInterest;
 
 import java.util.List;
@@ -187,6 +189,21 @@ public class FacadeJPA {
     public void removeCompletedHike(int hikeID, int hikerId, String timestamp) {
         HikerBroker hikerBroker = new HikerBroker();
         hikerBroker.removeCompletedHike(hikeID, hikerId, timestamp);
+    }
+
+    public Region getRegionByID(int regionID) {
+        RegionBroker regionBroker = new RegionBroker();
+        return regionBroker.getLazy(regionID);
+    }
+
+    public List<Region> getAllRegions() {
+        RegionBroker regionBroker = new RegionBroker();
+        return regionBroker.getAll();
+    }
+
+    public Region getRegionByName(String regionName) {
+        RegionBroker regionBroker = new RegionBroker();
+        return regionBroker.getByName(regionName);
     }
 
     public void addGpxFile(String hike, String gpxContent){
