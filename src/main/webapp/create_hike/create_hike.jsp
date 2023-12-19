@@ -694,7 +694,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="clearStartDestInputs()">Close</button>
                             <button type="button" class="btn btn-success" onclick="savePointOfInterest()">Save</button>
                         </div>
                     </div>
