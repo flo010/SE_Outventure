@@ -599,22 +599,24 @@ function initializeNewMap() {
     });
 
     // Event listener to the button dynamically
-    document.getElementById('showRouteButton').addEventListener('click', function() {
+    document.getElementById('showRouteButton').addEventListener('click', function () {
         sendWaypointsToAPI();
     });
 
-    function sendWaypointsToAPI(){
+    function sendWaypointsToAPI() {
         const waypointData = waypoints.map(function (waypoint) {
             return [waypoint.lng, waypoint.lat];
         })
 
-        var payload = {
+        const payload = {
             "coordinates": waypointData,
-            "elevation": "true",
+            "profile": "foot-hiking",
+            "format": "gpx",
+            "elevation": true,
             "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
         };
 
-        fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/json', {
+        fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/gpx', {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
@@ -623,77 +625,33 @@ function initializeNewMap() {
             },
             body: JSON.stringify(payload)
         })
-            .then(response => response.json())
-            .then(data => {
-                // Handle the API response, e.g., draw the route on the map
-                drawRoute(data,newMap);
+            .then(response => response.text())
+            .then(gpxData => {
+                // Handle the GPX data, e.g., draw it on the map
+                drawRoute(gpxData, newMap);
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     }
 
-    function drawRoute(routeData, map) {
-        console.log('API Response:', routeData);
+    function drawRoute(gpxData, map) {
+        var gpxLayer = new L.GPX(gpxData, {async: true});
 
-        // Extract coordinates from the routeData object
-        if (routeData && routeData.routes && routeData.routes.length > 0) {
-            var route = routeData.routes[0];
-            var coordinates = decodePolyline(route.geometry); // Decode the polyline
-
-            // Create a polyline and add it to the existing map
-            var polyline = L.polyline(coordinates, { color: 'blue' }).addTo(map);
-
-            // Fit the map to the bounds of the polyline
-            map.fitBounds(polyline.getBounds());
-
-            // Extract additional information if available
-            var extras = routeData.query.extra_info;
-            if (extras) {
-                console.log('Additional Information:', extras);
-                // You can customize how to display or use the additional information here
-                // For example, you can access steepness, suitability, surface, green, noise, etc.
-            }
-        } else {
-            console.log(waypoints)
-            console.error('Invalid route data');
+        gpxLayer.on('loaded', function (e) {
+            map.fitBounds(e.target.getBounds());
+        });
+        console.log(waypoints)
+        console.error('Invalid route data');
+        gpxLayer.addTo(map);
+        if (route) {
+            newMap.removeLayer(route);
+            route = null; // Reset the route
         }
     }
 }
 
-// Function to decode the polyline string
-function decodePolyline(polyline) {
-    var coordinates = [];
-    var index = 0, len = polyline.length;
-    var lat = 0, lng = 0;
 
-    while (index < len) {
-        var shift = 0, result = 0;
-        do {
-            var byte = polyline.charCodeAt(index++) - 63;
-            result |= (byte & 0x1f) << shift;
-            shift += 5;
-        } while (byte >= 0x20);
-
-        var dlat = ((result & 1) ? ~(result >> 1) : (result >> 1));
-        lat += dlat;
-
-        shift = 0;
-        result = 0;
-        do {
-            var byte = polyline.charCodeAt(index++) - 63;
-            result |= (byte & 0x1f) << shift;
-            shift += 5;
-        } while (byte >= 0x20);
-
-        var dlng = ((result & 1) ? ~(result >> 1) : (result >> 1));
-        lng += dlng;
-
-        coordinates.push([lat / 1e5, lng / 1e5]);
-    }
-
-    return coordinates;
-}
 
     function initializeEditMap() {
         let startName = document.getElementById("startNameInput").value;
