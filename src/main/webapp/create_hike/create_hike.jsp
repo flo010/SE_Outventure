@@ -275,8 +275,11 @@
                                 </div>
                             </div>
                             <div id="map" class="map-create-hike" onfocus="initializeMap()"></div>
+                            <%
+
+                            %>
                             <div>
-                                <button type="button" class="btn btn-outline-secondary" id="showRouteButton" style="margin-top: 10px">Show route</button>
+                                <button type="button" class="btn btn-outline-secondary" id="showRouteButton" style="margin-top: 10px; display: none">Show route</button>
                             </div>
                         </div>
                         <div>

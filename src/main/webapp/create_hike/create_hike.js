@@ -539,8 +539,12 @@ function initializeNewMap() {
 
                 startMarker.on('dragend', function () {
                     startMarker.getPopup().setContent(`<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E <br><br><button id="removeStartBtnNewMap" type="button" class="btn btn-danger btn-sm">Remove Start</button>`);
+                    if (route) {
+                        newMap.removeLayer(route);
+                    }
                     route = updatePolyline(startMarker, destinationMarker, route);
                     updateStart(startName, startMarker);
+                    waypoints[0] = startMarker.getLatLng();
                 });
 
                 // Add click event to the "Remove Marker" button
@@ -578,8 +582,12 @@ function initializeNewMap() {
 
                 destinationMarker.on('dragend', function () {
                     destinationMarker.getPopup().setContent(`<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E <br><br><button id="removeDestBtnNewMap" type="button" class="btn btn-danger btn-sm">Remove Destination</button>`);
+                    if (route) {
+                        newMap.removeLayer(route);
+                    }
                     route = updatePolyline(startMarker, destinationMarker, route);
                     updateDestination(destinationName, destinationMarker);
+                    waypoints[1] = destinationMarker.getLatLng();
                 });
 
                 destinationMarker.on('popupopen', function () {
@@ -595,6 +603,13 @@ function initializeNewMap() {
                     });
                 });
             });
+        }
+        if (areMarkersSet()) {
+            document.getElementById('showRouteButton').style.display = 'block';
+        }
+
+        function areMarkersSet() {
+            return startMarker && destinationMarker;
         }
     });
 
@@ -819,7 +834,8 @@ function initializeNewMap() {
     }
 
     function updatePolyline(startMarker, destinationMarker, route) {
-        if (startMarker && destinationMarker && route) {
+
+    if (startMarker && destinationMarker && route) {
             // Update the polyline with the new coordinates
             route.setLatLngs([startMarker.getLatLng(), destinationMarker.getLatLng()]);
         }
