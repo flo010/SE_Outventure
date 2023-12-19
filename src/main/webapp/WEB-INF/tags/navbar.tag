@@ -26,6 +26,11 @@
             <div class="flex-grow-1 d-flex ">
                 <form id="search-input" action="/search_results" method="get" class="form-inline form-search mx-auto">
                     <div class="input-group">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: white; color:black; width:80px">All</button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item">Region</a></li>
+                            <li><a class="dropdown-item">Point of Interests</a></li>
+                        </ul>
                         <input id="searchBar" name="search" type="search" class="form-control" placeholder="All hikes" value="<%= searchString %>" aria-label="Search" style="width: 700px"/>
                         <button class="btn btn-outline-success" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
