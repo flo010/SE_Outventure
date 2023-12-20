@@ -588,22 +588,7 @@ function initializeNewMap() {
             });
         }
     });
-    function clearMarkersAndRoute() {
-        if (startMarker) {
-            newMap.removeLayer(startMarker);
-            startMarker = null;
-        }
 
-        if (destinationMarker) {
-            newMap.removeLayer(destinationMarker);
-            destinationMarker = null;
-        }
-
-        if (route) {
-            newMap.removeLayer(route);
-            route = null;
-        }
-    }
 
     const importGpxButton = document.getElementById('importGpxButton');
 
@@ -618,8 +603,25 @@ function initializeNewMap() {
     const gpxInput = document.getElementById('gpxInput');
     // Add an event listener for the 'change' event
     gpxInput.addEventListener('change', function(event) {
-        // Call your existing handleGpxFile function and pass the input element
-        handleGpxFile(event.target);
+        var file = event.target.files[0];
+
+        if (file) {
+            // Create a FileReader to read the contents of the GPX file
+            var reader = new FileReader();
+
+            reader.onload = function (event) {
+                var gpxContent = event.target.result;
+
+                // Load GPX content and add it as a layer to the existing map
+                var gpxLayer = new L.GPX(gpxContent, {
+                    async: true,
+                }).on('loaded', function (e) {
+                    newMap.fitBounds(e.target.getBounds()); // Fit the map to the GPX bounds
+                }).addTo(newMap);
+            };
+            reader.readAsText(file); // Read the file as text
+        }
+        handleGpxFile(file)
     });
 
     function handleGpxFile(input) {
@@ -645,33 +647,8 @@ function initializeNewMap() {
 
                 // Send the GPX content to the server
                 sendGpxToServer(gpxContent);
-                displayGpxOnMap(gpxContent,clearMarkersAndRoute);
             };
             reader.readAsText(file);
-        }
-    }
-
-    function displayGpxOnMap(gpxContent,clearMarkersAndRoute) {
-
-        clearMarkersAndRoute(startMarker, destinationMarker, route);
-
-        const parser = new DOMParser();
-        const gpxDoc = parser.parseFromString(gpxContent, 'text/xml');
-
-        const trackPoints = $(gpxDoc).find('trkpt');
-
-        if (trackPoints.length > 0) {
-            // Extract the first and last track points
-            const startLat = parseFloat($(trackPoints[0]).attr('lat'));
-            const startLon = parseFloat($(trackPoints[0]).attr('lon'));
-
-            const endLat = parseFloat($(trackPoints[trackPoints.length - 1]).attr('lat'));
-            const endLon = parseFloat($(trackPoints[trackPoints.length - 1]).attr('lon'));
-
-            const startMarker = L.marker([startLat, startLon]).addTo(newMap);
-            const endMarker = L.marker([endLat, endLon]).addTo(newMap);
-
-            const route = L.polyline([[startLat, startLon], [endLat, endLon]]).addTo(newMap);
         }
     }
 }
@@ -955,40 +932,6 @@ function showToast(id) {
     toast.show();
 }
 
-// gpx functions
-function importGpxButton() {
-    document.getElementById("gpxInput").click();
-}
-
-function handleGpxFile(input) {
-    if (input) {
-        const [file] = input.files;
-        const splitFileType = file.name.split(".");
-        const fileType = splitFileType[splitFileType.length - 1];
-
-        // Check if a file is present and check for its file type
-        if (!file || fileType !== "gpx") {
-            input.classList.add("is-invalid");
-            return;
-        }
-
-        input.classList.remove("is-invalid");
-        autoFillStartDestination(file);
-
-        // Read the GPX content using FileReader
-        const reader = new FileReader();
-
-        reader.onload = function (e) {
-            const gpxContent = e.target.result;
-
-            // Send the GPX content to the server
-            sendGpxToServer(gpxContent);
-            displayGpxOnMap(gpxContent);
-        };
-
-        reader.readAsText(file);
-    }
-}
 
 function autoFillStartDestination(file) {
     const reader = new FileReader();
@@ -1022,14 +965,14 @@ function autoFillStartDestination(file) {
     reader.readAsText(file);
 }
 
-function sendGpxToServer(fileName, gpxContent) {
+function sendGpxToServer(gpxContent) {
     // Use fetch or XMLHttpRequest to send the GPX content to the server
     fetch('/save_data', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({fileName, gpxContent}),
+        body: JSON.stringify({gpxContent}),
     })
         .then(response => response.json())
         .then(data => {
@@ -1041,46 +984,7 @@ function sendGpxToServer(fileName, gpxContent) {
         });
 }
 
-function displayGpxOnMap(gpxContent) {
 
-    clearMarkersAndRoute();
-
-    const parser = new DOMParser();
-    const gpxDoc = parser.parseFromString(gpxContent, 'text/xml');
-
-    const trackPoints = $(gpxDoc).find('trkpt');
-
-    if (trackPoints.length > 0) {
-        // Extract the first and last track points
-        const startLat = parseFloat($(trackPoints[0]).attr('lat'));
-        const startLon = parseFloat($(trackPoints[0]).attr('lon'));
-
-        const endLat = parseFloat($(trackPoints[trackPoints.length - 1]).attr('lat'));
-        const endLon = parseFloat($(trackPoints[trackPoints.length - 1]).attr('lon'));
-
-        const startMarker = L.marker([startLat, startLon]).addTo(newMap);
-        const endMarker = L.marker([endLat, endLon]).addTo(newMap);
-
-        const route = L.polyline([[startLat, startLon], [endLat, endLon]]).addTo(newMap);
-    }
-}
-
-function clearMarkersAndRoute() {
-    if (startMarker) {
-        newMap.removeLayer(startMarker);
-        startMarker = null;
-    }
-
-    if (destinationMarker) {
-        newMap.removeLayer(destinationMarker);
-        destinationMarker = null;
-    }
-
-    if (route) {
-        newMap.removeLayer(route);
-        route = null;
-    }
-}
 
 function clearStartDestInputs() {
     document.getElementById('markerModalNameInput').value = '';
