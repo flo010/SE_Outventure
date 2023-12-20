@@ -41,7 +41,7 @@
                 <div>
                     <input class="but" id="monthSwitch" type="checkbox" />
                     <label class="simp" for="monthSwitch">
-                        Months
+                        months
                         <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="16"
