@@ -615,10 +615,10 @@ function initializeNewMap() {
 
     // Event listener to the button dynamically
     document.getElementById('showRouteButton').addEventListener('click', function () {
-        sendWaypointsToAPI();
+        sendWaypointsToAPI_route(); sendWaypointsToAPI();
     });
 
-    function sendWaypointsToAPI() {
+    function sendWaypointsToAPI_route() {
         const waypointData = waypoints.map(function (waypoint) {
             return [waypoint.lng, waypoint.lat];
         })
@@ -649,6 +649,60 @@ function initializeNewMap() {
                 console.error('Error:', error);
             });
     }
+
+
+    function sendWaypointsToAPI() {
+        const waypointData = waypoints.map(function (waypoint) {
+            return [waypoint.lng, waypoint.lat];
+        });
+
+        const payload = {
+            "coordinates": waypointData,
+            "profile": "foot-hiking",
+            "format": "geojson",
+            "elevation": true,
+            "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
+        };
+
+        fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/geojson', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png'
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Access the distance information from the API response
+                const distance = data.features[0].properties.segments[0].distance;
+                const distanceInKilometers = distance / 1000;
+
+                document.getElementById('distanceInput').value = distanceInKilometers.toFixed(2);
+
+
+                const duration = data.features[0].properties.segments[0].duration;
+                const durationInHours = Math.floor(duration / 3600);
+                const durationInMinutes = Math.floor((duration % 3600) / 60);
+
+                document.getElementById('hoursInput').value = durationInHours;
+                document.getElementById('minutesInput').value = durationInMinutes;
+
+
+                const elevations = data.features[0].geometry.coordinates.map(coord => coord[2]);
+                const altitudeDifference = elevations[elevations.length - 1] - elevations[0];
+
+                document.getElementById('altitudeInput').value = altitudeDifference.toFixed(2);
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+
+
 
     function drawRoute(gpxData, map) {
         var gpxLayer = new L.GPX(gpxData, {async: true});
