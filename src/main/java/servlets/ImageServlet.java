@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-import org.mockito.Mockito;
 
 import java.io.*;
 import java.util.UUID;
