@@ -17,3 +17,24 @@ function clearSearchString() {
 function logout() {
     document.getElementById('logoutForm').submit();
 }
+
+function changeSelectedItem(item) {
+    document.getElementById('selectedItem').innerText = item;
+
+    var searchBar = document.getElementById('searchBar');
+
+    switch (item) {
+        case 'All':
+            searchBar.placeholder = "All hikes";
+            break;
+        case 'Region':
+            searchBar.placeholder = "All regions";
+            break;
+        case 'POI':
+            searchBar.placeholder = " All Point of Interests";
+            break;
+        default:
+            searchBar.placeholder = "All hikes";
+            break;
+    }
+}
