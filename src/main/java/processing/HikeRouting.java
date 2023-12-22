@@ -27,7 +27,7 @@ public class HikeRouting {
 
         Entity<String> payload = Entity.json(jsonPayload);
 
-        Response response = client.target("https://api.openrouteservice.org/v2/directions/foot-hiking/json")
+        Response response = client.target("https://api.openrouteservice.org/v2/directions/foot-hiking/gpx")
                 .request()
                 .header("Authorization", "Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c") // Assuming it's a bearer token
                 .header("Accept", "application/json, application/geo+json, application/gpx+xml, img/png")

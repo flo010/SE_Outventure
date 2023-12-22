@@ -9,9 +9,9 @@
         <title>Create Hike Overview</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <%-- basic leaflet css and js --%>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.7.0/gpx.min.js"></script>
         <link href="/css/style.css" rel="stylesheet">
     </head>
     <body>
@@ -275,6 +275,9 @@
                                 </div>
                             </div>
                             <div id="map" class="map-create-hike" onfocus="initializeMap()"></div>
+                            <div>
+                                <button type="button" class="btn btn-outline-secondary" id="showRouteButton" style="margin-top: 10px; display: none">Show route</button>
+                            </div>
                         </div>
                         <div>
                             <button type="button" onclick="importGpxButton()" class="btn btn-outline-secondary">
