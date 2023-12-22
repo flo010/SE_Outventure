@@ -160,7 +160,16 @@
                     <h3 class="mt-5">Map</h3>
                     <div id="map" class="map-hike-detail"></div>
                 </div>
-
+                <br>
+                <div>
+                    <button type="button" onclick="exportGpxButton()" class="btn btn-outline-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-upside-down" viewBox="0 0 16 16" style="vertical-align: text-top;">
+                            <path fill-rule="evenodd" d="M8 1.5a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 1 1 .708-.708L7.5 13.293V2a.5.5 0 0 1 .5-.5z"/>
+                        </svg>
+                        Export GPX
+                    </button>
+                </div>
+                <div>
                 <div class="tab-pane fade" id="pills-details" role="tabpanel" aria-labelledby="pills-details-tab" tabindex="0">
                     <h3>Details</h3>
                     <table>
