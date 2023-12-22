@@ -1,12 +1,6 @@
 <%@ page import="hibernate.model.Hike" %>
 <%@ page import="hibernate.facade.FacadeJPA" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: Betül Kulac
-  Date: 03.12.23
-  Time: 14:11
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
@@ -35,7 +29,7 @@
                     <div class="right-box-header">
                         <h3>Your Created Hikes</h3>
                     </div>
-                    <div class="container mt-3">
+                    <div class="mt-3">
                         <% boolean is_visible = false;
                             for (Hike hike: hikeList) {
                             if(hike.isVisible()){
