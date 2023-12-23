@@ -622,24 +622,24 @@ function initializeNewMap() {
                 }).addTo(newMap);
             };
             reader.readAsText(file); // Read the file as text
+            handleGpxFile(gpxInput,file)
         }
-        handleGpxFile(file)
+
     });
 
-    function handleGpxFile(input) {
-        if (input) {
-            const [file] = input.files;
-            const splitFileType = file.name.split(".");
+    function handleGpxFile(input, gpxFile) {
+        if (gpxFile) {
+            const splitFileType = gpxFile.name.split(".");
             const fileType = splitFileType[splitFileType.length - 1];
 
             // Check if a file is present and check for its file type
-            if (!file || fileType !== "gpx") {
+            if (!gpxFile || fileType !== "gpx") {
                 input.classList.add("is-invalid");
                 return;
             }
 
             input.classList.remove("is-invalid");
-            autoFillStartDestination(file);
+            autoFillStartDestination(gpxFile);
 
             // Read the GPX content using FileReader
             const reader = new FileReader();
@@ -649,7 +649,7 @@ function initializeNewMap() {
 
                 sendGpxToServer(gpxContent);
             };
-            reader.readAsText(file);
+            reader.readAsText(gpxFile);
         }
     }
 }
