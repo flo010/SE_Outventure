@@ -2,10 +2,12 @@ package hibernate.facade;
 
 import hibernate.broker.HikeBroker;
 import hibernate.broker.HikerBroker;
+import hibernate.broker.POIBroker;
 import hibernate.broker.PictureBroker;
 import hibernate.model.Hike;
 import hibernate.model.Hiker;
 import hibernate.model.Picture;
+import hibernate.model.PointOfInterest;
 
 import java.util.List;
 
@@ -87,7 +89,22 @@ public class FacadeJPA {
 
         return pictureBroker.getLazy(pictureID);
     }
+    public PointOfInterest getPOIByID(int poiID) {
+        POIBroker poiBroker = new POIBroker();
 
+        return poiBroker.getLazy(poiID);
+    }
+
+    public List<PointOfInterest> getAllPOIs() {
+        POIBroker poiBroker = new POIBroker();
+
+        return poiBroker.getAll();
+    }
+
+    public void removePOIFromHike(int poiID, int hikeID) {
+        POIBroker poiBroker = new POIBroker();
+        poiBroker.removePOIFromHike(poiID, hikeID);
+    }
 
     public List<Hike> search(String title,int durationLow,int durationHigh, int strengthLow,
                              int strengthHigh, int staminaLow,int staminaHigh,
@@ -159,6 +176,11 @@ public class FacadeJPA {
     public void removeCompletedHike(int hikeID, int hikerId, String timestamp) {
         HikerBroker hikerBroker = new HikerBroker();
         hikerBroker.removeCompletedHike(hikeID, hikerId, timestamp);
+    }
+    public Hike getHikeCommentByIDEager(int hikeID) {
+        HikeBroker hikeBroker = new HikeBroker();
+
+        return hikeBroker.getEagerComment(hikeID);
     }
 
     public void addComment(int hikeID, int hikerID, String comment) {
