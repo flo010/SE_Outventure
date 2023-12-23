@@ -160,4 +160,9 @@ public class FacadeJPA {
         HikerBroker hikerBroker = new HikerBroker();
         hikerBroker.removeCompletedHike(hikeID, hikerId, timestamp);
     }
+
+    public void addComment(int hikeID, int hikerID, String comment) {
+        HikeBroker hikeBroker = new HikeBroker();
+        hikeBroker.addComment(hikeID, hikerID, comment);
+    }
 }
