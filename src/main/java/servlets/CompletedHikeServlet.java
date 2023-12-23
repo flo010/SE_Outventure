@@ -11,6 +11,7 @@ import java.io.IOException;
 
 @WebServlet(name = "completedHikeServlet", value = "/completed_hike")
 public class CompletedHikeServlet extends HttpServlet {
+    public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
     @Transactional
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -32,7 +33,6 @@ public class CompletedHikeServlet extends HttpServlet {
     }
 
     private void addCompleted(int hikerID, int hikeID, String timestamp) {
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
         facadeJPA.addCompletedHike(hikerID, hikeID, timestamp);
     }
 

@@ -11,6 +11,8 @@ import jakarta.servlet.annotation.*;
 
 @WebServlet(name = "searchResultsServlet", value = "/search_results")
 public class SearchResultsServlet extends HttpServlet {
+    public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
@@ -20,7 +22,6 @@ public class SearchResultsServlet extends HttpServlet {
         String hikeDeleted = request.getParameter("hikeDeleted");
         request.setAttribute("hikeDeleted", hikeDeleted);
 
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
         String searchString = request.getParameter("search");
 
         List<Hike> hikeList = null;
