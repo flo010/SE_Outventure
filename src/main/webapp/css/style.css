@@ -56,7 +56,7 @@ td, th {
 }
 
 .cover-image {
-    width: 500px;
+    width: 80%;
 }
 
 .fa.fa-circle-o {
@@ -94,7 +94,7 @@ td, th {
 }
 
 .cover-image {
-    width: 80%;
+    width: 50%;
 }
 
 .pointer {
@@ -144,6 +144,7 @@ legend {
 body {
     font-family: 'Cabin', sans-serif;
 }
+
 .comment-container {
     margin-top: 50px;
     max-height: 500px;

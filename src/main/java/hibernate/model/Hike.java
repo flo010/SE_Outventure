@@ -42,9 +42,8 @@ public class Hike {
     private String _author;
     private LocalDate _date;
     private boolean _visible;
-    private Region _region;
+    private int _region;
     private List<Comment> _comments;
-
     public Hike() {
     }
 
@@ -63,7 +62,7 @@ public class Hike {
         return _previewPicture;
     }
     public void setPreviewPicture(String previewPicture) {
-        _previewPicture = previewPicture;
+        _previewPicture = (previewPicture);
     }
 
     @NotNull
@@ -276,7 +275,7 @@ public class Hike {
         _destination = destination;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "poi_on_hike", joinColumns = @JoinColumn(name="hike"), inverseJoinColumns = @JoinColumn(name = "poi"))
     public List<PointOfInterest> getPointsOfInterest() {
         return _pointsOfInterest;
@@ -328,12 +327,11 @@ public class Hike {
     }
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "region")
-    public Region getRegion() {
+    @Column(name = "region")
+    public int getRegion() {
         return _region;
     }
-    public void setRegion(Region region) {
+    public void setRegion(int region) {
         _region = region;
     }
 
@@ -344,7 +342,6 @@ public class Hike {
     public void setComments(List<Comment> comments) {
         _comments = comments;
     }
-
     public boolean[] monthsAsArray() {
         boolean[] months = new boolean[12];
         months[0] = _january;

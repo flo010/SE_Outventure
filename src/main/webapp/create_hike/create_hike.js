@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let isEditing = document.getElementById("hiddenEditInput");
     if (isEditing) {
-        setTimeout(initializeEditMap, 2000);
+        setTimeout(initializeEditMap, 800);
     } else {
-        setTimeout(initializeNewMap, 2000);
+        setTimeout(initializeNewMap, 800);
     }
 });
 
@@ -214,7 +214,7 @@ function savePointOfInterest() {
     const poiType = document.getElementById("poiType").value;
 
     // Check if required fields are empty
-    if (!poiName || isNaN(poiLatitude) || isNaN(poiLongitude) || !poiType) {
+    if (!poiName || isNaN(poiLatitude) || isNaN(poiLongitude) || poiType === "Select type") {
         const errorMessage = document.getElementById('poiErrorMessage');
         errorMessage.style.display = 'block';
         return;
@@ -315,15 +315,16 @@ function appendNewPOI(poiName, poiType, poiDescription, poiLatitude, poiLongitud
     cardToEdit = cardToEdit.remove();
 }
 
+function openPoiModal() {
+    // JavaScript code to activate the modal
+    let pointsOfInterestModal = new bootstrap.Modal(document.getElementById("pointsOfInterestModal"));
+
+    pointsOfInterestModal.show();
+}
+
 let cardToEdit;
-let poiIDArray = [];
 
-function deletePointOfInterest(button, isEdit) {
-    if (isEdit) {
-        const poiID = document.getElementById("hiddenPoiID").value;
-        poiIDArray.push(poiID);
-    }
-
+function deletePointOfInterest(button) {
     // Get the parent card element and remove it
     const card = button.closest('.pointOfInterest');
     card.remove();
@@ -355,30 +356,33 @@ function editPointOfInterest(editButton) {
 
     cardToEdit = card;
 
-    pointsOfInterestModal.show();
+    openPoiModal();
 }
 
 // functions to save form input
 function saveInput(isEdit) {
     shouldPromptBeforeUnload = false;
+    if (!isEdit) {
+        let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
+        let allInputsFilled = true;
 
-    if (isEdit) {
-        document.getElementById("coverImageInput").required = false;
-    }
+        for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
+            if (!requiredInputs[i].value.trim()) {
+                allInputsFilled = false;
+            }
+        }
 
-    let requiredInputs = document.querySelectorAll("[required]:not(.exclude-from-validation)");
-    let allInputsFilled = true;
+        if (allInputsFilled) {
+            console.log("Image Saving");
+            const fileInput = document.getElementById('coverImageInput');
+            const file = fileInput.files[0];
+            document.getElementById("createHikeOverview").submit();
 
-    for (let i = 0; ((i < requiredInputs.length) && (allInputsFilled === true)); i += 1) {
-        if (!requiredInputs[i].value.trim()) {
-            allInputsFilled = false;
         }
     }
-
-    if (allInputsFilled && !isEdit) {
-        const fileInput = document.getElementById('coverImageInput');
-        const file = fileInput.files[0];
-        document.getElementById("createHikeOverview").submit();
+    else {
+        document.getElementById("coverImageInput").required = false;
+        console.log(document.getElementById("coverImageInput").required);
     }
 }
 
@@ -484,7 +488,7 @@ function confirmCancel() {
 
 function cancelProcess() {
     shouldPromptBeforeUnload = false;
-    window.location.href = "/profile_hike_list/profile_hike_list.jsp"
+    window.location.href = "/index/index.jsp";
 }
 
 // function to prompt
@@ -589,13 +593,13 @@ function initializeNewMap() {
         }
     });
 
-
     const importGpxButton = document.getElementById('importGpxButton');
 
     // Add an event listener for the 'click' event
     importGpxButton.addEventListener('click', function() {
         importGpx();
     });
+  
     function importGpx() {
         document.getElementById("gpxInput").click();
     }
@@ -653,8 +657,6 @@ function initializeNewMap() {
         }
     }
 }
-
-
 
 function initializeEditMap() {
     let startName = document.getElementById("startNameInput").value;
@@ -932,7 +934,6 @@ function showToast(id) {
     let toast = new bootstrap.Toast(document.getElementById(id));
     toast.show();
 }
-
 
 function autoFillStartDestination(file) {
     const reader = new FileReader();

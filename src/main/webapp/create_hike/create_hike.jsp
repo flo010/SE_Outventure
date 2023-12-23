@@ -1,7 +1,4 @@
 <%@ page import="hibernate.model.Hike" %>
-<%@ page import="hibernate.model.PointOfInterest" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
@@ -35,8 +32,6 @@
             int experience = 1;
             int landscape = 1;
 
-            List<PointOfInterest> pointsOfInterest = null;
-
             if (hike != null) {
                 double duration = hike.getDuration();
                 int hours = (int)duration;
@@ -49,8 +44,6 @@
                 stamina = hike.getStamina();;
                 experience = hike.getExperience();
                 landscape = hike.getLandscape();
-
-                pointsOfInterest = hike.getPointsOfInterest();
             }
         %>
 
@@ -86,7 +79,7 @@
                 <input type="hidden" id="hiddenEditInput" name="edit" value="true">
                 <input type="hidden" id="hiddenHikeIDInput" name="hikeID" value="<%= hike.getHikeID() %>">
                 <input type="hidden" id="hiddenMonthsInput" name="months" value="<%= Arrays.toString(hike.monthsAsArray()) %>">
-                <input type="hidden" id="hiddenPictureIDInput" name="pictureIDEdit" value="<%= hike.getPreviewPicture() %>">
+                <input type="hidden" id="hiddenPictureIDInput" name="pictureID" value="<%= hike.getPreviewPicture() %>">
                 <% } %>
                 <div class="tab-content mt-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
@@ -94,7 +87,7 @@
                             <label for="titleInput" class="form-label">Title *</label>
                             <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Title"
                                    <%
-                                        if(hike != null){
+                                if(hike != null){
                                     %>
                                     value="<%=hike.getTitle()%>"
                                    <% } %>
@@ -128,17 +121,7 @@
                             <div class="invalid-feedback alert alert-danger mt-2">
                                 Invalid file type. Please provide a .png or.jpg.
                             </div>
-                            <%
-                                if (hike == null) {
-                            %>
                             <img src="" id="previewCoverImage" width="250" alt="Hike Preview Image">
-                            <%
-                                } else {
-                            %>
-                            <img src="/api/image/<%=hike.getPreviewPicture()%>" id="previewCoverImage" width="250" alt="Hike Preview Image" style="display: block">
-                            <%
-                                }
-                            %>
                             <input type="hidden" id="hiddenImageId" name="hiddenImageId">
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
@@ -262,71 +245,6 @@
                                 Please enter a route description.
                             </div>
                         </div>
-                        <div class="input-fields-group" style="width: 250px">
-                            <label for="regionInput" class="form-label">Region *</label>
-                            <div class="dropdown">
-                                <% if(hike != null){ %>
-                                <select id="regionInput" name="regionInput" class="form-select" aria-label="region ID" required>
-                                    <option value="selectedRegionEditHike" selected><%=hike.getRegion().getRegion()%></option>
-                                <% } else { %>
-                                <select id="regionInput" name="regionInput" class="form-select" aria-label="region ID" required>
-                                    <option value="" selected>Select region</option>
-                                <% } %>
-                                    <option value="Albania">Albania</option>
-                                    <option value="Andorra">Andorra</option>
-                                    <option value="Austria-Vorarlberg">Austria-Vorarlberg</option>
-                                    <option value="Austria-Tirol">Austria-Tirol</option>
-                                    <option value="Austria-Salzburg">Austria-Salzburg</option>
-                                    <option value="Austria-Steiermark">Austria-Steiermark</option>
-                                    <option value="Austria-Kärnten">Austria-Kärnten</option>
-                                    <option value="Austria-Oberösterreich">Austria-Oberösterreich</option>
-                                    <option value="Austria-Niederösterreich">Austria-Niederösterreich</option>
-                                    <option value="Austria-Burgenland">Austria-Burgenland</option>
-                                    <option value="Austria-Wien">Austria-Wien</option>
-                                    <option value="Belgium">Belgium</option>
-                                    <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
-                                    <option value="Bulgaria">Bulgaria</option>
-                                    <option value="Croatia">Croatia</option>
-                                    <option value="Cyprus">Cyprus</option>
-                                    <option value="Czech Republic">Czech Republic</option>
-                                    <option value="Denmark">Denmark</option>
-                                    <option value="Estonia">Estonia</option>
-                                    <option value="Finland">Finland</option>
-                                    <option value="France">France</option>
-                                    <option value="Germany">Germany</option>
-                                    <option value="Greece">Greece</option>
-                                    <option value="Hungary">Hungary</option>
-                                    <option value="Iceland">Iceland</option>
-                                    <option value="Ireland">Ireland</option>
-                                    <option value="Italy">Italy</option>
-                                    <option value="Latvia">Latvia</option>
-                                    <option value="Liechtenstein">Liechtenstein</option>
-                                    <option value="Lithuania">Lithuania</option>
-                                    <option value="Luxembourg">Luxembourg</option>
-                                    <option value="Malta">Malta</option>
-                                    <option value="Moldova">Moldova</option>
-                                    <option value="Monaco">Monaco</option>
-                                    <option value="Montenegro">Montenegro</option>
-                                    <option value="Netherlands">Netherlands</option>
-                                    <option value="North Macedonia">North Macedonia</option>
-                                    <option value="Norway">Norway</option>
-                                    <option value="Poland">Poland</option>
-                                    <option value="Portugal">Portugal</option>
-                                    <option value="Romania">Romania</option>
-                                    <option value="San Marino">San Marino</option>
-                                    <option value="Serbia">Serbia</option>
-                                    <option value="Slovakia">Slovakia</option>
-                                    <option value="Slovenia">Slovenia</option>
-                                    <option value="Spain">Spain</option>
-                                    <option value="Sweden">Sweden</option>
-                                    <option value="Switzerland">Switzerland</option>
-                                    <option value="Türkiye">Türkiye</option>
-                                    <option value="Ukraine">Ukraine</option>
-                                    <option value="United Kingdom">United Kingdom</option>
-                                    <option value="Vatican City">Vatican City</option>
-                                </select>
-                            </div>
-                        </div>
                         <div class="input-fields-group">
                             <p class="form-label">Map</p>
                             <p>
@@ -358,16 +276,16 @@
                                     <p>That's it! With these steps, you can set your route, mark start and destination points, and customize the map to suit your needs.</p>
                                 </div>
                             </div>
-                            <div id="map" class="map-create-hike"></div>
+                            <div id="map" class="map-create-hike" onfocus="initializeMap()"></div>
                         </div>
                         <div>
-                            <button type="button" id="importGpxButton" class="btn btn-outline-secondary">
+                            <button type="button" onclick="importGpxButton()" class="btn btn-outline-secondary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16" style="vertical-align: text-top;">
                                     <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"></path>
                                 </svg>
                                 Import GPX
                             </button>
-                            <input type="file" class="form-control" id="gpxInput" name="gpxInput" accept=".gpx" hidden>
+                            <input type="file" onchange="handleGpxFile(this)" class="form-control" id="gpxInput" name="gpxInput" accept=".gpx" hidden>
                             <div class="invalid-feedback alert alert-danger mt-2">
                                 Invalid file type. Please provide a .gpx.
                             </div>
@@ -487,7 +405,7 @@
                                                              <i class="fa fa-pencil"></i>
                                                         </span>
                                                         <!-- delete button with bin icon -->
-                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this, false)">
+                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this)">
                                                              <i class="fa fa-trash"></i>
                                                         </span>
                                                     </div>
@@ -497,47 +415,6 @@
                                     </div>
                                     <div class="poiDivider w-100"></div>
                                 </template>
-                                <div id="containerEditPOI">
-                                    <%
-                                        if(pointsOfInterest != null) {
-                                            if(!pointsOfInterest.isEmpty()){
-                                            for (PointOfInterest poi : pointsOfInterest) {
-                                    %>
-                                    <div class="pointOfInterest col-lg-6">
-                                        <div class="card my-2">
-                                            <div class="card-body">
-                                                <input type="hidden" id="hiddenPoiID" value="<%= poi.getPoiID() %>">
-                                                <h4 class="poiEditHikeName card-title text-center"><%= poi.getName() %></h4>
-                                                <div class="d-flex justify-content-between align-items-center flex-wrap">
-                                                    <div>
-                                                        <p class="poiEditHikeType">
-                                                            <strong>Type: </strong>
-                                                            <%= poi.getType() %>
-                                                        </p>
-                                                        <%
-                                                            if ((poi.getDescription() != null) && (!poi.getDescription().isEmpty())) {
-                                                        %>
-                                                        <p class="poiEditHikeDescription text-break">
-                                                            <strong>Description: </strong>
-                                                            <%= poi.getDescription() %>
-                                                        </p>
-                                                        <% } %>
-                                                        <p class="poiEditHikeCoordinates">
-                                                            <strong>GPS Coordinates: </strong>
-                                                            <%=poi.getLatitude()%> N, <%=poi.getLongitude()%> E
-                                                        </p>
-                                                    </div>
-                                                    <div class="d-flex gap-2">
-                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this, true)">
-                                                             <i class="fa fa-trash"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <% }}} %>
-                                </div>
                             </div>
                             <!-- Add Points of Interest Button -->
                             <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pointsOfInterestModal">
@@ -656,7 +533,7 @@
                                     <label for="poiType" class="form-label">Type *</label>
                                     <div class="dropdown">
                                         <select id="poiType" name="poiType" class="form-select" aria-label="POI Type" required>
-                                            <option value="" selected>Select type</option>
+                                            <option selected>Select type</option>
                                             <option value="Hut">Hut</option>
                                             <option value="Refreshment Point">Refreshment Point</option>
                                             <option value="Viewpoint">Viewpoint</option>
@@ -696,7 +573,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="clearStartDestInputs()">Close</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                             <button type="button" class="btn btn-success" onclick="savePointOfInterest()">Save</button>
                         </div>
                     </div>
@@ -742,7 +619,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="clearStartDestInputs()">Close</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                         <button type="button" id="markerModalSaveButton" class="btn btn-success">Save</button>
                     </div>
                 </div>
@@ -755,3 +632,4 @@
         <script src="/tagJavaScript/navbar.js"></script>
     </body>
 </html>
+

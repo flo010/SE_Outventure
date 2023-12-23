@@ -1,6 +1,5 @@
 package hibernate.broker;
 
-import hibernate.model.Comment;
 import hibernate.model.Hike;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -27,28 +26,13 @@ public class HikeBroker extends BrokerBase<Hike> {
 
     public Hike getEager(int value) {
         EntityManager entityManager = getEntityManager();
-        Query query = entityManager.createQuery("SELECT DISTINCT h FROM Hike h LEFT JOIN FETCH h.pointsOfInterest LEFT JOIN FETCH h.region WHERE h.hikeID = :hikeID");
+        Query query = entityManager.createQuery("SELECT DISTINCT h FROM Hike h LEFT JOIN FETCH h.pointsOfInterest WHERE h.hikeID = :hikeID");
         query.setParameter("hikeID", value);
         Hike hike = (Hike) query.getSingleResult();
         entityManager.close();
 
         return hike;
     }
-
-    public Hike getEagerComment(int hikeID) {
-        EntityManager entityManager = getEntityManager();
-        Query query = entityManager.createQuery(
-                "SELECT DISTINCT h FROM Hike h " +
-                        "LEFT JOIN FETCH h.comments c " +
-                        "LEFT JOIN FETCH c.hiker " +
-                        "WHERE h.hikeID = :hikeID"
-        );
-        query.setParameter("hikeID", hikeID);
-        Hike hike = (Hike) query.getSingleResult();
-        entityManager.close();
-        return hike;
-    }
-
 
     @Override
     public List<Hike> getAll() {
@@ -65,6 +49,7 @@ public class HikeBroker extends BrokerBase<Hike> {
             if (entityManager != null && entityManager.isOpen()) {
                 hikes = entityManager.createQuery("SELECT h FROM Hike h", Hike.class).getResultList();
             } else {
+                // Handle the situation when the EntityManager is closed
                 System.out.println("EntityManager is closed");
             }
         } catch (Exception e) {
@@ -78,6 +63,21 @@ public class HikeBroker extends BrokerBase<Hike> {
 
         return hikes;
     }
+
+    public Hike getEagerComment(int hikeID) {
+        EntityManager entityManager = getEntityManager();
+        Query query = entityManager.createQuery(
+                "SELECT DISTINCT h FROM Hike h " +
+                        "LEFT JOIN FETCH h.comments c " +
+                        "LEFT JOIN FETCH c.hiker " +
+                        "WHERE h.hikeID = :hikeID"
+        );
+        query.setParameter("hikeID", hikeID);
+        Hike hike = (Hike) query.getSingleResult();
+        entityManager.close();
+        return hike;
+    }
+
     public List<Hike> getByAuthor(String author) {
         EntityManager entityManager = null;
         try {
@@ -302,7 +302,6 @@ public class HikeBroker extends BrokerBase<Hike> {
             entityManager.close();
         }
     }
-
 }
 
 

@@ -58,6 +58,8 @@ public class ImageServlet extends HttpServlet {
             UUID id = saveToDatabase(compressedImageData);
             System.out.println("Test picture");
 
+
+
             // Create a JSON object with the picture ID
             JSONObject jsonResponse = new JSONObject();
             jsonResponse.put("pictureID", id);

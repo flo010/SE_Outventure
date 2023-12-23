@@ -5,24 +5,24 @@
 <%@ attribute name="poiLatitude" required="true" type="java.lang.Double" %>
 <%@ attribute name="poiLongitude" required="true" type="java.lang.Double" %>
 
-<div class="card poi">
+<div class="card">
     <div class="card-body">
-        <h4 class="card-title text-center" id="poiName">${poiName}</h4>
+        <h4 class="card-title text-center">${poiName}</h4>
         <hr>
-        <p id="poiType">
+        <p>
             <strong> Type: </strong>${poiType}
         </p>
-        <%
-            if (poiDescription != null) {
-        %>
-        <p id="poiDescription">
-            <strong>Description: </strong>
-            ${poiDescription}
+        <p>
+            <%
+                if (poiDescription != null) {
+            %>
+                    <strong>Description: </strong>
+                    ${poiDescription}
+            <%
+                }
+            %>
         </p>
-        <%
-            }
-        %>
-        <p id="poiCoordinates">
+        <p>
             <strong>GPS Coordinates: </strong>
             ${poiLatitude} N, ${poiLongitude} E
         </p>

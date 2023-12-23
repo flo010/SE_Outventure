@@ -4,13 +4,9 @@ import hibernate.broker.HikeBroker;
 import hibernate.broker.HikerBroker;
 import hibernate.broker.POIBroker;
 import hibernate.broker.PictureBroker;
-import hibernate.broker.RegionBroker;
-import hibernate.broker.gpxDataBroker;
-import hibernate.model.Comment;
 import hibernate.model.Hike;
 import hibernate.model.Hiker;
 import hibernate.model.Picture;
-import hibernate.model.Region;
 import hibernate.model.PointOfInterest;
 
 import java.util.List;
@@ -48,9 +44,6 @@ public class FacadeJPA {
         } else if (object instanceof Picture) {
             PictureBroker pictureBroker = new PictureBroker();
             pictureBroker.delete((Picture) object);
-        } else if (object instanceof PointOfInterest) {
-            POIBroker poiBroker = new POIBroker();
-            poiBroker.delete((PointOfInterest) object);
         }
     }
 
@@ -64,11 +57,6 @@ public class FacadeJPA {
         HikeBroker hikeBroker = new HikeBroker();
 
         return hikeBroker.getEager(hikeID);
-    }
-    public Hike getHikeCommentByIDEager(int hikeID) {
-        HikeBroker hikeBroker = new HikeBroker();
-
-        return hikeBroker.getEagerComment(hikeID);
     }
 
     public List<Hike> getAllHikesLazy() {
@@ -101,7 +89,6 @@ public class FacadeJPA {
 
         return pictureBroker.getLazy(pictureID);
     }
-
     public PointOfInterest getPOIByID(int poiID) {
         POIBroker poiBroker = new POIBroker();
 
@@ -190,28 +177,13 @@ public class FacadeJPA {
         HikerBroker hikerBroker = new HikerBroker();
         hikerBroker.removeCompletedHike(hikeID, hikerId, timestamp);
     }
+    public Hike getHikeCommentByIDEager(int hikeID) {
+        HikeBroker hikeBroker = new HikeBroker();
 
-    public Region getRegionByID(int regionID) {
-        RegionBroker regionBroker = new RegionBroker();
-        return regionBroker.getLazy(regionID);
+        return hikeBroker.getEagerComment(hikeID);
     }
 
-    public List<Region> getAllRegions() {
-        RegionBroker regionBroker = new RegionBroker();
-        return regionBroker.getAll();
-    }
-
-    public Region getRegionByName(String regionName) {
-        RegionBroker regionBroker = new RegionBroker();
-        return regionBroker.getByName(regionName);
-    }
-
-    public void addGpxFile(String hike, String gpxContent){
-        gpxDataBroker gpxDataBroker = new gpxDataBroker();
-        gpxDataBroker.addGpxFile(hike,gpxContent);
-    }
-
-    public void addComment(int hikeID, int hikerID, String comment){
+    public void addComment(int hikeID, int hikerID, String comment) {
         HikeBroker hikeBroker = new HikeBroker();
         hikeBroker.addComment(hikeID, hikerID, comment);
     }

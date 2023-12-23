@@ -46,7 +46,6 @@ public class POIBroker extends BrokerBase<PointOfInterest> {
                 entityManager.close();
             }
         }
-
         return pointsOfInterest;
     }
 
