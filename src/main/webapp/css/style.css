@@ -8,7 +8,7 @@
 }
 
 .container-sm.mt-5.mb-5 .card.mb-5.mt-5 {
-    width: 50%;
+    width: 70%;
 }
 
 table {
@@ -56,7 +56,7 @@ td, th {
 }
 
 .cover-image {
-    width: 500px;
+    width: 80%;
 }
 
 .fa.fa-circle-o {
@@ -143,4 +143,67 @@ legend {
 
 body {
     font-family: 'Cabin', sans-serif;
+}
+
+.comment-container {
+    margin-top: 50px;
+    max-height: 500px;
+    background-color: whitesmoke;
+    border: 1px solid black;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+.container-body {
+    width: 100%;
+    height: 80%;
+    overflow-y: auto;
+}
+
+.comment-box {
+    width: 400px;
+    border: 1px solid black;
+    background-color: ghostwhite;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.container-body::-webkit-scrollbar {
+    width: 8px;
+}
+.container-body::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+.container-footer {
+    height: 100%;
+    width: 90%;
+}
+.container-footer {
+    border: 1px solid black;
+    height: 10%;
+    width: 400px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+.add-comment-button {
+    margin-right: 5px;
+    width: 35px;
+    height: 35px;
+    background-color: black;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+.text-form-control {
+    resize: none;
+    rows: 2;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 90%;
 }
