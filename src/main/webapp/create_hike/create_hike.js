@@ -592,6 +592,70 @@ function initializeNewMap() {
             });
         }
     });
+
+    const importGpxButton = document.getElementById('importGpxButton');
+
+    // Add an event listener for the 'click' event
+    importGpxButton.addEventListener('click', function() {
+        importGpx();
+    });
+  
+    function importGpx() {
+        document.getElementById("gpxInput").click();
+    }
+
+    const gpxInput = document.getElementById('gpxInput');
+    // Add an event listener for the 'change' event
+    gpxInput.addEventListener('change', function(event) {
+        var file = event.target.files[0];
+
+        if (file) {
+            autoFillStartDestination(file)
+
+            // Create a FileReader to read the contents of the GPX file
+            var reader = new FileReader();
+
+            reader.onload = function (event) {
+                var gpxContent = event.target.result;
+
+                // Load GPX content and add it as a layer to the existing map
+                var gpxLayer = new L.GPX(gpxContent, {
+                    async: true,
+                }).on('loaded', function (e) {
+                    newMap.fitBounds(e.target.getBounds()); // Fit the map to the GPX bounds
+                }).addTo(newMap);
+            };
+            reader.readAsText(file); // Read the file as text
+            handleGpxFile(gpxInput,file)
+        }
+
+    });
+
+    function handleGpxFile(input, gpxFile) {
+        if (gpxFile) {
+            const splitFileType = gpxFile.name.split(".");
+            const fileType = splitFileType[splitFileType.length - 1];
+
+            // Check if a file is present and check for its file type
+            if (!gpxFile || fileType !== "gpx") {
+                input.classList.add("is-invalid");
+                return;
+            }
+
+            input.classList.remove("is-invalid");
+            autoFillStartDestination(gpxFile);
+
+            // Read the GPX content using FileReader
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const gpxContent = e.target.result;
+
+                sendGpxToServer(gpxContent);
+            };
+            reader.readAsText(gpxFile);
+        }
+    }
 }
 
 function initializeEditMap() {
@@ -871,36 +935,59 @@ function showToast(id) {
     toast.show();
 }
 
-// gpx functions
-function importGpxButton() {
-    document.getElementById("gpxInput").click();
+function autoFillStartDestination(file) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        const gpxData = e.target.result;
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(gpxData, "text/xml");
+
+        const trackPoints = xmlDoc.querySelectorAll("rtept").length === 0 ? xmlDoc.querySelectorAll("trkpt") : xmlDoc.querySelectorAll("rtept");
+
+        if (trackPoints.length !== 0) {
+            const startPoint = trackPoints[0];
+            const startNameElement = startPoint.querySelector("name");
+            const startName = startNameElement ? startNameElement.textContent : "";
+
+            const destinationPoint = trackPoints[trackPoints.length - 1];
+            const destinationNameElement = destinationPoint.querySelector("name");
+            const destinationName = destinationNameElement ? destinationNameElement.textContent : "";
+
+            document.getElementById("startNameInput").value = startName;
+            document.getElementById("latitudeStartCoordinateInput").value = startPoint.getAttribute("lat");
+            document.getElementById("longitudeStartCoordinateInput").value = startPoint.getAttribute("lon");
+
+            document.getElementById("destinationNameInput").value = destinationName;
+            document.getElementById("latitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lat");
+            document.getElementById("longitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lon");
+        }
+    };
+
+    reader.readAsText(file);
 }
 
-function handleGpxFile(input) {
-    if (input) {
-        const [file] = input.files;
-        const splitFileType = file.name.split(".");
-        const fileType = splitFileType[splitFileType.length - 1];
+function sendGpxToServer(gpxContent) {
+    // Use fetch or XMLHttpRequest to send the GPX content to the server
+    fetch('/save_data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({gpxContent}),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response from server:', data);
+            // Optionally handle the response from the server
+        })
+        .catch(error => {
+            console.error('Error sending GPX content to server:', error);
+        });
+}
 
-        // Check if a file is present and check for its file type
-        if (!file || fileType !== "gpx") {
-            input.classList.add("is-invalid");
-            return;
-        }
 
-        input.classList.remove("is-invalid");
-        autoFillStartDestination(file);
 
-        // Read the GPX content using FileReader
-        const reader = new FileReader();
-
-        reader.onload = function (e) {
-            const gpxContent = e.target.result;
-
-            // Send the GPX content to the server
-            sendGpxToServer(gpxContent);
-        };
-
-        reader.readAsText(file);
-    }
+function clearStartDestInputs() {
+    document.getElementById('markerModalNameInput').value = '';
 }
