@@ -606,6 +606,8 @@ function initializeNewMap() {
         var file = event.target.files[0];
 
         if (file) {
+            autoFillStartDestination(file)
+
             // Create a FileReader to read the contents of the GPX file
             var reader = new FileReader();
 
@@ -645,7 +647,6 @@ function initializeNewMap() {
             reader.onload = function (e) {
                 const gpxContent = e.target.result;
 
-                // Send the GPX content to the server
                 sendGpxToServer(gpxContent);
             };
             reader.readAsText(file);
