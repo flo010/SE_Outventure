@@ -870,7 +870,7 @@ function initializeNewMap() {
     }
 
     document.getElementById('showRouteButton').addEventListener('click', function () {
-        sendWaypointsToAPI_route();
+        sendWaypointsToAPI_route(waypoints);
         sendWaypointsToAPI();
     });
 
@@ -898,12 +898,11 @@ function initializeNewMap() {
             reader.readAsText(file); // Read the file as text
             handleGpxFile(gpxInput, file)
         }
-
     });
 
 
 
-    function sendWaypointsToAPI_route() {
+    function sendWaypointsToAPI_route(waypoints) {
         const waypointData = waypoints.map(function (waypoint) {
             return [waypoint.lng, waypoint.lat];
         })
@@ -927,7 +926,6 @@ function initializeNewMap() {
         })
             .then(response => response.text())
             .then(gpxData => {
-                // Handle the GPX data, e.g., draw it on the map
                 drawRoute(gpxData, newMap);
             })
             .catch(error => {
@@ -994,13 +992,14 @@ function initializeNewMap() {
             map.fitBounds(e.target.getBounds());
         });
         console.log(waypoints)
-        console.error('Invalid route data');
         gpxLayer.addTo(map);
         if (route) {
             newMap.removeLayer(route);
             route = null; // Reset the route
+        } else {
+            console.error('Invalid route data');
         }
-    }
+}
 
     function autoFillStartDestination(file) {
         const reader = new FileReader();
