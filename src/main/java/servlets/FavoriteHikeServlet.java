@@ -11,6 +11,7 @@ import java.io.IOException;
 
 @WebServlet(name = "favoriteHikeServlet", value = "/favorite_hike")
 public class FavoriteHikeServlet extends HttpServlet {
+    public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
     @Transactional
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
@@ -33,7 +34,6 @@ public class FavoriteHikeServlet extends HttpServlet {
     }
 
     private void updateFavorites(int hikerID, int hikeID) {
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
         boolean isFavorite = facadeJPA.isFavoriteHikeExists(hikerID, hikeID);
 
         if (!isFavorite) {

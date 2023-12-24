@@ -16,6 +16,7 @@ import java.util.List;
 
 @WebServlet(name = "saveDataServlet", value = "/save_data")
 public class SaveDataServlet extends HttpServlet {
+    public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
     @Transactional
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
@@ -33,9 +34,13 @@ public class SaveDataServlet extends HttpServlet {
         }
     }
 
+<<<<<<< HEAD
     private void saveToDatabase(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("latDest " + Double.parseDouble(request.getParameter("latitudeDestinationCoordinateInput")));
 
+=======
+    private void saveToDatabase(HttpServletRequest request, HttpServletResponse response, boolean isEdit) throws IOException {
+>>>>>>> 22623c85128f39bda3c354891c420a7e9cddfd93
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
         double distance = Double.parseDouble(request.getParameter("distanceInput"));

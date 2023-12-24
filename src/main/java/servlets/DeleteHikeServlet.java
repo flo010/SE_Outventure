@@ -12,6 +12,7 @@ import java.io.IOException;
 
 @WebServlet(name = "deleteHikeServlet", value = "/delete_hike")
 public class DeleteHikeServlet extends HttpServlet {
+    public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
     @Transactional
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
@@ -26,7 +27,6 @@ public class DeleteHikeServlet extends HttpServlet {
     }
 
     private void setVisibleFalse(int hikeID) {
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
         Hike hike = facadeJPA.getHikeByIDLazy(hikeID);
 
         hike.setVisible(false);

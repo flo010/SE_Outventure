@@ -1,4 +1,9 @@
+<<<<<<< HEAD:src/test/java/MockListenerServlet.java
 /*
+=======
+package servlets;
+
+>>>>>>> 22623c85128f39bda3c354891c420a7e9cddfd93:src/main/java/servlets/MockListenerServlet.java
 import hibernate.facade.FacadeJPA;
 import hibernate.model.*;
 import jakarta.servlet.ServletContextEvent;
@@ -138,8 +143,20 @@ public class MockListenerServlet implements ServletContextListener {
             poi.setType("Hut");
             poi.setHikes(mockedHikes);
 
-            doNothing().when(mockedFacade).save(any(String.class));
+            CommentServlet.facadeJPA = mockedFacade;
+            CompletedHikeServlet.facadeJPA = mockedFacade;
+            CreateHikeServlet.facadeJPA = mockedFacade;
+            DeleteHikeServlet.facadeJPA = mockedFacade;
+            DeletePOIServlet.facadeJPA = mockedFacade;
+            FavoriteHikeServlet.facadeJPA = mockedFacade;
+            HikeDetailServlet.facadeJPA = mockedFacade;
+            ImageServlet.facadeJPA = mockedFacade;
+            LoginServlet.facadeJPA = mockedFacade;
+            SaveDataServlet.facadeJPA = mockedFacade;
+            SearchResultsServlet.facadeJPA = mockedFacade;
+            SearchServlet.facadeJPA = mockedFacade;
 
+            doNothing().when(mockedFacade).save(any(String.class));
             when(mockedFacade.getHikeByIDLazy(any(Integer.class))).thenReturn(mockedHike1);
             when(mockedFacade.getHikeByIDEager(any(Integer.class))).thenReturn(mockedHike1);
             when(mockedFacade.getHikeCommentByIDEager(any(Integer.class))).thenReturn(mockedHike1);

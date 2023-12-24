@@ -13,6 +13,7 @@ import java.io.IOException;
 
 @WebServlet(name = "createHikeServlet", value = "/create/hike")
 public class CreateHikeServlet extends HttpServlet {
+    public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
     @Transactional
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
@@ -20,13 +21,8 @@ public class CreateHikeServlet extends HttpServlet {
 
 
         if(hikeParameter != null) {
-
             int hikeID = Integer.parseInt(hikeParameter);
-
-
-            FacadeJPA facadeJPA = FacadeJPA.getInstance();
             Hike hike = facadeJPA.getHikeByIDEager(hikeID);
-
             request.setAttribute("hike", hike);
         }
 

@@ -22,7 +22,7 @@ import static processing.ImageProcessing.extractBytes;
 @WebServlet(name = "Image", value = "/api/image/*")
 @MultipartConfig
 public class ImageServlet extends HttpServlet {
-
+    public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Assuming you have the byte[] representation of your image
         UUID id = null;
@@ -31,7 +31,7 @@ public class ImageServlet extends HttpServlet {
         for (String s : pathInfo) {
             System.out.println(s);
         }
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
+
         if(pathInfo.length == 2){
             id=UUID.fromString(pathInfo[1]);
         }
