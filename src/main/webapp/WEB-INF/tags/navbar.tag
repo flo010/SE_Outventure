@@ -26,7 +26,15 @@
             <div class="flex-grow-1 d-flex ">
                 <form id="search-input" action="/search_results" method="get" class="form-inline form-search mx-auto">
                     <div class="input-group">
-                        <input id="searchBar" name="search" type="search" class="form-control" placeholder="All hikes" value="<%= searchString %>" aria-label="Search" style="width: 700px"/>
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style=" color:white; width:80px">
+                            <span id="selectedItem">All</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="changeSelectedItem('All')">All</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeSelectedItem('Region')">Region</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeSelectedItem('POI')">Point of Interests</a></li>
+                        </ul>
+                    <input id="searchBar" name="search" type="search" class="form-control" placeholder="All hikes" value="<%= searchString %>" aria-label="Search" style="width: 700px"/>
                         <button class="btn btn-outline-success" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"></path>
