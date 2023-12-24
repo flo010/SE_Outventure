@@ -260,7 +260,7 @@
                                                 <li>Start Point: Click on the map to set the start point.</li>
                                                 <li>Destination Point: Click on the map again to set the destination point.</li>
                                                 <li>Enter Names: After clicking on the map to place a marker, a modal appears in which you have to enter the name of the point.</li>
-                                                <li>The route appears automatically when two markers are set.</li>
+                                                <li>Show route: Click the show route button beneath the map, it will display you the exact route</li>
                                             </ul>
                                         </li>
                                         <li>
@@ -276,9 +276,10 @@
                             </div>
                             <div id="map" class="map-create-hike" onfocus="initializeMap()"></div>
                             <div>
-                                <button type="button" class="btn btn-outline-secondary" id="showRouteButton" style="margin-top: 10px; display: none">Show route</button>
+                                <button type="button" class="btn btn-outline-secondary" id="showRouteButton" style="margin-top: 10px; display:block">Show route</button>
                             </div>
                         </div>
+
                         <div>
                             <button type="button" onclick="importGpxButton()" class="btn btn-outline-secondary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16" style="vertical-align: text-top;">

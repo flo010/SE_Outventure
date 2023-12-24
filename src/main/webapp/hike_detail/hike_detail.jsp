@@ -339,7 +339,4 @@
         <script src="/tagJavaScript/navbar.js"></script>
         <script src="/globalJS/toasts.js"></script>
     </body>
-<script>
-    initializeNewMap();
-</script>
 </html>

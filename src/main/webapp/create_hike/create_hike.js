@@ -604,13 +604,13 @@ function initializeNewMap() {
                 });
             });
         }
-        if (areMarkersSet()) {
+        /*if (areMarkersSet()) {
             document.getElementById('showRouteButton').style.display = 'block';
-        }
+        }*/
 
-        function areMarkersSet() {
+       /* function areMarkersSet() {
             return startMarker && destinationMarker;
-        }
+        }*/
     });
 
     // Event listener to the button dynamically
