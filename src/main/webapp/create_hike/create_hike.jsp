@@ -1,5 +1,7 @@
 <%@ page import="hibernate.model.Hike" %>
-<%@ page import="java.util.Arrays" %>
+<%@ page import="hibernate.model.PointOfInterest" %>
+<%@ page import="com.google.gson.Gson" %>
+<%@ page import="java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
@@ -12,6 +14,9 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.7.0/gpx.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://unpkg.com/leaflet-gpx/gpx.js"></script>
+
         <link href="/css/style.css" rel="stylesheet">
     </head>
     <body>
@@ -30,6 +35,8 @@
             int experience = 1;
             int landscape = 1;
 
+            List<PointOfInterest> pointsOfInterest = null;
+
             if (hike != null) {
                 double duration = hike.getDuration();
                 int hours = (int)duration;
@@ -42,6 +49,8 @@
                 stamina = hike.getStamina();;
                 experience = hike.getExperience();
                 landscape = hike.getLandscape();
+
+                pointsOfInterest = hike.getPointsOfInterest();
             }
         %>
 
@@ -120,7 +129,7 @@
                                 Invalid file type. Please provide a .png or.jpg.
                             </div>
                             <img src="" id="previewCoverImage" width="250" alt="Hike Preview Image">
-                            <input type="hidden" id="hiddenImageId" name="hiddenField">
+                            <input type="hidden" id="hiddenImageId" name="hiddenImageId">
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
@@ -274,20 +283,18 @@
                                     <p>That's it! With these steps, you can set your route, mark start and destination points, and customize the map to suit your needs.</p>
                                 </div>
                             </div>
-                            <div id="map" class="map-create-hike" onfocus="initializeMap()"></div>
+                            <div id="map" class="map-create-hike"></div>
                             <div>
                                 <button type="button" class="btn btn-outline-secondary" id="showRouteButton" style="margin-top: 10px; display:block">Show route</button>
                             </div>
-                        </div>
-
                         <div>
-                            <button type="button" onclick="importGpxButton()" class="btn btn-outline-secondary">
+                            <button id="importGpxButton" type="button" class="btn btn-outline-secondary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16" style="vertical-align: text-top;">
                                     <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"></path>
                                 </svg>
                                 Import GPX
                             </button>
-                            <input type="file" onchange="handleGpxFile(this)" class="form-control" id="gpxInput" name="gpxInput" accept=".gpx" hidden>
+                            <input type="file" class="form-control" id="gpxInput" name="gpxInput" accept=".gpx" hidden>
                             <div class="invalid-feedback alert alert-danger mt-2">
                                 Invalid file type. Please provide a .gpx.
                             </div>
@@ -417,6 +424,60 @@
                                     </div>
                                     <div class="poiDivider w-100"></div>
                                 </template>
+                                <div id="containerEditPOI">
+                                    <%
+                                        List<Map<String, Object>> poiDataList = new ArrayList<>();
+
+                                        if (pointsOfInterest != null) {
+                                            for (PointOfInterest poi : pointsOfInterest) {
+                                                Map<String, Object> poiData = new HashMap<>();
+                                                poiData.put("poiName", poi.getName());
+                                                poiData.put("poiType", poi.getType());
+                                                poiData.put("poiDescription", poi.getDescription());
+                                                poiData.put("poiLatitude", poi.getLatitude());
+                                                poiData.put("poiLongitude", poi.getLongitude());
+
+                                                poiDataList.add(poiData);
+                                    %>
+                                    <div class="pointOfInterest col-lg-6">
+                                        <div class="card my-2">
+                                            <div class="card-body">
+                                                <input type="hidden" id="hiddenPoiID" value="<%= poi.getPoiID() %>">
+                                                <h4 class="poiEditHikeName card-title text-center"><%= poi.getName() %></h4>
+                                                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                                    <div>
+                                                        <p class="poiEditHikeType">
+                                                            <strong>Type: </strong>
+                                                            <%= poi.getType() %>
+                                                        </p>
+                                                        <%
+                                                            if ((poi.getDescription() != null) && (!poi.getDescription().isEmpty())) {
+                                                        %>
+                                                        <p class="poiEditHikeDescription text-break">
+                                                            <strong>Description: </strong>
+                                                            <%= poi.getDescription() %>
+                                                        </p>
+                                                        <% } %>
+                                                        <p class="poiEditHikeCoordinates">
+                                                            <strong>GPS Coordinates: </strong>
+                                                            <%=poi.getLatitude()%> N, <%=poi.getLongitude()%> E
+                                                        </p>
+                                                    </div>
+                                                    <div class="d-flex gap-2">
+                                                        <span class="input-group-text pointer" onclick="deletePointOfInterest(this, true)">
+                                                             <i class="fa fa-trash"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%
+                                        }}
+                                        String poiDataListJson = new Gson().toJson(poiDataList);
+                                    %>
+                                    <div id="poiDataList" data-poi-data='<%= poiDataListJson %>'></div>
+                                </div>
                             </div>
                             <!-- Add Points of Interest Button -->
                             <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pointsOfInterestModal">

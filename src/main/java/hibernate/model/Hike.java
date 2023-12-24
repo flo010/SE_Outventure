@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "hikes")
@@ -41,8 +42,8 @@ public class Hike {
     private String _author;
     private LocalDate _date;
     private boolean _visible;
-    private String _region;
-
+    private int _region;
+    private List<Comment> _comments;
     public Hike() {
     }
 
@@ -61,7 +62,7 @@ public class Hike {
         return _previewPicture;
     }
     public void setPreviewPicture(String previewPicture) {
-        _previewPicture = previewPicture;
+        _previewPicture = (previewPicture);
     }
 
     @NotNull
@@ -327,13 +328,20 @@ public class Hike {
 
     @NotNull
     @Column(name = "region")
-    public String getRegion() {
+    public int getRegion() {
         return _region;
     }
-    public void setRegion(String region) {
+    public void setRegion(int region) {
         _region = region;
     }
 
+    @OneToMany(mappedBy = "hike")
+    public List<Comment> getComments() {
+        return _comments;
+    }
+    public void setComments(List<Comment> comments) {
+        _comments = comments;
+    }
     public boolean[] monthsAsArray() {
         boolean[] months = new boolean[12];
         months[0] = _january;

@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let isEditing = document.getElementById("hiddenEditInput");
     if (isEditing) {
-        initializeEditMap();
+        setTimeout(initializeEditMap, 1500);
     } else {
-        initializeNewMap();
+        setTimeout(initializeNewMap, 1500);
     }
 });
 
@@ -373,17 +373,11 @@ function saveInput(isEdit) {
         }
 
         if (allInputsFilled) {
+            console.log("Image Saving");
             const fileInput = document.getElementById('coverImageInput');
             const file = fileInput.files[0];
+            document.getElementById("createHikeOverview").submit();
 
-            if (file) {
-                uploadImageToServer(file);
-                document.getElementById("createHikeOverview").submit();
-            } else {
-                // Handle case when no file is selected
-                console.error('No file selected');
-                alert('Please select a file.');
-            }
         }
     }
     else {
@@ -407,6 +401,7 @@ function uploadImageToServer(file) {
             console.log(data); // Log the server response
             const hiddenInput = document.getElementById('hiddenImageId');
             hiddenInput.value = data.pictureID;
+            alert(data.pictureID);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -429,6 +424,7 @@ function previewImage(inputId, previewId) {
                 // Display the preview
                 preview.src = URL.createObjectURL(file);
                 preview.style.display = "block";
+                uploadImageToServer(file);
             } else {
                 input.classList.add("is-invalid");
                 preview.style.display = "none";
@@ -605,6 +601,71 @@ function initializeNewMap() {
             });
         }
     });
+
+    const importGpxButton = document.getElementById('importGpxButton');
+
+    // Add an event listener for the 'click' event
+    importGpxButton.addEventListener('click', function() {
+        importGpx();
+    });
+  
+    function importGpx() {
+        document.getElementById("gpxInput").click();
+    }
+
+    const gpxInput = document.getElementById('gpxInput');
+    // Add an event listener for the 'change' event
+    gpxInput.addEventListener('change', function(event) {
+        var file = event.target.files[0];
+
+        if (file) {
+            autoFillStartDestination(file)
+
+            // Create a FileReader to read the contents of the GPX file
+            var reader = new FileReader();
+
+            reader.onload = function (event) {
+                var gpxContent = event.target.result;
+
+                // Load GPX content and add it as a layer to the existing map
+                var gpxLayer = new L.GPX(gpxContent, {
+                    async: true,
+                }).on('loaded', function (e) {
+                    newMap.fitBounds(e.target.getBounds()); // Fit the map to the GPX bounds
+                }).addTo(newMap);
+            };
+            reader.readAsText(file); // Read the file as text
+            handleGpxFile(gpxInput,file)
+        }
+
+    });
+
+    function handleGpxFile(input, gpxFile) {
+        if (gpxFile) {
+            const splitFileType = gpxFile.name.split(".");
+            const fileType = splitFileType[splitFileType.length - 1];
+
+            // Check if a file is present and check for its file type
+            if (!gpxFile || fileType !== "gpx") {
+                input.classList.add("is-invalid");
+                return;
+            }
+
+            input.classList.remove("is-invalid");
+            autoFillStartDestination(gpxFile);
+
+            // Read the GPX content using FileReader
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const gpxContent = e.target.result;
+
+                sendGpxToServer(gpxContent);
+            };
+            reader.readAsText(gpxFile);
+        }
+    }
+}
 
     // Event listener to the button dynamically
     document.getElementById('showRouteButton').addEventListener('click', function () {
@@ -876,18 +937,73 @@ function initializeNewMap() {
                         };
                     });
                 });
-            }
-        });
-    }
-
-    function updatePolyline(startMarker, destinationMarker, route) {
-
-    if (startMarker && destinationMarker && route) {
-            // Update the polyline with the new coordinates
-            route.setLatLngs([startMarker.getLatLng(), destinationMarker.getLatLng()]);
+            });
         }
-        return route;
+    });
+
+    let poiDataListElement = document.getElementById('poiDataList');
+    let poiDataListJson = poiDataListElement.getAttribute('data-poi-data');
+
+    let poiDataList = JSON.parse(poiDataListJson);
+
+    let poiIcon = L.Icon.extend({
+        options: {
+            iconSize:     [40, 40],
+            iconAnchor:   [20, 40],
+            popupAnchor:  [0, -48]
+        }
+    });
+
+    let hutIcon = new poiIcon({iconUrl: 'images/marker_images/hut.png'}),
+        refreshmentPointIcon = new poiIcon({iconUrl: 'images/marker_images/refreshment_point.png'}),
+        sightIcon = new poiIcon({iconUrl: 'images/marker_images/sight.jpg'}),
+        viewpointIcon = new poiIcon({iconUrl: 'images/marker_images/viewpoint.jpg'});
+
+    poiDataList.forEach(function (poiData) {
+        let poiName = poiData.poiName;
+        let poiType = poiData.poiType;
+        let poiLatitude = poiData.poiLatitude;
+        let poiLongitude = poiData.poiLongitude;
+
+        switch (poiType) {
+            case 'Hut':
+                let hutMarker = L.marker([poiLatitude, poiLongitude], {icon: hutIcon}).addTo(editMap);
+                console.log("hutMarker: " + hutMarker);
+                hutMarker.bindPopup("<strong>Hut Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                hutMarker.bindTooltip("<strong>Hut Name: </strong>" + poiName);
+                break;
+            case 'Refreshment Point':
+                let refreshmentPointMarker = L.marker([poiLatitude, poiLongitude], {icon: refreshmentPointIcon}).addTo(editMap);
+                console.log("RP marker: " + refreshmentPointMarker);
+                refreshmentPointMarker.bindPopup("<strong>Refreshment Point Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                refreshmentPointMarker.bindTooltip("<strong>Refreshment Point Name: </strong>" + poiName);
+                break;
+            case 'Viewpoint':
+                let viewpointMarker = L.marker([poiLatitude, poiLongitude], {icon: viewpointIcon}).addTo(editMap);
+                console.log("vp marker: " + viewpointMarker);
+                viewpointMarker.bindPopup("<strong>Viewpoint Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                viewpointMarker.bindTooltip("<strong>Viewpoint Name: </strong>" + poiName);
+                break;
+            case 'Sight':
+                let sightMarker = L.marker([poiLatitude, poiLongitude], {icon: sightIcon}).addTo(editMap);
+                console.log("sight marker: " + sightMarker);
+                sightMarker.bindPopup("<strong>Sight Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                sightMarker.bindTooltip("<strong>Sight Name: </strong>" + poiName);
+                break;
+        }
+    });
+}
+
+    
+
+function updatePolyline(startMarker, destinationMarker, route) {
+    if (startMarker && destinationMarker && route) {
+        // Update the polyline with the new coordinates
+        route.setLatLngs([startMarker.getLatLng(), destinationMarker.getLatLng()]);
     }
+    return route;
+}
+
 
 
     function updateStart(startName, startMarker) {
@@ -1021,4 +1137,60 @@ function initializeNewMap() {
 
             reader.readAsText(file);
         }
+
+function autoFillStartDestination(file) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        const gpxData = e.target.result;
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(gpxData, "text/xml");
+
+        const trackPoints = xmlDoc.querySelectorAll("rtept").length === 0 ? xmlDoc.querySelectorAll("trkpt") : xmlDoc.querySelectorAll("rtept");
+
+        if (trackPoints.length !== 0) {
+            const startPoint = trackPoints[0];
+            const startNameElement = startPoint.querySelector("name");
+            const startName = startNameElement ? startNameElement.textContent : "";
+
+            const destinationPoint = trackPoints[trackPoints.length - 1];
+            const destinationNameElement = destinationPoint.querySelector("name");
+            const destinationName = destinationNameElement ? destinationNameElement.textContent : "";
+
+            document.getElementById("startNameInput").value = startName;
+            document.getElementById("latitudeStartCoordinateInput").value = startPoint.getAttribute("lat");
+            document.getElementById("longitudeStartCoordinateInput").value = startPoint.getAttribute("lon");
+
+            document.getElementById("destinationNameInput").value = destinationName;
+            document.getElementById("latitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lat");
+            document.getElementById("longitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lon");
+        }
+    };
+
+    reader.readAsText(file);
+}
+
+function sendGpxToServer(gpxContent) {
+    // Use fetch or XMLHttpRequest to send the GPX content to the server
+    fetch('/save_data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({gpxContent}),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response from server:', data);
+            // Optionally handle the response from the server
+        })
+        .catch(error => {
+            console.error('Error sending GPX content to server:', error);
+        });
+}
+
+
+
+function clearStartDestInputs() {
+    document.getElementById('markerModalNameInput').value = '';
 }
