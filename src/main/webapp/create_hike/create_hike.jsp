@@ -425,7 +425,7 @@
                                     <%
                                         List<Map<String, Object>> poiDataList = new ArrayList<>();
 
-                                        if ((!pointsOfInterest.isEmpty()) && (pointsOfInterest != null)) {
+                                        if (pointsOfInterest != null) {
                                             for (PointOfInterest poi : pointsOfInterest) {
                                                 Map<String, Object> poiData = new HashMap<>();
                                                 poiData.put("poiName", poi.getName());
