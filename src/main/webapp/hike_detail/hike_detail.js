@@ -42,6 +42,8 @@ document.addEventListener("DOMContentLoaded", function (){
 });
 
 function initializeMap() {
+    let waypoints = [];
+
     let mapData = document.getElementById('mapData');
     let startName = mapData.getAttribute('start-name');
     let startLatitude = parseFloat(mapData.getAttribute('start-latitude'));
@@ -49,6 +51,7 @@ function initializeMap() {
     let destinationName = mapData.getAttribute('destination-name');
     let destinationLatitude = parseFloat(mapData.getAttribute('destination-latitude'));
     let destinationLongitude = parseFloat(mapData.getAttribute('destination-longitude'));
+
 
     // leaflet methods to initialize the map so that entire hike is always visible
     let startBound = L.latLng(startLatitude, startLongitude);
@@ -63,12 +66,15 @@ function initializeMap() {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    let destination = L.marker([destinationLatitude, destinationLongitude]).addTo(map);
-    destination.bindPopup("<strong>Destination: </strong>" + destinationName + "<br> <strong>Coordinates: </strong>" + destinationLatitude + " N, " + destinationLongitude + " E");
-    destination.bindTooltip("<strong>Destination: </strong>" + destinationName)
     let start = L.marker([startLatitude, startLongitude]).addTo(map);
+    waypoints.push(start.getLatLng())
     start.bindPopup("<strong>Start: </strong>" + startName + "<br> <strong>Coordinates: </strong>" + startLatitude + " N, " + startLongitude + " E");
     start.bindTooltip("<strong>Start: </strong>" + startName);
+
+    let destination = L.marker([destinationLatitude, destinationLongitude]).addTo(map);
+    waypoints.push(destination.getLatLng())
+    destination.bindPopup("<strong>Destination: </strong>" + destinationName + "<br> <strong>Coordinates: </strong>" + destinationLatitude + " N, " + destinationLongitude + " E");
+    destination.bindTooltip("<strong>Destination: </strong>" + destinationName)
 
     let poiDataListElement = document.getElementById('poiDataList');
     let poiDataListJson = poiDataListElement.getAttribute('data-poi-data');
@@ -122,10 +128,58 @@ function initializeMap() {
         }
     });
 
-    L.polyline([
+    sendWaypointsToAPI_route(waypoints);
+
+   /* L.polyline([
         [startLatitude, startLongitude],
         [destinationLatitude, destinationLongitude]
-    ]).addTo(map);
+    ]).addTo(map);*/
+
+    function sendWaypointsToAPI_route(waypoints) {
+        const waypointData = waypoints.map(function (waypoint) {
+            return [waypoint.lng, waypoint.lat];
+        })
+
+        const payload = {
+            "coordinates": waypointData,
+            "profile": "foot-hiking",
+            "format": "gpx",
+            "elevation": true,
+            "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
+        };
+
+        fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/gpx', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png'
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(response => response.text())
+            .then(gpxData => {
+                drawRoute(gpxData, map);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+    function drawRoute(gpxData, map) {
+        var gpxLayer = new L.GPX(gpxData, {async: true});
+
+        gpxLayer.on('loaded', function (e) {
+            map.fitBounds(e.target.getBounds());
+        });
+        console.log(waypoints)
+        gpxLayer.addTo(map);
+        if (route) {
+            map.removeLayer(route);
+            route = null; // Reset the route
+        } else {
+            console.error('Invalid route data');
+        }
+    }
 }
 
 function updateFavorites(hikeID, hikerID) {
