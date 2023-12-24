@@ -175,6 +175,51 @@ function initializeMap() {
             console.error('Invalid route data');
         }
     }
+
+    const exportButton = document.getElementById('exportButton');
+    exportButton.addEventListener('click', exportGPX);
+// JavaScript-Funktion ändern
+    let cachedGPXData = createGPX();
+    function exportGPX() {
+        console.log('waypoint:', waypoints);
+
+// Create a Blob with the GPX data
+        const gpxData = createGPX();
+        console.log('Generated GPX data:', gpxData);
+        // Create a Blob with the GPX data
+        const blob = new Blob([cachedGPXData], {type: 'application/gpx+xml'});
+
+        // Create a link for downloading the GPX file
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'waypoints.gpx';
+        link.click();
+    }
+
+    function createGPX() {
+        return '<?xml version="1.0" encoding="UTF-8" standalone="no" ?>' +
+            '<gpx version="1.1" creator="Outventure">' +
+            '<trk>' +
+            '<name>A hike created with Outventure!</name>' +
+            '<trkseg>' +
+            waypoints.map(function (waypoint) {
+                return '<trkpt lat="' + waypoint.lat + '" lon="' + waypoint.lng + '">' +
+                    '<name>' + waypoint.name + '</name>' +
+                    '<type>' + waypoint.type + '</type>' +
+                    '<desc>' + waypoint.description + '</desc>' +
+                    '</trkpt>' +
+                    '<wpt lat="' + waypoint.lat + '" lon="' + waypoint.lng + '">' +
+                    '<name>' + waypoint.name + '</name>' +
+                    '<type>' + waypoint.type + '</type>' +
+                    '<desc>' + waypoint.description + '</desc>' +
+                    '</wpt>';
+            }).join('') +
+            '</trkseg>' +
+            '</trk>' +
+            '</gpx>';
+    }
+
+
 }
 
 function updateFavorites(hikeID, hikerID) {
