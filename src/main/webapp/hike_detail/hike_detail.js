@@ -130,11 +130,6 @@ function initializeMap() {
 
     sendWaypointsToAPI_route(waypoints);
 
-   /* L.polyline([
-        [startLatitude, startLongitude],
-        [destinationLatitude, destinationLongitude]
-    ]).addTo(map);*/
-
     function sendWaypointsToAPI_route(waypoints) {
         const waypointData = waypoints.map(function (waypoint) {
             return [waypoint.lng, waypoint.lat];
