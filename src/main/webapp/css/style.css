@@ -56,7 +56,7 @@ td, th {
 }
 
 .cover-image {
-    width: 80%;
+    width: 100%;
 }
 
 .fa.fa-circle-o {
@@ -201,7 +201,6 @@ body {
 }
 .text-form-control {
     resize: none;
-    rows: 2;
     background-color: transparent;
     border: none;
     outline: none;

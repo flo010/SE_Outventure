@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="hibernate.model.Hike" %>
+<%@ page import="hibernate.facade.FacadeJPA" %>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
 <!DOCTYPE html>
@@ -140,6 +141,11 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
                 <%
                     List<Hike> hikeList = (List<Hike>) session.getAttribute("hikeList");
+
+                    if ((hikeList == null) || (hikeList.isEmpty())) {
+                        FacadeJPA facadeJPA = FacadeJPA.getInstance();
+                        hikeList = facadeJPA.getAllHikesLazy();
+                    }
 
                     for (Hike hike : hikeList) {
                         if (hike.isVisible()){
