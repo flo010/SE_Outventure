@@ -974,9 +974,9 @@ function initializeNewMap() {
 
 
                 const elevations = data.features[0].geometry.coordinates.map(coord => coord[2]);
-                const altitudeDifference = elevations[elevations.length - 1] - elevations[0];
+                const altitudeDifference = Math.round(elevations[elevations.length - 1] - elevations[0]);
 
-                document.getElementById('altitudeInput').value = altitudeDifference.toFixed(2);
+                document.getElementById('altitudeInput').value = altitudeDifference;
 
             })
             .catch(error => {
