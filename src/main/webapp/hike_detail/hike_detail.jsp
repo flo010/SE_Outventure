@@ -99,51 +99,50 @@
                 <%}%>
             </div>
             <div class="row">
-
-                <div class="col-md-8">
-            <h1 class="mb-3"><%=hike.getTitle()%></h1>
-            <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
-            <div class="paragraph-container mt-3" style="width: 70%">
-                <span class="author">Author: <%= hike.getAuthor() %></span>
-                <span class="created-at">Created at: <%= formattedDate %></span>
-            </div>
-            <div class="card mb-5 mt-5">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <%-- icon distance --%>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows" viewBox="0 0 16 16">
-                                <path d="M1.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L2.707 7.5h10.586l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L13.293 8.5H2.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2Z"></path>
-                            </svg>
-                            <strong class="card-text"><%=hike.getDistance()%></strong>
-                            km
-                        </div>
-                        <div class="col-md-3">
-                            <%-- icon duration --%>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"></path>
-                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"></path>
-                            </svg>
-                            <strong class="card-text"><%=(int) hike.getDuration()%></strong>
-                            h
-                            <% if (durationMinutes > 0) { %>
-                            <strong class="card-text"><%=(int) durationMinutes%></strong>
-                            min
-                            <% } %>
-                        </div>
-                        <div class="col-md-3">
-                            <%-- icon altitude --%>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"></path>
-                            </svg>
-                            <strong class="card-text"><%=hike.getAltitude()%></strong>
-                            m
+                <div class="col-8">
+                    <h1 class="mb-3"><%=hike.getTitle()%></h1>
+                    <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
+                    <div class="paragraph-container mt-3" style="width: 70%">
+                        <span class="author">Author: <%= hike.getAuthor() %></span>
+                        <span class="created-at">Created at: <%= formattedDate %></span>
+                    </div>
+                    <div class="card mb-5 mt-5">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <%-- icon distance --%>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows" viewBox="0 0 16 16">
+                                        <path d="M1.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L2.707 7.5h10.586l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L13.293 8.5H2.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2Z"></path>
+                                    </svg>
+                                    <strong class="card-text"><%=hike.getDistance()%></strong>
+                                    km
+                                </div>
+                                <div class="col-md-3">
+                                    <%-- icon duration --%>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"></path>
+                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"></path>
+                                    </svg>
+                                    <strong class="card-text"><%=(int) hike.getDuration()%></strong>
+                                    h
+                                    <% if (durationMinutes > 0) { %>
+                                    <strong class="card-text"><%=(int) durationMinutes%></strong>
+                                    min
+                                    <% } %>
+                                </div>
+                                <div class="col-md-3">
+                                    <%-- icon altitude --%>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"></path>
+                                    </svg>
+                                    <strong class="card-text"><%=hike.getAltitude()%></strong>
+                                    m
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-                </div>
-                <div class="comment-container col-md-4 w-80">
+                <div class="comment-container col">
                     <h3>Comments</h3>
                     <div class="container-body">
                         <%for (Comment comment : comments) {%>
@@ -163,8 +162,7 @@
                     %>
                     <form id="commentForm" action="/comment?hikeID=<%=hike.getHikeID()%>&hikerID=<%=session.getAttribute("hikerID")%>" method="post">
                         <div class="container-footer">
-                        <textarea class="text-form-control" id="commentInput" name="commentInput"
-                                  placeholder="Add Comment" maxlength="1000"></textarea>
+                            <textarea class="text-form-control" id="commentInput" name="commentInput" placeholder="Add Comment" maxlength="1000" rows="2"></textarea>
                             <button class="add-comment-button" type="submit">
                                 <i class="fa fa-plus"></i>
                             </button>
@@ -190,7 +188,6 @@
                     <button class="nav-link" id="pills-getting-there-tab" data-bs-toggle="pill" data-bs-target="#pills-getting-there" type="button" role="tab" aria-controls="pills-getting-there" aria-selected="false">Getting There</button>
                 </li>
             </ul>
-
             <hr>
             <div class="tab-content mt-4" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
@@ -198,17 +195,15 @@
                     <p><%=hike.getDescription()%></p>
                     <h3 class="mt-5">Map</h3>
                     <div id="map" class="map-hike-detail"></div>
+                    <div class="mt-5">
+                        <button type="button" onclick="exportGpx()" class="btn btn-outline-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-upside-down" viewBox="0 0 16 16" style="vertical-align: text-top;">
+                                <path fill-rule="evenodd" d="M8 1.5a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 1 1 .708-.708L7.5 13.293V2a.5.5 0 0 1 .5-.5z"/>
+                            </svg>
+                            Export GPX
+                        </button>
+                    </div>
                 </div>
-                <br>
-                <div>
-                    <button type="button" onclick="exportGpxButton()" class="btn btn-outline-secondary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-upside-down" viewBox="0 0 16 16" style="vertical-align: text-top;">
-                            <path fill-rule="evenodd" d="M8 1.5a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 1 1 .708-.708L7.5 13.293V2a.5.5 0 0 1 .5-.5z"/>
-                        </svg>
-                        Export GPX
-                    </button>
-                </div>
-                <div>
                 <div class="tab-pane fade" id="pills-details" role="tabpanel" aria-labelledby="pills-details-tab" tabindex="0">
                     <h3>Details</h3>
                     <table>
