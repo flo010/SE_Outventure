@@ -21,20 +21,17 @@ function logout() {
 function changeSelectedItem(item) {
     document.getElementById('selectedItem').innerText = item;
 
-    var searchBar = document.getElementById('searchBar');
+    let searchBar = document.getElementById('searchBar');
 
     switch (item) {
-        case 'All':
-            searchBar.placeholder = "All hikes";
-            break;
         case 'Region':
-            searchBar.placeholder = "All regions";
+            searchBar.placeholder = "All Regions";
             break;
         case 'POI':
-            searchBar.placeholder = " All Point of Interests";
+            searchBar.placeholder = " All Points of Interest";
             break;
         default:
-            searchBar.placeholder = "All hikes";
+            searchBar.placeholder = "All Hikes";
             break;
     }
 }
