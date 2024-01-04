@@ -202,27 +202,23 @@ function initializeMap() {
             '<trk>' +
             '<name>A hike created with Outventure!</name>' +
             '<trkseg>' +
-            waypoints.map(function (waypoint) {
-                return '<trkpt lat="' + waypoint.lat + '" lon="' + waypoint.lng + '">' +
-                    '<name>' + waypoint.name + '</name>' +
-                    '<type>' + waypoint.type + '</type>' +
-                    '<desc>' + waypoint.description + '</desc>' +
-                    '</trkpt>' +
-                    '<wpt lat="' + waypoint.lat + '" lon="' + waypoint.lng + '">' +
-                    '<name>' + waypoint.name + '</name>' +
-                    '<type>' + waypoint.type + '</type>' +
-                    '<desc>' + waypoint.description + '</desc>' +
-                    '</wpt>';
-            }).join('') +
+           waypoints.map(function (waypoint) {
+           }).join('') +
             '</trkseg>' +
             '</trk>' +
+            '<wpt lat="' + startLatitude + '" lon="' + startLongitude + '">' +
+            '<name>' + startName + '</name>' +
+            '</wpt>' +
+            '<wpt lat="' + destinationLatitude + '" lon="' + destinationLongitude + '">' +
+            '<name>' + destinationName + '</name>' +
+            '</wpt>' +
             '</gpx>';
     }
 
 
-}
 
-function updateFavorites(hikeID, hikerID) {
+
+    function updateFavorites(hikeID, hikerID) {
     window.location.href = '/favorite_hike?hikeID=' + hikeID + '&hikerID=' + hikerID + '&page=detail';
 }
 
@@ -233,5 +229,6 @@ function showHikeCompletedModal() {
     });
     document.getElementById('completionDate').value = "";
     hikeCompletedModal.show();
+}
 }
 

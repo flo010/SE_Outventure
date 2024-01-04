@@ -284,19 +284,24 @@
                                 </div>
                             </div>
                             <div id="map" class="map-create-hike"></div>
-                            <div>
-                                <button type="button" class="btn btn-outline-secondary" id="showRouteButton" style="margin-top: 10px; display:block">Show route</button>
-                            </div>
-                        <div>
-                            <button id="importGpxButton" type="button" class="btn btn-outline-secondary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16" style="vertical-align: text-top;">
-                                    <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"></path>
-                                </svg>
-                                Import GPX
-                            </button>
-                            <input type="file" class="form-control" id="gpxInput" name="gpxInput" accept=".gpx" hidden>
-                            <div class="invalid-feedback alert alert-danger mt-2">
-                                Invalid file type. Please provide a .gpx.
+                            <div class="d-flex flex-row bd-highlight mb-3 mt-3">
+                                <button id="showRouteButton" type="button" class="btn btn-outline-secondary me-3" id="showRouteButton">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                    </svg>
+                                    Show route
+                                </button>
+                                <button id="importGpxButton" type="button" class="btn btn-outline-secondary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
+                                    </svg>
+                                    Import GPX
+                                </button>
+                                <input type="file" class="form-control" id="gpxInput" name="gpxInput" accept=".gpx" hidden>
+                                <div class="invalid-feedback alert alert-danger mt-2">
+                                    Invalid file type. Please provide a .gpx.
+                                </div>
                             </div>
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
