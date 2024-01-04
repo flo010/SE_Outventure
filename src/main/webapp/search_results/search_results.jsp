@@ -36,9 +36,7 @@
                 }
             %>
 
-            <div
-                    class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1"
-            >
+            <div class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1">
                 <div>
                     <input class="but" id="monthSwitch" type="checkbox" />
                     <label class="simp" for="monthSwitch">
@@ -141,11 +139,6 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
                 <%
                     List<Hike> hikeList = (List<Hike>) session.getAttribute("hikeList");
-
-                    if ((hikeList == null) || (hikeList.isEmpty())) {
-                        FacadeJPA facadeJPA = FacadeJPA.getInstance();
-                        hikeList = facadeJPA.getAllHikesLazy();
-                    }
 
                     for (Hike hike : hikeList) {
                         if (hike.isVisible()){

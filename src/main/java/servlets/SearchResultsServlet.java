@@ -41,7 +41,6 @@ public class SearchResultsServlet extends HttpServlet {
         String landscapeLow = request.getParameter("landscapeLow");
         String landscapeHigh = request.getParameter("landscapeHigh");
         String month = request.getParameter("month");
-        System.out.println(month);
         if(durationLow != null){
             hikeList = facadeJPA.search(
                     searchString,
