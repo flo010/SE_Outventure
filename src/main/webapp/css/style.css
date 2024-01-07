@@ -146,7 +146,6 @@ body {
 }
 
 .comment-container {
-    margin-top: 50px;
     max-height: 500px;
     background-color: whitesmoke;
     border: 1px solid black;
@@ -156,7 +155,7 @@ body {
 
 .container-body {
     width: 100%;
-    height: 80%;
+    height: 78%;
     overflow-y: auto;
 }
 
@@ -168,27 +167,26 @@ body {
     padding: 10px;
     border-radius: 10px;
 }
+
 .container-body::-webkit-scrollbar {
     width: 8px;
 }
+
 .container-body::-webkit-scrollbar-thumb {
     background-color: #888;
     border-radius: 5px;
 }
-.container-footer {
-    height: 100%;
-    width: 90%;
-}
+
 .container-footer {
     border: 1px solid black;
-    height: 10%;
     width: 400px;
-    position: absolute;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-radius: 10px;
 }
+
 .add-comment-button {
     margin-right: 5px;
     width: 35px;
@@ -199,6 +197,7 @@ body {
     color: white;
     cursor: pointer;
 }
+
 .text-form-control {
     resize: none;
     background-color: transparent;

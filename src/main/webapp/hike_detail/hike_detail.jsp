@@ -151,7 +151,7 @@
                         <%for (Comment comment : comments) {%>
                         <div class="comment-box">
                             <div style="display: flex;justify-content: space-between">
-                                <b style="font-size: small">@<%=comment.getHiker().getUsername()%></b>
+                                <strong style="font-size: small">@<%=comment.getHiker().getUsername()%></strong>
                                 <small ><%=comment.getTimestamp()%></small>
                             </div>
                             <div class="mt-2">
@@ -160,9 +160,9 @@
                         </div>
                         <% } %>
                     </div>
-                    <%
-                        if (hikerID != -1) {
-                    %>
+<%--                    <%--%>
+<%--                        if (hikerID != -1) {--%>
+<%--                    %>--%>
                     <form id="commentForm" action="/comment?hikeID=<%=hike.getHikeID()%>&hikerID=<%=session.getAttribute("hikerID")%>" method="post">
                         <div class="container-footer">
                             <textarea class="text-form-control" id="commentInput" name="commentInput" placeholder="Add Comment" maxlength="1000" rows="2"></textarea>
@@ -171,7 +171,7 @@
                             </button>
                         </div>
                     </form>
-                    <% } %>
+<%--                    <% } %>--%>
                 </div>
             </div>
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
