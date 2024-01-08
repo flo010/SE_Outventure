@@ -104,7 +104,7 @@
             <div class="row">
                 <div class="col-8">
                     <h1 class="mb-3"><%=hike.getTitle()%></h1>
-                    <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
+                    <img class="cover-image w-75" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
                     <div class="paragraph-container mt-3" style="width: 70%">
                         <span class="author">Author: <%= hike.getAuthor() %></span>
                         <span class="created-at">Created at: <%= formattedDate %></span>
