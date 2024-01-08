@@ -252,6 +252,71 @@
                                 Please enter a route description.
                             </div>
                         </div>
+                        <div class="input-fields-group" style="width: 250px">
+                            <label for="regionInput" class="form-label">Region *</label>
+                            <div class="dropdown">
+                                <% if(hike != null){ %>
+                                <select id="regionInput" name="regionInput" class="form-select" aria-label="region ID" required>
+                                    <option value="selectedRegionEditHike" selected><%=hike.getRegion().getRegion()%></option>
+                                        <% } else { %>
+                                    <select id="regionInput" name="regionInput" class="form-select" aria-label="region ID" required>
+                                        <option value="" selected>Select region</option>
+                                        <% } %>
+                                        <option value="Albania">Albania</option>
+                                        <option value="Andorra">Andorra</option>
+                                        <option value="Austria-Vorarlberg">Austria-Vorarlberg</option>
+                                        <option value="Austria-Tirol">Austria-Tirol</option>
+                                        <option value="Austria-Salzburg">Austria-Salzburg</option>
+                                        <option value="Austria-Steiermark">Austria-Steiermark</option>
+                                        <option value="Austria-Kärnten">Austria-Kärnten</option>
+                                        <option value="Austria-Oberösterreich">Austria-Oberösterreich</option>
+                                        <option value="Austria-Niederösterreich">Austria-Niederösterreich</option>
+                                        <option value="Austria-Burgenland">Austria-Burgenland</option>
+                                        <option value="Austria-Wien">Austria-Wien</option>
+                                        <option value="Belgium">Belgium</option>
+                                        <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                                        <option value="Bulgaria">Bulgaria</option>
+                                        <option value="Croatia">Croatia</option>
+                                        <option value="Cyprus">Cyprus</option>
+                                        <option value="Czech Republic">Czech Republic</option>
+                                        <option value="Denmark">Denmark</option>
+                                        <option value="Estonia">Estonia</option>
+                                        <option value="Finland">Finland</option>
+                                        <option value="France">France</option>
+                                        <option value="Germany">Germany</option>
+                                        <option value="Greece">Greece</option>
+                                        <option value="Hungary">Hungary</option>
+                                        <option value="Iceland">Iceland</option>
+                                        <option value="Ireland">Ireland</option>
+                                        <option value="Italy">Italy</option>
+                                        <option value="Latvia">Latvia</option>
+                                        <option value="Liechtenstein">Liechtenstein</option>
+                                        <option value="Lithuania">Lithuania</option>
+                                        <option value="Luxembourg">Luxembourg</option>
+                                        <option value="Malta">Malta</option>
+                                        <option value="Moldova">Moldova</option>
+                                        <option value="Monaco">Monaco</option>
+                                        <option value="Montenegro">Montenegro</option>
+                                        <option value="Netherlands">Netherlands</option>
+                                        <option value="North Macedonia">North Macedonia</option>
+                                        <option value="Norway">Norway</option>
+                                        <option value="Poland">Poland</option>
+                                        <option value="Portugal">Portugal</option>
+                                        <option value="Romania">Romania</option>
+                                        <option value="San Marino">San Marino</option>
+                                        <option value="Serbia">Serbia</option>
+                                        <option value="Slovakia">Slovakia</option>
+                                        <option value="Slovenia">Slovenia</option>
+                                        <option value="Spain">Spain</option>
+                                        <option value="Sweden">Sweden</option>
+                                        <option value="Switzerland">Switzerland</option>
+                                        <option value="Türkiye">Türkiye</option>
+                                        <option value="Ukraine">Ukraine</option>
+                                        <option value="United Kingdom">United Kingdom</option>
+                                        <option value="Vatican City">Vatican City</option>
+                                    </select>
+                            </div>
+                        </div>
                         <div class="input-fields-group">
                             <p class="form-label">Map</p>
                             <p>
@@ -601,7 +666,7 @@
                                     <label for="poiType" class="form-label">Type *</label>
                                     <div class="dropdown">
                                         <select id="poiType" name="poiType" class="form-select" aria-label="POI Type" required>
-                                            <option selected>Select type</option>
+                                            <option value="" selected>Select type</option>
                                             <option value="Hut">Hut</option>
                                             <option value="Refreshment Point">Refreshment Point</option>
                                             <option value="Viewpoint">Viewpoint</option>
@@ -669,13 +734,13 @@
             </div>
         </div>
 
-        <!-- Input Modal for Markernames -->
+        <!-- Input Modal for Marker names -->
         <div id="markerModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 id="markerModalHeader" class="modal-title">Enter a name for the start point</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="clearStartDestInputs()">Close</button>
                     </div>
                     <div class="modal-body">
                         <div class="input-fields-group">

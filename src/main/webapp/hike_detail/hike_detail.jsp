@@ -160,9 +160,9 @@
                         </div>
                         <% } %>
                     </div>
-<%--                    <%--%>
-<%--                        if (hikerID != -1) {--%>
-<%--                    %>--%>
+                    <%
+                        if (hikerID != -1) {
+                    %>
                     <form id="commentForm" action="/comment?hikeID=<%=hike.getHikeID()%>&hikerID=<%=session.getAttribute("hikerID")%>" method="post">
                         <div class="container-footer">
                             <textarea class="text-form-control" id="commentInput" name="commentInput" placeholder="Add Comment" maxlength="1000" rows="2"></textarea>
@@ -171,7 +171,7 @@
                             </button>
                         </div>
                     </form>
-<%--                    <% } %>--%>
+                    <% } %>
                 </div>
             </div>
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -196,6 +196,8 @@
                 <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                     <h3>Description</h3>
                     <p><%=hike.getDescription()%></p>
+                    <h3 class="mt-5">Region</h3>
+                    <p><%=hike.getRegion().getRegion()%></p>
                     <h3 class="mt-5">Map</h3>
                     <div id="map" class="map-hike-detail"></div>
                     <div class="mt-5">
@@ -326,8 +328,6 @@
                             </div>
                             <%
                                 }
-
-                                // Convert the poiDataList to JSON using Gson
                                 String poiDataListJson = new Gson().toJson(poiDataList);
                             %>
                             <div id="poiDataList" data-poi-data='<%= poiDataListJson %>'></div>

@@ -1,13 +1,7 @@
 package hibernate.facade;
 
-import hibernate.broker.HikeBroker;
-import hibernate.broker.HikerBroker;
-import hibernate.broker.POIBroker;
-import hibernate.broker.PictureBroker;
-import hibernate.model.Hike;
-import hibernate.model.Hiker;
-import hibernate.model.Picture;
-import hibernate.model.PointOfInterest;
+import hibernate.broker.*;
+import hibernate.model.*;
 
 import java.util.List;
 
@@ -187,4 +181,20 @@ public class FacadeJPA {
         HikeBroker hikeBroker = new HikeBroker();
         hikeBroker.addComment(hikeID, hikerID, comment);
     }
+
+    public Region getRegionByID(int regionID) {
+        RegionBroker regionBroker = new RegionBroker();
+        return regionBroker.getLazy(regionID);
+    }
+
+    public List<Region> getAllRegions() {
+        RegionBroker regionBroker = new RegionBroker();
+        return regionBroker.getAll();
+    }
+
+    public Region getRegionByName(String regionName) {
+        RegionBroker regionBroker = new RegionBroker();
+        return regionBroker.getByName(regionName);
+    }
 }
+
