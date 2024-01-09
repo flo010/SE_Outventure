@@ -14,6 +14,7 @@ import java.io.IOException;
 
 @WebServlet(name = "deletePOIServlet", value = "/delete_poi")
 public class DeletePOIServlet extends HttpServlet {
+    public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
     @Transactional
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
@@ -22,7 +23,6 @@ public class DeletePOIServlet extends HttpServlet {
         String[] poiIDsArray = poiIDsString.split(",");
         int hikeID = Integer.parseInt(request.getParameter("hikeID"));
 
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
         for (String poiIDString: poiIDsArray) {
             int poiID = Integer.parseInt(poiIDString);
             facadeJPA.removePOIFromHike(poiID, hikeID);

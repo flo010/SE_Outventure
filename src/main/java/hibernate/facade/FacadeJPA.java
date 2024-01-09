@@ -18,18 +18,15 @@ public class FacadeJPA {
         return _instance;
     }
 
-    public Object save(Object object) {
+    public void save(Object object) {
         if (object instanceof Hike) {
             HikeBroker hikeBroker = new HikeBroker();
             hikeBroker.save((Hike) object);
-            return object;
         }
         else if (object instanceof Picture) {
             PictureBroker pictureBroker = new PictureBroker();
             pictureBroker.save((Picture) object);
-            return object;
         }
-        return null;
     }
 
     public void delete(Object object) {

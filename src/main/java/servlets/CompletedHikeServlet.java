@@ -17,7 +17,6 @@ import java.util.List;
 @WebServlet(name = "completedHikeServlet", value = "/completed_hike")
 public class CompletedHikeServlet extends HttpServlet {
     public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
-
     @Transactional
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
@@ -36,6 +35,7 @@ public class CompletedHikeServlet extends HttpServlet {
         request.setAttribute("hikerID", hikerID);
         response.sendRedirect("/completed_hikes/completed_hikes.jsp");
     }
+
     @Transactional
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
@@ -46,7 +46,6 @@ public class CompletedHikeServlet extends HttpServlet {
         String page = request.getParameter("page");
 
         Hiker hiker = facadeJPA.getHikerByID(hikerID);
-        System.out.println("HIKER ID: " + hiker.getHikerID());
         List<Hike> completedHikes =  hiker.getCompletedHikes();
         List<Date> timestamps = facadeJPA.getCompletedHikesTimestamps(hikerID);
 
@@ -58,18 +57,15 @@ public class CompletedHikeServlet extends HttpServlet {
             removeCompleted(hikeID, hikerID, timestamp);
             request.setAttribute("completedHikes", completedHikes);
             request.setAttribute("timestamps", timestamps);
-            request.setAttribute("hikerID", hiker.getHikerID());
             response.sendRedirect("/completed_hikes/completed_hikes.jsp");
         }
     }
 
     private void addCompleted(int hikerID, int hikeID, String timestamp) {
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
         facadeJPA.addCompletedHike(hikerID, hikeID, timestamp);
     }
 
     private void removeCompleted(int hikeID, int hikerID, String timestamp) {
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
         facadeJPA.removeCompletedHike(hikeID, hikerID, timestamp);
     }
 }

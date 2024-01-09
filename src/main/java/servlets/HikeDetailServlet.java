@@ -24,8 +24,9 @@ import java.util.Locale;
 
 @WebServlet(name = "hikeDetailServlet", value = "/hike_detail")
 public class HikeDetailServlet extends HttpServlet {
+    public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
     @Transactional
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
 
         String hikeEdited = request.getParameter("hikeEdited");
@@ -33,7 +34,6 @@ public class HikeDetailServlet extends HttpServlet {
 
         int hikeID = Integer.parseInt(request.getParameter("id"));
 
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
         Hike hike = facadeJPA.getHikeByIDEager(hikeID);
         Hike hikeWithComment = facadeJPA.getHikeCommentByIDEager(hikeID);
 
@@ -44,11 +44,7 @@ public class HikeDetailServlet extends HttpServlet {
                 getWeatherList(hike.getStart().getLatitude(), hike.getStart().getLongitude())
         );
 
-        try {
-            request.getRequestDispatcher("/hike_detail/hike_detail.jsp").forward(request, response);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        }
+        request.getRequestDispatcher("/hike_detail/hike_detail.jsp").forward(request, response);
     }
 
     private ArrayList<ArrayList<String>> getWeatherList(double latitude, double longitude) {
