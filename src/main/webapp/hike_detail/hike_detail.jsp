@@ -21,6 +21,24 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
+<%
+    Hike hike = (Hike) request.getAttribute("hike");
+    double durationMinutes = (hike.getDuration() % 1) * 60;
+
+    LocalDate localDate = hike.getDate();
+    String pattern = "dd/MM/yyyy";
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+    String formattedDate = localDate.format(formatter);
+
+    List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
+
+    FacadeJPA facadeJPA = FacadeJPA.getInstance();
+    int hikerID = (session.getAttribute("hikerID") != null) ? Integer.parseInt(session.getAttribute("hikerID").toString()) : -1;
+    boolean isFavorite = hikerID != -1 && facadeJPA.isFavoriteHikeExists(hikerID, hike.getHikeID());
+    Hike hikeWithComment = (Hike) request.getAttribute("hikeWithComment");
+    List<Comment> comments = hikeWithComment.getComments();
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -40,25 +58,6 @@
         <header>
             <outventure:navbar/>
         </header>
-
-        <%
-            Hike hike = (Hike) request.getAttribute("hike");
-            double durationMinutes = (hike.getDuration() % 1) * 60;
-
-            LocalDate localDate = hike.getDate();
-            String pattern = "dd/MM/yyyy";
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-            String formattedDate = localDate.format(formatter);
-
-            List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
-
-            FacadeJPA facadeJPA = FacadeJPA.getInstance();
-            int hikerID = (session.getAttribute("hikerID") != null) ? Integer.parseInt(session.getAttribute("hikerID").toString()) : -1;
-            boolean isFavorite = hikerID != -1 && facadeJPA.isFavoriteHikeExists(hikerID, hike.getHikeID());
-            Hike hikeWithComment = (Hike) request.getAttribute("hikeWithComment");
-            List<Comment> comments = hikeWithComment.getComments();
-            %>
-
         <div class="container-sm mt-5 mb-5">
             <div class="d-flex bd-highlight mb-3">
                 <div class="me-auto p-2 bd-highlight">
