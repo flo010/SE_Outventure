@@ -3,6 +3,7 @@ package hibernate.facade;
 import hibernate.broker.*;
 import hibernate.model.*;
 
+import java.sql.Date;
 import java.util.List;
 
 public class FacadeJPA {
@@ -144,7 +145,7 @@ public class FacadeJPA {
     public Hiker getHikerByID(int id) {
         HikerBroker hikerBroker = new HikerBroker();
 
-        return hikerBroker.getByID(id);
+        return hikerBroker.getLazy(id);
     }
 
     public boolean isFavoriteHikeExists(int hikerId, int hikeId) {
@@ -195,6 +196,11 @@ public class FacadeJPA {
     public Region getRegionByName(String regionName) {
         RegionBroker regionBroker = new RegionBroker();
         return regionBroker.getByName(regionName);
+    }
+
+    public List<Date> getCompletedHikesTimestamps(int hikerID) {
+        HikerBroker hikerBroker = new HikerBroker();
+        return hikerBroker.getTimestamps(hikerID);
     }
 }
 

@@ -14,11 +14,9 @@
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
 <%
-  FacadeJPA facadeJPA = FacadeJPA.getInstance();
-  int hikerID = Integer.parseInt(session.getAttribute("hikerID").toString());
-  Hiker hiker = facadeJPA.getHikerByID(hikerID);
-  List<Hike> completedHikes =  hiker.getCompletedHikes();
-  List<Date> timestamps = new HikerBroker().getTimestamps(hikerID);
+  int hikerID = (int) request.getAttribute("hikerID");
+  List<Hike> completedHikes = (List<Hike>) request.getAttribute("completedHikes");
+  List<Date> timestamps = (List<Date>) request.getAttribute("timestamps");
   int n = 0;
 %>
 <html>
