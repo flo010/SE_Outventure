@@ -23,7 +23,6 @@ public class ListCreatedHikesServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String hikerUsername =  (String) session.getAttribute("hikerUsername");
         List<Hike> createdHikes = facadeJPA.getHikesByAuthorLazy(hikerUsername);
-        System.out.println("Hike List: " + createdHikes.get(0));
 
         request.setAttribute("createdHikes", createdHikes);
 

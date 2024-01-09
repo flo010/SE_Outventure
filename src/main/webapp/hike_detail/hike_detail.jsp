@@ -42,7 +42,7 @@
         <script src="https://unpkg.com/leaflet-gpx/gpx.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <%-- fullscreen leaflet css and js --%>
+        <%-- fullscreen leaflet css and js --%>
         <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
         <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
         <%-- custom css --%>

@@ -130,6 +130,10 @@ public class MockListenerServlet implements ServletContextListener {
             mockedComment.setCommentText("Mocked Hike Comment");
             mockedComment.setTimestamp(LocalDate.now());
 
+            List<Comment> mockedComments = new ArrayList<>();
+            mockedComments.add(mockedComment);
+            mockedHike1.setComments(mockedComments);
+
             mock(PointOfInterest.class);
             PointOfInterest poi = new PointOfInterest();
             poi.setPoiID(1);
@@ -138,6 +142,9 @@ public class MockListenerServlet implements ServletContextListener {
             poi.setLongitude(9.772641);
             poi.setType("Hut");
             poi.setHikes(mockedHikes);
+
+            List<PointOfInterest> mockedPointsOfInterest = new ArrayList<>();
+            mockedHike1.setPointsOfInterest(mockedPointsOfInterest);
 
             CommentServlet.facadeJPA = mockedFacade;
             CompletedHikeServlet.facadeJPA = mockedFacade;
@@ -151,6 +158,7 @@ public class MockListenerServlet implements ServletContextListener {
             SaveDataServlet.facadeJPA = mockedFacade;
             SearchResultsServlet.facadeJPA = mockedFacade;
             SearchServlet.facadeJPA = mockedFacade;
+            ListCreatedHikesServlet.facadeJPA = mockedFacade;
 
             doNothing().when(mockedFacade).save(any(String.class));
             when(mockedFacade.getHikeByIDLazy(any(Integer.class))).thenReturn(mockedHike1);
@@ -177,7 +185,6 @@ public class MockListenerServlet implements ServletContextListener {
             doNothing().when(mockedFacade).removeCompletedHike(any(Integer.class), any(Integer.class), any(String.class));
 //            doNothing().when(mockedFacade).addGpxFile(any(String.class), any(String.class));
             doNothing().when(mockedFacade).addComment(any(Integer.class), any(Integer.class), any(String.class));
-
         }
     }
 }
