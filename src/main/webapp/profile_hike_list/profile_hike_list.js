@@ -9,7 +9,7 @@ function showDeleteHikeModal() {
     });
     deleteHikeModal.show();
 }
-var selectedHikeID
+let selectedHikeID
 
 function prepareDeleteHike(hikeId) {
     selectedHikeID = hikeId;

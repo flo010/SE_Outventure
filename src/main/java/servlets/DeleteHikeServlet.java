@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 
 import java.io.IOException;
@@ -18,11 +19,11 @@ public class DeleteHikeServlet extends HttpServlet {
 
         int hikeID = Integer.parseInt(request.getParameter("hikeID"));
 
-        // Update visibility in the database
         setVisibleFalse(hikeID);
 
-        // Redirect back to the hike details page or any other appropriate page
-        response.sendRedirect("/profile_hike_list/profile_hike_list.jsp?hikeDeleted=true");
+        HttpSession session = request.getSession();
+        session.setAttribute("hikeDeleted", true);
+        response.sendRedirect("/profile_hike_list");
     }
 
     private void setVisibleFalse(int hikeID) {
