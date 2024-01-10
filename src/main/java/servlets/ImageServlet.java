@@ -39,7 +39,7 @@ public class ImageServlet extends HttpServlet {
         }
         if(imageData != null) {
             // Set the content type of the response to indicate an image
-            response.setContentType("image/jpeg"); // Change the content type based on your image type
+            response.setContentType("image/jpeg");
 
             // Write the image data to the response output stream
             OutputStream outputStream = response.getOutputStream();
