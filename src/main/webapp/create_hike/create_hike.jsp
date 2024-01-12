@@ -252,6 +252,71 @@
                                 Please enter a route description.
                             </div>
                         </div>
+                        <div class="input-fields-group" style="width: 250px">
+                            <label for="regionInput" class="form-label">Region *</label>
+                            <div class="dropdown">
+                                <% if(hike != null){ %>
+                                <select id="regionInput" name="regionInput" class="form-select" aria-label="region ID" required>
+                                    <option value="selectedRegionEditHike" selected><%=hike.getRegion().getRegion()%></option>
+                                        <% } else { %>
+                                    <select id="regionInput" name="regionInput" class="form-select" aria-label="region ID" required>
+                                        <option value="" selected>Select region</option>
+                                        <% } %>
+                                        <option value="Albania">Albania</option>
+                                        <option value="Andorra">Andorra</option>
+                                        <option value="Austria-Vorarlberg">Austria-Vorarlberg</option>
+                                        <option value="Austria-Tirol">Austria-Tirol</option>
+                                        <option value="Austria-Salzburg">Austria-Salzburg</option>
+                                        <option value="Austria-Steiermark">Austria-Steiermark</option>
+                                        <option value="Austria-Kärnten">Austria-Kärnten</option>
+                                        <option value="Austria-Oberösterreich">Austria-Oberösterreich</option>
+                                        <option value="Austria-Niederösterreich">Austria-Niederösterreich</option>
+                                        <option value="Austria-Burgenland">Austria-Burgenland</option>
+                                        <option value="Austria-Wien">Austria-Wien</option>
+                                        <option value="Belgium">Belgium</option>
+                                        <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                                        <option value="Bulgaria">Bulgaria</option>
+                                        <option value="Croatia">Croatia</option>
+                                        <option value="Cyprus">Cyprus</option>
+                                        <option value="Czech Republic">Czech Republic</option>
+                                        <option value="Denmark">Denmark</option>
+                                        <option value="Estonia">Estonia</option>
+                                        <option value="Finland">Finland</option>
+                                        <option value="France">France</option>
+                                        <option value="Germany">Germany</option>
+                                        <option value="Greece">Greece</option>
+                                        <option value="Hungary">Hungary</option>
+                                        <option value="Iceland">Iceland</option>
+                                        <option value="Ireland">Ireland</option>
+                                        <option value="Italy">Italy</option>
+                                        <option value="Latvia">Latvia</option>
+                                        <option value="Liechtenstein">Liechtenstein</option>
+                                        <option value="Lithuania">Lithuania</option>
+                                        <option value="Luxembourg">Luxembourg</option>
+                                        <option value="Malta">Malta</option>
+                                        <option value="Moldova">Moldova</option>
+                                        <option value="Monaco">Monaco</option>
+                                        <option value="Montenegro">Montenegro</option>
+                                        <option value="Netherlands">Netherlands</option>
+                                        <option value="North Macedonia">North Macedonia</option>
+                                        <option value="Norway">Norway</option>
+                                        <option value="Poland">Poland</option>
+                                        <option value="Portugal">Portugal</option>
+                                        <option value="Romania">Romania</option>
+                                        <option value="San Marino">San Marino</option>
+                                        <option value="Serbia">Serbia</option>
+                                        <option value="Slovakia">Slovakia</option>
+                                        <option value="Slovenia">Slovenia</option>
+                                        <option value="Spain">Spain</option>
+                                        <option value="Sweden">Sweden</option>
+                                        <option value="Switzerland">Switzerland</option>
+                                        <option value="Türkiye">Türkiye</option>
+                                        <option value="Ukraine">Ukraine</option>
+                                        <option value="United Kingdom">United Kingdom</option>
+                                        <option value="Vatican City">Vatican City</option>
+                                    </select>
+                            </div>
+                        </div>
                         <div class="input-fields-group">
                             <p class="form-label">Map</p>
                             <p>
@@ -284,19 +349,24 @@
                                 </div>
                             </div>
                             <div id="map" class="map-create-hike"></div>
-                            <div>
-                                <button type="button" class="btn btn-outline-secondary" id="showRouteButton" style="margin-top: 10px; display:block">Show route</button>
-                            </div>
-                        <div>
-                            <button id="importGpxButton" type="button" class="btn btn-outline-secondary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16" style="vertical-align: text-top;">
-                                    <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"></path>
-                                </svg>
-                                Import GPX
-                            </button>
-                            <input type="file" class="form-control" id="gpxInput" name="gpxInput" accept=".gpx" hidden>
-                            <div class="invalid-feedback alert alert-danger mt-2">
-                                Invalid file type. Please provide a .gpx.
+                            <div class="d-flex flex-row bd-highlight mb-3 mt-3">
+                                <button id="showRouteButton" type="button" class="btn btn-outline-secondary me-3" id="showRouteButton">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                    </svg>
+                                    Show route
+                                </button>
+                                <button id="importGpxButton" type="button" class="btn btn-outline-secondary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
+                                    </svg>
+                                    Import GPX
+                                </button>
+                                <input type="file" class="form-control" id="gpxInput" name="gpxInput" accept=".gpx" hidden>
+                                <div class="invalid-feedback alert alert-danger mt-2">
+                                    Invalid file type. Please provide a .gpx.
+                                </div>
                             </div>
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
@@ -596,7 +666,7 @@
                                     <label for="poiType" class="form-label">Type *</label>
                                     <div class="dropdown">
                                         <select id="poiType" name="poiType" class="form-select" aria-label="POI Type" required>
-                                            <option selected>Select type</option>
+                                            <option value="" selected>Select type</option>
                                             <option value="Hut">Hut</option>
                                             <option value="Refreshment Point">Refreshment Point</option>
                                             <option value="Viewpoint">Viewpoint</option>
@@ -664,13 +734,13 @@
             </div>
         </div>
 
-        <!-- Input Modal for Markernames -->
+        <!-- Input Modal for Marker names -->
         <div id="markerModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 id="markerModalHeader" class="modal-title">Enter a name for the start point</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="clearStartDestInputs()">Close</button>
                     </div>
                     <div class="modal-body">
                         <div class="input-fields-group">

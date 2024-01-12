@@ -404,7 +404,6 @@ function prevTab() {
     }
 }
 
-// function to update the progress bar
 function updateProgressBar () {
     let activeLink = document.querySelector(".nav-link.active");
     let progressBar = document.querySelector(".progress-bar.bg-success");
@@ -469,7 +468,7 @@ function savePointOfInterest() {
     const poiType = document.getElementById("poiType").value;
 
     // Check if required fields are empty
-    if (!poiName || isNaN(poiLatitude) || isNaN(poiLongitude) || poiType === "Select type") {
+    if (!poiName || isNaN(poiLatitude) || isNaN(poiLongitude) || !poiType) {
         const errorMessage = document.getElementById('poiErrorMessage');
         errorMessage.style.display = 'block';
         return;
@@ -856,6 +855,7 @@ function initializeNewMap() {
             });
         }
     });
+}
 
 
     const importGpxButton = document.getElementById('importGpxButton');
@@ -985,168 +985,169 @@ function initializeNewMap() {
     }
 
 
-    function drawRoute(gpxData, map) {
-        var gpxLayer = new L.GPX(gpxData, {async: true});
+function drawRoute(gpxData, map) {
+    var gpxLayer = new L.GPX(gpxData, {async: true});
 
-        gpxLayer.on('loaded', function (e) {
-            map.fitBounds(e.target.getBounds());
-        });
-        console.log(waypoints)
-        gpxLayer.addTo(map);
-        if (route) {
-            newMap.removeLayer(route);
-            route = null; // Reset the route
-        } else {
-            console.error('Invalid route data');
-        }
+    gpxLayer.on('loaded', function (e) {
+        map.fitBounds(e.target.getBounds());
+    });
+    console.log(waypoints)
+    gpxLayer.addTo(map);
+    if (route) {
+        newMap.removeLayer(route);
+        route = null; // Reset the route
+    } else {
+        console.error('Invalid route data');
+    }
 }
 
-    function autoFillStartDestination(file) {
+function autoFillStartDestination(file) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        const gpxData = e.target.result;
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(gpxData, "text/xml");
+
+        const trackPoints = xmlDoc.querySelectorAll("rtept").length === 0 ? xmlDoc.querySelectorAll("trkpt") : xmlDoc.querySelectorAll("rtept");
+
+        if (trackPoints.length !== 0) {
+            const startPoint = trackPoints[0];
+            const startNameElement = startPoint.querySelector("name");
+            const startName = startNameElement ? startNameElement.textContent : "";
+
+            const destinationPoint = trackPoints[trackPoints.length - 1];
+            const destinationNameElement = destinationPoint.querySelector("name");
+            const destinationName = destinationNameElement ? destinationNameElement.textContent : "";
+
+            document.getElementById("startNameInput").value = startName;
+            document.getElementById("latitudeStartCoordinateInput").value = startPoint.getAttribute("lat");
+            document.getElementById("longitudeStartCoordinateInput").value = startPoint.getAttribute("lon");
+
+            document.getElementById("destinationNameInput").value = destinationName;
+            document.getElementById("latitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lat");
+            document.getElementById("longitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lon");
+        }
+    };
+
+    reader.readAsText(file);
+}
+
+function handleGpxFile(input, gpxFile) {
+    if (gpxFile) {
+        const splitFileType = gpxFile.name.split(".");
+        const fileType = splitFileType[splitFileType.length - 1];
+
+        // Check if a file is present and check for its file type
+        if (!gpxFile || fileType !== "gpx") {
+            input.classList.add("is-invalid");
+            return;
+        }
+
+        input.classList.remove("is-invalid");
+        autoFillStartDestination(gpxFile);
+
+        // Read the GPX content using FileReader
         const reader = new FileReader();
 
         reader.onload = function (e) {
-            const gpxData = e.target.result;
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(gpxData, "text/xml");
+            const gpxContent = e.target.result;
 
-            const trackPoints = xmlDoc.querySelectorAll("rtept").length === 0 ? xmlDoc.querySelectorAll("trkpt") : xmlDoc.querySelectorAll("rtept");
-
-            if (trackPoints.length !== 0) {
-                const startPoint = trackPoints[0];
-                const startNameElement = startPoint.querySelector("name");
-                const startName = startNameElement ? startNameElement.textContent : "";
-
-                const destinationPoint = trackPoints[trackPoints.length - 1];
-                const destinationNameElement = destinationPoint.querySelector("name");
-                const destinationName = destinationNameElement ? destinationNameElement.textContent : "";
-
-                document.getElementById("startNameInput").value = startName;
-                document.getElementById("latitudeStartCoordinateInput").value = startPoint.getAttribute("lat");
-                document.getElementById("longitudeStartCoordinateInput").value = startPoint.getAttribute("lon");
-
-                document.getElementById("destinationNameInput").value = destinationName;
-                document.getElementById("latitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lat");
-                document.getElementById("longitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lon");
-            }
+            sendGpxToServer(gpxContent);
         };
-
-        reader.readAsText(file);
+        reader.readAsText(gpxFile);
     }
+}
 
-    function handleGpxFile(input, gpxFile) {
-        if (gpxFile) {
-            const splitFileType = gpxFile.name.split(".");
-            const fileType = splitFileType[splitFileType.length - 1];
+function sendGpxToServer(gpxContent) {
+    // Use fetch to send the GPX content to the server
+    fetch('/save_data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({gpxContent}),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response from server:', data);
+            // Optionally handle the response from the server
+        })
+        .catch(error => {
+            console.error('Error sending GPX content to server:', error);
+        });
+}
 
-            // Check if a file is present and check for its file type
-            if (!gpxFile || fileType !== "gpx") {
-                input.classList.add("is-invalid");
-                return;
-            }
 
-            input.classList.remove("is-invalid");
-            autoFillStartDestination(gpxFile);
-
-            // Read the GPX content using FileReader
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                const gpxContent = e.target.result;
-
-                sendGpxToServer(gpxContent);
-            };
-            reader.readAsText(gpxFile);
-        }
+function updatePolyline(startMarker, destinationMarker, route) {
+    if (startMarker && destinationMarker && route) {
+        // Update the polyline with the new coordinates
+        route.setLatLngs([startMarker.getLatLng(), destinationMarker.getLatLng()]);
     }
+    return route;
+}
 
 
-        function sendGpxToServer(gpxContent) {
-            // Use fetch or XMLHttpRequest to send the GPX content to the server
-            fetch('/save_data', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({gpxContent}),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Response from server:', data);
-                    // Optionally handle the response from the server
-                })
-                .catch(error => {
-                    console.error('Error sending GPX content to server:', error);
-                });
-        }
+function updateStart(startName, startMarker) {
+    const startNameInput = document.getElementById("startNameInput");
+    const latitudeStartCoordinateInput = document.getElementById("latitudeStartCoordinateInput");
+    const longitudeStartCoordinateInput = document.getElementById("longitudeStartCoordinateInput");
+
+    if (startMarker != null) {
+        startNameInput.value = startName;
+        latitudeStartCoordinateInput.value = parseFloat(startMarker.getLatLng().lat).toFixed(6).replace(',', '.');
+        longitudeStartCoordinateInput.value = parseFloat(startMarker.getLatLng().lng).toFixed(6).replace(',', '.');
+        latitudeStartCoordinateInput.setAttribute("readonly", "");
+        longitudeStartCoordinateInput.setAttribute("readonly", "");
+    } else {
+        startNameInput.value = "";
+        latitudeStartCoordinateInput.value = "";
+        longitudeStartCoordinateInput.value = "";
     }
+}
 
+function updateDestination(destinationName, destinationMarker) {
+    const destinationNameInput = document.getElementById("destinationNameInput");
+    const latitudeDestinationCoordinateInput = document.getElementById("latitudeDestinationCoordinateInput");
+    const longitudeDestinationCoordinateInput = document.getElementById("longitudeDestinationCoordinateInput");
 
-    function updatePolyline(startMarker, destinationMarker, route) {
-        if (startMarker && destinationMarker && route) {
-            // Update the polyline with the new coordinates
-            route.setLatLngs([startMarker.getLatLng(), destinationMarker.getLatLng()]);
-        }
-        return route;
+    if (destinationMarker != null) {
+        destinationNameInput.value = destinationName;
+        latitudeDestinationCoordinateInput.value = parseFloat(destinationMarker.getLatLng().lat).toFixed(6).replace(',', '.');
+        longitudeDestinationCoordinateInput.value = parseFloat(destinationMarker.getLatLng().lng).toFixed(6).replace(',', '.');
+        latitudeDestinationCoordinateInput.setAttribute("readonly", "");
+        longitudeDestinationCoordinateInput.setAttribute("readonly", "");
+    } else {
+        destinationNameInput.value = "";
+        latitudeDestinationCoordinateInput.value = "";
+        longitudeDestinationCoordinateInput.value = "";
     }
+}
 
+function showMarkerModal(markerModalHeader, markerModalNameInput, onModalSave) {
+    const markerModal = new bootstrap.Modal(document.getElementById("markerModal"));
 
-    function updateStart(startName, startMarker) {
-        const startNameInput = document.getElementById("startNameInput");
-        const latitudeStartCoordinateInput = document.getElementById("latitudeStartCoordinateInput");
-        const longitudeStartCoordinateInput = document.getElementById("longitudeStartCoordinateInput");
+    const modalHeader = document.getElementById("markerModalHeader");
+    const modalInput = document.getElementById("markerModalNameInput");
+    const markerModalSaveButton = document.getElementById("markerModalSaveButton");
+    const markerNameErrorMessage = document.getElementById("markerNameErrorMessage");
 
-        if (startMarker != null) {
-            startNameInput.value = startName;
-            latitudeStartCoordinateInput.value = parseFloat(startMarker.getLatLng().lat).toFixed(6).replace(',', '.');
-            longitudeStartCoordinateInput.value = parseFloat(startMarker.getLatLng().lng).toFixed(6).replace(',', '.');
-            latitudeStartCoordinateInput.setAttribute("readonly", "");
-            longitudeStartCoordinateInput.setAttribute("readonly", "");
+    modalHeader.innerText = markerModalHeader;
+    modalInput.placeholder = markerModalNameInput;
+    markerModalSaveButton.onclick = () => {
+        if (modalInput.value) {
+            onModalSave();
+            modalInput.value = "";
+            markerNameErrorMessage.style.display = "none";
+            markerModal.hide();
         } else {
-            startNameInput.value = "";
-            latitudeStartCoordinateInput.value = "";
-            longitudeStartCoordinateInput.value = "";
+            markerNameErrorMessage.style.display = "block";
         }
-    }
+    };
 
-    function updateDestination(destinationName, destinationMarker) {
-        const destinationNameInput = document.getElementById("destinationNameInput");
-        const latitudeDestinationCoordinateInput = document.getElementById("latitudeDestinationCoordinateInput");
-        const longitudeDestinationCoordinateInput = document.getElementById("longitudeDestinationCoordinateInput");
+    markerModal.show();
+}
 
-        if (destinationMarker != null) {
-            destinationNameInput.value = destinationName;
-            latitudeDestinationCoordinateInput.value = parseFloat(destinationMarker.getLatLng().lat).toFixed(6).replace(',', '.');
-            longitudeDestinationCoordinateInput.value = parseFloat(destinationMarker.getLatLng().lng).toFixed(6).replace(',', '.');
-            latitudeDestinationCoordinateInput.setAttribute("readonly", "");
-            longitudeDestinationCoordinateInput.setAttribute("readonly", "");
-        } else {
-            destinationNameInput.value = "";
-            latitudeDestinationCoordinateInput.value = "";
-            longitudeDestinationCoordinateInput.value = "";
-        }
-    }
-
-    function showMarkerModal(markerModalHeader, markerModalNameInput, onModalSave) {
-        const markerModal = new bootstrap.Modal(document.getElementById("markerModal"));
-
-        const modalHeader = document.getElementById("markerModalHeader");
-        const modalInput = document.getElementById("markerModalNameInput");
-        const markerModalSaveButton = document.getElementById("markerModalSaveButton");
-        const markerNameErrorMessage = document.getElementById("markerNameErrorMessage");
-
-        modalHeader.innerText = markerModalHeader;
-        modalInput.placeholder = markerModalNameInput;
-        markerModalSaveButton.onclick = () => {
-            if (modalInput.value) {
-                onModalSave();
-                modalInput.value = "";
-                markerNameErrorMessage.style.display = "none";
-                markerModal.hide();
-            } else {
-                markerNameErrorMessage.style.display = "block";
-            }
-        };
-
-        markerModal.show();
-    }
-
+function clearStartDestInputs() {
+    document.getElementById('markerModalNameInput').value = '';
+}

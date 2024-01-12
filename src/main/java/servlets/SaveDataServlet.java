@@ -23,24 +23,19 @@ public class SaveDataServlet extends HttpServlet {
         boolean isEdit = Boolean.parseBoolean(request.getParameter("edit"));
 
         if (isEdit) {
-            saveToDatabase(request,response);
+            saveToDatabase(request,response, true);
 
             int hikeID = Integer.parseInt(request.getParameter("hikeID"));
             response.sendRedirect("hike_detail?id=" + hikeID + "&hikeEdited=true");
         }
         else {
-            saveToDatabase(request, response);
+            saveToDatabase(request, response, false);
             response.sendRedirect("/search_results?hikeCreated=true");
         }
     }
 
-<<<<<<< HEAD
-    private void saveToDatabase(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println("latDest " + Double.parseDouble(request.getParameter("latitudeDestinationCoordinateInput")));
 
-=======
     private void saveToDatabase(HttpServletRequest request, HttpServletResponse response, boolean isEdit) throws IOException {
->>>>>>> 22623c85128f39bda3c354891c420a7e9cddfd93
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
         double distance = Double.parseDouble(request.getParameter("distanceInput"));
@@ -168,9 +163,10 @@ public class SaveDataServlet extends HttpServlet {
         }
         hike.setDate(currentDate);
         hike.setVisible(true);
-        hike.setRegion(1);
 
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
+        String regionString = request.getParameter("regionInput");
+        Region region = facadeJPA.getRegionByName(regionString);
+        hike.setRegion(region);
 
         facadeJPA.save(hike);
     }

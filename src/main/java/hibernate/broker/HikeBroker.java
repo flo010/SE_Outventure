@@ -26,7 +26,7 @@ public class HikeBroker extends BrokerBase<Hike> {
 
     public Hike getEager(int value) {
         EntityManager entityManager = getEntityManager();
-        Query query = entityManager.createQuery("SELECT DISTINCT h FROM Hike h LEFT JOIN FETCH h.pointsOfInterest WHERE h.hikeID = :hikeID");
+        Query query = entityManager.createQuery("SELECT DISTINCT h FROM Hike h LEFT JOIN FETCH h.pointsOfInterest LEFT JOIN FETCH h.region WHERE h.hikeID = :hikeID");
         query.setParameter("hikeID", value);
         Hike hike = (Hike) query.getSingleResult();
         entityManager.close();

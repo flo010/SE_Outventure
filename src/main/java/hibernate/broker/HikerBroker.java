@@ -12,7 +12,20 @@ import java.util.List;
 public class HikerBroker extends BrokerBase<Hiker>{
     @Override
     public Hiker getLazy(int value) {
-        return null;
+        try {
+            EntityManager entityManager = getEntityManager();
+            Query query = entityManager.createQuery("SELECT h FROM Hiker h WHERE h.hikerID = :hikerID");
+            query.setParameter("hikerID", value);
+            Hiker hiker = (Hiker) query.getSingleResult();
+
+            return hiker;
+        } catch (NoResultException e) {
+            // Handle case when no result is found (user not found or incorrect credentials)
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -41,23 +54,6 @@ public class HikerBroker extends BrokerBase<Hiker>{
             EntityManager entityManager = getEntityManager();
             Query query = entityManager.createQuery("SELECT h FROM Hiker h WHERE h.email = :email");
             query.setParameter("email", email);
-            Hiker hiker = (Hiker) query.getSingleResult();
-
-            return hiker;
-        } catch (NoResultException e) {
-            // Handle case when no result is found (user not found or incorrect credentials)
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public Hiker getByID(int id) {
-        try {
-            EntityManager entityManager = getEntityManager();
-            Query query = entityManager.createQuery("SELECT h FROM Hiker h WHERE h.hikerID = :hikerID");
-            query.setParameter("hikerID", id);
             Hiker hiker = (Hiker) query.getSingleResult();
 
             return hiker;

@@ -1,10 +1,3 @@
-function showDeleteHikeModal() {
-    let deleteHikeModal = new bootstrap.Modal(document.getElementById('deleteHikeModal'), {
-        keyboard: false
-    });
-    deleteHikeModal.show();
-}
-
 // function to fill the circles
 document.addEventListener("DOMContentLoaded", function() {
     let circles = document.querySelectorAll('.fa.fa-circle-o');
@@ -83,9 +76,9 @@ function initializeMap() {
 
     let poiIcon = L.Icon.extend({
         options: {
-            iconSize:     [40, 40],
-            iconAnchor:   [20, 40],
-            popupAnchor:  [0, -48]
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -48]
         }
     });
 
@@ -100,7 +93,7 @@ function initializeMap() {
         let poiLatitude = poiData.poiLatitude;
         let poiLongitude = poiData.poiLongitude;
 
-        switch(poiType) {
+        switch (poiType) {
             case 'Hut':
                 let hutMarker = L.marker([poiLatitude, poiLongitude], {icon: hutIcon}).addTo(map);
                 console.log("hutMarker: " + hutMarker);
@@ -160,6 +153,7 @@ function initializeMap() {
                 console.error('Error:', error);
             });
     }
+
     function drawRoute(gpxData, map) {
         var gpxLayer = new L.GPX(gpxData, {async: true});
 
@@ -175,50 +169,40 @@ function initializeMap() {
             console.error('Invalid route data');
         }
     }
+}
 
-    const exportButton = document.getElementById('exportButton');
-    exportButton.addEventListener('click', exportGPX);
-// JavaScript-Funktion ändern
+const exportButton = document.getElementById('exportButton');
+exportButton.addEventListener('click', exportGPX);
+function exportGPX() {
     let cachedGPXData = createGPX();
-    function exportGPX() {
-        console.log('waypoint:', waypoints);
+    const blob = new Blob([cachedGPXData], {type: 'application/gpx+xml'});
 
-// Create a Blob with the GPX data
-        const gpxData = createGPX();
-        console.log('Generated GPX data:', gpxData);
-        // Create a Blob with the GPX data
-        const blob = new Blob([cachedGPXData], {type: 'application/gpx+xml'});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'waypoints.gpx';
+    link.click();
+}
 
-        // Create a link for downloading the GPX file
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'waypoints.gpx';
-        link.click();
-    }
+function createGPX() {
+    return '<?xml version="1.0" encoding="UTF-8" standalone="no" ?>' +
+        '<gpx version="1.1" creator="Outventure">' +
+        '<trk>' +
+        '<name>A hike created with Outventure!</name>' +
+        '<trkseg>' +
+        waypoints.map(function (waypoint) {
+        }).join('') +
+        '</trkseg>' +
+        '</trk>' +
+        '<wpt lat="' + startLatitude + '" lon="' + startLongitude + '">' +
+        '<name>' + startName + '</name>' +
+        '</wpt>' +
+        '<wpt lat="' + destinationLatitude + '" lon="' + destinationLongitude + '">' +
+        '<name>' + destinationName + '</name>' +
+        '</wpt>' +
+        '</gpx>';
+}
 
-    function createGPX() {
-        return '<?xml version="1.0" encoding="UTF-8" standalone="no" ?>' +
-            '<gpx version="1.1" creator="Outventure">' +
-            '<trk>' +
-            '<name>A hike created with Outventure!</name>' +
-            '<trkseg>' +
-           waypoints.map(function (waypoint) {
-           }).join('') +
-            '</trkseg>' +
-            '</trk>' +
-            '<wpt lat="' + startLatitude + '" lon="' + startLongitude + '">' +
-            '<name>' + startName + '</name>' +
-            '</wpt>' +
-            '<wpt lat="' + destinationLatitude + '" lon="' + destinationLongitude + '">' +
-            '<name>' + destinationName + '</name>' +
-            '</wpt>' +
-            '</gpx>';
-    }
-
-
-
-
-    function updateFavorites(hikeID, hikerID) {
+function updateFavorites(hikeID, hikerID) {
     window.location.href = '/favorite_hike?hikeID=' + hikeID + '&hikerID=' + hikerID + '&page=detail';
 }
 
@@ -230,5 +214,3 @@ function showHikeCompletedModal() {
     document.getElementById('completionDate').value = "";
     hikeCompletedModal.show();
 }
-}
-

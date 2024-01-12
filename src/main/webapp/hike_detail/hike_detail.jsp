@@ -9,15 +9,26 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="com.google.gson.Gson" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: learo
-  Date: 03.11.2023
-  Time: 15:46
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
+
+<%
+    Hike hike = (Hike) request.getAttribute("hike");
+    double durationMinutes = (hike.getDuration() % 1) * 60;
+
+    LocalDate localDate = hike.getDate();
+    String pattern = "dd/MM/yyyy";
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+    String formattedDate = localDate.format(formatter);
+
+    List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
+
+    FacadeJPA facadeJPA = FacadeJPA.getInstance();
+    int hikerID = (session.getAttribute("hikerID") != null) ? Integer.parseInt(session.getAttribute("hikerID").toString()) : -1;
+    boolean isFavorite = hikerID != -1 && facadeJPA.isFavoriteHikeExists(hikerID, hike.getHikeID());
+    Hike hikeWithComment = (Hike) request.getAttribute("hikeWithComment");
+    List<Comment> comments = hikeWithComment.getComments();
+%>
 
 <!DOCTYPE html>
 <html>
@@ -31,7 +42,7 @@
         <script src="https://unpkg.com/leaflet-gpx/gpx.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <%-- fullscreen leaflet css and js --%>
+        <%-- fullscreen leaflet css and js --%>
         <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
         <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
         <%-- custom css --%>
@@ -41,25 +52,6 @@
         <header>
             <outventure:navbar/>
         </header>
-
-        <%
-            Hike hike = (Hike) request.getAttribute("hike");
-            double durationMinutes = (hike.getDuration() % 1) * 60;
-
-            LocalDate localDate = hike.getDate();
-            String pattern = "dd/MM/yyyy";
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-            String formattedDate = localDate.format(formatter);
-
-            List<PointOfInterest> pointsOfInterest = hike.getPointsOfInterest();
-
-            FacadeJPA facadeJPA = FacadeJPA.getInstance();
-            int hikerID = (session.getAttribute("hikerID") != null) ? Integer.parseInt(session.getAttribute("hikerID").toString()) : -1;
-            boolean isFavorite = hikerID != -1 && facadeJPA.isFavoriteHikeExists(hikerID, hike.getHikeID());
-            Hike hikeWithComment = (Hike) request.getAttribute("hikeWithComment");
-            List<Comment> comments = hikeWithComment.getComments();
-        %>
-
         <div class="container-sm mt-5 mb-5">
             <div class="d-flex bd-highlight mb-3">
                 <div class="me-auto p-2 bd-highlight">
@@ -104,7 +96,7 @@
             <div class="row">
                 <div class="col-8">
                     <h1 class="mb-3"><%=hike.getTitle()%></h1>
-                    <img class="cover-image" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
+                    <img class="cover-image w-75" src="/api/image/<%=hike.getPreviewPicture()%>" alt="mountain picture">
                     <div class="paragraph-container mt-3" style="width: 70%">
                         <span class="author">Author: <%= hike.getAuthor() %></span>
                         <span class="created-at">Created at: <%= formattedDate %></span>
@@ -151,7 +143,7 @@
                         <%for (Comment comment : comments) {%>
                         <div class="comment-box">
                             <div style="display: flex;justify-content: space-between">
-                                <b style="font-size: small">@<%=comment.getHiker().getUsername()%></b>
+                                <strong style="font-size: small">@<%=comment.getHiker().getUsername()%></strong>
                                 <small ><%=comment.getTimestamp()%></small>
                             </div>
                             <div class="mt-2">
@@ -196,6 +188,8 @@
                 <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
                     <h3>Description</h3>
                     <p><%=hike.getDescription()%></p>
+                    <h3 class="mt-5">Region</h3>
+                    <p><%=hike.getRegion().getRegion()%></p>
                     <h3 class="mt-5">Map</h3>
                     <div id="map" class="map-hike-detail"></div>
                     <div class="mt-5">
@@ -205,6 +199,36 @@
                             </svg>
                             Export GPX
                         </button>
+                    </div>
+                    <h3 class="mt-5">Weather</h3>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row row-cols-4">
+                                        <%
+                                            ArrayList<ArrayList<String>> weatherList = (ArrayList<ArrayList<String>>) request.getAttribute("weatherList");
+
+                                            for (ArrayList<String> weatherInfo : weatherList) {
+                                        %>
+                                        <div class="col">
+                                            <div class="card">
+                                                <div class="card-body d-flex flex-column align-items-center">
+                                                    <img src="<%= weatherInfo.get(1) %>" alt="weather icon">
+                                                    <div class="text-center">
+                                                        <p class="m-0 fw-bold"><%= weatherInfo.get(0) %> °C</p>
+                                                        <p class="m-0 form-text"><%= weatherInfo.get(2) %></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <%
+                                            }
+                                        %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="pills-details" role="tabpanel" aria-labelledby="pills-details-tab" tabindex="0">
@@ -326,8 +350,6 @@
                             </div>
                             <%
                                 }
-
-                                // Convert the poiDataList to JSON using Gson
                                 String poiDataListJson = new Gson().toJson(poiDataList);
                             %>
                             <div id="poiDataList" data-poi-data='<%= poiDataListJson %>'></div>

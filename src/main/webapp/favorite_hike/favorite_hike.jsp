@@ -1,21 +1,12 @@
 <%@ page import="hibernate.facade.FacadeJPA" %>
 <%@ page import="hibernate.model.Hiker" %>
 <%@ page import="hibernate.model.Hike" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: Betül Kulac
-  Date: 07.12.23
-  Time: 19:06
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
 <%
-    FacadeJPA facadeJPA = FacadeJPA.getInstance();
-    int hikerID = Integer.parseInt(session.getAttribute("hikerID").toString());
-    Hiker hiker = facadeJPA.getHikerByID(hikerID);
-    List<Hike> favoriteHikes =  hiker.getFavoriteHikes();
+    List<Hike> favoriteHikes = (List<Hike>) request.getAttribute("favoriteHikes");
 %>
 
 <html>
