@@ -41,7 +41,6 @@ public class SearchHikeResultsTest {
     driver.get("http://localhost:8080/");
     driver.manage().window().setSize(new Dimension(1552, 840));
     driver.findElement(By.id("searchBar")).click();
-    driver.findElement(By.id("searchBar")).sendKeys("mocked");
     driver.findElement(By.id("searchBar")).sendKeys(Keys.ENTER);
     {
       List<WebElement> elements = driver.findElements(By.cssSelector(".col:nth-child(1) .card-image-top"));

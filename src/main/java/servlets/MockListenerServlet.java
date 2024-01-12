@@ -52,7 +52,7 @@ public class MockListenerServlet implements ServletContextListener {
             Hike mockedHike1 = new Hike();
             mockedHike1.setHikeID(1);
             mockedHike1.setTitle("Title Mocked Hike 1");
-            mockedHike1.setPreviewPicture("688f2b13-6a75-4243-b9cf-7a87a9d56bb0");
+            mockedHike1.setPreviewPicture("previewPicture1");
             mockedHike1.setDescription("Description Mocked Hike 1");
             mockedHike1.setDuration(1.0);
             mockedHike1.setDistance(1.0);
@@ -83,9 +83,9 @@ public class MockListenerServlet implements ServletContextListener {
 
             Hike mockedHike2 = new Hike();
             mockedHike2.setHikeID(1);
-            mockedHike2.setTitle("Title Mocked Hike 1");
-            mockedHike2.setPreviewPicture("688f2b13-6a75-4243-b9cf-7a87a9d56bb0");
-            mockedHike2.setDescription("Description Mocked Hike 1");
+            mockedHike2.setTitle("Title Mocked Hike 2");
+            mockedHike2.setPreviewPicture("previewPicture2");
+            mockedHike2.setDescription("Description Mocked Hike 2");
             mockedHike2.setDuration(2.0);
             mockedHike2.setDistance(2.0);
             mockedHike2.setAltitude(2);
@@ -107,7 +107,7 @@ public class MockListenerServlet implements ServletContextListener {
             mockedHike2.setOctober(false);
             mockedHike2.setNovember(false);
             mockedHike2.setDecember(false);
-            mockedHike2.setRouteDescription("Route Description Mocked Hike 1");
+            mockedHike2.setRouteDescription("Route Description Mocked Hike 2");
             mockedHike2.setAuthor("mariannesadventure12");
             mockedHike2.setDate(LocalDate.now());
             mockedHike2.setVisible(true);
@@ -167,22 +167,16 @@ public class MockListenerServlet implements ServletContextListener {
             when(mockedFacade.getHikeByIDEager(any(Integer.class))).thenReturn(mockedHike1);
             when(mockedFacade.getHikeCommentByIDEager(any(Integer.class))).thenReturn(mockedHike1);
             when(mockedFacade.getAllHikesLazy()).thenReturn(mockedHikes);
-            when(mockedFacade.getHikesByTitleLazy(any(String.class))).thenReturn(mockedHikes);
+            when(mockedFacade.getHikesByTitleLazy(any(String.class))).thenReturn(emptyHikeList);
             when(mockedFacade.getHikesByAuthorLazy(any(String.class))).thenReturn(mockedHikes);
             when(mockedFacade.getPictureByID(any(String.class))).thenReturn(mockedPicture);
             doNothing().when(mockedFacade).removePOIFromHike(any(Integer.class), any(Integer.class));
-            when(mockedFacade.search(eq("pfänder"), any(Integer.class), any(Integer.class),
-                    any(Integer.class), any(Integer.class), any(Integer.class),
-                    any(Integer.class), any(Integer.class), any(Integer.class),
-                    any(Integer.class), any(Integer.class), any(Integer.class),
-                    any(Integer.class), any(Integer.class), any(Integer.class),
-                    any(Integer.class))).thenReturn(emptyHikeList);
             when(mockedFacade.search(any(String.class), any(Integer.class), any(Integer.class),
                     any(Integer.class), any(Integer.class), any(Integer.class),
                     any(Integer.class), any(Integer.class), any(Integer.class),
                     any(Integer.class), any(Integer.class), any(Integer.class),
                     any(Integer.class), any(Integer.class), any(Integer.class),
-                    any(Integer.class))).thenReturn(mockedHikes);
+                    any(Integer.class))).thenReturn(emptyHikeList);
             when(mockedFacade.checkHikerCredentials(any(String.class), any(String.class))).thenReturn(true);
             when(mockedFacade.getHikerByEmail(any(String.class))).thenReturn(mockedHiker);
             when(mockedFacade.getHikerByID(any(Integer.class))).thenReturn(mockedHiker);
