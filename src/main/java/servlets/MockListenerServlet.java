@@ -158,7 +158,7 @@ public class MockListenerServlet implements ServletContextListener {
             SaveDataServlet.facadeJPA = mockedFacade;
             SearchResultsServlet.facadeJPA = mockedFacade;
             SearchServlet.facadeJPA = mockedFacade;
-            ListCreatedHikesServlet.facadeJPA = mockedFacade;
+            CreatedHikesServlet.facadeJPA = mockedFacade;
 
             doNothing().when(mockedFacade).save(any(String.class));
             when(mockedFacade.getHikeByIDLazy(any(Integer.class))).thenReturn(mockedHike1);

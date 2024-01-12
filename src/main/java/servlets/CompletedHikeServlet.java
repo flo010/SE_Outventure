@@ -3,6 +3,7 @@ package servlets;
 import hibernate.facade.FacadeJPA;
 import hibernate.model.Hike;
 import hibernate.model.Hiker;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ import java.util.List;
 public class CompletedHikeServlet extends HttpServlet {
     public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
     @Transactional
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
 
         HttpSession session = request.getSession();
@@ -33,7 +34,7 @@ public class CompletedHikeServlet extends HttpServlet {
         request.setAttribute("completedHikes", completedHikes);
         request.setAttribute("timestamps", timestamps);
         request.setAttribute("hikerID", hikerID);
-        response.sendRedirect("/completed_hikes/completed_hikes.jsp");
+        request.getRequestDispatcher("/completed_hikes/completed_hikes.jsp").forward(request, response);
     }
 
     @Transactional
@@ -57,6 +58,7 @@ public class CompletedHikeServlet extends HttpServlet {
             removeCompleted(hikeID, hikerID, timestamp);
             request.setAttribute("completedHikes", completedHikes);
             request.setAttribute("timestamps", timestamps);
+            request.setAttribute("hikerID", hikerID);
             response.sendRedirect("/completed_hikes/completed_hikes.jsp");
         }
     }

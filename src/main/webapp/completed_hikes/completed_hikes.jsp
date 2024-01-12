@@ -42,7 +42,7 @@
             <% if (completedHikes.isEmpty()) { %>
             <div class="empty-list-message mt-5 text-center">
               <p>Your list is empty.</p>
-              <p>Click on the heart button in the hike detail page to add a hike to your favorite list.</p>
+              <p>Click on the "Mark as completed" button in the hike detail page to add a hike to your completed hikes list</p>
             </div>
             <%
             }

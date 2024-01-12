@@ -13,8 +13,8 @@ import jakarta.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ListCreatedHikesServlet", value = "/profile_hike_list")
-public class ListCreatedHikesServlet extends HttpServlet {
+@WebServlet(name = "CreatedHikesServlet", value = "/profile_hike_list")
+public class CreatedHikesServlet extends HttpServlet {
     public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
     @Transactional
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

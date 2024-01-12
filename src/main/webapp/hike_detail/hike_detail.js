@@ -83,9 +83,9 @@ function initializeMap() {
 
     let poiIcon = L.Icon.extend({
         options: {
-            iconSize:     [40, 40],
-            iconAnchor:   [20, 40],
-            popupAnchor:  [0, -48]
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -48]
         }
     });
 
@@ -100,7 +100,7 @@ function initializeMap() {
         let poiLatitude = poiData.poiLatitude;
         let poiLongitude = poiData.poiLongitude;
 
-        switch(poiType) {
+        switch (poiType) {
             case 'Hut':
                 let hutMarker = L.marker([poiLatitude, poiLongitude], {icon: hutIcon}).addTo(map);
                 console.log("hutMarker: " + hutMarker);
@@ -127,98 +127,88 @@ function initializeMap() {
                 break;
         }
     });
-
     sendWaypointsToAPI_route(waypoints);
+}
 
-    function sendWaypointsToAPI_route(waypoints) {
-        const waypointData = waypoints.map(function (waypoint) {
-            return [waypoint.lng, waypoint.lat];
+function sendWaypointsToAPI_route(waypoints) {
+    const waypointData = waypoints.map(function (waypoint) {
+        return [waypoint.lng, waypoint.lat];
+    })
+
+    const payload = {
+        "coordinates": waypointData,
+        "profile": "foot-hiking",
+        "format": "gpx",
+        "elevation": true,
+        "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
+    };
+
+    fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/gpx', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png'
+        },
+        body: JSON.stringify(payload)
+    })
+        .then(response => response.text())
+        .then(gpxData => {
+            drawRoute(gpxData, map);
         })
-
-        const payload = {
-            "coordinates": waypointData,
-            "profile": "foot-hiking",
-            "format": "gpx",
-            "elevation": true,
-            "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
-        };
-
-        fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/gpx', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
-                'Content-Type': 'application/json',
-                'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png'
-            },
-            body: JSON.stringify(payload)
-        })
-            .then(response => response.text())
-            .then(gpxData => {
-                drawRoute(gpxData, map);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-    function drawRoute(gpxData, map) {
-        var gpxLayer = new L.GPX(gpxData, {async: true});
-
-        gpxLayer.on('loaded', function (e) {
-            map.fitBounds(e.target.getBounds());
+        .catch(error => {
+            console.error('Error:', error);
         });
-        console.log(waypoints)
-        gpxLayer.addTo(map);
-        if (route) {
-            map.removeLayer(route);
-            route = null; // Reset the route
-        } else {
-            console.error('Invalid route data');
-        }
-    }
+}
 
-    const exportButton = document.getElementById('exportButton');
-    exportButton.addEventListener('click', exportGPX);
-// JavaScript-Funktion ändern
+function drawRoute(gpxData, map) {
+    let gpxLayer = new L.GPX(gpxData, {async: true});
+
+    gpxLayer.on('loaded', function (e) {
+        map.fitBounds(e.target.getBounds());
+    });
+    console.log(waypoints)
+    gpxLayer.addTo(map);
+    if (route) {
+        map.removeLayer(route);
+        route = null; // Reset the route
+    } else {
+        console.error('Invalid route data');
+    }
+}
+
+const exportButton = document.getElementById('exportButton');
+exportButton.addEventListener('click', exportGPX);
+
+function exportGPX() {
     let cachedGPXData = createGPX();
-    function exportGPX() {
-        console.log('waypoint:', waypoints);
+    const blob = new Blob([cachedGPXData], {type: 'application/gpx+xml'});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'waypoints.gpx';
+    link.click();
+}
 
-// Create a Blob with the GPX data
-        const gpxData = createGPX();
-        console.log('Generated GPX data:', gpxData);
-        // Create a Blob with the GPX data
-        const blob = new Blob([cachedGPXData], {type: 'application/gpx+xml'});
+function createGPX() {
+    return '<?xml version="1.0" encoding="UTF-8" standalone="no" ?>' +
+        '<gpx version="1.1" creator="Outventure">' +
+        '<trk>' +
+        '<name>A hike created with Outventure!</name>' +
+        '<trkseg>' +
+       waypoints.map(function (waypoint) {
+       }).join('') +
+        '</trkseg>' +
+        '</trk>' +
+        '<wpt lat="' + startLatitude + '" lon="' + startLongitude + '">' +
+        '<name>' + startName + '</name>' +
+        '</wpt>' +
+        '<wpt lat="' + destinationLatitude + '" lon="' + destinationLongitude + '">' +
+        '<name>' + destinationName + '</name>' +
+        '</wpt>' +
+        '</gpx>';
+}
 
-        // Create a link for downloading the GPX file
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'waypoints.gpx';
-        link.click();
-    }
-
-    function createGPX() {
-        return '<?xml version="1.0" encoding="UTF-8" standalone="no" ?>' +
-            '<gpx version="1.1" creator="Outventure">' +
-            '<trk>' +
-            '<name>A hike created with Outventure!</name>' +
-            '<trkseg>' +
-           waypoints.map(function (waypoint) {
-           }).join('') +
-            '</trkseg>' +
-            '</trk>' +
-            '<wpt lat="' + startLatitude + '" lon="' + startLongitude + '">' +
-            '<name>' + startName + '</name>' +
-            '</wpt>' +
-            '<wpt lat="' + destinationLatitude + '" lon="' + destinationLongitude + '">' +
-            '<name>' + destinationName + '</name>' +
-            '</wpt>' +
-            '</gpx>';
-    }
-
-
-
-
-    function updateFavorites(hikeID, hikerID) {
+function updateFavorites(hikeID, hikerID) {
     window.location.href = '/favorite_hike?hikeID=' + hikeID + '&hikerID=' + hikerID + '&page=detail';
 }
 
@@ -229,6 +219,5 @@ function showHikeCompletedModal() {
     });
     document.getElementById('completionDate').value = "";
     hikeCompletedModal.show();
-}
 }
 
