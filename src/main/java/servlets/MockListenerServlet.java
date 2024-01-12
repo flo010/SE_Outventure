@@ -23,6 +23,7 @@ public class MockListenerServlet implements ServletContextListener {
             FacadeJPA mockedFacade = mock(FacadeJPA.class);
 
             List<Hike> mockedHikes = new ArrayList<>();
+            List<Hike> emptyHikeList = new ArrayList<>();
 
             mock(Start.class);
             Start mockedStart = new Start();
@@ -135,15 +136,16 @@ public class MockListenerServlet implements ServletContextListener {
             mockedHike1.setComments(mockedComments);
 
             mock(PointOfInterest.class);
-            PointOfInterest poi = new PointOfInterest();
-            poi.setPoiID(1);
-            poi.setName("Mocked POI");
-            poi.setLatitude(47.458720);
-            poi.setLongitude(9.772641);
-            poi.setType("Hut");
-            poi.setHikes(mockedHikes);
+            PointOfInterest mockedPOI = new PointOfInterest();
+            mockedPOI.setPoiID(1);
+            mockedPOI.setName("Mocked POI");
+            mockedPOI.setLatitude(47.458720);
+            mockedPOI.setLongitude(9.772641);
+            mockedPOI.setType("Hut");
+            mockedPOI.setHikes(mockedHikes);
 
             List<PointOfInterest> mockedPointsOfInterest = new ArrayList<>();
+            mockedPointsOfInterest.add(mockedPOI);
             mockedHike1.setPointsOfInterest(mockedPointsOfInterest);
 
             CommentServlet.facadeJPA = mockedFacade;
@@ -169,6 +171,12 @@ public class MockListenerServlet implements ServletContextListener {
             when(mockedFacade.getHikesByAuthorLazy(any(String.class))).thenReturn(mockedHikes);
             when(mockedFacade.getPictureByID(any(String.class))).thenReturn(mockedPicture);
             doNothing().when(mockedFacade).removePOIFromHike(any(Integer.class), any(Integer.class));
+            when(mockedFacade.search(eq("pfänder"), any(Integer.class), any(Integer.class),
+                    any(Integer.class), any(Integer.class), any(Integer.class),
+                    any(Integer.class), any(Integer.class), any(Integer.class),
+                    any(Integer.class), any(Integer.class), any(Integer.class),
+                    any(Integer.class), any(Integer.class), any(Integer.class),
+                    any(Integer.class))).thenReturn(emptyHikeList);
             when(mockedFacade.search(any(String.class), any(Integer.class), any(Integer.class),
                     any(Integer.class), any(Integer.class), any(Integer.class),
                     any(Integer.class), any(Integer.class), any(Integer.class),
