@@ -3,13 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="hibernate.model.Hiker" %>
 <%@ page import="hibernate.broker.HikerBroker" %>
-<%@ page import="java.sql.Date" %><%--
-  Created by IntelliJ IDEA.
-  User: Betül Kulac
-  Date: 09.12.23
-  Time: 18:51
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.sql.Date" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 

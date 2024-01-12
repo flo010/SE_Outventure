@@ -1,10 +1,3 @@
-function showDeleteHikeModal() {
-    let deleteHikeModal = new bootstrap.Modal(document.getElementById('deleteHikeModal'), {
-        keyboard: false
-    });
-    deleteHikeModal.show();
-}
-
 // function to fill the circles
 document.addEventListener("DOMContentLoaded", function() {
     let circles = document.querySelectorAll('.fa.fa-circle-o');
@@ -127,62 +120,63 @@ function initializeMap() {
                 break;
         }
     });
+
     sendWaypointsToAPI_route(waypoints);
-}
 
-function sendWaypointsToAPI_route(waypoints) {
-    const waypointData = waypoints.map(function (waypoint) {
-        return [waypoint.lng, waypoint.lat];
-    })
-
-    const payload = {
-        "coordinates": waypointData,
-        "profile": "foot-hiking",
-        "format": "gpx",
-        "elevation": true,
-        "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
-    };
-
-    fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/gpx', {
-        method: 'POST',
-        headers: {
-            'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png'
-        },
-        body: JSON.stringify(payload)
-    })
-        .then(response => response.text())
-        .then(gpxData => {
-            drawRoute(gpxData, map);
+    function sendWaypointsToAPI_route(waypoints) {
+        const waypointData = waypoints.map(function (waypoint) {
+            return [waypoint.lng, waypoint.lat];
         })
-        .catch(error => {
-            console.error('Error:', error);
+
+        const payload = {
+            "coordinates": waypointData,
+            "profile": "foot-hiking",
+            "format": "gpx",
+            "elevation": true,
+            "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
+        };
+
+        fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/gpx', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png'
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(response => response.text())
+            .then(gpxData => {
+                drawRoute(gpxData, map);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function drawRoute(gpxData, map) {
+        var gpxLayer = new L.GPX(gpxData, {async: true});
+
+        gpxLayer.on('loaded', function (e) {
+            map.fitBounds(e.target.getBounds());
         });
-}
-
-function drawRoute(gpxData, map) {
-    let gpxLayer = new L.GPX(gpxData, {async: true});
-
-    gpxLayer.on('loaded', function (e) {
-        map.fitBounds(e.target.getBounds());
-    });
-    console.log(waypoints)
-    gpxLayer.addTo(map);
-    if (route) {
-        map.removeLayer(route);
-        route = null; // Reset the route
-    } else {
-        console.error('Invalid route data');
+        console.log(waypoints)
+        gpxLayer.addTo(map);
+        if (route) {
+            map.removeLayer(route);
+            route = null; // Reset the route
+        } else {
+            console.error('Invalid route data');
+        }
     }
 }
 
 const exportButton = document.getElementById('exportButton');
 exportButton.addEventListener('click', exportGPX);
-
 function exportGPX() {
     let cachedGPXData = createGPX();
     const blob = new Blob([cachedGPXData], {type: 'application/gpx+xml'});
+
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = 'waypoints.gpx';
@@ -195,8 +189,8 @@ function createGPX() {
         '<trk>' +
         '<name>A hike created with Outventure!</name>' +
         '<trkseg>' +
-       waypoints.map(function (waypoint) {
-       }).join('') +
+        waypoints.map(function (waypoint) {
+        }).join('') +
         '</trkseg>' +
         '</trk>' +
         '<wpt lat="' + startLatitude + '" lon="' + startLongitude + '">' +
@@ -220,4 +214,3 @@ function showHikeCompletedModal() {
     document.getElementById('completionDate').value = "";
     hikeCompletedModal.show();
 }
-

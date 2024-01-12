@@ -404,7 +404,6 @@ function prevTab() {
     }
 }
 
-// function to update the progress bar
 function updateProgressBar () {
     let activeLink = document.querySelector(".nav-link.active");
     let progressBar = document.querySelector(".progress-bar.bg-success");
@@ -1061,7 +1060,7 @@ function handleGpxFile(input, gpxFile) {
 }
 
 function sendGpxToServer(gpxContent) {
-    // Use fetch or XMLHttpRequest to send the GPX content to the server
+    // Use fetch to send the GPX content to the server
     fetch('/save_data', {
         method: 'POST',
         headers: {
