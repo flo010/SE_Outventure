@@ -69,6 +69,7 @@ public class SearchResultsServlet extends HttpServlet {
                     hikeList = facadeJPA.getPOIByName(searchString).getHikes();
                     break;
                 case ("Region") :
+                    hikeList = facadeJPA.getRegionByName(searchString).getHikes();
                     break;
                 default:
                     hikeList = facadeJPA.getHikesByTitleLazy(searchString);
