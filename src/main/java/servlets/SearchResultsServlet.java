@@ -66,6 +66,7 @@ public class SearchResultsServlet extends HttpServlet {
         else if ((searchString != null) && (!searchString.isEmpty())) {
             switch (searchByString){
                 case "POI":
+                    hikeList = facadeJPA.getPOIByName(searchString).getHikes();
                     break;
                 case ("Region") :
                     break;
