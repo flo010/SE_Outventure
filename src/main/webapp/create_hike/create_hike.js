@@ -998,92 +998,84 @@ function initializeNewMap() {
             console.error('Invalid route data');
         }
     }
-}
 
-
-
-
-
-
-
-
-function autoFillStartDestination(file) {
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-        const gpxData = e.target.result;
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(gpxData, "text/xml");
-
-        const trackPoints = xmlDoc.querySelectorAll("rtept").length === 0 ? xmlDoc.querySelectorAll("trkpt") : xmlDoc.querySelectorAll("rtept");
-
-        if (trackPoints.length !== 0) {
-            const startPoint = trackPoints[0];
-            const startNameElement = startPoint.querySelector("name");
-            const startName = startNameElement ? startNameElement.textContent : "";
-
-            const destinationPoint = trackPoints[trackPoints.length - 1];
-            const destinationNameElement = destinationPoint.querySelector("name");
-            const destinationName = destinationNameElement ? destinationNameElement.textContent : "";
-
-            document.getElementById("startNameInput").value = startName;
-            document.getElementById("latitudeStartCoordinateInput").value = startPoint.getAttribute("lat");
-            document.getElementById("longitudeStartCoordinateInput").value = startPoint.getAttribute("lon");
-
-            document.getElementById("destinationNameInput").value = destinationName;
-            document.getElementById("latitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lat");
-            document.getElementById("longitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lon");
-        }
-    };
-
-    reader.readAsText(file);
-}
-
-function handleGpxFile(input, gpxFile) {
-    if (gpxFile) {
-        const splitFileType = gpxFile.name.split(".");
-        const fileType = splitFileType[splitFileType.length - 1];
-
-        // Check if a file is present and check for its file type
-        if (!gpxFile || fileType !== "gpx") {
-            input.classList.add("is-invalid");
-            return;
-        }
-
-        input.classList.remove("is-invalid");
-        autoFillStartDestination(gpxFile);
-
-        // Read the GPX content using FileReader
+    function autoFillStartDestination(file) {
         const reader = new FileReader();
 
         reader.onload = function (e) {
-            const gpxContent = e.target.result;
+            const gpxData = e.target.result;
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(gpxData, "text/xml");
 
-            sendGpxToServer(gpxContent);
+            const trackPoints = xmlDoc.querySelectorAll("rtept").length === 0 ? xmlDoc.querySelectorAll("trkpt") : xmlDoc.querySelectorAll("rtept");
+
+            if (trackPoints.length !== 0) {
+                const startPoint = trackPoints[0];
+                const startNameElement = startPoint.querySelector("name");
+                const startName = startNameElement ? startNameElement.textContent : "";
+
+                const destinationPoint = trackPoints[trackPoints.length - 1];
+                const destinationNameElement = destinationPoint.querySelector("name");
+                const destinationName = destinationNameElement ? destinationNameElement.textContent : "";
+
+                document.getElementById("startNameInput").value = startName;
+                document.getElementById("latitudeStartCoordinateInput").value = startPoint.getAttribute("lat");
+                document.getElementById("longitudeStartCoordinateInput").value = startPoint.getAttribute("lon");
+
+                document.getElementById("destinationNameInput").value = destinationName;
+                document.getElementById("latitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lat");
+                document.getElementById("longitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lon");
+            }
         };
-        reader.readAsText(gpxFile);
+
+        reader.readAsText(file);
+    }
+
+    function handleGpxFile(input, gpxFile) {
+        if (gpxFile) {
+            const splitFileType = gpxFile.name.split(".");
+            const fileType = splitFileType[splitFileType.length - 1];
+
+            // Check if a file is present and check for its file type
+            if (!gpxFile || fileType !== "gpx") {
+                input.classList.add("is-invalid");
+                return;
+            }
+
+            input.classList.remove("is-invalid");
+            autoFillStartDestination(gpxFile);
+
+            // Read the GPX content using FileReader
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const gpxContent = e.target.result;
+
+                sendGpxToServer(gpxContent);
+            };
+            reader.readAsText(gpxFile);
+        }
+    }
+
+    function sendGpxToServer(gpxContent) {
+        // Use fetch to send the GPX content to the server
+        fetch('/save_data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({gpxContent}),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response from server:', data);
+                // Optionally handle the response from the server
+            })
+            .catch(error => {
+                console.error('Error sending GPX content to server:', error);
+            });
     }
 }
-
-function sendGpxToServer(gpxContent) {
-    // Use fetch to send the GPX content to the server
-    fetch('/save_data', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({gpxContent}),
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Response from server:', data);
-            // Optionally handle the response from the server
-        })
-        .catch(error => {
-            console.error('Error sending GPX content to server:', error);
-        });
-}
-
 
 function updatePolyline(startMarker, destinationMarker, route) {
     if (startMarker && destinationMarker && route) {
