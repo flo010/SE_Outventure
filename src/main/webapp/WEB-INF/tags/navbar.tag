@@ -27,7 +27,7 @@
                 <form id="search-input" action="/search_results" method="get" class="form-inline form-search mx-auto">
                     <div class="input-group">
                         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style=" color:white; width:80px">
-                            <span id="selectedItem">All</span>
+                            <span id="selectedItem" name= "selectedItem" >All</span>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#" onclick="changeSelectedItem('All')">All</a></li>
