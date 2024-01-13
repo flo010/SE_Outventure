@@ -856,8 +856,10 @@ function initializeNewMap() {
             });
         }
     });
-}
-
+    document.getElementById('showRouteButton').addEventListener('click', function () {
+        sendWaypointsToAPI_route(waypoints);
+        sendWaypointsToAPI();
+    });
 
     const importGpxButton = document.getElementById('importGpxButton');
 
@@ -870,10 +872,7 @@ function initializeNewMap() {
         document.getElementById("gpxInput").click();
     }
 
-    document.getElementById('showRouteButton').addEventListener('click', function () {
-        sendWaypointsToAPI_route(waypoints);
-        sendWaypointsToAPI();
-    });
+
 
     const gpxInput = document.getElementById('gpxInput');
     // Add an event listener for the 'change' event
@@ -900,8 +899,6 @@ function initializeNewMap() {
             handleGpxFile(gpxInput, file)
         }
     });
-
-
 
     function sendWaypointsToAPI_route(waypoints) {
         const waypointData = waypoints.map(function (waypoint) {
@@ -986,21 +983,29 @@ function initializeNewMap() {
     }
 
 
-function drawRoute(gpxData, map) {
-    var gpxLayer = new L.GPX(gpxData, {async: true});
+    function drawRoute(gpxData, map) {
+        var gpxLayer = new L.GPX(gpxData, {async: true});
 
-    gpxLayer.on('loaded', function (e) {
-        map.fitBounds(e.target.getBounds());
-    });
-    console.log(waypoints)
-    gpxLayer.addTo(map);
-    if (route) {
-        newMap.removeLayer(route);
-        route = null; // Reset the route
-    } else {
-        console.error('Invalid route data');
+        gpxLayer.on('loaded', function (e) {
+            map.fitBounds(e.target.getBounds());
+        });
+        console.log(waypoints)
+        gpxLayer.addTo(map);
+        if (route) {
+            newMap.removeLayer(route);
+            route = null; // Reset the route
+        } else {
+            console.error('Invalid route data');
+        }
     }
 }
+
+
+
+
+
+
+
 
 function autoFillStartDestination(file) {
     const reader = new FileReader();

@@ -154,21 +154,23 @@ function initializeMap() {
             });
     }
 
+    let existingGpxLayer = null;
     function drawRoute(gpxData, map) {
-        var gpxLayer = new L.GPX(gpxData, {async: true});
+        const newGpxLayer = new L.GPX(gpxData, { async: true });
 
-        gpxLayer.on('loaded', function (e) {
+        newGpxLayer.on('loaded', function (e) {
             map.fitBounds(e.target.getBounds());
+
+            if (existingGpxLayer) {
+                map.removeLayer(existingGpxLayer);
+            }
+
+            existingGpxLayer = newGpxLayer;
         });
-        console.log(waypoints)
-        gpxLayer.addTo(map);
-        if (route) {
-            map.removeLayer(route);
-            route = null; // Reset the route
-        } else {
-            console.error('Invalid route data');
-        }
+
+        newGpxLayer.addTo(map);
     }
+
 }
 
 const exportButton = document.getElementById('exportButton');
