@@ -879,13 +879,11 @@ const MapModule = (function () {
     };
 })();
 
-// Usage:
-
 document.getElementById('showRouteButton').addEventListener('click', function () {
     const newMap = MapModule.getMap();
     const waypoints = MapModule.getWaypoints();
     sendWaypointsToAPI_route(waypoints, newMap);
-    sendWaypointsToAPI(waypoints);
+    sendWaypointsToAPI();
 });
 
 const importGpxButton = document.getElementById('importGpxButton');
@@ -980,7 +978,8 @@ function drawRoute(gpxData, map) {
 }
 
 
-function sendWaypointsToAPI(waypoints) {
+function sendWaypointsToAPI() {
+    const waypoints = MapModule.getWaypoints();
     const waypointData = waypoints.map(function (waypoint) {
         return [waypoint.lng, waypoint.lat];
     });
