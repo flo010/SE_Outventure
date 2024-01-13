@@ -23,6 +23,7 @@ public class SearchResultsServlet extends HttpServlet {
         request.setAttribute("hikeDeleted", hikeDeleted);
 
         String searchString = request.getParameter("search");
+        String searchByString = request.getParameter("selectedItem");
 
         List<Hike> hikeList = null;
 
@@ -63,7 +64,15 @@ public class SearchResultsServlet extends HttpServlet {
             );
         }
         else if ((searchString != null) && (!searchString.isEmpty())) {
-            hikeList = facadeJPA.getHikesByTitleLazy(searchString);
+            switch (searchByString){
+                case "POI":
+                    hikeList = facadeJPA.getPOIByName(searchString).getHikes();
+                    break;
+                case ("Region") :
+                    break;
+                default:
+                    hikeList = facadeJPA.getHikesByTitleLazy(searchString);
+            }
         } else {
             hikeList = facadeJPA.getAllHikesLazy();
         }
