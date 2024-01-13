@@ -13,11 +13,10 @@ import java.io.IOException;
 
 @WebServlet(name = "loginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
+    public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
 
         boolean validHikerCredentials = facadeJPA.checkHikerCredentials(email, password);
         Hiker hiker = facadeJPA.getHikerByEmail(email);

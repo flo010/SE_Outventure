@@ -14,7 +14,7 @@
         </p>
         <p>
             <%
-                if (poiDescription != null) {
+                if ((poiDescription != null) && (!poiDescription.isEmpty())) {
             %>
                     <strong>Description: </strong>
                     ${poiDescription}

@@ -5,10 +5,6 @@ if (toastDataElements) {
     let hikeDeleted = toastDataElements.getAttribute('data-hike-deleted');
     let hikeEdited = toastDataElements.getAttribute('data-hike-edited');
 
-    console.log(hikeCreated);
-    console.log(hikeDeleted);
-    console.log(hikeEdited);
-
     if (hikeCreated === "true") {
         createStandardToast("saveHikeToast", "Saving completed successfully", "Your hike was successfully saved!");
         showToast("saveHikeToast");

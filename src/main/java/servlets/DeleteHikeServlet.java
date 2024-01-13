@@ -6,27 +6,28 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 
 import java.io.IOException;
 
 @WebServlet(name = "deleteHikeServlet", value = "/delete_hike")
 public class DeleteHikeServlet extends HttpServlet {
+    public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
     @Transactional
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
         int hikeID = Integer.parseInt(request.getParameter("hikeID"));
 
-        // Update visibility in the database
         setVisibleFalse(hikeID);
 
-        // Redirect back to the hike details page or any other appropriate page
-        response.sendRedirect("/profile_hike_list/profile_hike_list.jsp?hikeDeleted=true");
+        HttpSession session = request.getSession();
+        session.setAttribute("hikeDeleted", true);
+        response.sendRedirect("/profile_hike_list");
     }
 
     private void setVisibleFalse(int hikeID) {
-        FacadeJPA facadeJPA = FacadeJPA.getInstance();
         Hike hike = facadeJPA.getHikeByIDLazy(hikeID);
 
         hike.setVisible(false);

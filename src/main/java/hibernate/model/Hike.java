@@ -42,7 +42,7 @@ public class Hike {
     private String _author;
     private LocalDate _date;
     private boolean _visible;
-    private int _region;
+    private Region _region;
     private List<Comment> _comments;
     public Hike() {
     }
@@ -275,7 +275,7 @@ public class Hike {
         _destination = destination;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "poi_on_hike", joinColumns = @JoinColumn(name="hike"), inverseJoinColumns = @JoinColumn(name = "poi"))
     public List<PointOfInterest> getPointsOfInterest() {
         return _pointsOfInterest;
@@ -327,11 +327,12 @@ public class Hike {
     }
 
     @NotNull
-    @Column(name = "region")
-    public int getRegion() {
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "region")
+    public Region getRegion() {
         return _region;
     }
-    public void setRegion(int region) {
+    public void setRegion(Region region) {
         _region = region;
     }
 

@@ -3,22 +3,14 @@
 <%@ page import="java.util.List" %>
 <%@ page import="hibernate.model.Hiker" %>
 <%@ page import="hibernate.broker.HikerBroker" %>
-<%@ page import="java.sql.Date" %><%--
-  Created by IntelliJ IDEA.
-  User: Betül Kulac
-  Date: 09.12.23
-  Time: 18:51
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.sql.Date" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
 <%
-  FacadeJPA facadeJPA = FacadeJPA.getInstance();
-  int hikerID = Integer.parseInt(session.getAttribute("hikerID").toString());
-  Hiker hiker = facadeJPA.getHikerByID(hikerID);
-  List<Hike> completedHikes =  hiker.getCompletedHikes();
-  List<Date> timestamps = new HikerBroker().getTimestamps(hikerID);
+  int hikerID = (int) request.getAttribute("hikerID");
+  List<Hike> completedHikes = (List<Hike>) request.getAttribute("completedHikes");
+  List<Date> timestamps = (List<Date>) request.getAttribute("timestamps");
   int n = 0;
 %>
 <html>
@@ -44,7 +36,7 @@
             <% if (completedHikes.isEmpty()) { %>
             <div class="empty-list-message mt-5 text-center">
               <p>Your list is empty.</p>
-              <p>Click on the heart button in the hike detail page to add a hike to your favorite list.</p>
+              <p>Click on the "Mark as completed" button in the hike detail page to add a hike to your completed hikes list</p>
             </div>
             <%
             }

@@ -1,14 +1,9 @@
 package hibernate.facade;
 
-import hibernate.broker.HikeBroker;
-import hibernate.broker.HikerBroker;
-import hibernate.broker.POIBroker;
-import hibernate.broker.PictureBroker;
-import hibernate.model.Hike;
-import hibernate.model.Hiker;
-import hibernate.model.Picture;
-import hibernate.model.PointOfInterest;
+import hibernate.broker.*;
+import hibernate.model.*;
 
+import java.sql.Date;
 import java.util.List;
 
 public class FacadeJPA {
@@ -23,18 +18,15 @@ public class FacadeJPA {
         return _instance;
     }
 
-    public Object save(Object object) {
+    public void save(Object object) {
         if (object instanceof Hike) {
             HikeBroker hikeBroker = new HikeBroker();
             hikeBroker.save((Hike) object);
-            return object;
         }
         else if (object instanceof Picture) {
             PictureBroker pictureBroker = new PictureBroker();
             pictureBroker.save((Picture) object);
-            return object;
         }
-        return null;
     }
 
     public void delete(Object object) {
@@ -150,7 +142,7 @@ public class FacadeJPA {
     public Hiker getHikerByID(int id) {
         HikerBroker hikerBroker = new HikerBroker();
 
-        return hikerBroker.getByID(id);
+        return hikerBroker.getLazy(id);
     }
 
     public boolean isFavoriteHikeExists(int hikerId, int hikeId) {
@@ -187,4 +179,25 @@ public class FacadeJPA {
         HikeBroker hikeBroker = new HikeBroker();
         hikeBroker.addComment(hikeID, hikerID, comment);
     }
+
+    public Region getRegionByID(int regionID) {
+        RegionBroker regionBroker = new RegionBroker();
+        return regionBroker.getLazy(regionID);
+    }
+
+    public List<Region> getAllRegions() {
+        RegionBroker regionBroker = new RegionBroker();
+        return regionBroker.getAll();
+    }
+
+    public Region getRegionByName(String regionName) {
+        RegionBroker regionBroker = new RegionBroker();
+        return regionBroker.getByName(regionName);
+    }
+
+    public List<Date> getCompletedHikesTimestamps(int hikerID) {
+        HikerBroker hikerBroker = new HikerBroker();
+        return hikerBroker.getTimestamps(hikerID);
+    }
 }
+
