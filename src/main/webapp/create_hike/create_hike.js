@@ -220,14 +220,15 @@ function initializeEditMap() {
 document.addEventListener('DOMContentLoaded', function () {
     initializePage();
 
-    const initializeNewMap= MapModule.initializeNewMap()
-
     let isEditing = document.getElementById("hiddenEditInput");
     if (isEditing) {
         setTimeout(initializeEditMap, 1500);
     } else {
-        setTimeout(initializeNewMap, 1500);
+        setTimeout(function() {
+            MapModule.initializeNewMap();
+        }, 1500);
     }
+
 });
 
 // function to initialize the page
