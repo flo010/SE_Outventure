@@ -194,7 +194,11 @@ public class FacadeJPA {
         RegionBroker regionBroker = new RegionBroker();
         return regionBroker.getByName(regionName);
     }
-    public PointOfInterest getPOIByName(String POIName){
+    public List<Hike> getHikesByRegionByName(String regionName) {
+        RegionBroker regionBroker = new RegionBroker();
+        return regionBroker.getHikesByRegionName(regionName);
+    }
+    public List<Hike> getPOIByName(String POIName){
         POIBroker poiBroker = new POIBroker();
         return poiBroker.getByNameLazy(POIName);
     }

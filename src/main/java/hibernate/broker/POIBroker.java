@@ -1,10 +1,11 @@
 package hibernate.broker;
 
-import hibernate.model.Hike;
-import hibernate.model.PointOfInterest;
+import hibernate.model.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class POIBroker extends BrokerBase<PointOfInterest> {
@@ -19,13 +20,47 @@ public class POIBroker extends BrokerBase<PointOfInterest> {
 
         return pointOfInterest;
     }
-    public PointOfInterest getByNameLazy(String poiName) {
+    public List<Hike> getByNameLazy(String poiName) {
         EntityManager entityManager = getEntityManager();
-        Query query = entityManager.createQuery("SELECT poi FROM PointOfInterest poi WHERE name =: name");
-        query.setParameter("name", poiName);
-        PointOfInterest pointOfInterest = (PointOfInterest) query.getSingleResult();
+        Query query = entityManager.createNativeQuery(
+                "SELECT * FROM hikes h " +
+                        "LEFT JOIN poi_on_hike poh ON h.hike_id = poh.hike " +
+                        "LEFT JOIN points_of_interest poi ON poh.poi = poi.poi_id " +
+                        "WHERE poi.name = :poiName");
+
+        query.setParameter("poiName", poiName);
+
+        List<Object[]> result = query.getResultList();
+        List<Hike> hikes = new ArrayList<>();
+        for (Object[] row : result) {
+
+            Hike hike = new Hike();
+            hike.setHikeID((int) row[0]);
+            hike.setPreviewPicture((String) row[1]);
+            hike.setTitle((String) row[2]);
+            hike.setDescription((String) row[3]);
+            hike.setDuration((double) row[4]);
+            hike.setDistance((double) row[5]);
+            hike.setAltitude((int) row[6]);
+            //hike.setStart((Integer) row[7]);
+            //hike.setDestination((Destination) row[8]);
+            hike.setStrength((int) row[9]);
+            hike.setStamina((int) row[10]);
+            hike.setExperience((int) row[11]);
+            hike.setLandscape((int) row[12]);
+            hike.setJanuary((boolean) row[13]);hike.setFebruary((boolean) row[14]);hike.setMarch((boolean) row[15]);hike.setApril((boolean) row[16]);hike.setMay((boolean) row[17]);hike.setJune((boolean) row[18]);hike.setJuly((boolean) row[19]);hike.setAugust((boolean) row[20]);hike.setSeptember((boolean) row[21]);hike.setOctober((boolean) row[22]);hike.setNovember((boolean) row[23]);hike.setDecember((boolean) row[24]);
+            hike.setRouteDescription((String) row[25]);
+            hike.setParkingInformation((String) row[26]);
+            hike.setArrivalInformation((String) row[27]);
+            hike.setAuthor((String) row[28]);
+            //hike.setDate((LocalDate) row[29]);
+            hike.setVisible((boolean) row[30]);
+            //hike.setRegion((Region) row[31]);
+
+            hikes.add(hike);
+        }
         entityManager.close();
-        return pointOfInterest;
+        return hikes;
     }
 
     @Override
