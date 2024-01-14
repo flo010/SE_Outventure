@@ -960,22 +960,29 @@ function sendWaypointsToAPI_route(waypoints) {
 }
 
 let existingGpxLayer = null;
-function drawRoute(gpxData, map) {
 
+function drawRoute(gpxData, map, removeExisting = true) {
+    // Create a new polyline layer
     const newGpxLayer = new L.GPX(gpxData, { async: true });
 
+    // Event handler for when the new layer is loaded
     newGpxLayer.on('loaded', function (e) {
+        // Fit the map bounds to the new layer
         map.fitBounds(e.target.getBounds());
 
-        if (existingGpxLayer) {
+        // Remove existing layer if needed
+        if (removeExisting && existingGpxLayer) {
             map.removeLayer(existingGpxLayer);
         }
 
+        // Set the new layer as the existing layer
         existingGpxLayer = newGpxLayer;
     });
 
+    // Add the new layer to the map
     newGpxLayer.addTo(map);
 }
+
 
 
 function sendWaypointsToAPI() {
