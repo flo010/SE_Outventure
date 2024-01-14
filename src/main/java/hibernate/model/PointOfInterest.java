@@ -71,7 +71,8 @@ public class PointOfInterest {
         _type = type;
     }
 
-    @ManyToMany(mappedBy = "pointsOfInterest")
+    @ManyToMany
+    @JoinTable(name = "poi_on_hike", joinColumns = @JoinColumn(name ="hike"), inverseJoinColumns = @JoinColumn(name = "poi"))
     public List<Hike> getHikes() {
         return _hikes;
     }

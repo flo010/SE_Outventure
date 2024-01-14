@@ -19,10 +19,10 @@ public class POIBroker extends BrokerBase<PointOfInterest> {
 
         return pointOfInterest;
     }
-    public PointOfInterest getByNameLazy(String value) {
+    public PointOfInterest getByNameLazy(String poiName) {
         EntityManager entityManager = getEntityManager();
-        Query query = entityManager.createQuery("SELECT poi FROM PointOfInterest poi WHERE LOWER(poiID) = LOWER(:poiID)");
-        query.setParameter("poiID", "%" + value + "%");
+        Query query = entityManager.createQuery("SELECT poi FROM PointOfInterest poi WHERE name =: name");
+        query.setParameter("name", poiName);
         PointOfInterest pointOfInterest = (PointOfInterest) query.getSingleResult();
         entityManager.close();
         return pointOfInterest;
