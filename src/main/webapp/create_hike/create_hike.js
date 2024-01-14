@@ -161,59 +161,60 @@ function initializeEditMap() {
             });
         }
     })
+    let poiDataListElement = document.getElementById('poiDataList');
+    let poiDataListJson = poiDataListElement.getAttribute('data-poi-data');
+
+    let poiDataList = JSON.parse(poiDataListJson);
+
+    let poiIcon = L.Icon.extend({
+        options: {
+            iconSize:     [40, 40],
+            iconAnchor:   [20, 40],
+            popupAnchor:  [0, -48]
+        }
+    });
+
+    let hutIcon = new poiIcon({iconUrl: 'images/marker_images/hut.png'}),
+        refreshmentPointIcon = new poiIcon({iconUrl: 'images/marker_images/refreshment_point.png'}),
+        sightIcon = new poiIcon({iconUrl: 'images/marker_images/sight.jpg'}),
+        viewpointIcon = new poiIcon({iconUrl: 'images/marker_images/viewpoint.jpg'});
+
+    poiDataList.forEach(function (poiData) {
+        let poiName = poiData.poiName;
+        let poiType = poiData.poiType;
+        let poiLatitude = poiData.poiLatitude;
+        let poiLongitude = poiData.poiLongitude;
+
+        switch (poiType) {
+            case 'Hut':
+                let hutMarker = L.marker([poiLatitude, poiLongitude], {icon: hutIcon}).addTo(editMap);
+                console.log("hutMarker: " + hutMarker);
+                hutMarker.bindPopup("<strong>Hut Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                hutMarker.bindTooltip("<strong>Hut Name: </strong>" + poiName);
+                break;
+            case 'Refreshment Point':
+                let refreshmentPointMarker = L.marker([poiLatitude, poiLongitude], {icon: refreshmentPointIcon}).addTo(editMap);
+                console.log("RP marker: " + refreshmentPointMarker);
+                refreshmentPointMarker.bindPopup("<strong>Refreshment Point Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                refreshmentPointMarker.bindTooltip("<strong>Refreshment Point Name: </strong>" + poiName);
+                break;
+            case 'Viewpoint':
+                let viewpointMarker = L.marker([poiLatitude, poiLongitude], {icon: viewpointIcon}).addTo(editMap);
+                console.log("vp marker: " + viewpointMarker);
+                viewpointMarker.bindPopup("<strong>Viewpoint Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                viewpointMarker.bindTooltip("<strong>Viewpoint Name: </strong>" + poiName);
+                break;
+            case 'Sight':
+                let sightMarker = L.marker([poiLatitude, poiLongitude], {icon: sightIcon}).addTo(editMap);
+                console.log("sight marker: " + sightMarker);
+                sightMarker.bindPopup("<strong>Sight Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
+                sightMarker.bindTooltip("<strong>Sight Name: </strong>" + poiName);
+                break;
+        }
+    })
 }
 
-let poiDataListElement = document.getElementById('poiDataList');
-let poiDataListJson = poiDataListElement.getAttribute('data-poi-data');
 
-let poiDataList = JSON.parse(poiDataListJson);
-
-let poiIcon = L.Icon.extend({
-    options: {
-        iconSize:     [40, 40],
-        iconAnchor:   [20, 40],
-        popupAnchor:  [0, -48]
-    }
-});
-
-let hutIcon = new poiIcon({iconUrl: 'images/marker_images/hut.png'}),
-    refreshmentPointIcon = new poiIcon({iconUrl: 'images/marker_images/refreshment_point.png'}),
-    sightIcon = new poiIcon({iconUrl: 'images/marker_images/sight.jpg'}),
-    viewpointIcon = new poiIcon({iconUrl: 'images/marker_images/viewpoint.jpg'});
-
-poiDataList.forEach(function (poiData) {
-    let poiName = poiData.poiName;
-    let poiType = poiData.poiType;
-    let poiLatitude = poiData.poiLatitude;
-    let poiLongitude = poiData.poiLongitude;
-
-    switch (poiType) {
-        case 'Hut':
-            let hutMarker = L.marker([poiLatitude, poiLongitude], {icon: hutIcon}).addTo(editMap);
-            console.log("hutMarker: " + hutMarker);
-            hutMarker.bindPopup("<strong>Hut Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
-            hutMarker.bindTooltip("<strong>Hut Name: </strong>" + poiName);
-            break;
-        case 'Refreshment Point':
-            let refreshmentPointMarker = L.marker([poiLatitude, poiLongitude], {icon: refreshmentPointIcon}).addTo(editMap);
-            console.log("RP marker: " + refreshmentPointMarker);
-            refreshmentPointMarker.bindPopup("<strong>Refreshment Point Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
-            refreshmentPointMarker.bindTooltip("<strong>Refreshment Point Name: </strong>" + poiName);
-            break;
-        case 'Viewpoint':
-            let viewpointMarker = L.marker([poiLatitude, poiLongitude], {icon: viewpointIcon}).addTo(editMap);
-            console.log("vp marker: " + viewpointMarker);
-            viewpointMarker.bindPopup("<strong>Viewpoint Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
-            viewpointMarker.bindTooltip("<strong>Viewpoint Name: </strong>" + poiName);
-            break;
-        case 'Sight':
-            let sightMarker = L.marker([poiLatitude, poiLongitude], {icon: sightIcon}).addTo(editMap);
-            console.log("sight marker: " + sightMarker);
-            sightMarker.bindPopup("<strong>Sight Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
-            sightMarker.bindTooltip("<strong>Sight Name: </strong>" + poiName);
-            break;
-    }
-})
 
 // Call the function when the DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
@@ -223,8 +224,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if (isEditing) {
         setTimeout(initializeEditMap, 1500);
     } else {
-        setTimeout(initializeNewMap, 1500);
+        setTimeout(function() {
+            MapModule.initializeNewMap();
+        }, 1500);
     }
+
 });
 
 // function to initialize the page
@@ -752,254 +756,281 @@ window.onbeforeunload = function () {
     }
 }
 
-// map functions
-function initializeNewMap() {
-    let newMap = new L.Map('map').setView([47.4167, 9.7500], 11);
-
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(newMap);
-
-    let startMarker, destinationMarker, route;
+const MapModule = (function () {
+    let newMap;
     const waypoints = [];
 
-    let markerCount = 0;
-    newMap.on('click', function (event) {
-        let clickedLatLng = event.latlng;
+    function initializeNewMap() {
+        newMap = new L.Map('map').setView([47.4167, 9.7500], 11);
 
-        if ((!startMarker) && (markerCount < 2)) {
-            showMarkerModal("Enter a name for the start point", "Enter start name", () => {
-                let startName = document.getElementById("markerModalNameInput").value;
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(newMap);
 
-                markerCount += 1;
-                startMarker = L.marker(clickedLatLng, {draggable: true});
+        let startMarker, destinationMarker, route;
+        //const waypoints = [];
 
-                let popupContent = `<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E <br><br><button id="removeStartBtnNewMap" type="button" class="btn btn-danger btn-sm">Remove Start</button>`;
-                startMarker.bindPopup(popupContent);
-                startMarker.bindTooltip("<strong>Start: </strong>" + startName);
+        let markerCount = 0;
+        newMap.on('click', function (event) {
+            let clickedLatLng = event.latlng;
 
-                startMarker.addTo(newMap);
-                waypoints.push(startMarker.getLatLng());
+            if ((!startMarker) && (markerCount < 2)) {
+                showMarkerModal("Enter a name for the start point", "Enter start name", () => {
+                    let startName = document.getElementById("markerModalNameInput").value;
 
-                if (startMarker && destinationMarker) {
-                    route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(newMap);
-                }
+                    markerCount += 1;
+                    startMarker = L.marker(clickedLatLng, {draggable: true});
 
-                updateStart(startName, startMarker);
+                    let popupContent = `<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E <br><br><button id="removeStartBtnNewMap" type="button" class="btn btn-danger btn-sm">Remove Start</button>`;
+                    startMarker.bindPopup(popupContent);
+                    startMarker.bindTooltip("<strong>Start: </strong>" + startName);
 
-                startMarker.on('dragend', function () {
-                    startMarker.getPopup().setContent(`<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E <br><br><button id="removeStartBtnNewMap" type="button" class="btn btn-danger btn-sm">Remove Start</button>`);
-                    if (route) {
-                        newMap.removeLayer(route);
+                    startMarker.addTo(newMap);
+                    waypoints.push(startMarker.getLatLng());
+
+                    if (startMarker && destinationMarker) {
+                        route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(newMap);
                     }
-                    route = updatePolyline(startMarker, destinationMarker, route);
+
                     updateStart(startName, startMarker);
-                    waypoints[0] = startMarker.getLatLng();
-                });
 
-                // Add click event to the "Remove Marker" button
-                startMarker.on('popupopen', function () {
-                    document.getElementById('removeStartBtnNewMap').addEventListener('click', function () {
-                        newMap.removeLayer(startMarker);
-                        markerCount -= 1;
-                        startMarker = null; // Reset the marker
-                        updateStart("", startMarker);
+                    startMarker.on('dragend', function () {
+                        startMarker.getPopup().setContent(`<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E <br><br><button id="removeStartBtnNewMap" type="button" class="btn btn-danger btn-sm">Remove Start</button>`);
                         if (route) {
                             newMap.removeLayer(route);
-                            route = null; // Reset the route
                         }
+                        route = updatePolyline(startMarker, destinationMarker, route);
+                        updateStart(startName, startMarker);
+                        waypoints[0] = startMarker.getLatLng();
+                    });
+
+                    // Add click event to the "Remove Marker" button
+                    startMarker.on('popupopen', function () {
+                        document.getElementById('removeStartBtnNewMap').addEventListener('click', function () {
+                            newMap.removeLayer(startMarker);
+                            markerCount -= 1;
+                            startMarker = null; // Reset the marker
+                            updateStart("", startMarker);
+                            if (route) {
+                                newMap.removeLayer(route);
+                                route = null; // Reset the route
+                            }
+                        });
                     });
                 });
-            });
-        } else if ((!destinationMarker) && (markerCount < 2)) {
-            showMarkerModal("Enter a name for the destination point", "Enter destination name", () => {
-                let destinationName = document.getElementById("markerModalNameInput").value;
+            } else if ((!destinationMarker) && (markerCount < 2)) {
+                showMarkerModal("Enter a name for the destination point", "Enter destination name", () => {
+                    let destinationName = document.getElementById("markerModalNameInput").value;
 
-                markerCount += 1;
-                destinationMarker = L.marker(clickedLatLng, {draggable: true});
+                    markerCount += 1;
+                    destinationMarker = L.marker(clickedLatLng, {draggable: true});
 
-                let popupContent = `<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E <br><br><button id="removeDestBtnNewMap" type="button" class="btn btn-danger btn-sm">Remove Destination</button>`;
-                destinationMarker.bindPopup(popupContent);
-                destinationMarker.bindTooltip("<strong>Destination: </strong>" + destinationName);
+                    let popupContent = `<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E <br><br><button id="removeDestBtnNewMap" type="button" class="btn btn-danger btn-sm">Remove Destination</button>`;
+                    destinationMarker.bindPopup(popupContent);
+                    destinationMarker.bindTooltip("<strong>Destination: </strong>" + destinationName);
 
-                destinationMarker.addTo(newMap);
-                waypoints.push(destinationMarker.getLatLng());
-                if (startMarker && destinationMarker) {
-                    route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(newMap);
-                }
-
-                updateDestination(destinationName, destinationMarker);
-
-                destinationMarker.on('dragend', function () {
-                    destinationMarker.getPopup().setContent(`<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E <br><br><button id="removeDestBtnNewMap" type="button" class="btn btn-danger btn-sm">Remove Destination</button>`);
-                    if (route) {
-                        newMap.removeLayer(route);
+                    destinationMarker.addTo(newMap);
+                    waypoints.push(destinationMarker.getLatLng());
+                    if (startMarker && destinationMarker) {
+                        route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(newMap);
                     }
-                    route = updatePolyline(startMarker, destinationMarker, route);
-                    updateDestination(destinationName, destinationMarker);
-                    waypoints[1] = destinationMarker.getLatLng();
-                });
 
-                destinationMarker.on('popupopen', function () {
-                    document.getElementById('removeDestBtnNewMap').addEventListener('click', function () {
-                        newMap.removeLayer(destinationMarker);
-                        markerCount -= 1;
-                        destinationMarker = null; // Reset the marker
-                        updateDestination("", destinationMarker);
+                    updateDestination(destinationName, destinationMarker);
+
+                    destinationMarker.on('dragend', function () {
+                        destinationMarker.getPopup().setContent(`<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E <br><br><button id="removeDestBtnNewMap" type="button" class="btn btn-danger btn-sm">Remove Destination</button>`);
                         if (route) {
                             newMap.removeLayer(route);
-                            route = null; // Reset the route
                         }
+                        route = updatePolyline(startMarker, destinationMarker, route);
+                        updateDestination(destinationName, destinationMarker);
+                        waypoints[1] = destinationMarker.getLatLng();
+                    });
+
+                    destinationMarker.on('popupopen', function () {
+                        document.getElementById('removeDestBtnNewMap').addEventListener('click', function () {
+                            newMap.removeLayer(destinationMarker);
+                            markerCount -= 1;
+                            destinationMarker = null; // Reset the marker
+                            updateDestination("", destinationMarker);
+                            if (route) {
+                                newMap.removeLayer(route);
+                                route = null; // Reset the route
+                            }
+                        });
                     });
                 });
-            });
-        }
-    });
-}
-
-
-    const importGpxButton = document.getElementById('importGpxButton');
-
-    // Add an event listener for the 'click' event
-    importGpxButton.addEventListener('click', function () {
-        importGpx();
-    });
-
-    function importGpx() {
-        document.getElementById("gpxInput").click();
-    }
-
-    document.getElementById('showRouteButton').addEventListener('click', function () {
-        sendWaypointsToAPI_route(waypoints);
-        sendWaypointsToAPI();
-    });
-
-    const gpxInput = document.getElementById('gpxInput');
-    // Add an event listener for the 'change' event
-    gpxInput.addEventListener('change', function (event) {
-        var file = event.target.files[0];
-
-        if (file) {
-            autoFillStartDestination(file)
-
-            // Create a FileReader to read the contents of the GPX file
-            var reader = new FileReader();
-
-            reader.onload = function (event) {
-                var gpxContent = event.target.result;
-
-                // Load GPX content and add it as a layer to the existing map
-                var gpxLayer = new L.GPX(gpxContent, {
-                    async: true,
-                }).on('loaded', function (e) {
-                    newMap.fitBounds(e.target.getBounds()); // Fit the map to the GPX bounds
-                }).addTo(newMap);
-            };
-            reader.readAsText(file); // Read the file as text
-            handleGpxFile(gpxInput, file)
-        }
-    });
-
-
-
-    function sendWaypointsToAPI_route(waypoints) {
-        const waypointData = waypoints.map(function (waypoint) {
-            return [waypoint.lng, waypoint.lat];
-        })
-
-        const payload = {
-            "coordinates": waypointData,
-            "profile": "foot-hiking",
-            "format": "gpx",
-            "elevation": true,
-            "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
-        };
-
-        fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/gpx', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
-                'Content-Type': 'application/json',
-                'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png'
-            },
-            body: JSON.stringify(payload)
-        })
-            .then(response => response.text())
-            .then(gpxData => {
-                drawRoute(gpxData, newMap);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-
-
-    function sendWaypointsToAPI() {
-        const waypointData = waypoints.map(function (waypoint) {
-            return [waypoint.lng, waypoint.lat];
+            }
         });
-
-        const payload = {
-            "coordinates": waypointData,
-            "profile": "foot-hiking",
-            "format": "geojson",
-            "elevation": true,
-            "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
-        };
-
-        fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/geojson', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
-                'Content-Type': 'application/json',
-                'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png'
-            },
-            body: JSON.stringify(payload)
-        })
-            .then(response => response.json())
-            .then(data => {
-                // Access the distance information from the API response
-                const distance = data.features[0].properties.segments[0].distance;
-                const distanceInKilometers = distance / 1000;
-
-                document.getElementById('distanceInput').value = distanceInKilometers.toFixed(2);
-
-
-                const duration = data.features[0].properties.segments[0].duration;
-                const durationInHours = Math.floor(duration / 3600);
-                const durationInMinutes = Math.floor((duration % 3600) / 60);
-
-                document.getElementById('hoursInput').value = durationInHours;
-                document.getElementById('minutesInput').value = durationInMinutes;
-
-
-                const elevations = data.features[0].geometry.coordinates.map(coord => coord[2]);
-                const altitudeDifference = Math.round(elevations[elevations.length - 1] - elevations[0]);
-
-                document.getElementById('altitudeInput').value = altitudeDifference;
-
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
     }
 
-
-function drawRoute(gpxData, map) {
-    var gpxLayer = new L.GPX(gpxData, {async: true});
-
-    gpxLayer.on('loaded', function (e) {
-        map.fitBounds(e.target.getBounds());
-    });
-    console.log(waypoints)
-    gpxLayer.addTo(map);
-    if (route) {
-        newMap.removeLayer(route);
-        route = null; // Reset the route
-    } else {
-        console.error('Invalid route data');
+    function getMap() {
+        return newMap;
     }
+
+    function getWaypoints() {
+        return waypoints;
+    }
+
+    return {
+        initializeNewMap,
+        getMap,
+        getWaypoints
+    };
+})();
+
+document.getElementById('showRouteButton').addEventListener('click', function () {
+    const newMap = MapModule.getMap();
+    const waypoints = MapModule.getWaypoints();
+    sendWaypointsToAPI_route(waypoints, newMap);
+    sendWaypointsToAPI();
+});
+
+const importGpxButton = document.getElementById('importGpxButton');
+
+// Add an event listener for the 'click' event
+importGpxButton.addEventListener('click', function () {
+    importGpx();
+});
+
+function importGpx() {
+    document.getElementById("gpxInput").click();
 }
+
+
+
+const gpxInput = document.getElementById('gpxInput');
+// Add an event listener for the 'change' event
+gpxInput.addEventListener('change', function (event) {
+    const newMap = MapModule.getMap();
+
+    var file = event.target.files[0];
+
+    if (file) {
+        autoFillStartDestination(file)
+
+        // Create a FileReader to read the contents of the GPX file
+        var reader = new FileReader();
+
+        reader.onload = function (event) {
+            var gpxContent = event.target.result;
+
+            // Load GPX content and add it as a layer to the existing map
+            var gpxLayer = new L.GPX(gpxContent, {
+                async: true,
+            }).on('loaded', function (e) {
+                newMap.fitBounds(e.target.getBounds()); // Fit the map to the GPX bounds
+            }).addTo(newMap);
+        };
+        reader.readAsText(file); // Read the file as text
+        handleGpxFile(gpxInput, file)
+    }
+});
+
+function sendWaypointsToAPI_route(waypoints) {
+    const newMap = MapModule.getMap();
+    const waypointData = waypoints.map(function (waypoint) {
+        return [waypoint.lng, waypoint.lat];
+    })
+
+    const payload = {
+        "coordinates": waypointData,
+        "profile": "foot-hiking",
+        "format": "gpx",
+        "elevation": true,
+        "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
+    };
+
+    fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/gpx', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png'
+        },
+        body: JSON.stringify(payload)
+    })
+        .then(response => response.text())
+        .then(gpxData => {
+            drawRoute(gpxData, newMap);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+let existingGpxLayer = null;
+function drawRoute(gpxData, map) {
+
+    const newGpxLayer = new L.GPX(gpxData, { async: true });
+
+    newGpxLayer.on('loaded', function (e) {
+        map.fitBounds(e.target.getBounds());
+
+        if (existingGpxLayer) {
+            map.removeLayer(existingGpxLayer);
+        }
+
+        existingGpxLayer = newGpxLayer;
+    });
+
+    newGpxLayer.addTo(map);
+}
+
+
+function sendWaypointsToAPI() {
+    const waypoints = MapModule.getWaypoints();
+    const waypointData = waypoints.map(function (waypoint) {
+        return [waypoint.lng, waypoint.lat];
+    });
+
+    const payload = {
+        "coordinates": waypointData,
+        "profile": "foot-hiking",
+        "format": "geojson",
+        "elevation": true,
+        "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
+    };
+
+    fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/geojson', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png'
+        },
+        body: JSON.stringify(payload)
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Access the distance information from the API response
+            const distance = data.features[0].properties.segments[0].distance;
+            const distanceInKilometers = distance / 1000;
+
+            document.getElementById('distanceInput').value = distanceInKilometers.toFixed(2);
+
+
+            const duration = data.features[0].properties.segments[0].duration;
+            const durationInHours = Math.floor(duration / 3600);
+            const durationInMinutes = Math.floor((duration % 3600) / 60);
+
+            document.getElementById('hoursInput').value = durationInHours;
+            document.getElementById('minutesInput').value = durationInMinutes;
+
+
+            const elevations = data.features[0].geometry.coordinates.map(coord => coord[2]);
+            const altitudeDifference = Math.round(elevations[elevations.length - 1] - elevations[0]);
+
+            document.getElementById('altitudeInput').value = altitudeDifference;
+
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+
+
 
 function autoFillStartDestination(file) {
     const reader = new FileReader();
@@ -1077,7 +1108,6 @@ function sendGpxToServer(gpxContent) {
             console.error('Error sending GPX content to server:', error);
         });
 }
-
 
 function updatePolyline(startMarker, destinationMarker, route) {
     if (startMarker && destinationMarker && route) {
