@@ -659,7 +659,6 @@ function uploadImageToServer(file) {
             console.log(data); // Log the server response
             const hiddenInput = document.getElementById('hiddenImageId');
             hiddenInput.value = data.pictureID;
-            alert(data.pictureID);
         })
         .catch(error => {
             console.error('Error:', error);
