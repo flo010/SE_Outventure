@@ -58,4 +58,20 @@ public class RegionBroker extends BrokerBase {
 
         return region;
     }
+    public List<Hike> getHikesByRegionName(String regionName) {
+        EntityManager entityManager = getEntityManager();
+        Query query = entityManager.createQuery(
+                "SELECT h FROM Hike h " +
+                        "JOIN h.region r " +
+                        "WHERE LOWER(r.region) LIKE LOWER(:regionName)");
+
+        query.setParameter("regionName", "%" + regionName + "%");
+
+        List<Hike> hikes = query.getResultList();
+        entityManager.close();
+
+        return hikes;
+    }
+
+
 }
