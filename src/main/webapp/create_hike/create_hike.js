@@ -759,6 +759,7 @@ window.onbeforeunload = function () {
 const MapModule = (function () {
     let newMap;
     const waypoints = [];
+    const additionalWaypoints = [];
 
     function initializeNewMap() {
         newMap = new L.Map('map').setView([47.4167, 9.7500], 11);
@@ -831,6 +832,7 @@ const MapModule = (function () {
 
                     destinationMarker.addTo(newMap);
                     waypoints.push(destinationMarker.getLatLng());
+
                     if (startMarker && destinationMarker) {
                         route = L.polyline([startMarker.getLatLng(), destinationMarker.getLatLng()]).addTo(newMap);
                     }
@@ -862,6 +864,42 @@ const MapModule = (function () {
                 });
             }
         });
+
+        newMap.on('contextmenu', function (event) {
+
+            if (startMarker && destinationMarker){
+
+
+            let clickedLatLng = event.latlng;
+
+            let waypointMarker = L.marker(clickedLatLng, { draggable: true });
+
+            waypointMarker.addTo(newMap);
+            additionalWaypoints.push(waypointMarker.getLatLng());
+
+            waypointMarker.on('dragend', function () {
+                route = updatePolyline(startMarker, destinationMarker, additionalWaypoints, route);
+                updateWaypoints();
+            });
+
+            waypointMarker.on('click', function () {
+                newMap.removeLayer(waypointMarker);
+                additionalWaypoints.splice(waypoints.indexOf(waypointMarker.getLatLng()), 1);
+                route = updatePolyline(startMarker, destinationMarker, additionalWaypoints, route);
+                updateWaypoints();
+            });
+        }});
+
+        function updateWaypoints() {
+            // Update the waypoints array
+            waypoints.length = 0;
+            if (startMarker) waypoints.push(startMarker.getLatLng());
+            waypoints.push(additionalWaypoints.map(waypoint => waypoint.getLatLng()))
+            if (destinationMarker) waypoints.push(destinationMarker.getLatLng());
+
+            // Call the API with the updated waypoints
+            sendWaypointsToAPI_route(waypoints);
+        }
     }
 
     function getMap() {
@@ -878,6 +916,8 @@ const MapModule = (function () {
         getWaypoints
     };
 })();
+
+
 
 document.getElementById('showRouteButton').addEventListener('click', function () {
     const newMap = MapModule.getMap();
@@ -982,7 +1022,6 @@ function drawRoute(gpxData, map, removeExisting = true) {
     // Add the new layer to the map
     newGpxLayer.addTo(map);
 }
-
 
 
 function sendWaypointsToAPI() {
@@ -1116,10 +1155,12 @@ function sendGpxToServer(gpxContent) {
         });
 }
 
-function updatePolyline(startMarker, destinationMarker, route) {
+function updatePolyline(startMarker, destinationMarker, additionalWaypoints, route) {
     if (startMarker && destinationMarker && route) {
-        // Update the polyline with the new coordinates
-        route.setLatLngs([startMarker.getLatLng(), destinationMarker.getLatLng()]);
+
+        const allWaypoints = [startMarker.getLatLng(), additionalWaypoints.map(waypoint => waypoint.getLatLng()), destinationMarker.getLatLng()]
+
+        route.setLatLngs(allWaypoints);
     }
     return route;
 }
