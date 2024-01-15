@@ -31,6 +31,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#" onclick="changeSelectedItem('All')">All</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeSelectedItem('Title')">Title</a></li>
                             <li><a class="dropdown-item" href="#" onclick="changeSelectedItem('Region')">Region</a></li>
                             <li><a class="dropdown-item" href="#" onclick="changeSelectedItem('POI')">Point of Interests</a></li>
                         </ul>

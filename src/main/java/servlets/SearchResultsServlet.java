@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import hibernate.facade.FacadeJPA;
@@ -23,9 +24,13 @@ public class SearchResultsServlet extends HttpServlet {
         request.setAttribute("hikeDeleted", hikeDeleted);
 
         String searchString = request.getParameter("search");
-        String searchByString = "Region"; //request.getParameter("selectedItem");
+        String searchByString = "All"; //request.getParameter("selectedItem");
 
         List<Hike> hikeList = null;
+        List<Hike> hikeList0 = new ArrayList<>();
+        List<Hike> hikeList1;
+        List<Hike> hikeList2;
+        List<Hike> hikeList3;
 
         // Retrieve parameters from the URL
         String durationLow = request.getParameter("durationLow");
@@ -65,6 +70,9 @@ public class SearchResultsServlet extends HttpServlet {
         }
         else if ((searchString != null) && (!searchString.isEmpty())) {
             switch (searchByString){
+                case ("Title"):
+                    hikeList = facadeJPA.getHikesByTitleLazy(searchString);
+                    break;
                 case "POI":
                     hikeList = facadeJPA.getPOIByName(searchString);
                     break;
@@ -72,8 +80,61 @@ public class SearchResultsServlet extends HttpServlet {
                     hikeList = facadeJPA.getHikesByRegionByName(searchString);
                     break;
                 default:
-                    hikeList = facadeJPA.getHikesByTitleLazy(searchString);
+                    hikeList1 = facadeJPA.getHikesByTitleLazy(searchString);
+                    hikeList2 = facadeJPA.getHikesByRegionByName(searchString);
+                    hikeList3 = facadeJPA.getPOIByName(searchString);
+
+                    boolean notexists = true;
+                    for (Hike hike: hikeList1) {
+                        if (hikeList0.isEmpty()){
+                            hikeList0.add(hike);
+                        }else {
+                            for(int i = 0; i<hikeList0.size();i++){
+                                if (hike.getHikeID() == hikeList0.get(i).getHikeID() ){
+                                    notexists = false;
+                                }
+                            }
+                            if (notexists){
+                                hikeList0.add(hike);
+                            }
+                        }
+                    }
+                    /////////////////
+                    for (Hike hike: hikeList2) {
+                        notexists = true;
+                        if (hikeList0.isEmpty()){
+                            hikeList0.add(hike);
+                        }else {
+                            for(int i = 0; i<hikeList0.size();i++){
+                                if (hike.getHikeID() == hikeList0.get(i).getHikeID() ){
+                                    notexists = false;
+                                }
+                            }
+                            if (notexists){
+                                hikeList0.add(hike);
+                            }
+                        }
+                    }
+                    ///////////////////////
+                    for (Hike hike: hikeList3) {
+                        notexists = true;
+                        if (hikeList0.isEmpty()){
+                            hikeList0.add(hike);
+                        }else {
+                            for(int i = 0; i<hikeList0.size();i++){
+                                if (hike.getHikeID() == hikeList0.get(i).getHikeID() ){
+                                    notexists = false;
+                                }
+                            }
+                            if (notexists){
+                                hikeList0.add(hike);
+                            }
+                        }
+                    }
+
+                    hikeList = hikeList0;
             }
+
         } else {
             hikeList = facadeJPA.getAllHikesLazy();
         }
