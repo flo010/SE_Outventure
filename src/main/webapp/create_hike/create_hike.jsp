@@ -264,15 +264,15 @@
                                         <% } %>
                                         <option value="Albania">Albania</option>
                                         <option value="Andorra">Andorra</option>
-                                        <option value="Austria-Vorarlberg">Austria-Vorarlberg</option>
-                                        <option value="Austria-Tirol">Austria-Tirol</option>
-                                        <option value="Austria-Salzburg">Austria-Salzburg</option>
-                                        <option value="Austria-Steiermark">Austria-Steiermark</option>
-                                        <option value="Austria-Kärnten">Austria-Kärnten</option>
-                                        <option value="Austria-Oberösterreich">Austria-Oberösterreich</option>
-                                        <option value="Austria-Niederösterreich">Austria-Niederösterreich</option>
-                                        <option value="Austria-Burgenland">Austria-Burgenland</option>
-                                        <option value="Austria-Wien">Austria-Wien</option>
+                                        <option value="Austria-Vorarlberg">Austria - Vorarlberg</option>
+                                        <option value="Austria-Tirol">Austria - Tirol</option>
+                                        <option value="Austria-Salzburg">Austria - Salzburg</option>
+                                        <option value="Austria-Steiermark">Austria - Steiermark</option>
+                                        <option value="Austria-Kärnten">Austria - Kärnten</option>
+                                        <option value="Austria-Oberösterreich">Austria - Oberösterreich</option>
+                                        <option value="Austria-Niederösterreich">Austria - Niederösterreich</option>
+                                        <option value="Austria-Burgenland">Austria - Burgenland</option>
+                                        <option value="Austria-Wien">Austria - Wien</option>
                                         <option value="Belgium">Belgium</option>
                                         <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
                                         <option value="Bulgaria">Bulgaria</option>
@@ -550,7 +550,7 @@
                                 </div>
                             </div>
                             <!-- Add Points of Interest Button -->
-                            <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pointsOfInterestModal">
+                            <button type="button" id="addPoiButton" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#pointsOfInterestModal">
                                 <i class="fa fa-plus"></i> Add Points of Interest
                             </button>
                         </div>
@@ -706,8 +706,8 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-success" onclick="savePointOfInterest()">Save</button>
+                            <button id="cancelPoiButton" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button id="savePoiButton" type="button" class="btn btn-success" onclick="savePointOfInterest()">Save</button>
                         </div>
                     </div>
                 </div>
