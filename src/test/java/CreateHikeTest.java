@@ -41,7 +41,14 @@ public class CreateHikeTest {
     driver.findElement(By.id("titleInput")).sendKeys("Test Hike Title");
     driver.findElement(By.id("descriptionInput")).click();
     driver.findElement(By.id("descriptionInput")).sendKeys("Test Hike Description");
-    String filePath = System.getProperty("user.dir") + "\\src\\test\\java\\TestHikeImage.jpg";
+    String os = System.getProperty("os.name");
+    String filePath = "";
+    if (os.contains("Windows")) {
+      filePath = System.getProperty("user.dir") + "\\src\\test\\java\\TestHikeImage.jpg";
+    }
+    else {
+      filePath = System.getProperty("user.dir") + "/src/test/java/TestHikeImage.jpg";
+    }
     WebElement imageUpload = driver.findElement(By.id("coverImageInput"));
     imageUpload.sendKeys(filePath);
     driver.findElement(By.id("pills-details-tab")).click();
@@ -108,5 +115,9 @@ public class CreateHikeTest {
       List<WebElement> elements = driver.findElements(By.cssSelector(".toast-body"));
       assert(!elements.isEmpty());
     }
+  }
+
+  public static void main(String[] args) {
+    System.out.println(System.getProperty("os.name"));
   }
 }
