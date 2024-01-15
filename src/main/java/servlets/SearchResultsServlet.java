@@ -24,6 +24,7 @@ public class SearchResultsServlet extends HttpServlet {
         request.setAttribute("hikeDeleted", hikeDeleted);
 
         String searchString = request.getParameter("search");
+        String selectedSearchItem = request.getParameter("selectedSearchItem");
         String searchByString = "All"; //request.getParameter("selectedItem");
 
         List<Hike> hikeList = null;
@@ -143,6 +144,7 @@ public class SearchResultsServlet extends HttpServlet {
         if (hikeList != null) {
             session.setAttribute("hikeList", hikeList);
             session.setAttribute("searchString", searchString);
+            session.setAttribute("selectedSearchItem", selectedSearchItem);
         }
 
         try {

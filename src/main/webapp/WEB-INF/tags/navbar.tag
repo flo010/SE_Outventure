@@ -2,12 +2,21 @@
 
 <%
     String searchString;
+    String selectedSearchItem;
 
     if (session.getAttribute("searchString") != null) {
         searchString = (String) session.getAttribute("searchString");
     }
     else {
         searchString = "";
+    }
+
+    if (session.getAttribute("selectedSearchItem") != null) {
+        selectedSearchItem = (String) session.getAttribute("selectedSearchItem");
+        System.out.println("selectedSearchItem: " + selectedSearchItem);
+    }
+    else {
+        selectedSearchItem = "All";
     }
 
     String hikerUsername = (String) session.getAttribute("hikerUsername");
@@ -27,7 +36,7 @@
                 <form id="search-input" action="/search_results" method="get" class="form-inline form-search mx-auto">
                     <div class="input-group">
                         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style=" color:white; width:80px">
-                            <span id="selectedItem" name= "selectedItem" >All</span>
+                            <span id="selectedItem" name="selectedItem"><%=selectedSearchItem%></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#" onclick="changeSelectedItem('All')">All</a></li>
@@ -35,6 +44,7 @@
                             <li><a class="dropdown-item" href="#" onclick="changeSelectedItem('Region')">Region</a></li>
                             <li><a class="dropdown-item" href="#" onclick="changeSelectedItem('POI')">Point of Interests</a></li>
                         </ul>
+                        <input type="hidden" id="selectedSearchItem" name="selectedSearchItem" value="All">
                         <input id="searchBar" name="search" type="search" class="form-control" placeholder="All Hikes" value="<%= searchString %>" aria-label="Search" style="width: 700px"/>
                         <button class="btn btn-outline-success" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">

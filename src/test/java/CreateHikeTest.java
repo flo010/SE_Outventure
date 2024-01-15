@@ -3,9 +3,6 @@ import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
 
-import static java.awt.SystemColor.window;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsNot.not;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,29 +10,23 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-import java.util.*;
+import java.util.List;
 
 public class CreateHikeTest {
   private WebDriver driver;
-  private Map<String, Object> vars;
-  JavascriptExecutor js;
+    JavascriptExecutor js;
   @Before
   public void setUp() {
     driver = new ChromeDriver();
     js = (JavascriptExecutor) driver;
-    vars = new HashMap<String, Object>();
   }
   @After
   public void tearDown() {
     driver.quit();
   }
   @Test
-  public void createHike() {
+  public void createHike() throws InterruptedException {
     driver.get("http://localhost:8080/");
     driver.manage().window().setSize(new Dimension(1936, 1048));
     driver.findElement(By.linkText("Login")).click();
@@ -69,11 +60,8 @@ public class CreateHikeTest {
     driver.findElement(By.id("landscapeInput")).sendKeys("4");
     driver.findElement(By.id("landscapeInput")).click();
     // Scrolling down to the month input
-//    JavascriptExecutor js = (JavascriptExecutor) driver;
-//    js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-//    WebElement monthInputElement = driver.findElement(By.id("optimalSeasonJanuary"));
-//    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//    wait.until(ExpectedConditions.visibilityOf(monthInputElement));
+    js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+    Thread.sleep(500);
     driver.findElement(By.id("optimalSeasonJanuary")).click();
     driver.findElement(By.id("optimalSeasonFebruary")).click();
     driver.findElement(By.id("optimalSeasonMarch")).click();
@@ -83,7 +71,7 @@ public class CreateHikeTest {
     driver.findElement(By.id("regionInput")).click();
     {
       WebElement dropdown = driver.findElement(By.id("regionInput"));
-      dropdown.findElement(By.xpath("//option[. = 'Austria - Vorarlberg']")).click();
+      dropdown.findElement(By.xpath("//option[. = 'Croatia']")).click();
     }
     driver.findElement(By.id("pills-poi-tab")).click();
     driver.findElement(By.id("startNameInput")).click();
@@ -99,6 +87,7 @@ public class CreateHikeTest {
     driver.findElement(By.id("longitudeDestinationCoordinateInput")).click();
     driver.findElement(By.id("longitudeDestinationCoordinateInput")).sendKeys("9.809005");
     driver.findElement(By.id("addPoiButton")).click();
+    Thread.sleep(500);
     driver.findElement(By.id("poiName")).sendKeys("Test Hike POI");
     driver.findElement(By.id("poiType")).click();
     {
@@ -109,13 +98,15 @@ public class CreateHikeTest {
     driver.findElement(By.id("poiLongitude")).sendKeys("9.790352");
     driver.findElement(By.id("savePoiButton")).click();
     // Scrolling up for switching to getting there tab
-//    WebElement gettingThereTab = driver.findElement(By.id("pills-getting-there-tab"));
-//    new Actions(driver)
-//            .scrollToElement(gettingThereTab)
-//            .perform();
+    js.executeScript("window.scrollTo(0, 0)");
+    Thread.sleep(500);
     driver.findElement(By.id("pills-getting-there-tab")).click();
     driver.findElement(By.id("gettingThereInput")).click();
     driver.findElement(By.id("gettingThereInput")).sendKeys("Test Hike Getting There");
     driver.findElement(By.id("saveButtonNewHike")).click();
+    {
+      List<WebElement> elements = driver.findElements(By.cssSelector(".toast-body"));
+      assert(!elements.isEmpty());
+    }
   }
 }

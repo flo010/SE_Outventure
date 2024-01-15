@@ -20,6 +20,7 @@ function logout() {
 
 function changeSelectedItem(item) {
     document.getElementById('selectedItem').innerText = item;
+    document.getElementById('selectedSearchItem').value = item;
 
     let searchBar = document.getElementById('searchBar');
 
