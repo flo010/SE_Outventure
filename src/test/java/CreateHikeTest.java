@@ -71,7 +71,7 @@ public class CreateHikeTest {
     driver.findElement(By.id("regionInput")).click();
     {
       WebElement dropdown = driver.findElement(By.id("regionInput"));
-      dropdown.findElement(By.xpath("//option[. = 'Croatia']")).click();
+      dropdown.findElement(By.xpath("//option[. = 'Austria - Vorarlberg']")).click();
     }
     driver.findElement(By.id("pills-poi-tab")).click();
     driver.findElement(By.id("startNameInput")).click();
