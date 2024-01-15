@@ -37,12 +37,10 @@ public class CreateHikeTest {
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
     driver.findElement(By.id("loggedInUser")).click();
     driver.findElement(By.linkText("Create Hike")).click();
-    driver.findElement(By.id("titleInput")).click();
     driver.findElement(By.id("titleInput")).sendKeys("Test Hike Title");
-    driver.findElement(By.id("descriptionInput")).click();
     driver.findElement(By.id("descriptionInput")).sendKeys("Test Hike Description");
     String os = System.getProperty("os.name");
-    String filePath = "";
+    String filePath;
     if (os.contains("Windows")) {
       filePath = System.getProperty("user.dir") + "\\src\\test\\java\\TestHikeImage.jpg";
     }
@@ -51,52 +49,59 @@ public class CreateHikeTest {
     }
     WebElement imageUpload = driver.findElement(By.id("coverImageInput"));
     imageUpload.sendKeys(filePath);
+    WebElement detailsTabElement = driver.findElement(By.id("pills-details-tab"));
+    js.executeScript("arguments[0].scrollIntoView(true);", detailsTabElement);
+    Thread.sleep(1500);
     driver.findElement(By.id("pills-details-tab")).click();
-    driver.findElement(By.id("distanceInput")).click();
     driver.findElement(By.id("distanceInput")).sendKeys("8.0");
-    driver.findElement(By.id("hoursInput")).click();
     driver.findElement(By.id("hoursInput")).sendKeys("2");
-    driver.findElement(By.id("minutesInput")).click();
     driver.findElement(By.id("minutesInput")).sendKeys("12");
-    driver.findElement(By.id("altitudeInput")).click();
     driver.findElement(By.id("altitudeInput")).sendKeys("120");
-    driver.findElement(By.id("difficultyInput")).sendKeys("2");
-    driver.findElement(By.id("difficultyInput")).click();
-    driver.findElement(By.id("experienceInput")).sendKeys("3");
-    driver.findElement(By.id("experienceInput")).click();
-    driver.findElement(By.id("landscapeInput")).sendKeys("4");
-    driver.findElement(By.id("landscapeInput")).click();
-    // Scrolling down to the month input
+    WebElement difficultyInputElement = driver.findElement(By.id("difficultyInput"));
+    js.executeScript("arguments[0].scrollIntoView(true);", difficultyInputElement);
+    Thread.sleep(1500);
+    difficultyInputElement.sendKeys("2");
+    difficultyInputElement.click();
+    WebElement experienceInputElement = driver.findElement(By.id("experienceInput"));
+    js.executeScript("arguments[0].scrollIntoView(true);", experienceInputElement);
+    Thread.sleep(1500);
+    experienceInputElement.sendKeys("3");
+    experienceInputElement.click();
+    WebElement landscapeInputElement = driver.findElement(By.id("landscapeInput"));
+    js.executeScript("arguments[0].scrollIntoView(true);", landscapeInputElement);
+    Thread.sleep(1500);
+    landscapeInputElement.sendKeys("4");
+    landscapeInputElement.click();
     js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-    Thread.sleep(500);
+    Thread.sleep(1500);
     driver.findElement(By.id("optimalSeasonJanuary")).click();
     driver.findElement(By.id("optimalSeasonFebruary")).click();
     driver.findElement(By.id("optimalSeasonMarch")).click();
-    driver.findElement(By.id("pills-route-tab")).click();
-    driver.findElement(By.id("routeDescriptionInput")).click();
+    WebElement routeTabElement = driver.findElement(By.id("pills-route-tab"));
+    js.executeScript("arguments[0].scrollIntoView(true);", routeTabElement);
+    Thread.sleep(1500);
+    routeTabElement.click();
     driver.findElement(By.id("routeDescriptionInput")).sendKeys("Test Hike Route Description");
-    driver.findElement(By.id("regionInput")).click();
     {
       WebElement dropdown = driver.findElement(By.id("regionInput"));
       dropdown.findElement(By.xpath("//option[. = 'Austria - Vorarlberg']")).click();
     }
-    driver.findElement(By.id("pills-poi-tab")).click();
-    driver.findElement(By.id("startNameInput")).click();
+    WebElement poiTabElement = driver.findElement(By.id("pills-poi-tab"));
+    js.executeScript("arguments[0].scrollIntoView(true);", poiTabElement);
+    Thread.sleep(1500);
+    poiTabElement.click();
     driver.findElement(By.id("startNameInput")).sendKeys("Test Hike Start");
-    driver.findElement(By.id("latitudeStartCoordinateInput")).click();
     driver.findElement(By.id("latitudeStartCoordinateInput")).sendKeys("47.458061");
-    driver.findElement(By.id("longitudeStartCoordinateInput")).click();
     driver.findElement(By.id("longitudeStartCoordinateInput")).sendKeys("9.772455");
-    driver.findElement(By.id("destinationNameInput")).click();
     driver.findElement(By.id("destinationNameInput")).sendKeys("Test Hike Destination");
-    driver.findElement(By.id("latitudeDestinationCoordinateInput")).click();
     driver.findElement(By.id("latitudeDestinationCoordinateInput")).sendKeys("47.463781");
-    driver.findElement(By.id("longitudeDestinationCoordinateInput")).click();
     driver.findElement(By.id("longitudeDestinationCoordinateInput")).sendKeys("9.809005");
-    driver.findElement(By.id("addPoiButton")).click();
-    Thread.sleep(500);
+    WebElement addPoiButtonElement = driver.findElement(By.id("addPoiButton"));
+    js.executeScript("arguments[0].scrollIntoView(true);", addPoiButtonElement);
+    Thread.sleep(1500);
+    addPoiButtonElement.click();
+    Thread.sleep(1500);
     driver.findElement(By.id("poiName")).sendKeys("Test Hike POI");
-    driver.findElement(By.id("poiType")).click();
     {
       WebElement dropdown = driver.findElement(By.id("poiType"));
       dropdown.findElement(By.xpath("//option[. = 'Hut']")).click();
@@ -104,20 +109,19 @@ public class CreateHikeTest {
     driver.findElement(By.id("poiLatitude")).sendKeys("47.456654");
     driver.findElement(By.id("poiLongitude")).sendKeys("9.790352");
     driver.findElement(By.id("savePoiButton")).click();
-    // Scrolling up for switching to getting there tab
-    js.executeScript("window.scrollTo(0, 0)");
-    Thread.sleep(500);
-    driver.findElement(By.id("pills-getting-there-tab")).click();
-    driver.findElement(By.id("gettingThereInput")).click();
+    Thread.sleep(1500);
+    WebElement gettingThereTabElement = driver.findElement(By.id("pills-getting-there-tab"));
+    js.executeScript("arguments[0].scrollIntoView(true);", gettingThereTabElement);
+    Thread.sleep(1500);
+    gettingThereTabElement.click();
     driver.findElement(By.id("gettingThereInput")).sendKeys("Test Hike Getting There");
-    driver.findElement(By.id("saveButtonNewHike")).click();
+    WebElement saveButtonElement = driver.findElement(By.id("saveButtonNewHike"));
+    js.executeScript("arguments[0].scrollIntoView(true);", saveButtonElement);
+    Thread.sleep(1500);
+    saveButtonElement.click();
     {
       List<WebElement> elements = driver.findElements(By.cssSelector(".toast-body"));
       assert(!elements.isEmpty());
     }
-  }
-
-  public static void main(String[] args) {
-    System.out.println(System.getProperty("os.name"));
   }
 }
