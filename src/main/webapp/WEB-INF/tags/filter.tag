@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: flo01
-  Date: 01/12/2023
-  Time: 23:25
-  To change this template use File | Settings | File Templates.
---%>
 <%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="name" required="true" type="java.lang.String" %>
 <%@ attribute name="min" required="true" type="java.lang.Integer" %>

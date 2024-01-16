@@ -4,7 +4,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 import java.util.List;
-
+import servlets.APIKeys;
 
 public class HikeRouting {
 
@@ -29,7 +29,7 @@ public class HikeRouting {
 
         Response response = client.target("https://api.openrouteservice.org/v2/directions/foot-hiking/gpx")
                 .request()
-                .header("Authorization", "Bearer 5b3ce3597851110001cf62483d1f73a95e10453194e38bd4eb0fd59c") // Assuming it's a bearer token
+                .header("Authorization", "Bearer " + APIKeys.getRoutingApiKey()) // Assuming it's a bearer token
                 .header("Accept", "application/json, application/geo+json, application/gpx+xml, img/png")
                 .header("Content-Type", "application/json")
                 .post(payload);

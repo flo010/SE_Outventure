@@ -5,12 +5,11 @@ import hibernate.model.Picture;
 import jakarta.servlet.http.Part;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import servlets.ImageServlet;
+import servlets.hike.ImageServlet;
 
 import java.io.*;
 import java.util.UUID;
 
-import static org.hibernate.boot.archive.internal.ArchiveHelper.getBytesFromInputStream;
 import static processing.ImageProcessing.extractBytes;
 
 

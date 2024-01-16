@@ -5,6 +5,8 @@ import hibernate.model.*;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
+import servlets.hike.*;
+import servlets.user_management.*;
 
 import static org.mockito.Mockito.*;
 
@@ -17,7 +19,6 @@ public class MockListenerServlet implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent event) {
         String mockIt = System.getenv("MOCK");
-        System.out.println("STARTED");
 
         if (mockIt != null) {
             FacadeJPA mockedFacade = mock(FacadeJPA.class);

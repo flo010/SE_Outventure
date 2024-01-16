@@ -1,6 +1,5 @@
 package hibernate.broker;
 
-import hibernate.model.Hike;
 import hibernate.model.Hiker;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -16,9 +15,8 @@ public class HikerBroker extends BrokerBase<Hiker>{
             EntityManager entityManager = getEntityManager();
             Query query = entityManager.createQuery("SELECT h FROM Hiker h WHERE h.hikerID = :hikerID");
             query.setParameter("hikerID", value);
-            Hiker hiker = (Hiker) query.getSingleResult();
 
-            return hiker;
+            return (Hiker) query.getSingleResult();
         } catch (NoResultException e) {
             // Handle case when no result is found (user not found or incorrect credentials)
             return null;
@@ -54,9 +52,8 @@ public class HikerBroker extends BrokerBase<Hiker>{
             EntityManager entityManager = getEntityManager();
             Query query = entityManager.createQuery("SELECT h FROM Hiker h WHERE h.email = :email");
             query.setParameter("email", email);
-            Hiker hiker = (Hiker) query.getSingleResult();
 
-            return hiker;
+            return (Hiker) query.getSingleResult();
         } catch (NoResultException e) {
             // Handle case when no result is found (user not found or incorrect credentials)
             return null;

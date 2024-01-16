@@ -110,12 +110,6 @@ public class FacadeJPA {
                 altitudeLow,altitudeHigh,month);
     }
 
-    public Picture getNewPicture(){
-        PictureBroker pictureBroker = new PictureBroker();
-
-        return pictureBroker.getNewPicture();
-    }
-
     public List<Hike> getHikesByAuthorLazy(String author) {
         HikeBroker hikeBroker = new HikeBroker();
         List<Hike> hikes = null;
