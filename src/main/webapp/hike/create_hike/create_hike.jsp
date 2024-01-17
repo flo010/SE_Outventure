@@ -86,7 +86,6 @@
                 <input type="hidden" id="hiddenEditInput" name="edit" value="true">
                 <input type="hidden" id="hiddenHikeIDInput" name="hikeID" value="<%= hike.getHikeID() %>">
                 <input type="hidden" id="hiddenMonthsInput" name="months" value="<%= Arrays.toString(hike.monthsAsArray()) %>">
-                <input type="hidden" id="hiddenPictureIDInput" name="pictureID" value="<%= hike.getPreviewPicture() %>">
                 <% } %>
                 <div class="tab-content mt-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="pills-overview-tab" tabindex="0">
@@ -128,8 +127,20 @@
                             <div class="invalid-feedback alert alert-danger mt-2">
                                 Invalid file type. Please provide a .png or.jpg.
                             </div>
+                            <%
+                                if (hike == null) {
+                            %>
                             <img src="" id="previewCoverImage" width="250" alt="Hike Preview Image">
                             <input type="hidden" id="hiddenImageId" name="hiddenImageId">
+                            <%
+                            } else {
+                            %>
+                            <img src="/api/image/<%=hike.getPreviewPicture()%>" id="previewCoverImage" width="250" alt="Hike Preview Image" style="display: block">
+                            <input value="<%=hike.getPreviewPicture()%>" type="hidden" id="hiddenImageId" name="hiddenImageId">
+                            <%
+                                }
+                            %>
+
                         </div>
                         <div class="d-flex flex-row-reverse bd-highlight">
                             <div class="p-2 bd-highlight">
@@ -257,7 +268,7 @@
                             <div class="dropdown">
                                 <% if(hike != null){ %>
                                 <select id="regionInput" name="regionInput" class="form-select" aria-label="region ID" required>
-                                    <option value="selectedRegionEditHike" selected><%=hike.getRegion().getRegion()%></option>
+                                    <option value="<%=hike.getRegion().getRegion()%>" selected><%=hike.getRegion().getRegion()%></option>
                                         <% } else { %>
                                     <select id="regionInput" name="regionInput" class="form-select" aria-label="region ID" required>
                                         <option value="" selected>Select region</option>

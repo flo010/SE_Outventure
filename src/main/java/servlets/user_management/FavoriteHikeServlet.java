@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 
 import java.io.IOException;
@@ -20,29 +21,32 @@ public class FavoriteHikeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
+        HttpSession session = request.getSession();
         int hikeID = Integer.parseInt(request.getParameter("hikeID"));
-        int hikerID = Integer.parseInt(request.getParameter("hikerID"));
-        String page = request.getParameter("page").toString();
+        int hikerID = (int) session.getAttribute("hikerID");
+        String page = request.getParameter("page");
 
-        if (page.equals("detail")) {
-            updateFavorites(hikerID, hikeID);
-            response.sendRedirect("hike_detail?id=" + hikeID);
-        }
-        else if (page.equals("profile")) {
-            updateFavorites(hikerID, hikeID);
-            response.sendRedirect("/user_management/favorite_hikes_list/favorite_hikes_list.jsp");
-        }
-        else {
-            Hiker hiker = facadeJPA.getHikerByID(hikerID);
-            List<Hike> favoriteHikes =  hiker.getFavoriteHikes();
+        switch (page) {
+            case "detail":
+                updateFavorites(hikerID, hikeID);
+                response.sendRedirect("hike_detail?id=" + hikeID);
+                break;
+            case "profile":
+                updateFavorites(hikerID, hikeID);
+                response.sendRedirect("/user_management/favorite_hikes_list/favorite_hikes_list.jsp");
+                break;
+            case "left-box":
+                Hiker hiker = facadeJPA.getHikerByID(hikerID);
+                List<Hike> favoriteHikes = hiker.getFavoriteHikes();
 
-            request.setAttribute("favoriteHikes", favoriteHikes);
+                request.setAttribute("favoriteHikes", favoriteHikes);
 
-            try {
-                request.getRequestDispatcher("/user_management/favorite_hikes_list/favorite_hikes_list.jsp").forward(request, response);
-            } catch (ServletException e) {
-                throw new RuntimeException(e);
-            }
+                try {
+                    request.getRequestDispatcher("/user_management/favorite_hikes_list/favorite_hikes_list.jsp").forward(request, response);
+                } catch (ServletException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
         }
     }
 

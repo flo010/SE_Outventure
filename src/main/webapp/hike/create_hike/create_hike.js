@@ -640,7 +640,6 @@ function saveInput(isEdit) {
     }
     else {
         document.getElementById("coverImageInput").required = false;
-        console.log(document.getElementById("coverImageInput").required);
     }
 }
 

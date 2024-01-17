@@ -87,8 +87,7 @@ public class ImageServlet extends HttpServlet {
         Picture picture = new Picture();
         picture.setPicture(compressedImageData);
         picture.setPictureID(id.toString());
-        PictureBroker p = new PictureBroker();
-        p.save(picture);
+        facadeJPA.save(picture);
         return id;
     }
 
