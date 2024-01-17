@@ -1,11 +1,14 @@
 package hibernate.broker;
 
+import hibernate.model.Hike;
 import hibernate.model.Hiker;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HikerBroker extends BrokerBase<Hiker>{
@@ -187,5 +190,4 @@ public class HikerBroker extends BrokerBase<Hiker>{
             entityManager.close();
         }
     }
-
 }
