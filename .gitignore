@@ -38,3 +38,5 @@ hibernate-cfg.xml
 pom.xml
 
 **/persistence.xml
+
+src/main/java/servlets/APIKeys.java

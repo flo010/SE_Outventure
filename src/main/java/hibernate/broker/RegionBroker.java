@@ -7,7 +7,7 @@ import jakarta.persistence.Query;
 
 import java.util.List;
 
-public class RegionBroker extends BrokerBase {
+public class RegionBroker extends BrokerBase<Region> {
     @Override
     public Region getLazy(int value) {
         EntityManager entityManager = getEntityManager();
@@ -20,7 +20,7 @@ public class RegionBroker extends BrokerBase {
     }
 
     @Override
-    public List getAll() {
+    public List<Region> getAll() {
         EntityManager entityManager = null;
         try {
             entityManager = getEntityManager();

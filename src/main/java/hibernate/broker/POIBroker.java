@@ -1,10 +1,10 @@
 package hibernate.broker;
 
-import hibernate.model.*;
+import hibernate.model.Hike;
+import hibernate.model.PointOfInterest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
