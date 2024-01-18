@@ -21,7 +21,6 @@ public class HikerBroker extends BrokerBase<Hiker>{
 
             return (Hiker) query.getSingleResult();
         } catch (NoResultException e) {
-            // Handle case when no result is found (user not found or incorrect credentials)
             return null;
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,6 +44,7 @@ public class HikerBroker extends BrokerBase<Hiker>{
 
             return count > 0;
         } catch (Exception e) {
+
             e.printStackTrace();
         }
       return false;
@@ -58,7 +58,7 @@ public class HikerBroker extends BrokerBase<Hiker>{
 
             return (Hiker) query.getSingleResult();
         } catch (NoResultException e) {
-            // Handle case when no result is found (user not found or incorrect credentials)
+
             return null;
         } catch (Exception e) {
             e.printStackTrace();

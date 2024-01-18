@@ -78,7 +78,6 @@ public class POIBroker extends BrokerBase<PointOfInterest> {
             if (entityManager != null && entityManager.isOpen()) {
                 pointsOfInterest = entityManager.createQuery("SELECT poi FROM PointOfInterest poi", PointOfInterest.class).getResultList();
             } else {
-                // Handle the situation when the EntityManager is closed
                 System.out.println("EntityManager is closed");
             }
         } catch (Exception e) {

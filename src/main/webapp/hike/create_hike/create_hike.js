@@ -1107,7 +1107,6 @@ function sendGpxToServer(gpxContent) {
         .then(response => response.json())
         .then(data => {
             console.log('Response from server:', data);
-            // Optionally handle the response from the server
         })
         .catch(error => {
             console.error('Error sending GPX content to server:', error);
