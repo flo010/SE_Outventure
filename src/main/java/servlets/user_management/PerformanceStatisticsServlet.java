@@ -38,15 +38,10 @@ public class PerformanceStatisticsServlet extends HttpServlet {
             }
         }
 
-        double totalDistance = 0.0;
-        double totalDuration = 0.0;
-        int totalAltitude = 0;
-
-        for (Hike hike : filteredHikes) {
-            totalDistance += hike.getDistance();
-            totalDuration += hike.getDuration();
-            totalAltitude += hike.getAltitude();
-        }
+        double[] calculatedValues = calculateValues(filteredHikes);
+        double totalDistance = calculatedValues[0];
+        double totalDuration = calculatedValues[1];
+        int totalAltitude = (int) calculatedValues[2];
 
         session.setAttribute("filteredHikes", filteredHikes);
         session.setAttribute("totalDistance", totalDistance);
@@ -62,5 +57,21 @@ public class PerformanceStatisticsServlet extends HttpServlet {
             session.setAttribute("empty", true);
         }
         response.sendRedirect("/user_management/performance_statistics/performance_statistics.jsp");
+    }
+
+    public double[] calculateValues(List<Hike> filteredHikes) {
+        double totalDistance = 0.0;
+        double totalDuration = 0.0;
+        int totalAltitude = 0;
+
+        for (Hike hike : filteredHikes) {
+            totalDistance += hike.getDistance();
+            totalDuration += hike.getDuration();
+            totalAltitude += hike.getAltitude();
+        }
+
+        double[] calculatdValues = {totalDistance, totalDuration, totalAltitude};
+
+        return calculatdValues;
     }
 }

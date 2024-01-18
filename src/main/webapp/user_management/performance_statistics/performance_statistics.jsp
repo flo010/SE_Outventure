@@ -101,7 +101,7 @@
                                 <p><strong>Hikes:</strong></p>
                                 <ul>
                                     <% for (Hike hike: filteredHikes) { %>
-                                    <li><%= hike.getTitle() %></li>
+                                    <li><%=hike.getTitle()%></li>
                                     <% } %>
                                 </ul>
                                 <table class="table .table-borderless">
