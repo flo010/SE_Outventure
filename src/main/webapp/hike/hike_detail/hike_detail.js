@@ -28,7 +28,8 @@ document.addEventListener("DOMContentLoaded", function() {
 function showLastSearchResults() {
     window.location.href = "/hike/search_results/search_results.jsp";
 }
-
+let waypoints = [];
+let startLatitude, startLongitude, destinationLatitude, destinationLongitude;
 // map functions
 document.addEventListener("DOMContentLoaded", function (){
     initializeMap();
@@ -38,14 +39,14 @@ function initializeMap() {
     let waypoints = [];
 
     let mapData = document.getElementById('mapData');
-    let startName = mapData.getAttribute('start-name');
-    let startLatitude = parseFloat(mapData.getAttribute('start-latitude'));
-    let startLongitude = parseFloat(mapData.getAttribute('start-longitude'));
-    let destinationName = mapData.getAttribute('destination-name');
-    let destinationLatitude = parseFloat(mapData.getAttribute('destination-latitude'));
-    let destinationLongitude = parseFloat(mapData.getAttribute('destination-longitude'));
+    startName = mapData.getAttribute('start-name');
+    startLatitude = parseFloat(mapData.getAttribute('start-latitude'));
+    startLongitude = parseFloat(mapData.getAttribute('start-longitude'));
+    destinationName = mapData.getAttribute('destination-name');
+    destinationLatitude = parseFloat(mapData.getAttribute('destination-latitude'));
+    destinationLongitude = parseFloat(mapData.getAttribute('destination-longitude'));
 
-
+£
     // leaflet methods to initialize the map so that entire hike is always visible
     let startBound = L.latLng(startLatitude, startLongitude);
     let destinationBound = L.latLng(destinationLatitude, destinationLongitude);
