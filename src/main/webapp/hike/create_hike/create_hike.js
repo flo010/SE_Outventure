@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         setTimeout(function() {
             MapModule.initializeNewMap();
-        }, 1500);
+        }, 3000);
     }
 
 });
