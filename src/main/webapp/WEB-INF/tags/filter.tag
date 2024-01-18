@@ -4,7 +4,7 @@
 <%@ attribute name="max" required="true" type="java.lang.Integer" %>
 <%@ attribute name="valueLow" required="true" type="java.lang.Integer" %>
 <%@ attribute name="valueHigh" required="true" type="java.lang.Integer" %>
-<link href="../../search_results/filter.css" rel="stylesheet">
+<link href="/css/filter.css" rel="stylesheet">
 
 <div
         class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1"
