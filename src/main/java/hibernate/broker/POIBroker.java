@@ -26,9 +26,9 @@ public class POIBroker extends BrokerBase<PointOfInterest> {
                 "SELECT * FROM hikes h " +
                         "LEFT JOIN poi_on_hike poh ON h.hike_id = poh.hike " +
                         "LEFT JOIN points_of_interest poi ON poh.poi = poi.poi_id " +
-                        "WHERE poi.name = :poiName");
+                        "WHERE LOWER(poi.name) LIKE LOWER(:poiName)");
 
-        query.setParameter("poiName", poiName);
+        query.setParameter("poiName", "%" + poiName + "%");
 
         List<Object[]> result = query.getResultList();
         List<Hike> hikes = new ArrayList<>();
