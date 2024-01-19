@@ -29,7 +29,7 @@ function showLastSearchResults() {
     window.location.href = "/hike/search_results/search_results.jsp";
 }
 let waypoints = [];
-let startLatitude, startLongitude, destinationLatitude, destinationLongitude;
+let startLatitude, startLongitude, destinationLatitude, destinationLongitude, startName, destinationName;
 // map functions
 document.addEventListener("DOMContentLoaded", function (){
     initializeMap();
