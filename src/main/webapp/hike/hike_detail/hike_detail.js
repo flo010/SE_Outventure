@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function (){
 });
 
 function initializeMap() {
-    let waypoints = [];
+    waypoints = [];
 
     let mapData = document.getElementById('mapData');
     startName = mapData.getAttribute('start-name');
@@ -46,7 +46,7 @@ function initializeMap() {
     destinationLatitude = parseFloat(mapData.getAttribute('destination-latitude'));
     destinationLongitude = parseFloat(mapData.getAttribute('destination-longitude'));
 
-£
+
     // leaflet methods to initialize the map so that entire hike is always visible
     let startBound = L.latLng(startLatitude, startLongitude);
     let destinationBound = L.latLng(destinationLatitude, destinationLongitude);
