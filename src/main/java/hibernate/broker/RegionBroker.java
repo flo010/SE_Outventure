@@ -34,7 +34,6 @@ public class RegionBroker extends BrokerBase<Region> {
             if (entityManager != null && entityManager.isOpen()) {
                 regions = entityManager.createQuery("SELECT r FROM Region r", Region.class).getResultList();
             } else {
-                // Handle the situation when the EntityManager is closed
                 System.out.println("EntityManager is closed");
             }
         } catch (Exception e) {
