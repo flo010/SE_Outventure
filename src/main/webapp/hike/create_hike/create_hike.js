@@ -757,7 +757,6 @@ window.onbeforeunload = function () {
 const MapModule = (function () {
     let newMap;
     const waypoints = [];
-    const additionalWaypoints = [];
 
     function initializeNewMap() {
         newMap = new L.Map('map').setView([47.4167, 9.7500], 11);
@@ -861,38 +860,35 @@ const MapModule = (function () {
                 });
             }
         });
-
         newMap.on('contextmenu', function (event) {
             if (startMarker && destinationMarker) {
                 let clickedLatLng = event.latlng;
                 let waypointMarker = L.marker(clickedLatLng, { draggable: true });
 
                 waypointMarker.addTo(newMap);
-                additionalWaypoints.push(clickedLatLng); // Push LatLng coordinates
 
-                waypointMarker.on('dragend', function () {
-                    route = updatePolyline(startMarker, destinationMarker, additionalWaypoints, route);
-                    updateWaypoints();
-                });
+                const destIndex = waypoints.findIndex(wp => wp === destinationMarker.getLatLng());
+
+                // Insert the waypoint marker before the destination marker in the waypoints array
+                waypoints.splice(destIndex, 0, waypointMarker.getLatLng());
+
+
 
                 waypointMarker.on('click', function () {
                     newMap.removeLayer(waypointMarker);
-                    additionalWaypoints.splice(additionalWaypoints.indexOf(clickedLatLng), 1);
-                    route = updatePolyline(startMarker, destinationMarker, additionalWaypoints, route);
-                    updateWaypoints();
+                    waypoints.splice(waypoints.indexOf(clickedLatLng), 1);
+                    route = updatePolyline(startMarker, destinationMarker, waypoints, route);
                 });
+
+                waypointMarker.on('dragend', function () {
+                    waypoints.splice(waypoints.indexOf(clickedLatLng), 1, waypointMarker.getLatLng());
+                    route = updatePolyline(startMarker, destinationMarker, waypoints, route);
+                });
+
+                route = updatePolyline(startMarker, destinationMarker, waypoints, route);
             }
         });
 
-
-        function updateWaypoints() {
-            waypoints.length = 0;
-            if (startMarker) waypoints.push(startMarker.getLatLng());
-            waypoints.push(additionalWaypoints.map(waypoint => waypoint.getLatLng()))
-            if (destinationMarker) waypoints.push(destinationMarker.getLatLng());
-
-            sendWaypointsToAPI_route(waypoints);
-        }
     }
 
     function getMap() {
@@ -958,10 +954,15 @@ gpxInput.addEventListener('change', function (event) {
 
 function sendWaypointsToAPI_route(waypoints) {
     const newMap = MapModule.getMap();
+
+    // Remove existing polyline layer before making the API call
+    if (existingGpxLayer) {
+        newMap.removeLayer(existingGpxLayer);
+    }
+
     const waypointData = waypoints.map(function (waypoint) {
         return [waypoint.lng, waypoint.lat];
-    })
-
+    });
 
     const payload = {
         "coordinates": waypointData,
@@ -971,7 +972,6 @@ function sendWaypointsToAPI_route(waypoints) {
         "extra_info": ["steepness", "suitability", "surface", "green", "noise"]
     };
 
-    console.log(waypointData)
     fetch('https://api.openrouteservice.org/v2/directions/foot-hiking/gpx', {
         method: 'POST',
         headers: {
@@ -984,7 +984,7 @@ function sendWaypointsToAPI_route(waypoints) {
         .then(response => response.text())
         .then(gpxData => {
             drawRoute(gpxData, newMap);
-            console.log(gpxData)
+            console.log(gpxData);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -992,6 +992,7 @@ function sendWaypointsToAPI_route(waypoints) {
 }
 
 let existingGpxLayer = null;
+
 function drawRoute(gpxData, map) {
     const newGpxLayer = new L.GPX(gpxData, { async: true });
 
@@ -1003,15 +1004,18 @@ function drawRoute(gpxData, map) {
         }
         existingGpxLayer = newGpxLayer;
 
-    newGpxLayer.addTo(map);
+        newGpxLayer.addTo(map);
     });
 }
+
+
 
 
 
 function sendWaypointsToAPI() {
     const waypoints = MapModule.getWaypoints();
     const waypointData = waypoints.map(function (waypoint) {
+        console.log(waypointData);
         return [waypoint.lng, waypoint.lat];
     });
 
@@ -1034,31 +1038,33 @@ function sendWaypointsToAPI() {
     })
         .then(response => response.json())
         .then(data => {
-            // Access the distance information from the API response
-            const distance = data.features[0].properties.segments[0].distance;
-            const distanceInKilometers = distance / 1000;
+            // Check if the expected properties exist in the response
+            if (data.features && data.features.length > 0 && data.features[0].properties.segments) {
+                const distance = data.features[0].properties.segments[0].distance;
+                const distanceInKilometers = distance / 1000;
 
-            document.getElementById('distanceInput').value = distanceInKilometers.toFixed(2);
+                document.getElementById('distanceInput').value = distanceInKilometers.toFixed(2);
 
+                const duration = data.features[0].properties.segments[0].duration;
+                const durationInHours = Math.floor(duration / 3600);
+                const durationInMinutes = Math.floor((duration % 3600) / 60);
 
-            const duration = data.features[0].properties.segments[0].duration;
-            const durationInHours = Math.floor(duration / 3600);
-            const durationInMinutes = Math.floor((duration % 3600) / 60);
+                document.getElementById('hoursInput').value = durationInHours;
+                document.getElementById('minutesInput').value = durationInMinutes;
 
-            document.getElementById('hoursInput').value = durationInHours;
-            document.getElementById('minutesInput').value = durationInMinutes;
+                const elevations = data.features[0].geometry.coordinates.map(coord => coord[2]);
+                const altitudeDifference = Math.round(elevations[elevations.length - 1] - elevations[0]);
 
-
-            const elevations = data.features[0].geometry.coordinates.map(coord => coord[2]);
-            const altitudeDifference = Math.round(elevations[elevations.length - 1] - elevations[0]);
-
-            document.getElementById('altitudeInput').value = altitudeDifference;
-
+                document.getElementById('altitudeInput').value = altitudeDifference;
+            } else {
+                console.error('Unexpected response format:', data);
+            }
         })
         .catch(error => {
             console.error('Error:', error);
         });
 }
+
 
 
 
@@ -1140,13 +1146,20 @@ function sendGpxToServer(gpxContent) {
         });
 }
 
-function updatePolyline(startMarker, destinationMarker, additionalWaypoints, route) {
+function updatePolyline(startMarker, destinationMarker, waypoints, route) {
     if (startMarker && destinationMarker && route) {
-        const allWaypoints = [startMarker.getLatLng(), ...additionalWaypoints, destinationMarker.getLatLng()];
+        // Exclude the start and destination markers from the waypoints array
+        const intermediateWaypoints = waypoints.filter(waypoint => waypoint !== startMarker.getLatLng() && waypoint !== destinationMarker.getLatLng());
+
+        // Create an array with all waypoints, including start and destination
+        const allWaypoints = [startMarker.getLatLng(), ...intermediateWaypoints, destinationMarker.getLatLng()];
+
         route.setLatLngs(allWaypoints);
     }
     return route;
 }
+
+
 
 
 
