@@ -1,4 +1,4 @@
-package servlets;
+package processing;
 
 public class APIKeys {
     public static final String weatherApiKey = "334ec4fd65c0ffc4a300322db9a07b40";

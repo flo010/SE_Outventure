@@ -21,7 +21,7 @@ public class PerformanceStatisticsServlet extends HttpServlet {
     public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
 
     @Transactional
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         int hikerID = (int) session.getAttribute("hikerID");
         Hiker hiker = facadeJPA.getHikerByID(hikerID);
@@ -70,8 +70,6 @@ public class PerformanceStatisticsServlet extends HttpServlet {
             totalAltitude += hike.getAltitude();
         }
 
-        double[] calculatdValues = {totalDistance, totalDuration, totalAltitude};
-
-        return calculatdValues;
+        return new double[]{totalDistance, totalDuration, totalAltitude};
     }
 }

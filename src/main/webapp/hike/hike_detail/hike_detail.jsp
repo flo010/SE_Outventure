@@ -155,7 +155,7 @@
                     <%
                         if (hikerID != -1) {
                     %>
-                    <form id="commentForm" action="../../comment?hikeID=<%=hike.getHikeID()%>&hikerID=<%=session.getAttribute("hikerID")%>" method="post">
+                    <form id="commentForm" action="/comment?hikeID=<%=hike.getHikeID()%>&hikerID=<%=session.getAttribute("hikerID")%>" method="post">
                         <div class="container-footer">
                             <textarea class="text-form-control" id="commentInput" name="commentInput" placeholder="Add Comment" maxlength="1000" rows="2" aria-label="Add Comment"></textarea>
                             <button class="add-comment-button" type="submit">
@@ -384,7 +384,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="dateForm" action="../../completed_hike?hikeID=<%=hike.getHikeID()%>&hikerID=<%=session.getAttribute("hikerID")%>&page=detail" method="post">
+                        <form id="dateForm" action="/completed_hike?hikeID=<%=hike.getHikeID()%>&hikerID=<%=session.getAttribute("hikerID")%>&page=detail" method="post">
                             <div class="mb-3">
                                 <label for="completionDate" class="form-label">Completion Date (DD.MM.YYYY)</label>
                                 <input type="date" class="form-control" id="completionDate" name="completionDate" placeholder="Completion Date" required>

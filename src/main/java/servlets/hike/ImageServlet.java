@@ -1,7 +1,6 @@
 package servlets.hike;
 
 
-import hibernate.broker.PictureBroker;
 import hibernate.facade.FacadeJPA;
 import hibernate.model.Picture;
 import jakarta.servlet.annotation.MultipartConfig;

@@ -14,7 +14,7 @@
     int totalAltitude = (session.getAttribute("totalAltitude") != null) ? (int) session.getAttribute("totalAltitude") : 0;
     Date fromDate = (session.getAttribute("fromDate") != null) ? (Date) session.getAttribute("fromDate") : new Date();
     Date toDate = (session.getAttribute("toDate") != null) ? (Date) session.getAttribute("toDate") : new Date();
-    boolean isEmpty = (session.getAttribute("empty") != null) ? (boolean) session.getAttribute("empty") : false;
+    boolean isEmpty = session.getAttribute("empty") != null && (boolean) session.getAttribute("empty");
 %>
 
 <html>
