@@ -28,15 +28,15 @@ document.addEventListener("DOMContentLoaded", function() {
 function showLastSearchResults() {
     window.location.href = "/hike/search_results/search_results.jsp";
 }
-let waypoints = [];
 let startLatitude, startLongitude, destinationLatitude, destinationLongitude, startName, destinationName;
 // map functions
 document.addEventListener("DOMContentLoaded", function (){
-    initializeMap();
+    initializeMap()
 });
 
 function initializeMap() {
-    waypoints = [];
+    let waypoints = [];
+    let newMap;
 
     let mapData = document.getElementById('mapData');
     startName = mapData.getAttribute('start-name');
@@ -52,20 +52,20 @@ function initializeMap() {
     let destinationBound = L.latLng(destinationLatitude, destinationLongitude);
     let bounds = L.latLngBounds(startBound, destinationBound);
 
-    let map = new L.Map('map', {fullscreenControl: true,});
-    map.fitBounds(bounds);
+    newMap = new L.Map('map', {fullscreenControl: true,});
+    newMap.fitBounds(bounds);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
+    }).addTo(newMap);
 
-    let start = L.marker([startLatitude, startLongitude]).addTo(map);
+    let start = L.marker([startLatitude, startLongitude]).addTo(newMap);
     waypoints.push(start.getLatLng())
     start.bindPopup("<strong>Start: </strong>" + startName + "<br> <strong>Coordinates: </strong>" + startLatitude + " N, " + startLongitude + " E");
     start.bindTooltip("<strong>Start: </strong>" + startName);
 
-    let destination = L.marker([destinationLatitude, destinationLongitude]).addTo(map);
+    let destination = L.marker([destinationLatitude, destinationLongitude]).addTo(newMap);
     waypoints.push(destination.getLatLng())
     destination.bindPopup("<strong>Destination: </strong>" + destinationName + "<br> <strong>Coordinates: </strong>" + destinationLatitude + " N, " + destinationLongitude + " E");
     destination.bindTooltip("<strong>Destination: </strong>" + destinationName)
@@ -96,7 +96,7 @@ function initializeMap() {
 
         switch (poiType) {
             case 'Hut':
-                let hutMarker = L.marker([poiLatitude, poiLongitude], {icon: hutIcon}).addTo(map);
+                let hutMarker = L.marker([poiLatitude, poiLongitude], {icon: hutIcon}).addTo(newMap);
                 console.log("hutMarker: " + hutMarker);
                 hutMarker.bindPopup("<strong>Hut Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
                 hutMarker.bindTooltip("<strong>Hut Name: </strong>" + poiName);
@@ -108,26 +108,28 @@ function initializeMap() {
                 refreshmentPointMarker.bindTooltip("<strong>Refreshment Point Name: </strong>" + poiName);
                 break;
             case 'Viewpoint':
-                let viewpointMarker = L.marker([poiLatitude, poiLongitude], {icon: viewpointIcon}).addTo(map);
+                let viewpointMarker = L.marker([poiLatitude, poiLongitude], {icon: viewpointIcon}).addTo(newMap);
                 console.log("vp marker: " + viewpointMarker);
                 viewpointMarker.bindPopup("<strong>Viewpoint Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
                 viewpointMarker.bindTooltip("<strong>Viewpoint Name: </strong>" + poiName);
                 break;
             case 'Sight':
-                let sightMarker = L.marker([poiLatitude, poiLongitude], {icon: sightIcon}).addTo(map);
+                let sightMarker = L.marker([poiLatitude, poiLongitude], {icon: sightIcon}).addTo(newMap);
                 console.log("sight marker: " + sightMarker);
                 sightMarker.bindPopup("<strong>Sight Name: </strong>" + poiName + "<br> <strong>Coordinates: </strong>" + poiLatitude + " N, " + poiLongitude + " E");
                 sightMarker.bindTooltip("<strong>Sight Name: </strong>" + poiName);
                 break;
         }
     });
-    sendWaypointsToAPI_route(waypoints);
+    sendWaypointsToAPI_route(waypoints, newMap);
 }
 
-function sendWaypointsToAPI_route(waypoints) {
+
+function sendWaypointsToAPI_route(waypoints, newMap) {
+    //const newMap = MapModule.getMap();
     const waypointData = waypoints.map(function (waypoint) {
         return [waypoint.lng, waypoint.lat];
-    })
+    });
 
     const payload = {
         "coordinates": waypointData,
@@ -148,28 +150,30 @@ function sendWaypointsToAPI_route(waypoints) {
     })
         .then(response => response.text())
         .then(gpxData => {
-            drawRoute(gpxData, map);
+            drawRoute(gpxData, newMap);
+            console.log(gpxData);
         })
         .catch(error => {
             console.error('Error:', error);
         });
 }
 
-function drawRoute(gpxData, map) {
-    let gpxLayer = new L.GPX(gpxData, {async: true});
+let existingGpxLayer = null;
+function drawRoute(gpxData, newMap) {
+    const newGpxLayer = new L.GPX(gpxData, { async: true });
 
-    gpxLayer.on('loaded', function (e) {
-        map.fitBounds(e.target.getBounds());
+    newGpxLayer.on('loaded', function (e) {
+        newMap.fitBounds(e.target.getBounds());
+
+        if (existingGpxLayer) {
+            newMap.removeLayer(existingGpxLayer);
+        }
+        existingGpxLayer = newGpxLayer;
+
+        newGpxLayer.addTo(newMap);
     });
-    console.log(waypoints)
-    gpxLayer.addTo(map);
-    if (route) {
-        map.removeLayer(route);
-        route = null; // Reset the route
-    } else {
-        console.error('Invalid route data');
-    }
 }
+
 
 function exportGPX() {
     const gpxData = createGPX();

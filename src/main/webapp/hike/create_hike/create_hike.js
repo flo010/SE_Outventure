@@ -224,9 +224,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (isEditing) {
         setTimeout(initializeEditMap, 1500);
     } else {
-        setTimeout(function() {
-            MapModule.initializeNewMap();
-        }, 3000);
+        setTimeout(initializeNewMap, 3000);
+
     }
 
 });
@@ -754,7 +753,7 @@ window.onbeforeunload = function () {
     }
 }
 
-const MapModule = (function () {
+//const MapModule = (function () {
     let newMap;
     const waypoints = [];
 
@@ -869,10 +868,7 @@ const MapModule = (function () {
 
                 const destIndex = waypoints.findIndex(wp => wp === destinationMarker.getLatLng());
 
-                // Insert the waypoint marker before the destination marker in the waypoints array
                 waypoints.splice(destIndex, 0, waypointMarker.getLatLng());
-
-
 
                 waypointMarker.on('click', function () {
                     newMap.removeLayer(waypointMarker);
@@ -884,14 +880,12 @@ const MapModule = (function () {
                     waypoints.splice(waypoints.indexOf(clickedLatLng), 1, waypointMarker.getLatLng());
                     route = updatePolyline(startMarker, destinationMarker, waypoints, route);
                 });
-
                 route = updatePolyline(startMarker, destinationMarker, waypoints, route);
             }
         });
-
     }
 
-    function getMap() {
+    /*function getMap() {
         return newMap;
     }
 
@@ -904,13 +898,13 @@ const MapModule = (function () {
         getMap,
         getWaypoints
     };
-})();
+})();*/
 
 
 
 document.getElementById('showRouteButton').addEventListener('click', function () {
-    const newMap = MapModule.getMap();
-    const waypoints = MapModule.getWaypoints();
+  /*  const newMap = MapModule.getMap();
+    const waypoints = MapModule.getWaypoints();*/
     sendWaypointsToAPI_route(waypoints, newMap);
     sendWaypointsToAPI();
 });
@@ -929,7 +923,7 @@ function importGpx() {
 
 const gpxInput = document.getElementById('gpxInput');
 gpxInput.addEventListener('change', function (event) {
-    const newMap = MapModule.getMap();
+    //const newMap = MapModule.getMap();
 
     const file = event.target.files[0];
 
@@ -952,14 +946,7 @@ gpxInput.addEventListener('change', function (event) {
     }
 });
 
-function sendWaypointsToAPI_route(waypoints) {
-    const newMap = MapModule.getMap();
-
-    // Remove existing polyline layer before making the API call
-    if (existingGpxLayer) {
-        newMap.removeLayer(existingGpxLayer);
-    }
-
+function sendWaypointsToAPI_route(waypoints, newMap) {
     const waypointData = waypoints.map(function (waypoint) {
         return [waypoint.lng, waypoint.lat];
     });
@@ -1008,12 +995,8 @@ function drawRoute(gpxData, map) {
     });
 }
 
-
-
-
-
 function sendWaypointsToAPI() {
-    const waypoints = MapModule.getWaypoints();
+    //const waypoints = MapModule.getWaypoints();
     const waypointData = waypoints.map(function (waypoint) {
         console.log(waypointData);
         return [waypoint.lng, waypoint.lat];
@@ -1064,9 +1047,6 @@ function sendWaypointsToAPI() {
             console.error('Error:', error);
         });
 }
-
-
-
 
 
 function autoFillStartDestination(file) {
