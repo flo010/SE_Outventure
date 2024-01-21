@@ -753,7 +753,6 @@ window.onbeforeunload = function () {
     }
 }
 
-//const MapModule = (function () {
     let newMap;
     const waypoints = [];
 
@@ -885,21 +884,6 @@ window.onbeforeunload = function () {
         });
     }
 
-    /*function getMap() {
-        return newMap;
-    }
-
-    function getWaypoints() {
-        return waypoints;
-    }
-
-    return {
-        initializeNewMap,
-        getMap,
-        getWaypoints
-    };
-})();*/
-
 
 
 document.getElementById('showRouteButton').addEventListener('click', function () {
@@ -923,7 +907,6 @@ function importGpx() {
 
 const gpxInput = document.getElementById('gpxInput');
 gpxInput.addEventListener('change', function (event) {
-    //const newMap = MapModule.getMap();
 
     const file = event.target.files[0];
 
@@ -950,6 +933,8 @@ function sendWaypointsToAPI_route(waypoints, newMap) {
     const waypointData = waypoints.map(function (waypoint) {
         return [waypoint.lng, waypoint.lat];
     });
+
+
 
     const payload = {
         "coordinates": waypointData,
@@ -996,7 +981,6 @@ function drawRoute(gpxData, map) {
 }
 
 function sendWaypointsToAPI() {
-    //const waypoints = MapModule.getWaypoints();
     const waypointData = waypoints.map(function (waypoint) {
         console.log(waypointData);
         return [waypoint.lng, waypoint.lat];
