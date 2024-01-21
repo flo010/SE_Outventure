@@ -1,5 +1,21 @@
+<%@ page import="hibernate.model.Hike" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
+
+<%
+    List<Hike> filteredHikes = (session.getAttribute("filteredHikes") != null) ? (List<Hike>) session.getAttribute("filteredHikes") : new ArrayList<>();
+    double totalDistance = (session.getAttribute("totalDistance") != null) ? (double) session.getAttribute("totalDistance") : 0.0;
+    double totalDuration = (session.getAttribute("totalDuration") != null) ? (double) session.getAttribute("totalDuration") : 0.0;
+    int durationMinutes = (int) ((totalDuration % 1) * 60);
+    int durationHours = (int) totalDuration;
+    int totalAltitude = (session.getAttribute("totalAltitude") != null) ? (int) session.getAttribute("totalAltitude") : 0;
+    Date fromDate = (session.getAttribute("fromDate") != null) ? (Date) session.getAttribute("fromDate") : new Date();
+    Date toDate = (session.getAttribute("toDate") != null) ? (Date) session.getAttribute("toDate") : new Date();
+    boolean isEmpty = (session.getAttribute("empty") != null) ? (boolean) session.getAttribute("empty") : false;
+%>
 
 <html>
     <head>
@@ -21,15 +37,15 @@
                         <h3>Your Performance Statistics</h3>
                     </div>
                     <div class="mt-3">
-                        <form id="mt-5 performanceStatisticsForm" action="">
+                        <form id="mt-5 performanceStatisticsForm" action="/performance_statistics" method="post">
                             <div class="card">
                                 <div class="card-body">
                                     <p class="form-label">Select your date range</p>
                                     <div class="input-fields-group">
                                         <label for="fromDate"><strong>From:</strong></label>
-                                        <input type="date" id="fromDate" name="fromDate">
+                                        <input type="date" id="fromDate" name="fromDate" required>
                                         <label for="toDate" class="ms-3"><strong>To:</strong></label>
-                                        <input type="date" id="toDate" name="toDate">
+                                        <input type="date" id="toDate" name="toDate" required>
                                     </div>
                                     <div class="d-flex flex-row bd-highlight mb-3">
                                         <div class="p-2 bd-highlight">
@@ -78,7 +94,40 @@
                                 </div>
                             </div>
                         </form>
-
+                        <% if ((filteredHikes != null) && (!filteredHikes.isEmpty())) { %>
+                        <div class="card">
+                            <div class="card-body">
+                                <p><strong>Selected time period: </strong><%=fromDate%> - <%=toDate%></p>
+                                <p><strong>Hikes:</strong></p>
+                                <ul>
+                                    <% for (Hike hike: filteredHikes) { %>
+                                    <li><%=hike.getTitle()%></li>
+                                    <% } %>
+                                </ul>
+                                <table class="table .table-borderless">
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">Distance</th>
+                                        <td><%=totalDistance%> km</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Duration</th>
+                                        <td><%=durationHours%> h <%=durationMinutes%> min</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Altitude</th>
+                                        <td><%=totalAltitude%> m</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <%
+                            }
+                            if (isEmpty) {
+                        %>
+                        <p class="form-label">No hikes were found for the selected time period.</p>
+                        <% } %>
                     </div>
                 </div>
             </div>

@@ -83,7 +83,7 @@ public class MockListenerServlet implements ServletContextListener {
             mockedHike1.setRegion(mockedRegion);
 
             Hike mockedHike2 = new Hike();
-            mockedHike2.setHikeID(1);
+            mockedHike2.setHikeID(2);
             mockedHike2.setTitle("Title Mocked Hike 2");
             mockedHike2.setPreviewPicture("previewPicture2");
             mockedHike2.setDescription("Description Mocked Hike 2");

@@ -25,7 +25,6 @@ public class SearchResultsServlet extends HttpServlet {
 
         String searchString = request.getParameter("search");
         String selectedSearchItem = request.getParameter("selectedSearchItem");
-        String searchByString = "All"; //request.getParameter("selectedItem");
 
         List<Hike> hikeList;
         List<Hike> hikeList0 = new ArrayList<>();
@@ -70,7 +69,7 @@ public class SearchResultsServlet extends HttpServlet {
             );
         }
         else if ((searchString != null) && (!searchString.isEmpty())) {
-            switch (searchByString){
+            switch (selectedSearchItem){
                 case ("Title"):
                     hikeList = facadeJPA.getHikesByTitleLazy(searchString);
                     break;

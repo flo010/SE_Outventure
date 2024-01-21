@@ -1,11 +1,14 @@
 package hibernate.broker;
 
+import hibernate.model.Hike;
 import hibernate.model.Hiker;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HikerBroker extends BrokerBase<Hiker>{
@@ -18,7 +21,6 @@ public class HikerBroker extends BrokerBase<Hiker>{
 
             return (Hiker) query.getSingleResult();
         } catch (NoResultException e) {
-            // Handle case when no result is found (user not found or incorrect credentials)
             return null;
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,6 +44,7 @@ public class HikerBroker extends BrokerBase<Hiker>{
 
             return count > 0;
         } catch (Exception e) {
+
             e.printStackTrace();
         }
       return false;
@@ -55,7 +58,7 @@ public class HikerBroker extends BrokerBase<Hiker>{
 
             return (Hiker) query.getSingleResult();
         } catch (NoResultException e) {
-            // Handle case when no result is found (user not found or incorrect credentials)
+
             return null;
         } catch (Exception e) {
             e.printStackTrace();
@@ -183,5 +186,4 @@ public class HikerBroker extends BrokerBase<Hiker>{
             entityManager.close();
         }
     }
-
 }

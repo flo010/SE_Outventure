@@ -17,7 +17,7 @@ import java.util.List;
 public class FavoriteHikeServlet extends HttpServlet {
     public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
     @Transactional
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
 
         int hikeID = Integer.parseInt(request.getParameter("hikeID"));
@@ -30,19 +30,16 @@ public class FavoriteHikeServlet extends HttpServlet {
         }
         else if (page.equals("profile")) {
             updateFavorites(hikerID, hikeID);
-            response.sendRedirect("/user_management/favorite_hikes_list/favorite_hikes_list.jsp");
-        }
-        else {
             Hiker hiker = facadeJPA.getHikerByID(hikerID);
-            List<Hike> favoriteHikes =  hiker.getFavoriteHikes();
-
+            List<Hike> favoriteHikes = hiker.getFavoriteHikes();
             request.setAttribute("favoriteHikes", favoriteHikes);
-
-            try {
-                request.getRequestDispatcher("/user_management/favorite_hikes_list/favorite_hikes_list.jsp").forward(request, response);
-            } catch (ServletException e) {
-                throw new RuntimeException(e);
-            }
+            request.getRequestDispatcher("/user_management/favorite_hikes_list/favorite_hikes_list.jsp").forward(request, response);
+        }
+        else if (page.equals("left-box")) {
+            Hiker hiker = facadeJPA.getHikerByID(hikerID);
+            List<Hike> favoriteHikes = hiker.getFavoriteHikes();
+            request.setAttribute("favoriteHikes", favoriteHikes);
+            request.getRequestDispatcher("/user_management/favorite_hikes_list/favorite_hikes_list.jsp").forward(request, response);
         }
     }
 
@@ -51,11 +48,9 @@ public class FavoriteHikeServlet extends HttpServlet {
 
         if (!isFavorite) {
             facadeJPA.addFavoriteHike(hikerID, hikeID);
-            System.out.println("addFavorite called");
         }
         else {
             facadeJPA.removeFavoriteHike(hikerID, hikeID);
-            System.out.println("removeFavorite called");
         }
     }
 }
