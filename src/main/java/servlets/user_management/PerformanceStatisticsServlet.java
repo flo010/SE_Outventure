@@ -3,7 +3,6 @@ package servlets.user_management;
 import hibernate.facade.FacadeJPA;
 import hibernate.model.Hike;
 import hibernate.model.Hiker;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;

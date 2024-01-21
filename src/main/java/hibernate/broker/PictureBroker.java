@@ -9,7 +9,6 @@ import java.util.List;
 public class PictureBroker extends BrokerBase<Picture> {
     @Override
     public void save(Picture value) {
-
         EntityManager entityManager = getEntityManager();
         entityManager.getTransaction().begin();
         entityManager.merge(value);
