@@ -90,9 +90,10 @@ public class SearchResultsServlet extends HttpServlet {
                         if (hikeList0.isEmpty()){
                             hikeList0.add(hike);
                         }else {
-                            for(int i = 0; i<hikeList0.size();i++){
-                                if (hike.getHikeID() == hikeList0.get(i).getHikeID() ){
+                            for (Hike value : hikeList0) {
+                                if (hike.getHikeID() == value.getHikeID()) {
                                     notexists = false;
+                                    break;
                                 }
                             }
                             if (notexists){
@@ -106,9 +107,10 @@ public class SearchResultsServlet extends HttpServlet {
                         if (hikeList0.isEmpty()){
                             hikeList0.add(hike);
                         }else {
-                            for(int i = 0; i<hikeList0.size();i++){
-                                if (hike.getHikeID() == hikeList0.get(i).getHikeID() ){
+                            for (Hike value : hikeList0) {
+                                if (hike.getHikeID() == value.getHikeID()) {
                                     notexists = false;
+                                    break;
                                 }
                             }
                             if (notexists){
@@ -122,9 +124,10 @@ public class SearchResultsServlet extends HttpServlet {
                         if (hikeList0.isEmpty()){
                             hikeList0.add(hike);
                         }else {
-                            for(int i = 0; i<hikeList0.size();i++){
-                                if (hike.getHikeID() == hikeList0.get(i).getHikeID() ){
+                            for (Hike value : hikeList0) {
+                                if (hike.getHikeID() == value.getHikeID()) {
                                     notexists = false;
+                                    break;
                                 }
                             }
                             if (notexists){
@@ -155,7 +158,7 @@ public class SearchResultsServlet extends HttpServlet {
     }
 
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         String clearedSearchString = request.getParameter("clearedSearchString");
 
         if (clearedSearchString != null) {

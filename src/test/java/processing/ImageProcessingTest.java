@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 import servlets.hike.ImageServlet;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.UUID;
 
 import static processing.ImageProcessing.extractBytes;
@@ -79,7 +80,7 @@ class ImageProcessingTest {
             Mockito.when(mockPart.getContentType()).thenReturn("image/jpeg"); // Change content type if needed
             Mockito.when(mockPart.getName()).thenReturn("file"); // Name of the input type for file upload
             byte[] test = extractBytes(mockPart);
-            System.out.println(test);
+            System.out.println(Arrays.toString(test));
             Picture picture = new Picture();
             picture.setPicture(test);
             picture.setPictureID(predefinedUUIDs.toString());

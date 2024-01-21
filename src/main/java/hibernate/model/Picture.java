@@ -2,10 +2,6 @@ package hibernate.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.annotations.Type;
-
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "pictures")

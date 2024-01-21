@@ -20,6 +20,7 @@ public class POIBroker extends BrokerBase<PointOfInterest> {
 
         return pointOfInterest;
     }
+    @SuppressWarnings("JpaQueryApiInspection")
     public List<Hike> getByNameLazy(String poiName) {
         EntityManager entityManager = getEntityManager();
         Query query = entityManager.createNativeQuery(
@@ -42,8 +43,6 @@ public class POIBroker extends BrokerBase<PointOfInterest> {
             hike.setDuration((double) row[4]);
             hike.setDistance((double) row[5]);
             hike.setAltitude((int) row[6]);
-            //hike.setStart((Integer) row[7]);
-            //hike.setDestination((Destination) row[8]);
             hike.setStrength((int) row[9]);
             hike.setStamina((int) row[10]);
             hike.setExperience((int) row[11]);

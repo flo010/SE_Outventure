@@ -67,10 +67,6 @@ td, th {
     width: 38rem;
 }
 
-.container.py-3 .col .card-image-top {
-    height: 150px;
-}
-
 .less-width{
     width: 45%;
     margin-bottom: 1em;

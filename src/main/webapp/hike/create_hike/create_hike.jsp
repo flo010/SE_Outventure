@@ -17,7 +17,7 @@
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://unpkg.com/leaflet-gpx/gpx.js"></script>
 
-        <link href="/css/style.css" rel="stylesheet">
+        <link href="../../css/style.css" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -81,7 +81,7 @@
 
             <hr>
 
-            <form class="needs-validation" id="createHikeOverview" action="/save_data" method="post" novalidate>
+            <form class="needs-validation" id="createHikeOverview" action="../../save_data" method="post" novalidate>
                 <% if (hike != null) { %>
                 <input type="hidden" id="hiddenEditInput" name="edit" value="true">
                 <input type="hidden" id="hiddenHikeIDInput" name="hikeID" value="<%= hike.getHikeID() %>">
@@ -352,14 +352,14 @@
                             <div class="d-flex flex-row bd-highlight mb-3 mt-3">
                                 <button id="showRouteButton" type="button" class="btn btn-outline-secondary me-3" id="showRouteButton">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
-                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"></path>
+                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
                                     </svg>
                                     Show route
                                 </button>
                                 <button id="importGpxButton" type="button" class="btn btn-outline-secondary">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
+                                        <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"></path>
                                     </svg>
                                     Import GPX
                                 </button>
@@ -676,21 +676,23 @@
                                 </div>
                                 <div class="input-fields-group">
                                     <div class="coordinates-container">
-                                        <div class="row">
-                                            <label for="poiLongitude" class="form-label">Coordinates *</label>
-                                            <div class="col">
-                                                <input type="text" class="form-control exclude-from-validation" id="poiLatitude" name="latitude" placeholder="Latitude" required maxlength="20" aria-describedby="POILatitudeHelpText" pattern="-?\d+(\.\d{1,7})?">
-                                                <small id="POILatitudeHelpText" class="form-text text-muted">
-                                                    The value must be in the format XX.XXXXXX (negative sign optional).
-                                                </small>
-                                            </div>
-                                            <div class="col">
-                                                <input type="text" class="form-control exclude-from-validation" id="poiLongitude" name="longitude" placeholder="Longitude" required maxlength="20" aria-describedby="POILongitudeHelpText" pattern="-?\d+(\.\d{1,7})?">
-                                                <small id="POILongitudeHelpText" class="form-text text-muted">
-                                                    The value must be in the format XX.XXXXXX (negative sign optional).
-                                                </small>
-                                            </div>
-                                        </div>
+                                        <fieldset>
+                                            <legend class="form-label">Coordinates *</legend>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="text" class="form-control exclude-from-validation" id="poiLatitude" name="latitude" placeholder="Latitude" required maxlength="20" aria-describedby="POILatitudeHelpText" pattern="-?\d+(\.\d{1,7})?" aria-label="POI Latitude">
+                                                        <small id="POILatitudeHelpText" class="form-text text-muted">
+                                                            The value must be in the format XX.XXXXXX (negative sign optional).
+                                                        </small>
+                                                    </div>
+                                                    <div class="col">
+                                                        <input type="text" class="form-control exclude-from-validation" id="poiLongitude" name="longitude" placeholder="Longitude" required maxlength="20" aria-describedby="POILongitudeHelpText" pattern="-?\d+(\.\d{1,7})?" aria-label="POI Longitude">
+                                                        <small id="POILongitudeHelpText" class="form-text text-muted">
+                                                            The value must be in the format XX.XXXXXX (negative sign optional).
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                        </fieldset>
                                     </div>
                                 </div>
                                 <div class="input-fields-group">
@@ -760,9 +762,9 @@
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        <script src="/global_java_script/toasts.js"></script>
-        <script src="/hike/create_hike/create_hike.js"></script>
-        <script src="/global_java_script/navbar.js"></script>
+        <script src="../../global_java_script/toasts.js"></script>
+        <script src="create_hike.js"></script>
+        <script src="../../global_java_script/navbar.js"></script>
     </body>
 </html>
 

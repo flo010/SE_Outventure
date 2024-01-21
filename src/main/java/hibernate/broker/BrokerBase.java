@@ -26,13 +26,12 @@ public abstract class BrokerBase<T> {
         return entityManager;
     }
 
-    public Object save(T value) {
+    public void save(T value) {
         EntityManager entityManager = getEntityManager();
         entityManager.getTransaction().begin();
         entityManager.merge(value);
         entityManager.getTransaction().commit();
         entityManager.close();
-        return value;
     }
 
 

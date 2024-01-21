@@ -38,12 +38,12 @@ function initializeMap() {
     let waypoints = [];
 
     let mapData = document.getElementById('mapData');
-    let startName = mapData.getAttribute('start-name');
-    let startLatitude = parseFloat(mapData.getAttribute('start-latitude'));
-    let startLongitude = parseFloat(mapData.getAttribute('start-longitude'));
-    let destinationName = mapData.getAttribute('destination-name');
-    let destinationLatitude = parseFloat(mapData.getAttribute('destination-latitude'));
-    let destinationLongitude = parseFloat(mapData.getAttribute('destination-longitude'));
+    let startName = mapData.getAttribute('data-start-name');
+    let startLatitude = parseFloat(mapData.getAttribute('data-start-latitude'));
+    let startLongitude = parseFloat(mapData.getAttribute('data-start-longitude'));
+    let destinationName = mapData.getAttribute('data-destination-name');
+    let destinationLatitude = parseFloat(mapData.getAttribute('data-destination-latitude'));
+    let destinationLongitude = parseFloat(mapData.getAttribute('data-destination-longitude'));
 
 
     // leaflet methods to initialize the map so that entire hike is always visible
@@ -186,7 +186,7 @@ function createGPX() {
         '<trk>' +
         '<name>A hike created with Outventure!</name>' +
         '<trkseg>' +
-        waypoints.map(function (waypoint) {
+        waypoints.map(function () {
         }).join('') +
         '</trkseg>' +
         '</trk>' +

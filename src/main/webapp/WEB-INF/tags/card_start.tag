@@ -34,8 +34,8 @@
         </p>
         <% } %>
         <p>
-            <a href="http://www.google.com/maps?saddr=My+Location&daddr=${startLatitude},
-                                            ${startLongitude}" , target="_blank">Auf Google Maps anzeigen</a>
+            <a href="https://www.google.com/maps?saddr=My+Location&daddr=${startLatitude},
+                                            ${startLongitude}" target="_blank">Auf Google Maps anzeigen</a>
         </p>
     </div>
 </div>

@@ -22,7 +22,7 @@ public class FavoriteHikeServlet extends HttpServlet {
 
         int hikeID = Integer.parseInt(request.getParameter("hikeID"));
         int hikerID = Integer.parseInt(request.getParameter("hikerID"));
-        String page = request.getParameter("page").toString();
+        String page = request.getParameter("page");
 
         if (page.equals("detail")) {
             updateFavorites(hikerID, hikeID);

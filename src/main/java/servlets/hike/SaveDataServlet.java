@@ -35,7 +35,7 @@ public class SaveDataServlet extends HttpServlet {
     }
 
 
-    private void saveToDatabase(HttpServletRequest request, HttpServletResponse response, boolean isEdit) throws IOException {
+    private void saveToDatabase(HttpServletRequest request, HttpServletResponse response, boolean isEdit) {
         String title = request.getParameter("titleInput");
         String description = request.getParameter("descriptionInput");
         double distance = Double.parseDouble(request.getParameter("distanceInput"));
@@ -59,15 +59,6 @@ public class SaveDataServlet extends HttpServlet {
         destination.setName(destinationName);
         destination.setLatitude(destinationLatitude);
         destination.setLongitude(destinationLongitude);
-
-//        //Save GPX File
-//        response.setContentType("application/json");
-//        String gpxContent = request.getParameter("gpxContent");
-//
-//        // Code for saving GPX file to database ...
-//
-//        //JSON message
-//        response.getWriter().write("{\"success\": true, \"message\": \"Data saved successfully.\"}");
 
         int strength = Integer.parseInt(request.getParameter("difficultyInput"));
         int stamina = Integer.parseInt(request.getParameter("conditionInput"));

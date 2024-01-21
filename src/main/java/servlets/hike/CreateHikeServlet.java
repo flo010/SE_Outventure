@@ -19,7 +19,6 @@ public class CreateHikeServlet extends HttpServlet {
         response.setContentType("text/html");
         String hikeParameter = request.getParameter("hikeID");
 
-
         if(hikeParameter != null) {
             int hikeID = Integer.parseInt(hikeParameter);
             Hike hike = facadeJPA.getHikeByIDEager(hikeID);
