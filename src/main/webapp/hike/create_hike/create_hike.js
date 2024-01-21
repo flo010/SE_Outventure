@@ -755,6 +755,7 @@ window.onbeforeunload = function () {
 
     let newMap;
     const waypoints = [];
+    let route = null;
 
     function initializeNewMap() {
         newMap = new L.Map('map').setView([47.4167, 9.7500], 11);
@@ -763,8 +764,7 @@ window.onbeforeunload = function () {
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(newMap);
 
-        let startMarker, destinationMarker, route;
-        //const waypoints = [];
+        let startMarker, destinationMarker;
 
         let markerCount = 0;
         newMap.on('click', function (event) {
@@ -887,9 +887,7 @@ window.onbeforeunload = function () {
 
 
 document.getElementById('showRouteButton').addEventListener('click', function () {
-  /*  const newMap = MapModule.getMap();
-    const waypoints = MapModule.getWaypoints();*/
-    sendWaypointsToAPI_route(waypoints, newMap);
+    sendWaypointsToAPI_route(waypoints, newMap, route);
     sendWaypointsToAPI();
 });
 
@@ -929,11 +927,10 @@ gpxInput.addEventListener('change', function (event) {
     }
 });
 
-function sendWaypointsToAPI_route(waypoints, newMap) {
+function sendWaypointsToAPI_route(waypoints, newMap, route) {
     const waypointData = waypoints.map(function (waypoint) {
         return [waypoint.lng, waypoint.lat];
     });
-
 
 
     const payload = {
@@ -955,7 +952,7 @@ function sendWaypointsToAPI_route(waypoints, newMap) {
     })
         .then(response => response.text())
         .then(gpxData => {
-            drawRoute(gpxData, newMap);
+            drawRoute(gpxData, newMap, route);
             console.log(gpxData);
         })
         .catch(error => {
@@ -965,7 +962,11 @@ function sendWaypointsToAPI_route(waypoints, newMap) {
 
 let existingGpxLayer = null;
 
-function drawRoute(gpxData, map) {
+function drawRoute(gpxData, map, route) {
+    if (route) {
+        map.removeLayer(route);
+    }
+
     const newGpxLayer = new L.GPX(gpxData, { async: true });
 
     newGpxLayer.on('loaded', function (e) {
