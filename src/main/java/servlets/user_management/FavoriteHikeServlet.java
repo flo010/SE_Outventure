@@ -24,22 +24,26 @@ public class FavoriteHikeServlet extends HttpServlet {
         int hikerID = Integer.parseInt(request.getParameter("hikerID"));
         String page = request.getParameter("page");
 
-        if (page.equals("detail")) {
-            updateFavorites(hikerID, hikeID);
-            response.sendRedirect("hike_detail?id=" + hikeID);
-        }
-        else if (page.equals("profile")) {
-            updateFavorites(hikerID, hikeID);
-            Hiker hiker = facadeJPA.getHikerByID(hikerID);
-            List<Hike> favoriteHikes = hiker.getFavoriteHikes();
-            request.setAttribute("favoriteHikes", favoriteHikes);
-            request.getRequestDispatcher("/user_management/favorite_hikes_list/favorite_hikes_list.jsp").forward(request, response);
-        }
-        else if (page.equals("left-box")) {
-            Hiker hiker = facadeJPA.getHikerByID(hikerID);
-            List<Hike> favoriteHikes = hiker.getFavoriteHikes();
-            request.setAttribute("favoriteHikes", favoriteHikes);
-            request.getRequestDispatcher("/user_management/favorite_hikes_list/favorite_hikes_list.jsp").forward(request, response);
+        switch (page) {
+            case "detail":
+                updateFavorites(hikerID, hikeID);
+                response.sendRedirect("hike_detail?id=" + hikeID);
+                break;
+            case "profile": {
+                updateFavorites(hikerID, hikeID);
+                Hiker hiker = facadeJPA.getHikerByID(hikerID);
+                List<Hike> favoriteHikes = hiker.getFavoriteHikes();
+                request.setAttribute("favoriteHikes", favoriteHikes);
+                request.getRequestDispatcher("/user_management/favorite_hikes_list/favorite_hikes_list.jsp").forward(request, response);
+                break;
+            }
+            case "left-box": {
+                Hiker hiker = facadeJPA.getHikerByID(hikerID);
+                List<Hike> favoriteHikes = hiker.getFavoriteHikes();
+                request.setAttribute("favoriteHikes", favoriteHikes);
+                request.getRequestDispatcher("/user_management/favorite_hikes_list/favorite_hikes_list.jsp").forward(request, response);
+                break;
+            }
         }
     }
 

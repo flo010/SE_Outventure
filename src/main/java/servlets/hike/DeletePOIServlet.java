@@ -7,13 +7,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 
-import java.io.IOException;
-
 @WebServlet(name = "deletePOIServlet", value = "/delete_poi")
 public class DeletePOIServlet extends HttpServlet {
     public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
     @Transactional
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html");
 
         String poiIDsString = request.getParameter("poiIDString");

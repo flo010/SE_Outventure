@@ -28,6 +28,6 @@ public class SearchServlet extends HttpServlet {
         hike.put("altitude",hikeList.getAltitude());
 
         PrintWriter out = response.getWriter();
-        out.println(hike.toString());
+        out.println(hike);
     }
 }

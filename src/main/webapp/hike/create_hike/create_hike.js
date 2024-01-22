@@ -319,39 +319,6 @@ function showToast(id) {
     toast.show();
 }
 
-function createToast(id, message) {
-    // Create the toast container
-    let toastContainer = document.createElement('div');
-    toastContainer.className = 'toast position-fixed bottom-0 end-0 align-items-center text-white bg-danger border-0';
-    toastContainer.id = id;
-    toastContainer.setAttribute('role', 'alert');
-    toastContainer.setAttribute('aria-live', 'assertive');
-    toastContainer.setAttribute('aria-atomic', 'true');
-
-    let flexContainer = document.createElement('div');
-    flexContainer.className = 'd-flex';
-
-    // Create the toast body
-    let toastBody = document.createElement('div');
-    toastBody.className = 'toast-body';
-    toastBody.textContent = message;
-
-    // Create the close button
-    let closeButton = document.createElement('button');
-    closeButton.type = 'button';
-    closeButton.className = 'btn-close btn-close-white me-2 m-auto';
-    closeButton.setAttribute('data-bs-dismiss', 'toast');
-    closeButton.setAttribute('aria-label', 'Close');
-
-    // Append elements to the toast container
-    toastContainer.appendChild(flexContainer);
-    flexContainer.appendChild(toastBody);
-    flexContainer.appendChild(closeButton);
-
-    // Append the toast container to the body
-    document.body.appendChild(toastContainer);
-}
-
 // function for validation
 (function () {
     window.addEventListener('load', function () {
@@ -359,7 +326,7 @@ function createToast(id, message) {
         Array.prototype.filter.call(forms, function (form) {
             form.addEventListener('submit', function (event) {
                 if (form.checkValidity() === false) {
-                    createToast("validationToast", "Validation failed! Please check your input.");
+                    createValidationToast("validationToast", "Validation failed! Please check your input.");
                     showToast("validationToast");
                     event.preventDefault();
                     event.stopPropagation();
@@ -635,10 +602,7 @@ function saveInput(isEdit) {
 
         if (allInputsFilled) {
             console.log("Image Saving");
-            const fileInput = document.getElementById('coverImageInput');
-            const file = fileInput.files[0];
             document.getElementById("createHikeOverview").submit();
-
         }
     }
     else {
@@ -923,12 +887,12 @@ gpxInput.addEventListener('change', function (event) {
     if (file) {
         autoFillStartDestination(file)
 
-        var reader = new FileReader();
+        const reader = new FileReader();
 
         reader.onload = function (event) {
             const gpxContent = event.target.result;
 
-            const gpxLayer = new L.GPX(gpxContent, {
+            L.GPX(gpxContent, {
                 async: true,
             }).on('loaded', function (e) {
                 newMap.fitBounds(e.target.getBounds());
@@ -1035,9 +999,7 @@ function sendWaypointsToAPI() {
                 document.getElementById('minutesInput').value = durationInMinutes;
 
                 const elevations = data.features[0].geometry.coordinates.map(coord => coord[2]);
-                const altitudeDifference = Math.round(elevations[elevations.length - 1] - elevations[0]);
-
-                document.getElementById('altitudeInput').value = altitudeDifference;
+                document.getElementById('altitudeInput').value = Math.round(elevations[elevations.length - 1] - elevations[0]);
             } else {
                 console.error('Unexpected response format:', data);
             }
@@ -1054,7 +1016,7 @@ function autoFillStartDestination(file) {
     reader.onload = function (e) {
         const gpxData = e.target.result;
         const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(gpxData, "text/xml");
+        const xmlDoc = parser.parseFromString(gpxData.toString(), "text/xml");
 
         const trackPoints = xmlDoc.querySelectorAll("rtept").length === 0 ? xmlDoc.querySelectorAll("trkpt") : xmlDoc.querySelectorAll("rtept");
 
@@ -1133,10 +1095,6 @@ function updatePolyline(startMarker, destinationMarker, waypoints, route) {
     }
     return route;
 }
-
-
-
-
 
 function updateStart(startName, startMarker) {
     const startNameInput = document.getElementById("startNameInput");

@@ -39,12 +39,12 @@ function initializeMap() {
     let newMap;
 
     let mapData = document.getElementById('mapData');
-    startName = mapData.getAttribute('start-name');
-    startLatitude = parseFloat(mapData.getAttribute('start-latitude'));
-    startLongitude = parseFloat(mapData.getAttribute('start-longitude'));
-    destinationName = mapData.getAttribute('destination-name');
-    destinationLatitude = parseFloat(mapData.getAttribute('destination-latitude'));
-    destinationLongitude = parseFloat(mapData.getAttribute('destination-longitude'));
+    startName = mapData.getAttribute('data-start-name');
+    startLatitude = parseFloat(mapData.getAttribute('data-start-latitude'));
+    startLongitude = parseFloat(mapData.getAttribute('data-start-longitude'));
+    destinationName = mapData.getAttribute('data-destination-name');
+    destinationLatitude = parseFloat(mapData.getAttribute('data-destination-latitude'));
+    destinationLongitude = parseFloat(mapData.getAttribute('data-destination-longitude'));
 
 
     // leaflet methods to initialize the map so that entire hike is always visible
@@ -207,7 +207,7 @@ function createGPX() {
         '<trk>' +
         '<name>A hike created with Outventure!</name>' +
         '<trkseg>' +
-        waypoints.map(function (waypoint) {
+        waypoints.map(function () {
         }).join('') +
         '</trkseg>' +
         '</trk>' +
@@ -219,7 +219,6 @@ function createGPX() {
         '</wpt>' +
         '</gpx>';
 }
-
 
 function updateFavorites(hikeID, hikerID) {
     window.location.href = '/favorite_hike?hikeID=' + hikeID + '&hikerID=' + hikerID + '&page=detail';

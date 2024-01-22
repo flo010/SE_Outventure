@@ -4,8 +4,6 @@
 <%@ attribute name="max" required="true" type="java.lang.Integer" %>
 <%@ attribute name="valueLow" required="true" type="java.lang.Integer" %>
 <%@ attribute name="valueHigh" required="true" type="java.lang.Integer" %>
-<link href="/css/filter.css" rel="stylesheet">
-
 <div
         class="row border border-2 rounded text-center px-1 pt-1 pb-2 g-1"
         id="${name}"
@@ -27,8 +25,7 @@
                     >
                         <path
                                 fill-rule="evenodd"
-                                d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"
-                        />
+                                d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"></path>
                     </svg>
                     <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -41,8 +38,7 @@
                             id="${name}ArrowUp">
                         <path
                                 fill-rule="evenodd"
-                                d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"
-                        />
+                                d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"></path>
                     </svg>
                 </label>
             </div>
@@ -50,10 +46,10 @@
                 <div>
                     <div inverse-left style="width: 100%"></div>
                     <div inverse-right style="width: 100%"></div>
-                    <div range style="left: 00%; right: 0%"></div>
-                    <span thumb style="left: 0%"></span>
+                    <div range style="left: 00%; right: 0"></div>
+                    <span thumb style="left: 0"></span>
                     <span thumb style="left: 100%"></span>
-                    <div sign style="left: 0%">
+                    <div sign style="left: 0">
                         <span>${valueLow}</span>
                     </div>
                     <div sign style="left: 100%">
@@ -76,6 +72,7 @@
                 children[5].style.left=value+'%';
                 children[7].style.left=value+'%';children[11].style.left=value+'%';
                 children[11].childNodes[1].innerHTML=this.value;"
+                        aria-label="valueLow"
                 />
                 <input
                         id="${name}High"
@@ -93,6 +90,7 @@
                 children[5].style.right=(100-value)+'%';
                 children[9].style.left=value+'%';children[13].style.left=value+'%';
                 children[13].childNodes[1].innerHTML=this.value;"
+                        aria-label="valueHigh"
                 />
             </div>
         </div>

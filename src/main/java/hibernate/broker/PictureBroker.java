@@ -8,14 +8,12 @@ import java.util.List;
 
 public class PictureBroker extends BrokerBase<Picture> {
     @Override
-    public Object save(Picture value) {
-
+    public void save(Picture value) {
         EntityManager entityManager = getEntityManager();
         entityManager.getTransaction().begin();
         entityManager.merge(value);
         entityManager.getTransaction().commit();
         entityManager.close();
-        return value;
     }
     public Picture getLazy(String value) {
         EntityManager entityManager = getEntityManager();

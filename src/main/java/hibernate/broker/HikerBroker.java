@@ -1,14 +1,11 @@
 package hibernate.broker;
 
-import hibernate.model.Hike;
 import hibernate.model.Hiker;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HikerBroker extends BrokerBase<Hiker>{
@@ -67,9 +64,7 @@ public class HikerBroker extends BrokerBase<Hiker>{
     }
 
     public boolean isFavoriteHikeExists(int hikerId, int hikeId) {
-        EntityManager entityManager = getEntityManager();
-
-        try {
+        try (EntityManager entityManager = getEntityManager()) {
             Long count = (Long) entityManager.createNativeQuery(
                             "SELECT COUNT(*) FROM favorite_hikes WHERE hiker = ? AND hike = ?")
                     .setParameter(1, hikerId)
@@ -80,8 +75,6 @@ public class HikerBroker extends BrokerBase<Hiker>{
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-        } finally {
-            entityManager.close();
         }
     }
 

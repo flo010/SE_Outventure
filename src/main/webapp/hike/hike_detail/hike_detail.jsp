@@ -46,7 +46,7 @@
         <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
         <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
         <%-- custom css --%>
-        <link href="/css/style.css" rel="stylesheet">
+        <link href="../../css/style.css" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -157,7 +157,7 @@
                     %>
                     <form id="commentForm" action="/comment?hikeID=<%=hike.getHikeID()%>&hikerID=<%=session.getAttribute("hikerID")%>" method="post">
                         <div class="container-footer">
-                            <textarea class="text-form-control" id="commentInput" name="commentInput" placeholder="Add Comment" maxlength="1000" rows="2"></textarea>
+                            <textarea class="text-form-control" id="commentInput" name="commentInput" placeholder="Add Comment" maxlength="1000" rows="2" aria-label="Add Comment"></textarea>
                             <button class="add-comment-button" type="submit">
                                 <i class="fa fa-plus"></i>
                             </button>
@@ -400,12 +400,12 @@
             </div>
         </div>
         <div id="mapData"
-             start-latitude="<%= hike.getStart().getLatitude() %>"
-             start-longitude="<%= hike.getStart().getLongitude() %>"
-             start-name="<%= hike.getStart().getName() %>"
-             destination-latitude="<%= hike.getDestination().getLatitude() %>"
-             destination-longitude="<%= hike.getDestination().getLongitude() %>"
-             destination-name="<%= hike.getDestination().getName() %>"
+             data-start-latitude="<%= hike.getStart().getLatitude() %>"
+             data-start-longitude="<%= hike.getStart().getLongitude() %>"
+             data-start-name="<%= hike.getStart().getName() %>"
+             data-destination-latitude="<%= hike.getDestination().getLatitude() %>"
+             data-destination-longitude="<%= hike.getDestination().getLongitude() %>"
+             data-destination-name="<%= hike.getDestination().getName() %>"
         >
         </div>
         <div id="dataForCircles"
@@ -419,8 +419,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="/hike/hike_detail/hike_detail.js"></script>
-        <script src="/hike/create_hike/create_hike.js"></script>
-        <script src="/global_java_script/navbar.js"></script>
-        <script src="/global_java_script/toasts.js"></script>
+        <script src="../../global_java_script/navbar.js"></script>
+        <script src="../../global_java_script/toasts.js"></script>
     </body>
 </html>

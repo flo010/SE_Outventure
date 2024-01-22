@@ -66,7 +66,6 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     filter: alpha(opacity=0);
     -moz-opacity: 0;
-    -khtml-opacity: 0;
     opacity: 0;
 }
 
@@ -95,7 +94,7 @@ div[slider] > input[type=range]::-ms-thumb {
     pointer-events: all;
     width: 28px;
     height: 28px;
-    border-radius: 0px;
+    border-radius: 0;
     border: 0 none;
     background: red;
 }
@@ -104,7 +103,7 @@ div[slider] > input[type=range]::-moz-range-thumb {
     pointer-events: all;
     width: 28px;
     height: 28px;
-    border-radius: 0px;
+    border-radius: 0;
     border: 0 none;
     background: red;
 }
@@ -113,7 +112,7 @@ div[slider] > input[type=range]::-webkit-slider-thumb {
     pointer-events: all;
     width: 28px;
     height: 28px;
-    border-radius: 0px;
+    border-radius: 0;
     border: 0 none;
     background: red;
     -webkit-appearance: none;
@@ -202,39 +201,11 @@ label:before {
     padding: 0.4em 1.5em;
     min-width: 6ch;
     text-align: center;
-    border: 1px solid hsl(var(--th), 20%, 50%, 50%);
-    background-color: hsl(var(--th), 80%, 70%);
-    box-shadow: -0.2em -0.15em 0.2em 0 hsl(var(--bgh), 75%, 96%), 0.2em 0.15em 0.2em 0 hsl(var(--bgh), 25%, 76%);
     transition: 0.1s ease;
-}
-
-[type=checkbox]:checked + .simp {
-    color: hsl(var(--bgh), 80%, 90%);
-    background-color: hsl(var(--th), 80%, 40%);
-    box-shadow: -0.2em -0.15em 0.2em 0 hsl(var(--bgh), 25%, 76%), 0.2em 0.15em 0.2em 0 hsl(var(--bgh), 75%, 96%);
-}
-
-.checkbox-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0; /* Make checkbox invisible */
-    cursor: pointer;
-}
-
-.whatever{
-    background-color: red;
-    display: inline-block;
-    width: 100px;
-    height: 100px;
 }
 
 #checkboxes input[type=checkbox]{
     display: none;
-}
-
-#checkboxes input[type=checkbox]:checked + .whatever{
-    background-color: green;
 }
 
 .clickable{

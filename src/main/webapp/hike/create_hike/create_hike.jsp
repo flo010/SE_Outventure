@@ -17,7 +17,7 @@
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://unpkg.com/leaflet-gpx/gpx.js"></script>
 
-        <link href="/css/style.css" rel="stylesheet">
+        <link href="../../css/style.css" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -81,7 +81,7 @@
 
             <hr>
 
-            <form class="needs-validation" id="createHikeOverview" action="/save_data" method="post" novalidate>
+            <form class="needs-validation" id="createHikeOverview" action="../../save_data" method="post" novalidate>
                 <% if (hike != null) { %>
                 <input type="hidden" id="hiddenEditInput" name="edit" value="true">
                 <input type="hidden" id="hiddenHikeIDInput" name="hikeID" value="<%= hike.getHikeID() %>">
@@ -687,21 +687,23 @@
                                 </div>
                                 <div class="input-fields-group">
                                     <div class="coordinates-container">
-                                        <div class="row">
-                                            <label for="poiLongitude" class="form-label">Coordinates *</label>
-                                            <div class="col">
-                                                <input type="text" class="form-control exclude-from-validation" id="poiLatitude" name="latitude" placeholder="Latitude" required maxlength="20" aria-describedby="POILatitudeHelpText" pattern="-?\d+(\.\d{1,7})?">
-                                                <small id="POILatitudeHelpText" class="form-text text-muted">
-                                                    The value must be in the format XX.XXXXXX (negative sign optional).
-                                                </small>
-                                            </div>
-                                            <div class="col">
-                                                <input type="text" class="form-control exclude-from-validation" id="poiLongitude" name="longitude" placeholder="Longitude" required maxlength="20" aria-describedby="POILongitudeHelpText" pattern="-?\d+(\.\d{1,7})?">
-                                                <small id="POILongitudeHelpText" class="form-text text-muted">
-                                                    The value must be in the format XX.XXXXXX (negative sign optional).
-                                                </small>
-                                            </div>
-                                        </div>
+                                        <fieldset>
+                                            <legend class="form-label">Coordinates *</legend>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="text" class="form-control exclude-from-validation" id="poiLatitude" name="latitude" placeholder="Latitude" required maxlength="20" aria-describedby="POILatitudeHelpText" pattern="-?\d+(\.\d{1,7})?" aria-label="POI Latitude">
+                                                        <small id="POILatitudeHelpText" class="form-text text-muted">
+                                                            The value must be in the format XX.XXXXXX (negative sign optional).
+                                                        </small>
+                                                    </div>
+                                                    <div class="col">
+                                                        <input type="text" class="form-control exclude-from-validation" id="poiLongitude" name="longitude" placeholder="Longitude" required maxlength="20" aria-describedby="POILongitudeHelpText" pattern="-?\d+(\.\d{1,7})?" aria-label="POI Longitude">
+                                                        <small id="POILongitudeHelpText" class="form-text text-muted">
+                                                            The value must be in the format XX.XXXXXX (negative sign optional).
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                        </fieldset>
                                     </div>
                                 </div>
                                 <div class="input-fields-group">
@@ -771,9 +773,9 @@
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        <script src="/global_java_script/toasts.js"></script>
-        <script src="/hike/create_hike/create_hike.js"></script>
-        <script src="/global_java_script/navbar.js"></script>
+        <script src="../../global_java_script/toasts.js"></script>
+        <script src="create_hike.js"></script>
+        <script src="../../global_java_script/navbar.js"></script>
     </body>
 </html>
 
