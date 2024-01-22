@@ -877,29 +877,31 @@ function importGpx() {
     document.getElementById("gpxInput").click();
 }
 
-
-
 const gpxInput = document.getElementById('gpxInput');
 gpxInput.addEventListener('change', function (event) {
-
     const file = event.target.files[0];
 
     if (file) {
-        autoFillStartDestination(file)
+        autoFillStartDestination(file);
 
         const reader = new FileReader();
 
         reader.onload = function (event) {
             const gpxContent = event.target.result;
 
-            L.GPX(gpxContent, {
+            const gpxLayer = new L.GPX(gpxContent, {
                 async: true,
-            }).on('loaded', function (e) {
+            });
+
+            gpxLayer.on('loaded', function (e) {
                 newMap.fitBounds(e.target.getBounds());
-            }).addTo(newMap);
+            });
+
+            gpxLayer.addTo(newMap);
         };
+
         reader.readAsText(file);
-        handleGpxFile(gpxInput, file)
+        handleGpxFile(gpxInput, file);
     }
 });
 
@@ -908,7 +910,6 @@ function sendWaypointsToAPI_route(waypoints, newMap, route) {
     const waypointData = waypoints.map(function (waypoint) {
         return [waypoint.lng, waypoint.lat];
     });
-
 
     const payload = {
         "coordinates": waypointData,
@@ -940,7 +941,6 @@ function sendWaypointsToAPI_route(waypoints, newMap, route) {
 let existingGpxLayer = null;
 
 function drawRoute(gpxData, map, route) {
-    // Create a new layer for the new route
     const newGpxLayer = new L.GPX(gpxData, { async: true });
 
     if (route) {
@@ -1038,7 +1038,6 @@ function autoFillStartDestination(file) {
             document.getElementById("longitudeDestinationCoordinateInput").value = destinationPoint.getAttribute("lon");
         }
     };
-
     reader.readAsText(file);
 }
 
