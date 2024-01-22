@@ -124,12 +124,28 @@ function initializeMap() {
     sendWaypointsToAPI_route(waypoints, newMap);
 }
 
+const startMarkerIcon = L.icon({
+    iconUrl: 'marker_images/pin-icon-start.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
+
+const destinationMarkerIcon = L.icon({
+    iconUrl: 'marker_images/pin-icon-end.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
 
 function sendWaypointsToAPI_route(waypoints, newMap) {
-    //const newMap = MapModule.getMap();
     const waypointData = waypoints.map(function (waypoint) {
         return [waypoint.lng, waypoint.lat];
     });
+
+    const startMarker = L.marker([waypoints[0].lat, waypoints[0].lng], { icon: startMarkerIcon }).addTo(newMap);
+    const destinationMarker = L.marker([waypoints[waypoints.length - 1].lat, waypoints[waypoints.length - 1].lng], { icon: destinationMarkerIcon }).addTo(newMap);
+
 
     const payload = {
         "coordinates": waypointData,

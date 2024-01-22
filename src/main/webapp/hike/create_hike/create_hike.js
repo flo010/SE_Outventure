@@ -1,3 +1,4 @@
+let editMap
 function initializeEditMap() {
     let startName = document.getElementById("startNameInput").value;
     let startLatitude = document.getElementById("latitudeStartCoordinateInput").value;
@@ -7,7 +8,7 @@ function initializeEditMap() {
     let destinationLatitude = document.getElementById("latitudeDestinationCoordinateInput").value;
     let destinationLongitude = document.getElementById("longitudeDestinationCoordinateInput").value;
 
-    let editMap = new L.Map('map');
+    editMap = new L.Map('map');
     let startBound = L.latLng(startLatitude, startLongitude);
     let destinationBound = L.latLng(destinationLatitude, destinationLongitude);
     let bounds = L.latLngBounds(startBound, destinationBound);
@@ -20,12 +21,14 @@ function initializeEditMap() {
     let startMarker = L.marker([startLatitude, startLongitude], {draggable: true}).addTo(editMap);
     startMarker.bindPopup(`<strong>Start:</strong> ${startName}<br><strong>Coordinates:</strong> ${startMarker.getLatLng().lat} N, ${startMarker.getLatLng().lng} E <br><br><button id="removeStartBtnEditHike" type="button" class="btn btn-danger btn-sm">Remove Start</button>`);
     startMarker.bindTooltip("<strong>Start: </strong>" + startName);
+    waypoints.push(startMarker.getLatLng());
 
     let destinationMarker = L.marker([destinationLatitude, destinationLongitude], {draggable: true}).addTo(editMap);
     destinationMarker.bindPopup(`<strong>Destination:</strong> ${destinationName}<br><strong>Coordinates:</strong> ${destinationMarker.getLatLng().lat} N, ${destinationMarker.getLatLng().lng} E <br><br><button id="removeDestBtnEditMap" type="button" class="btn btn-danger btn-sm" onclick="removeMarker(destinationMarker)">Remove Destination</button>`);
     destinationMarker.bindTooltip("<strong>Destination: </strong>" + destinationName)
+    waypoints.push(destinationMarker.getLatLng());
 
-    let route = L.polyline([
+    route = L.polyline([
         [startLatitude, startLongitude],
         [destinationLatitude, destinationLongitude]
     ]).addTo(editMap);
@@ -212,6 +215,7 @@ function initializeEditMap() {
                 break;
         }
     })
+    sendWaypointsToAPI_route(waypoints, editMap, route);
 }
 
 
@@ -754,7 +758,7 @@ window.onbeforeunload = function () {
 }
 
     let newMap;
-    const waypoints = [];
+    let waypoints = [];
     let route = null;
 
     function initializeNewMap() {
@@ -802,10 +806,14 @@ window.onbeforeunload = function () {
 
                     startMarker.on('popupopen', function () {
                         document.getElementById('removeStartBtnNewMap').addEventListener('click', function () {
+                            const startIndex = waypoints.findIndex(wp => wp === startMarker.getLatLng());
+                            waypoints.splice(startIndex, 1);
+
                             newMap.removeLayer(startMarker);
                             markerCount -= 1;
                             startMarker = null;
                             updateStart("", startMarker);
+
                             if (route) {
                                 newMap.removeLayer(route);
                                 route = null;
@@ -845,10 +853,14 @@ window.onbeforeunload = function () {
 
                     destinationMarker.on('popupopen', function () {
                         document.getElementById('removeDestBtnNewMap').addEventListener('click', function () {
+                            const destIndex = waypoints.findIndex(wp => wp === destinationMarker.getLatLng());
+                            waypoints.splice(destIndex, 1);
+
                             newMap.removeLayer(destinationMarker);
                             markerCount -= 1;
                             destinationMarker = null;
                             updateDestination("", destinationMarker);
+                            
                             if (route) {
                                 newMap.removeLayer(route);
                                 route = null;
@@ -927,6 +939,7 @@ gpxInput.addEventListener('change', function (event) {
     }
 });
 
+
 function sendWaypointsToAPI_route(waypoints, newMap, route) {
     const waypointData = waypoints.map(function (waypoint) {
         return [waypoint.lng, waypoint.lat];
@@ -963,27 +976,28 @@ function sendWaypointsToAPI_route(waypoints, newMap, route) {
 let existingGpxLayer = null;
 
 function drawRoute(gpxData, map, route) {
+    // Create a new layer for the new route
+    const newGpxLayer = new L.GPX(gpxData, { async: true });
+
     if (route) {
         map.removeLayer(route);
     }
 
-    const newGpxLayer = new L.GPX(gpxData, { async: true });
+    if (existingGpxLayer) {
+        map.removeLayer(existingGpxLayer);
+    }
 
     newGpxLayer.on('loaded', function (e) {
         map.fitBounds(e.target.getBounds());
 
-        if (existingGpxLayer) {
-            map.removeLayer(existingGpxLayer);
-        }
         existingGpxLayer = newGpxLayer;
-
         newGpxLayer.addTo(map);
     });
 }
 
+
 function sendWaypointsToAPI() {
     const waypointData = waypoints.map(function (waypoint) {
-        console.log(waypointData);
         return [waypoint.lng, waypoint.lat];
     });
 
@@ -1080,7 +1094,6 @@ function handleGpxFile(input, gpxFile) {
         input.classList.remove("is-invalid");
         autoFillStartDestination(gpxFile);
 
-        // Read the GPX content using FileReader
         const reader = new FileReader();
 
         reader.onload = function (e) {
@@ -1112,10 +1125,8 @@ function sendGpxToServer(gpxContent) {
 
 function updatePolyline(startMarker, destinationMarker, waypoints, route) {
     if (startMarker && destinationMarker && route) {
-        // Exclude the start and destination markers from the waypoints array
         const intermediateWaypoints = waypoints.filter(waypoint => waypoint !== startMarker.getLatLng() && waypoint !== destinationMarker.getLatLng());
 
-        // Create an array with all waypoints, including start and destination
         const allWaypoints = [startMarker.getLatLng(), ...intermediateWaypoints, destinationMarker.getLatLng()];
 
         route.setLatLngs(allWaypoints);
