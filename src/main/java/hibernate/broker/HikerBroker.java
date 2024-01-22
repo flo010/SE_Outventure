@@ -64,7 +64,8 @@ public class HikerBroker extends BrokerBase<Hiker>{
     }
 
     public boolean isFavoriteHikeExists(int hikerId, int hikeId) {
-        try (EntityManager entityManager = getEntityManager()) {
+        EntityManager entityManager = getEntityManager();
+        try {
             Long count = (Long) entityManager.createNativeQuery(
                             "SELECT COUNT(*) FROM favorite_hikes WHERE hiker = ? AND hike = ?")
                     .setParameter(1, hikerId)
