@@ -36,7 +36,7 @@ class ImageProcessingTest {
                         "src/test/java/processing/5.jpg",
                         "src/test/java/processing/6.jpg",
                         "src/test/java/processing/7.jpg",
-                        "src/test/java/processing/TestHikeImage.jpg",
+                        "src/test/java/TestHikeImage.jpg",
                         "src/test/java/processing/niederkaiserkamm-14871-0.jpg",
                 };
 
