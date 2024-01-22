@@ -58,6 +58,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="../../global_java_script/navbar.js"></script>
     <script src="../../global_java_script/toasts.js"></script>
-    <script src="favorite_hikes_list.js"></script>
+    <script src="/user_management/favorite_hikes_list/favorite_hikes_list.js"></script>
 </body>
 </html>

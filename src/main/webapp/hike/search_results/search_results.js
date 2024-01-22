@@ -2,7 +2,7 @@ const filters = {
     months: 0,
 };
 const months = document.getElementsByClassName("clickable");
-function addsearchMonth(exponent) {
+function addSearchMonth(exponent) {
     if (months[exponent].firstElementChild.style.backgroundColor === "") {
         filters.months += Math.pow(2, exponent);
         months[exponent].firstElementChild.style.backgroundColor = "#b6fc9d";
@@ -15,26 +15,26 @@ function addsearchMonth(exponent) {
 }
 
 function getFiltered() {
-    const durationLow = document.getElementById("durationLow").value;
-    const durationHigh = document.getElementById("durationHigh").value;
-    const distanceLow = document.getElementById("distanceLow").value;
-    const distanceHigh = document.getElementById("distanceHigh").value;
-    const altitudeLow = document.getElementById("altitudeLow").value;
-    const altitudeHigh = document.getElementById("altitudeHigh").value;
-    const staminaLow = document.getElementById("staminaLow").value;
-    const staminaHigh = document.getElementById("staminaHigh").value;
-    const powerLow = document.getElementById("powerLow").value;
-    const powerHigh = document.getElementById("powerHigh").value;
-    const experienceLow = document.getElementById("experienceLow").value;
-    const experienceHigh = document.getElementById("experienceHigh").value;
-    const landscapeLow = document.getElementById("landscapeLow").value;
-    const landscapeHigh = document.getElementById("landscapeHigh").value;
+    const durationLow = document.getElementById("DurationLow").value;
+    const durationHigh = document.getElementById("DurationHigh").value;
+    const distanceLow = document.getElementById("DistanceLow").value;
+    const distanceHigh = document.getElementById("DistanceHigh").value;
+    const altitudeLow = document.getElementById("AltitudeLow").value;
+    const altitudeHigh = document.getElementById("AltitudeHigh").value;
+    const staminaLow = document.getElementById("StaminaLow").value;
+    const staminaHigh = document.getElementById("StaminaHigh").value;
+    const strengthLow = document.getElementById("StrengthLow").value;
+    const strengthHigh = document.getElementById("StrengthHigh").value;
+    const experienceLow = document.getElementById("ExperienceLow").value;
+    const experienceHigh = document.getElementById("ExperienceHigh").value;
+    const landscapeLow = document.getElementById("LandscapeLow").value;
+    const landscapeHigh = document.getElementById("LandscapeHigh").value;
     const month = filters.months; // Assuming 'filters' is defined elsewhere
 
     const currentUrl = window.location.href;
 
     // Construct the new URL with updated parameters
-    const newParameters = `&durationLow=${durationLow}&durationHigh=${durationHigh}&distanceLow=${distanceLow}&distanceHigh=${distanceHigh}&altitudeLow=${altitudeLow}&altitudeHigh=${altitudeHigh}&staminaLow=${staminaLow}&staminaHigh=${staminaHigh}&powerLow=${powerLow}&powerHigh=${powerHigh}&experienceLow=${experienceLow}&experienceHigh=${experienceHigh}&landscapeLow=${landscapeLow}&landscapeHigh=${landscapeHigh}&month=${month}`;
+    const newParameters = `&durationLow=${durationLow}&durationHigh=${durationHigh}&distanceLow=${distanceLow}&distanceHigh=${distanceHigh}&altitudeLow=${altitudeLow}&altitudeHigh=${altitudeHigh}&staminaLow=${staminaLow}&staminaHigh=${staminaHigh}&StrengthLow=${strengthLow}&StrengthHigh=${strengthHigh}&experienceLow=${experienceLow}&experienceHigh=${experienceHigh}&landscapeLow=${landscapeLow}&landscapeHigh=${landscapeHigh}&month=${month}`;
     // Redirect the user to the new URL
     window.location.href = currentUrl.split("&")[0] + newParameters;
 }
@@ -69,7 +69,7 @@ if (initMonths !== 0 && !isNaN(initMonths)) {
         let mask = 1 << i;
 
         if ((initMonths & mask) !== 0) {
-            addsearchMonth(i);
+            addSearchMonth(i);
         }
     }
 }

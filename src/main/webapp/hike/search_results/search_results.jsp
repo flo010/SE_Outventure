@@ -76,52 +76,52 @@
                 <div
                         id="Jan"
                         class="col-lg-6 col-xl-6 clickable"
-                        onclick="addsearchMonth(0)"
+                        onclick="addSearchMonth(0)"
                 >
                     <div class="border border-2 rounded fw-bold">JAN</div>
                 </div>
 
-                <div class="col-lg-6 col-xl-6 clickable" onclick="addsearchMonth(1)">
+                <div class="col-lg-6 col-xl-6 clickable" onclick="addSearchMonth(1)">
                     <div class="border border-2 rounded fw-bold">FEB</div>
                 </div>
 
-                <div class="col-lg-6 col-xl-6 clickable" onclick="addsearchMonth(2)">
+                <div class="col-lg-6 col-xl-6 clickable" onclick="addSearchMonth(2)">
                     <div class="border border-2 rounded fw-bold">MAR</div>
                 </div>
 
-                <div class="col-lg-6 col-xl-6 clickable" onclick="addsearchMonth(3)">
+                <div class="col-lg-6 col-xl-6 clickable" onclick="addSearchMonth(3)">
                     <div class="border border-2 rounded fw-bold">APR</div>
                 </div>
 
-                <div class="col-lg-6 col-xl-6 clickable" onclick="addsearchMonth(4)">
+                <div class="col-lg-6 col-xl-6 clickable" onclick="addSearchMonth(4)">
                     <div class="border border-2 rounded fw-bold">MAY</div>
                 </div>
 
-                <div class="col-lg-6 col-xl-6 clickable" onclick="addsearchMonth(5)">
+                <div class="col-lg-6 col-xl-6 clickable" onclick="addSearchMonth(5)">
                     <div class="border border-2 rounded fw-bold">JUNE</div>
                 </div>
 
-                <div class="col-lg-6 col-xl-6 clickable" onclick="addsearchMonth(6)">
+                <div class="col-lg-6 col-xl-6 clickable" onclick="addSearchMonth(6)">
                     <div class="border border-2 rounded fw-bold">JULY</div>
                 </div>
 
-                <div class="col-lg-6 col-xl-6 clickable" onclick="addsearchMonth(7)">
+                <div class="col-lg-6 col-xl-6 clickable" onclick="addSearchMonth(7)">
                     <div class="border border-2 rounded fw-bold">AUG</div>
                 </div>
 
-                <div class="col-lg-6 col-xl-6 clickable" onclick="addsearchMonth(8)">
+                <div class="col-lg-6 col-xl-6 clickable" onclick="addSearchMonth(8)">
                     <div class="border border-2 rounded fw-bold">SEPT</div>
                 </div>
 
-                <div class="col-lg-6 col-xl-6 clickable" onclick="addsearchMonth(9)">
+                <div class="col-lg-6 col-xl-6 clickable" onclick="addSearchMonth(9)">
                     <div class="border border-2 rounded fw-bold">OCT</div>
                 </div>
 
-                <div class="col-lg-6 col-xl-6 clickable" onclick="addsearchMonth(10)">
+                <div class="col-lg-6 col-xl-6 clickable" onclick="addSearchMonth(10)">
                     <div class="border border-2 rounded fw-bold">NOV</div>
                 </div>
 
-                <div class="col-lg-6 col-xl-6 clickable" onclick="addsearchMonth(11)">
+                <div class="col-lg-6 col-xl-6 clickable" onclick="addSearchMonth(11)">
                     <div class="border border-2 rounded fw-bold">DEC</div>
                 </div>
             </div>

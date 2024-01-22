@@ -119,6 +119,7 @@ public class CreateHikeTest {
     js.executeScript("arguments[0].scrollIntoView(true);", saveButtonElement);
     Thread.sleep(1500);
     saveButtonElement.click();
+    Thread.sleep(1500);
     {
       List<WebElement> elements = driver.findElements(By.cssSelector(".toast-body"));
       assert(!elements.isEmpty());
