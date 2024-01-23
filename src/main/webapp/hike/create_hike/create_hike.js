@@ -177,10 +177,10 @@ function initializeEditMap() {
         }
     });
 
-    let hutIcon = new poiIcon({iconUrl: 'marker_images/hut.png'}),
-        refreshmentPointIcon = new poiIcon({iconUrl: 'marker_images/refreshment_point.png'}),
-        sightIcon = new poiIcon({iconUrl: 'marker_images/sight.jpg'}),
-        viewpointIcon = new poiIcon({iconUrl: 'marker_images/viewpoint.jpg'});
+    let hutIcon = new poiIcon({iconUrl: 'hike/marker_images/hut.png'}),
+        refreshmentPointIcon = new poiIcon({iconUrl: 'hike/marker_images/refreshment_point.png'}),
+        sightIcon = new poiIcon({iconUrl: 'hike/marker_images/sight.jpg'}),
+        viewpointIcon = new poiIcon({iconUrl: 'hike/marker_images/viewpoint.jpg'});
 
     poiDataList.forEach(function (poiData) {
         let poiName = poiData.poiName;

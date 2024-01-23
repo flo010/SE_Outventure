@@ -29,13 +29,13 @@ function showLastSearchResults() {
     window.location.href = "/hike/search_results/search_results.jsp";
 }
 let startLatitude, startLongitude, destinationLatitude, destinationLongitude, startName, destinationName;
+let waypoints = [];
 // map functions
 document.addEventListener("DOMContentLoaded", function (){
     initializeMap()
 });
 
 function initializeMap() {
-    let waypoints = [];
     let newMap;
 
     let mapData = document.getElementById('mapData');
@@ -61,12 +61,12 @@ function initializeMap() {
     }).addTo(newMap);
 
     let start = L.marker([startLatitude, startLongitude]).addTo(newMap);
-    waypoints.push(start.getLatLng())
+    waypoints.push(start.getLatLng());
     start.bindPopup("<strong>Start: </strong>" + startName + "<br> <strong>Coordinates: </strong>" + startLatitude + " N, " + startLongitude + " E");
     start.bindTooltip("<strong>Start: </strong>" + startName);
 
     let destination = L.marker([destinationLatitude, destinationLongitude]).addTo(newMap);
-    waypoints.push(destination.getLatLng())
+    waypoints.push(destination.getLatLng());
     destination.bindPopup("<strong>Destination: </strong>" + destinationName + "<br> <strong>Coordinates: </strong>" + destinationLatitude + " N, " + destinationLongitude + " E");
     destination.bindTooltip("<strong>Destination: </strong>" + destinationName)
 
@@ -83,10 +83,10 @@ function initializeMap() {
         }
     });
 
-    let hutIcon = new poiIcon({iconUrl: 'marker_images/hut.png'}),
-        refreshmentPointIcon = new poiIcon({iconUrl: 'marker_images/refreshment_point.png'}),
-        sightIcon = new poiIcon({iconUrl: 'marker_images/sight.jpg'}),
-        viewpointIcon = new poiIcon({iconUrl: 'marker_images/viewpoint.jpg'});
+    let hutIcon = new poiIcon({iconUrl: 'hike/marker_images/hut.png'}),
+        refreshmentPointIcon = new poiIcon({iconUrl: 'hike/marker_images/refreshment_point.png'}),
+        sightIcon = new poiIcon({iconUrl: 'hike/marker_images/sight.jpg'}),
+        viewpointIcon = new poiIcon({iconUrl: 'hike/marker_images/viewpoint.jpg'});
 
     poiDataList.forEach(function (poiData) {
         let poiName = poiData.poiName;
@@ -125,14 +125,14 @@ function initializeMap() {
 }
 
 const startMarkerIcon = L.icon({
-    iconUrl: 'marker_images/pin-icon-start.png',
+    iconUrl: 'hike/marker_images/pin-icon-start.png',
     iconSize: [32, 32],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32]
 });
 
 const destinationMarkerIcon = L.icon({
-    iconUrl: 'marker_images/pin-icon-end.png',
+    iconUrl: 'hike/marker_images/pin-icon-end.png',
     iconSize: [32, 32],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32]
