@@ -41,8 +41,8 @@ public class SearchResultsServlet extends HttpServlet {
         String altitudeHigh = request.getParameter("altitudeHigh");
         String staminaLow = request.getParameter("staminaLow");
         String staminaHigh = request.getParameter("staminaHigh");
-        String powerLow = request.getParameter("powerLow");
-        String powerHigh = request.getParameter("powerHigh");
+        String powerLow = request.getParameter("strengthLow");
+        String powerHigh = request.getParameter("strengthHigh");
         String experienceLow = request.getParameter("experienceLow");
         String experienceHigh = request.getParameter("experienceHigh");
         String landscapeLow = request.getParameter("landscapeLow");
