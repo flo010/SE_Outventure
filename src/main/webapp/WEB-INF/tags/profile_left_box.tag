@@ -32,11 +32,11 @@
                 <%
                     if (currentPage.equals("hike_list")) {
                 %>
-                <strong>Your Created Hikes</strong>
+                <strong>Created Hikes</strong>
                 <%
                 } else {
                 %>
-                Your Created Hikes
+                Created Hikes
                 <%
                     }
                 %>
