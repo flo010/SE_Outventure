@@ -14,7 +14,7 @@ import jakarta.servlet.annotation.*;
 public class SearchResultsServlet extends HttpServlet {
     public static FacadeJPA facadeJPA = FacadeJPA.getInstance();
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
 
         String hikeCreated = request.getParameter("hikeCreated");
@@ -100,7 +100,6 @@ public class SearchResultsServlet extends HttpServlet {
                             }
                         }
                     }
-                    /////////////////
                     for (Hike hike: hikeList2) {
                         notexists = true;
                         if (hikeList0.isEmpty()){
@@ -117,7 +116,6 @@ public class SearchResultsServlet extends HttpServlet {
                             }
                         }
                     }
-                    ///////////////////////
                     for (Hike hike: hikeList3) {
                         notexists = true;
                         if (hikeList0.isEmpty()){
@@ -134,10 +132,8 @@ public class SearchResultsServlet extends HttpServlet {
                             }
                         }
                     }
-
                     hikeList = hikeList0;
             }
-
         } else {
             hikeList = facadeJPA.getAllHikesLazy();
         }
@@ -148,12 +144,7 @@ public class SearchResultsServlet extends HttpServlet {
             session.setAttribute("searchString", searchString);
             session.setAttribute("selectedSearchItem", selectedSearchItem);
         }
-
-        try {
-            request.getRequestDispatcher("/hike/search_results/search_results.jsp").forward(request, response);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        }
+        request.getRequestDispatcher("/hike/search_results/search_results.jsp").forward(request, response);
     }
 
 

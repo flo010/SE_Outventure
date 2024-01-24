@@ -23,7 +23,7 @@
             <%
                 String[] filterNames = {"Duration", "Distance", "Altitude", "Stamina", "Strength", "Experience", "Landscape"};
                 int[] filterMin = {1, 1, 1, 1, 1, 1, 1};
-                int[] filterMax = {10000, 10000, 10000, 5, 5, 5, 5};
+                int[] filterMax = {100, 100, 100, 5, 5, 5, 5};
 
                 for (int i = 0; i < filterNames.length; i++) {
                     String valueLowString = request.getParameter(filterNames[i] + "Low");

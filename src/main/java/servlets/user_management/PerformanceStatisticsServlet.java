@@ -69,6 +69,8 @@ public class PerformanceStatisticsServlet extends HttpServlet {
             totalAltitude += hike.getAltitude();
         }
 
+        totalDistance = Math.round(totalDistance * 100d) / 100d;
+
         return new double[]{totalDistance, totalDuration, totalAltitude};
     }
 }

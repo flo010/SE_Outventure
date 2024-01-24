@@ -32,11 +32,14 @@ function getFiltered() {
     const month = filters.months; // Assuming 'filters' is defined elsewhere
 
     const currentUrl = window.location.href;
-
-    // Construct the new URL with updated parameters
     const newParameters = `&durationLow=${durationLow}&durationHigh=${durationHigh}&distanceLow=${distanceLow}&distanceHigh=${distanceHigh}&altitudeLow=${altitudeLow}&altitudeHigh=${altitudeHigh}&staminaLow=${staminaLow}&staminaHigh=${staminaHigh}&strengthLow=${strengthLow}&strengthHigh=${strengthHigh}&experienceLow=${experienceLow}&experienceHigh=${experienceHigh}&landscapeLow=${landscapeLow}&landscapeHigh=${landscapeHigh}&month=${month}`;
-    // Redirect the user to the new URL
-    window.location.href = currentUrl.split("&")[0] + newParameters;
+
+    const urlObject = new URL(currentUrl);
+    urlObject.search += newParameters;
+
+    const modifiedURL = urlObject.toString();
+
+    window.location.href = modifiedURL;
 }
 
 
@@ -46,7 +49,6 @@ const arrowDown = document.getElementById("monthArrowDown");
 const arrowUp = document.getElementById("monthArrowUp");
 
 toggleSwitch.addEventListener("change", function () {
-    console.log("Test");
     if (this.checked) {
         contentToHide.style.display = "flex"; // Show the content
         arrowUp.style.display = "";
@@ -75,5 +77,14 @@ if (initMonths !== 0 && !isNaN(initMonths)) {
 }
 
 function resetFilters() {
-    location.href = location.href.split("&")[0];
+    const currentUrl = window.location.href;
+    const urlObject = new URL(currentUrl);
+    const parametersToRemove = ["durationLow", "durationHigh", "distanceLow", "distanceHigh", "altitudeLow", "altitudeHigh", "staminaLow", "staminaHigh", "strengthLow", "strengthHigh", "experienceLow", "experienceHigh", "landscapeLow", "landscapeHigh", "month"];
+    parametersToRemove.forEach(param => {
+        urlObject.searchParams.delete(param);
+    });
+
+    const modifiedUrl = urlObject.toString();
+
+    window.location.href = modifiedUrl;
 }
