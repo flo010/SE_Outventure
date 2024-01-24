@@ -1,3 +1,4 @@
+<%--suppress JspAbsolutePathInspection --%>
 <%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="hikeID" required="true" type="java.lang.Integer" %>
 <%@ attribute name="hikerID" required="true" type="java.lang.Integer" %>
@@ -49,7 +50,7 @@
             </a>
         </div>
         <div class="col-md-3 d-flex flex-column justify-content-center align-items-center">
-            <form  id="removeForm" action="../../completed_hike?hikeID=${hikeID}&hikerID=${hikerID}&completionDate=${timestamp}&page=profile" method="post">
+            <form  id="removeForm" action="/completed_hike?hikeID=${hikeID}&hikerID=${hikerID}&completionDate=${timestamp}&page=profile" method="post">
                 <p style="text-align: right">${timestamp}</p>
                 <button type="submit" class="btn btn-outline-danger" id="removeCompletedButton">
                     <i class="fa fa-times"></i>

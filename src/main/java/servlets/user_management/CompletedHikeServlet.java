@@ -24,8 +24,6 @@ public class CompletedHikeServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         int hikerID = (int) session.getAttribute("hikerID");
-        System.out.println("SERVLET IS CALLED");
-        System.out.println("hikerID: " + hikerID);
 
         Hiker hiker = facadeJPA.getHikerByID(hikerID);
         List<Hike> completedHikes =  hiker.getCompletedHikes();
@@ -38,7 +36,7 @@ public class CompletedHikeServlet extends HttpServlet {
     }
 
     @Transactional
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
 
         int hikeID = Integer.parseInt(request.getParameter("hikeID"));
@@ -46,20 +44,21 @@ public class CompletedHikeServlet extends HttpServlet {
         String timestamp = request.getParameter("completionDate");
         String page = request.getParameter("page");
 
-        Hiker hiker = facadeJPA.getHikerByID(hikerID);
-        List<Hike> completedHikes =  hiker.getCompletedHikes();
-        List<Date> timestamps = facadeJPA.getCompletedHikesTimestamps(hikerID);
-
         if (page.equals("detail")) {
             addCompleted(hikerID, hikeID, timestamp);
             response.sendRedirect("hike_detail?id=" + hikeID);
         }
         else if (page.equals("profile")) {
             removeCompleted(hikeID, hikerID, timestamp);
+
+            Hiker hiker = facadeJPA.getHikerByID(hikerID);
+            List<Hike> completedHikes =  hiker.getCompletedHikes();
+            List<Date> timestamps = facadeJPA.getCompletedHikesTimestamps(hikerID);
+
             request.setAttribute("completedHikes", completedHikes);
             request.setAttribute("timestamps", timestamps);
             request.setAttribute("hikerID", hikerID);
-            response.sendRedirect("/user_management/completed_hikes_list/completed_hikes_list.jsp");
+            request.getRequestDispatcher("/user_management/completed_hikes_list/completed_hikes_list.jsp").forward(request, response);
         }
     }
 

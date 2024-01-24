@@ -31,7 +31,7 @@
     <div class="container">
       <div class="login-container">
         <outventure:profile_left_box currentPage="completed_hikes"/>
-        <div class="right-box">
+        <div class="right-box overflow-auto">
           <div class="right-box-header">
             <h3>Completed Hikes</h3>
           </div>
