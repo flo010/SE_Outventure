@@ -39,4 +39,4 @@ pom.xml
 
 **/persistence.xml
 
-src/main/java/servlets/APIKeys.java
+src/main/java/servlets/hike/routing/APIKeys.java

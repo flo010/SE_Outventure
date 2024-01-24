@@ -1,7 +1,8 @@
-package processing;
+package ImageUpload;
 
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
+import servlets.hike.routing.HikeRouting;
 
 import java.util.ArrayList;
 import java.util.List;

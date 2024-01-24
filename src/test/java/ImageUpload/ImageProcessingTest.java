@@ -1,4 +1,4 @@
-package processing;
+package ImageUpload;
 
 import hibernate.broker.PictureBroker;
 import hibernate.model.Picture;
@@ -11,7 +11,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.UUID;
 
-import static processing.ImageProcessing.extractBytes;
+import static ImageUpload.ImageProcessing.extractBytes;
 
 
 class ImageProcessingTest {

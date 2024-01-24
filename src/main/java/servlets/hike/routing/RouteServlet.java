@@ -1,4 +1,4 @@
-package servlets.hike;
+package servlets.hike.routing;
 
 
 import jakarta.servlet.annotation.WebServlet;
@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import org.json.JSONArray;
-import processing.HikeRouting;
 
 import java.io.BufferedReader;
 import java.io.IOException;
