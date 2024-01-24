@@ -1,7 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="hibernate.model.Hike" %>
-<%@ page import="hibernate.facade.FacadeJPA" %>
 <%@ taglib prefix="outventure" tagdir="/WEB-INF/tags"%>
 
 <!DOCTYPE html>
@@ -23,7 +22,7 @@
             <%
                 String[] filterNames = {"Duration", "Distance", "Altitude", "Stamina", "Strength", "Experience", "Landscape"};
                 int[] filterMin = {1, 1, 1, 1, 1, 1, 1};
-                int[] filterMax = {100, 100, 100, 5, 5, 5, 5};
+                int[] filterMax = {2000, 2000, 2000, 5, 5, 5, 5};
 
                 for (int i = 0; i < filterNames.length; i++) {
                     String valueLowString = request.getParameter(filterNames[i] + "Low");
