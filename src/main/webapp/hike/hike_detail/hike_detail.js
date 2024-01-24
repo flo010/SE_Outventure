@@ -83,10 +83,10 @@ function initializeMap() {
         }
     });
 
-    let hutIcon = new poiIcon({iconUrl: 'hike/marker_images/hut.png'}),
-        refreshmentPointIcon = new poiIcon({iconUrl: 'hike/marker_images/refreshment_point.png'}),
-        sightIcon = new poiIcon({iconUrl: 'hike/marker_images/sight.jpg'}),
-        viewpointIcon = new poiIcon({iconUrl: 'hike/marker_images/viewpoint.jpg'});
+    let hutIcon = new poiIcon({iconUrl: '/hike/marker_images/hut.png'}),
+        refreshmentPointIcon = new poiIcon({iconUrl: '/hike/marker_images/refreshment_point.png'}),
+        sightIcon = new poiIcon({iconUrl: '/hike/marker_images/sight.jpg'}),
+        viewpointIcon = new poiIcon({iconUrl: '/hike/marker_images/viewpoint.jpg'});
 
     poiDataList.forEach(function (poiData) {
         let poiName = poiData.poiName;
@@ -125,14 +125,14 @@ function initializeMap() {
 }
 
 const startMarkerIcon = L.icon({
-    iconUrl: 'hike/marker_images/pin-icon-start.png',
+    iconUrl: '/hike/marker_images/pin-icon-start.png',
     iconSize: [32, 32],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32]
 });
 
 const destinationMarkerIcon = L.icon({
-    iconUrl: 'hike/marker_images/pin-icon-end.png',
+    iconUrl: '/hike/marker_images/pin-icon-end.png',
     iconSize: [32, 32],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32]
